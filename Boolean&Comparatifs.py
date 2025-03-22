@@ -1,4 +1,4 @@
-## ------- COMPARATIFs ------- ##
+### ------- COMPARATIFs ------- ##
 
 # == égal à ?
 # != différent de
