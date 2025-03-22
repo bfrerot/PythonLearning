@@ -1,4 +1,4 @@
-########  --------- FUNCTIONS ----------  ########
+#########  --------- FUNCTIONS ----------  ########
 
 #A function is able to:
 #   cause some effect
