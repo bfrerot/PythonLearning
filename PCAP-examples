@@ -24,3 +24,11 @@ else:
     a-=1
 print(a)
 #
+
+#
+a=[1]
+b=a
+a[0]=0
+print (b)
+print (len(a)==len(b))
+#
