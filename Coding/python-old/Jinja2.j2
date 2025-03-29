@@ -1,0 +1,39 @@
+{% comment %}
+
+exemple de code
+
+{% for interface in interfaces %}
+interface {{ interface.name }}
+    switchport mode {{ interface.mode }}
+    {% if interface.mode == "trunk" %}
+    switchport trunk allowed vlan all
+    {% else %}
+    switchport access vlan {{ interface .vlan }}
+    {% endif %}
+    {% if interface.up %}
+    no shutdown
+    {% else %}
+    shutdown
+    {% endif %}
+ {% endfor %}
+
+
+
+Si espace après une ligne = saute une ligne dans le resultat
+
+
+Utiliser options 
+
+{% for interface in interface_list %}
+interface {{ interface.name }}
+description {{ interface.desc|upper|reverse }} --> mettre en upper case et à l'envers
+{% if interface.uplink %}
+switchport mode trunk
+{% else %}
+switchport access vlan {{ interface.vlan }}
+switchport mode access
+{% endif %}
+{% endfor %}
+
+
+{% endcomment %}

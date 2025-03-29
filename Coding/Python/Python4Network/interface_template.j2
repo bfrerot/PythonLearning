@@ -1,0 +1,67 @@
+hostname {{ hostname }}
+
+ip domain name {{ domain_name }}
+
+ip route 0.0.0.0 0.0.0.0 {{ next_hop }}
+
+! Admin accounts
+{% for account in admin_accounts %}
+username {{ account.username }} privilege {{ account.privilege }} password secret {{ account.password }}
+{% endfor %}
+
+! DNS configuration
+ip name-server {% for dns in dns_servers %} {{ dns }} {% endfor %}
+
+! NTP configuration
+ntp server {% for ntp in ntp_servers %} {{ ntp }} {% endfor %}
+
+! VLAN configuration
+{% for vlan in vlans %}
+vlan {{ vlan.vlan_id }}
+ name {{ vlan.name }}
+{% endfor %}
+
+! Interface configuration
+{% for interface in interfaces %}
+interface {{ interface.name }}
+ description {{ interface.description }}
+ switchport mode {{ interface.mode }}
+{% if interface.mode == 'trunk' %}
+ switchport trunk allowed vlan {{ interface.allowed_vlans }}
+{% elif interface.mode == 'access' %}
+ switchport access vlan {{ interface.vlan }}
+{% endif %}
+ duplex {{ interface.duplex }}
+ speed {{ interface.speed }}
+{% if interface.shutdown %}
+ shutdown
+{% endif %}
+{% endfor %}
+
+{% if vlan_interfaces %}
+! VLAN interfaces with IP addresses
+{% for vlan_int in vlan_interfaces %}
+interface Vlan{{ vlan_int.vlan_id }}
+ description {{ vlan_int.description }}
+ ip address {{ vlan_int.ip_address }} {{ vlan_int.subnet_mask }}
+{% endfor %}
+{% endif %}
+
+! Banner MOTD
+banner motd #
+{{ banner_motd }}
+#
+
+! Console and vty
+line con 0
+ exec-timeout 5 0
+ logging synchronous
+line vty 0 4
+ transport input ssh
+ access-class 10 in
+line vty 5 15
+ transport input ssh
+ access-class 10 in
+!
+service unsupported-transceiver
+no errdisable detect cause gbic-invalid

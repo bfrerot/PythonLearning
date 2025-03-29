@@ -159,15 +159,25 @@ print(x)
 (2, 1)
 
 
-enumerate()	# Takes a collection (e.g. a tuple) and returns it as an enumerate object
+### ENUMERATE
+# enumerate()	
+# # Takes a collection (e.g. a tuple) and returns it as an enumerate object
 
 x = ('apple', 'banana', 'cherry')
 y = enumerate(x)
 print(y)
-enumerate object at 0x14dd63cdc300 # ??
+# enumerate object at 0x14dd63cdc300 # ?? Pour afficher ce que contient cet objet, tu dois le convertir en une liste ou le parcourir dans une boucle
 print(list(y))
 [(0, 'apple'), (1, 'banana'), (2, 'cherry')]
 
+
+animaux = ['girafe', 'tigre', 'singe', 'souris']
+for i, animal in enumerate(animaux):
+    print(i, animal)
+#0 girafe
+#1 tigre
+#2 singe
+#3 souris
 
 eval()	# Evaluates and executes an expression
 
@@ -744,16 +754,20 @@ property()	# Gets, sets, deletes a property
 # https://www.programiz.com/python-programming/property à revoir plus tard (30082022)
 
 
-range()	# Returns a sequence of numbers, starting from 0 and increments by 1 (by default)
+### RANGE
+# range()	
+# Returns a sequence of numbers, starting from 0 and increments by 1 (by default)
 # range(x) ==> de 0 à x-1
-# range(b,x) ==> de b à x-1
+# range(i,x) ==> de i à x-1
 
+# print i en fonction d'un range
 for n in range(3):# de 0 à 2
     print("Python")
 Python # n = 0
 Python # n = 1
 Python # n = 2   
 
+# utiliser i en fonction d'un range + faire opération
 for n in range(10, 20):
     print(n * n)
 100 # n = 10
@@ -766,6 +780,27 @@ for n in range(10, 20):
 289 # n = 17
 324 # n = 18
 361 # n = 19
+
+# print i in list par indexation + usage de range() pour déterminer l'indexation
+animaux = ['girafe', 'tigre', 'singe', 'souris']
+for i in range(4): # On peut melanger avec du range pour n'afficher qu'une partie ou tout
+	print (animaux[i]) # 0,1,2,3
+#girafe
+#tigre
+#singe
+#souris
+for i in range(2): # 0,1
+	print (animaux[i])
+#girafe
+#tigre
+
+# including non-default increment, default value of the increment is 1
+for i in range(2, 8, 3): # increment 3 --> 2...3/4...5...6/7 END because 8 is excluded
+    print("The value of i is currently", i)
+#The value of i is currently 2
+#The value of i is currently 5
+
+
 
 
 repr()	# Returns a readable version of an object

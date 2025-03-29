@@ -408,3 +408,21 @@ pprint.print(count)
  't': 6,
  'w': 2,
  'y': 1}
+
+
+# Pour afficher tous les couples key/value
+device = {'hostname': 'router1', 'vendor': 'juniper', 'os': '12.1'}
+device.pop('os') # on enlève "os" et sa valeur du dictionnaire --> device = {'hostname': 'router1', 'vendor': 'juniper'}
+oper = dict(cpu='5%', memory='10%') # on créée un dictionnaire --> oper = {'cpu': '5%', 'memory': '10%'}
+print(oper)
+device.update(oper) # on ajoute des données au dictionnaire --> device = {'hostname': 'router1', 'vendor': 'juniper', 'cpu': '5%', 'memory': '10%'}
+print(device)
+for key, value in device.items():
+    print(key + ': ' + value)
+#{'cpu': '5%', 'memory': '10%'}
+#{'hostname': 'router1', 'vendor': 'juniper', 'cpu': '5%', 'memory': '10%'}
+#hostname: router1
+#vendor: juniper
+#cpu: 5%
+#memory: 10%
+

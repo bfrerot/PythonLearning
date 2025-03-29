@@ -111,12 +111,14 @@ del numbers # remove all the list
 del numbers[1;3] # delete a slice from element 1 to 2 as end (3) not included
 del numbers [:] # remove all the elements NOT the list itself
  
+
 # on ne peut pas réassigner le resultat d'un .sort() comme ci-dessous
 my_sorted_list=[]
 new_list=[e,d,c,b,a]
 my_sorted_list = new_list.sort() 
 print (new_list)
 print (my_sorted_list)
+
 
 # RAPPEL - si des list sont liees par une egalite, alors elles sont storees au meme endroit meme si elles on nom different
 l1 = ["A", "B", "C"]
@@ -129,12 +131,22 @@ print(l3)
 print(l2)
 error
 
+
 # Populer une list avec une boucle for
 myList = [] # creating an empty list
 for i in range(5): # loop to insert elements
     myList.append(i + 1)
 print(myList)
-[1,2,3,4,5]
+# [1,2,3,4,5]
+
+lst = [i for i in range (-1,2)] # the first argument determines the initial (first) value of the control variable
+print (lst)
+#[-1, 0, 1]
+
+
+lst = [[0,1,2,3] for i in range (2)]
+print (lst)
+#[0,1,2,3], [0,1,2,3]
 
 
 # Compter les elem similaires dans une liste
