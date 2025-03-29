@@ -1,12 +1,23 @@
 ##########  break  ##########
 
+# pour sortir complètement de la boucle
 
+text = "OpenEDG Python Institute"
+for letter in text:
+    if letter == "P":
+        break
+    if letter == " ":
+        letter = "_"
+    print(letter, end="")
+#OpenEDG_
 
 
 
 
 
 ##########  continue  ##########
+
+# pour ignorer l'occurence si elle match le if
 
 user_word = input("Give me a word: ")
 user_word = user_word.upper()  # Convertir en majuscules

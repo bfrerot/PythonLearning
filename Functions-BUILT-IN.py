@@ -801,6 +801,20 @@ for i in range(2, 8, 3): # increment 3 --> 2...3/4...5...6/7 END because 8 is ex
 #The value of i is currently 5
 
 
+# for/else, subtilité de range() 
+for i in range(5):
+    print(i)
+else:
+    print("else:", i)
+#0
+#1
+#2
+#3
+#4
+#else: 4 # i reste sur la dernière valeur utilisée dans la loop
+
+
+
 
 
 repr()	# Returns a readable version of an object

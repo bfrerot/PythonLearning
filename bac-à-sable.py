@@ -1,3 +1,2 @@
-for n in range(1, 4):
-    for j in range(4, 7):
-        print(f"n = {n} and j = {j}")
+for i in range(0, 6, 3): 0 3 
+    print(i)

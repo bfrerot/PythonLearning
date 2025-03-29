@@ -24,7 +24,7 @@ while i <= 4:
 #4
 
 
-# break
+# if/break
 i = 1
 while i < 6:
   print(i)
@@ -49,7 +49,7 @@ print ('You\'ve successfully left the loop.')
 #You've successfully left the loop.
 
 
-# continue
+# if/continue
 wordwithoutvowel=''
 userword = input('Please enter any word: ')
 print (userword)
@@ -203,7 +203,7 @@ print("Well done, muggle! You are free now.")
 #Well done, muggle! You are free now.   
     
 
-# Trouver le nombre de lignes sachant que chaque ligne a une brique de + que celle d'au-dessus (mur de briques) 
+# Trouver le nombre de lignes sachant que chaque ligne a "x" brique de + que celle d'au-dessus (mur de briques) 
 # et si manque de brique pour completer une rangée on arrete et on ne compte que les rangées pleines.
 blocks = int(input("Enter the number of blocks: "))
 height = 0
@@ -211,13 +211,26 @@ inlayer = 1
 while inlayer <= blocks:
     height += 1
     blocks -= inlayer
-    inlayer += 1
+    inlayer += 1 # 1 brique de plus
 print("The height of the pyramid:", height)
 #Enter the number of blocks: 28
 #The height of the pyramid: 7
 
+def pyramid_height(blocks):
+    height = 0
+    layer = 1  # Le premier rang nécessite 1 bloc
+    while blocks >= layer:
+        blocks -= layer  # Déduire les blocs nécessaires pour ce rang
+        height += 1  # Incrémenter la hauteur puisque ce rang peut être construit
+        layer += 2  # Le prochain rang nécessite 2 blocs de plus que le précédent
+    return height
+blocks = int(input("Entrez le nombre de blocs : "))
+print("Hauteur de la pyramide :", pyramid_height(blocks))
+#Entrez le nombre de blocs : 17
+#Hauteur de la pyramide : 4
 
-# verifier que:
+
+
 #In 1937, a German mathematician named Lothar Collatz formulated an intriguing hypothesis (it still remains unproven)
 #which can be described in the following way:
 # - take any non-negative and non-zero integer number and name it c0;
@@ -228,13 +241,14 @@ c0 = int(input("Enter c0: "))
 if c0 > 1:
 	steps = 0
 	while c0 != 1:
-		if c0 %2 != 0:
+		if c0 %2 != 0: # si C est impair
 			cnew = 3 * c0 + 1
 		else:
-			cnew = c0 // 2 # rappel // pour avoir int sinon sera en float 
+			cnew = c0 // 2 # rappel "//" pour avoir int sinon sera en float 
 		print(c0)
 		c0 = cnew
 		steps += 1
+	print (c0) # sinon on n'aura pas toujours le 1 comme dernière value d'affichée
 	print("steps =",steps)
 else:
 	print("Bad c0 value")
@@ -247,6 +261,7 @@ else:
 #8
 #4
 #2
+#1
 #steps = 8
 
 

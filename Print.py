@@ -156,6 +156,13 @@ print("My name is", "Python.", end=" ")
 print("Monty Python.")
 My name is Python. Monty Python.
 
+for digit in "0165031806510":
+    if digit == "0":
+        print("X",end="")
+    else:
+        print(digit,end="")
+# X165X318X651X
+
 
 # sep="" --> meme chose mais on change le separateur par defaut (espace) par ce qu'on veut, ici "-"
 print("My", "name", "is", "Monty", "Python.", sep="-") 

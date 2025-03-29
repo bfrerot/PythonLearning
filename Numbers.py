@@ -166,6 +166,13 @@ print ((3 % 6))
 print(3 % 75)
 3
 
+x = 0
+while x < 11:
+    if x % 2 != 0:
+        print(x)
+    x += 1
+
+
 #modulo with negative numbers: r = x - (y * (x // y))
 print ((-3 % -6))
 -3
