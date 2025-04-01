@@ -1,2 +1,2 @@
-for i in range(0, 6, 3): 0 3 
-    print(i)
+a = 5
+print(a >> 2)
