@@ -1,64 +1,35 @@
-#  ------- LISTS -------
+########## LISTS
 
-The elements inside a list may have different types. Some of them may be integers, others floats,
-and yet others may be lists.
-
-The elements in a list are always numbered starting from zero
-
-Lists can be nested, e.g.: myList = [1, 'a', ["list", 64, [0, 1], False]]
-
-The assignment: list2 = list1 copies the name of the array, not its contents.
-In effect, the two names (list1 and list2) identify
-the same location in the computer memory. Modifying one of them affects the other,
-and vice versa.
-
-
-# Mettre entre crochets []
+# The elements inside a list may have different types: integers, floats, lists.
+# The elements in a list are always numbered starting from 0
+# Lists can be nested, e.g.: myList = [1, 'a', ["list", 64, [0, 1], False]]
+# Mettre entre crochets [], séparés par une ,
 my_list=[1,2,3] 
 print (my_list)
 [1, 2, 3]
 
-# Indexation des elements commence à 0
+
+### INDEXATION
+
+# L'indexation des elements commence à 0
 my_list=[1,2,3]
 print (my_list[0])
-1
+# 1
 
-0 = premier
--1 = dernier
--2 = avant-dernier
-
-# Concatenation, - and / are not supported
-my_list=[1,2,3]
-my_other_list=[4, 5, 6]
-print (my_list + my_other_list)
-[1, 2, 3, 4, 5, 6]
-new_list = my_list + my_other_list
-print (new_list)
-[1, 2, 3, 4, 5, 6]
-
-list1 = [1,2,3,4,5]
-print (list1 * 3)
-[1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5]
-
-
-# Donner une valeur a des variables a partir d'une list
+# Donner une valeur a des variables a partir d'une list, en // de l'indexation
 cat = ['fat', 'black', 'loud'] 
 size, color, disposition = cat
 print (size)
-fat
-
+# fat
 
 # Remplacement avec indexation
-On peut changer un element dans la liste (contrairement à un string)
+# On peut changer un element dans la liste (contrairement à un string)
+new_list = [1, 2, 3, 4, 5, 6]
 new_list[0]=777
-new_list
-[777, 2, 3, 4, 5, 6]
+print(new_list)
+# [777, 2, 3, 4, 5, 6]
 
 
-# Append -- ajoute un element a la fin de list
-new_list.append(7)
-new_list
-[777, 2, 3, 4, 5, 6, 7]
 
 
 # Insert
@@ -77,6 +48,29 @@ print (new_list)
 popped_item = new_list.pop()
 print (popped_item)
 5
+
+
+### Concatenation, - and / are not supported
+
+# ADDITION
+my_list=[1,2,3]
+my_other_list=[4, 5, 6]
+print (my_list + my_other_list)
+# [1, 2, 3, 4, 5, 6]
+new_list = my_list + my_other_list
+print (new_list)
+# [1, 2, 3, 4, 5, 6]
+new_list = my_other_list + my_list 
+print (new_list)
+# [4, 5, 6, 1, 2, 3]
+
+#MULTIPLICATION
+list1 = [1,2,3,4,5]
+print (list1 * 3)
+# [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5]
+
+
+
 
 
 # Classer par ordre alphabetique ou de grandeur

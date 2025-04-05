@@ -18,12 +18,62 @@ spam.index('Pooka')
 1
 
 
-## list.append
+## list.append()
+# ajoute un element a la fin de la list
+
+list=[777, 2, 3, 4, 5, 6]
+list.append(7)
+new_list
+print(list)
+# [777, 2, 3, 4, 5, 6, 7]
 
 spam = ['cat', 'dog', 'bat'] 
 spam.append('moose')
 print (spam)
 ['cat', 'dog', 'bat', 'moose']
+
+
+## list.clear()
+# supprime tous les éléments d'une liste
+fruits = ["apple", "banana", "cherry"]
+fruits.clear()
+print(fruits)
+# []
+
+
+## list.copy()
+# copie les éléments d'une liste dans une autre
+fruits = ["apple", "banana", "cherry"]
+x = fruits.copy()
+print(x)
+# ["apple", "banana", "cherry"]
+
+
+## list.count()
+# compte le nombre d'occurence dans la liste de la variable spécifiée
+fruits = ["apple", "banana", "cherry"]
+x = fruits.count("apple")
+print(x)
+# 1
+# OBLIGATOIRE de spécifier une variable
+fruits = ["apple", "banana", "cherry"]
+x = fruits.count()
+print(x)
+# Traceback (most recent call last):
+#  File "./prog.py", line 3, in <module>
+# TypeError: list.count() takes exactly one argument (0 given)
+
+
+## list.extend()
+# rajoute des valeurs en fin de list
+fruits = ['apple', 'banana', 'cherry']
+cars = ['Ford', 'BMW', 'Volvo']
+fruits.extend(cars)
+print(fruits)
+# ['apple', 'banana', 'cherry', 'Ford', 'BMW', 'Volvo']
+
+
+
 
 
 ## list.insert(index,"string")
