@@ -32,22 +32,10 @@ print(new_list)
 
 
 
-# Insert
-numbers.insert(0, 222) # ajoute un element a la place du premier element par 222
-
-listeA.insert(0; 'element') # insert ajoute à un emplacement donné
 
 
-# Popper des elements, efface le dernier de le list par defaut ou par indexation
-new_list = [777, 2, 3, 4, 5, 6, 7]
-new_list.pop()
-print (new_list)
-[777, 2, 3, 4, 5, 6]
 
-# On peut creer avec/attribuer a une variable l'element poppé
-popped_item = new_list.pop()
-print (popped_item)
-5
+
 
 
 ### Concatenation, - and / are not supported
@@ -73,24 +61,13 @@ print (list1 * 3)
 
 
 
-# Classer par ordre alphabetique ou de grandeur
-new_list = ['a','e','x','b','c']
-new_list.sort()
-print (new_list)
-['a', 'b', 'c', 'e', 'x']
-
-myList = [8, 10, 6, 2, 4]
-myList.sort()
-print (myList)
-[2, 4, 6, 8, 10]
 
 
-# Inverser les positions
-Inverser la position
-lst = [5, 3, 1, 2, 4]
-lst.reverse()
-print(lst)
-[4, 2, 1, 3, 5]
+
+
+
+
+
 
 
 # Mesurer la taille de la liste = nbre d 'elements
@@ -462,128 +439,16 @@ print(strangeListFunction(5))
 [0, 1, 2, 3, 4] # on append a la suite
 
 
-# SETs - serie d'items uniques
-
->>> myset = set()
->>> myset.add(1)
->>> myset
-set([1])
->>> myset.add(2)
->>> myset
-set([1, 2])
->>> myset.add(2)
-
->>> mylist = [1,1,1,2,2,2,3,3,3]
->>> set(mylist)
-set([1, 2, 3])
-
-Pas de répétition
 
 
-### METHODS LISTS ###
 
-
-## list.index
-
-spam = ['hello', 'hi', 'howdy', 'heyas'] 
-print (spam.index('hello'))
-0
-
-# if same value many times in a list, ONLY the first is taken in account
-
-spam = ['Zophie', 'Pooka', 'Fat-tail', 'Pooka'] 
-spam.index('Pooka')
-1
-
-
-## list.append
-
-spam = ['cat', 'dog', 'bat'] 
-spam.append('moose')
-print (spam)
-['cat', 'dog', 'bat', 'moose']
-
-
-## list.insert(index,"string")
-
-spam = ['cat', 'dog', 'bat'] 
-spam.insert(1, 'chicken') 
-print (spam)
-['cat', 'chicken', 'dog', 'bat']
-
- 
-#Note the spam = spam.insert() or spam>append() value is None
-
-
-## list.remove
-
-spam = ['cat', 'bat', 'rat', 'elephant'] 
-spam.remove('bat') 
-print (spam)
-['cat', 'rat', 'elephant']
-
-# if same value many times in a list, ONLY the first is taken in account
-
-spam = ['cat', 'bat', 'rat', 'cat', 'hat', 'cat'] 
-for cat in spam:
-    spam.remove('cat')
-print (spam)
-['bat', 'rat', 'hat']
-
-
-## list.sort
-
-# PYTHON2
-si list contient str et int, les int seront avant les str
-spam = ['cat', 1, 'rat', 2,'cat',3,  'cat'] 
-spam.sort()
-print (spam)
-[1, 2, 3, 'cat', 'cat', 'cat', 'rat']
-NE MARCHE PAS EN PYTHON3 !!!
-
-ou en decroissant avec sort(reverse=True)
-spam = ['cat', 'rat', 'cat', 'cat'] 
-spam.sort(reverse=True)
-print (spam)
-['rat', 'cat', 'cat', 'cat']
-
-les str en MAJ sont avant les str en min
-spam = ['a', 'z', 'A', 'Z'] 
-spam.sort() 
-print(spam) 
-['A', 'Z', 'a', 'z']
-
-# UTILISER key=str.lower pour classer par ordre alphabetique, min/MAJ
-spam = ['a', 'z', 'A', 'Z'] 
-spam.sort(key=str.lower) 
-print(spam)
-['a', 'A', 'z', 'Z']
-
-
-# Convertir en list
+## Convertir en list
 
 list(('cat', 'dog', 5)) # tuple en list
 ['cat', 'dog', 5] 
 
 list('hello') # string en list
 ['h', 'e', 'l', 'l', 'o']
-
-
-# .join() - joindre des données et possibilité d'insérer des caracteres entre
-
-print ('ABC'.join(['My', 'name', 'is', 'Simon']))
-MyABCnameABCisABCSimon
-
-print (' '.join(['My', 'name', 'is', 'Simon']))
-My name is Simon 
-
-commands = ['conf t', 'int gi0/0', 'shut', 'no shut']
-print('\n'.join(commands))
-
-conf t
-int gi0/0
-shut
-no shut
 
 
 ## min() - max()
@@ -594,20 +459,16 @@ c=3
 t = [a,b,c]
 print(t)
 print(min(t))
-[1, 2, 3]
-1
+# [1, 2, 3]
+# 1
 
-t = [a,b,c] # si a b et c sont des lettres, error
+t = ["a","b","c"] # si a b et c sont des lettres
 print(t)
 print(min(t))
-[1, 2, 3]
-1
-Traceback (most recent call last):
-
-  File "main.py", line 1, in <module>
-
-    t = [a,b,c]
-
-NameError: name 'a' is not defined
-
- 
+# ['a', 'b', 'c']
+# a
+t = ["1","2","3"] # si a b et c sont des lettres, error
+print(t)
+print(min(t))
+# ['1', '2', '3']
+# 1

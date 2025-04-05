@@ -165,17 +165,29 @@ False
 ## .join()	# Converts the elements of an iterable into a string
 
 print(",".join(["omicron", "pi", "rho"]))
-omicron,pi,rho
+# omicron,pi,rho
 
 print("".join(["omicron", "pi", "rho"]))
-omicronpirho
+# omicronpirho
 
 print("***".join(["omicron", "pi", "rho"]))
-omicron***pi***rho
+# omicron***pi***rho
 
 print("***".join(["1", "2", "3"]))
-1***2***3
+# 1***2***3
 
+print ('ABC'.join(['My', 'name', 'is', 'Simon']))
+# MyABCnameABCisABCSimon
+
+print (' '.join(['My', 'name', 'is', 'Simon']))
+# My name is Simon 
+
+commands = ['conf t', 'int gi0/0', 'shut', 'no shut']
+print('\n'.join(commands)) # on va sauter une ligne
+# conf t
+# int gi0/0
+# shut
+# no shut
 
 ## .ljust()	# Returns a left justified version of the string
 
