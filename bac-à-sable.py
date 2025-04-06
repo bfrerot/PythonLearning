@@ -1,3 +1,2 @@
-t = ["1","2","3"] # si a b et c sont des lettres, error
-print(t)
-print(min(t))
+interfaces = ["gi0/0", "gi0/1", "gi0/2"]
+print (dir(interfaces))
