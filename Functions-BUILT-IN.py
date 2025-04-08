@@ -934,13 +934,22 @@ print (str(a))
 "2.2"
 
 
-sum()	# Sums the items of an iterator
-
+### sum()	
+# Sums the items of an iterator
+##tupple
 a = (1, 2, 3, 4, 5)
 x = sum(a)
 print(x)
 15
-
+## list
+hat_list = [1, 2, 3, 4, 5]
+print (sum(hat_list))
+# 15
+## commencer avec un nombre de départ
+a = (1, 2, 3, 4, 5)
+x = sum(a, 7)
+print(x)
+# 22
 
 super()	# Returns an object that represents the parent class RIEN COMPRIS A L EXEMPLE
 

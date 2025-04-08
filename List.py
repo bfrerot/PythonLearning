@@ -16,6 +16,15 @@ my_list=[1,2,3]
 print (my_list[0])
 # 1
 
+# L'indexation peut etre négative
+numbers = [111, 7, 2, 1]
+print(numbers[-1]) # = le dernier élément de la liste
+# 1
+numbers = [111, 7, 2, 1]
+print(numbers[-2]) # = l'avant-dernier élément de la liste
+# 2
+
+
 # Donner une valeur a des variables a partir d'une list, en // de l'indexation
 cat = ['fat', 'black', 'loud'] 
 size, color, disposition = cat
