@@ -128,6 +128,8 @@ print(total)
 # Copier une list avec un emplacement mémoire séparé
 # Si on ajoute pas [:] les deux listes partageront le meme emplacement memoire meme si elles
 # ont un nom different et ont l air de deux list differentes
+start = 1
+end = 100
 myList[start:end] # end NOT included
 myList[start:] # end is last element = len(myList) - 1
 myList[:end] # start is first element = 0, end NOT included
@@ -185,6 +187,20 @@ print(largest)
 # 15
 
 
+# INverser la position des éléments d'une liste
+my_list = []
+for e in range (1,100):
+    my_list.append(e)
+print (my_list)
+length = len(my_list)
+print (length)
+for i in range(length // 2):
+    my_list[i], my_list[length - i - 1] = my_list[length - i - 1], my_list[i]
+print(my_list)
+# [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99]
+# 99
+# [99, 98, 97, 96, 95, 94, 93, 92, 91, 90, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+
 # Evolution du groupe des Beatles
 beatles = []
 beatles.append ("John Lennon")
@@ -210,6 +226,44 @@ print("The Fab", len(beatles))
 
 
 # Buble sort List : ordonner les elements d une liste avec un algorithme
+# version simple
+my_list = [8, 10, 6, 2, 4]  # list to sort
+for i in range(len(my_list) - 1):  # we need (5 - 1) comparisons
+    if my_list[i] > my_list[i + 1]:  # compare adjacent elements
+        my_list[i], my_list[i + 1] = my_list[i + 1], my_list[i]  # If we end up here, we have to swap the elements.
+print(my_list)
+# [8, 6, 2, 4, 10]
+
+# avec interaction user
+my_list = []
+swapped = True
+num = int(input("How many elements do you want to sort: "))
+
+for i in range(num):
+    val = float(input("Enter a list element: "))
+    my_list.append(val)
+
+while swapped:
+    swapped = False
+    for i in range(len(my_list) - 1):
+        if my_list[i] > my_list[i + 1]:
+            swapped = True
+            my_list[i], my_list[i + 1] = my_list[i + 1], my_list[i]
+print(my_list)
+# How many elements do you want to sort: 10
+# Enter a list element: 3
+# Enter a list element: 2
+# Enter a list element: 98
+# Enter a list element: 45
+# Enter a list element: 34
+# Enter a list element: 23
+# Enter a list element: 67
+# Enter a list element: 65
+# Enter a list element: 44
+# Enter a list element: 34
+# [2.0, 3.0, 23.0, 34.0, 34.0, 44.0, 45.0, 65.0, 67.0, 98.0]
+
+# version plus étoffée
 myList = [8, 10, 6, 2, 4]  # Liste à trier
 swapped = True
 pass_num = 0  # Pour compter les passages
@@ -412,7 +466,7 @@ def strangeListFunction(n):
 print(strangeListFunction(5))
 # [4, 3, 2, 1, 0] # insert a chaque fois a la place du premier
 
-OU
+# OU
 
 def strangeListFunction(n):
     strangeList = []
