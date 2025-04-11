@@ -31,6 +31,7 @@ size, color, disposition = cat
 print (size)
 # fat
 
+
 # Remplacement avec indexation
 # On peut changer un element dans la liste (contrairement à un string)
 new_list = [1, 2, 3, 4, 5, 6]
@@ -60,8 +61,6 @@ print (list1 * 3)
 # [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5]
 
 
-
-
 # Mesurer la taille de la liste = compter le nbre d 'elements
 numbers = [10, 5, 7, 2, 1]
 print ("List length:", len(numbers)) # printing the list's length
@@ -87,7 +86,7 @@ print(l3)
 # ["A", "B", "C"]
 del l1[0] # modifie l1 + l2 + l3
 del l2 # ne delete pas l1 et l3
-print (l1)
+print(l1)
 print(l3)
 print(l2)
 # ['B', 'C']
@@ -97,6 +96,44 @@ print(l2)
 #     print(l2)
 #           ^^
 # NameError: name 'l2' is not defined. Did you mean: 'l1'?
+
+
+# Copier une list avec un emplacement mémoire séparé
+# Si on ajoute pas [:] les deux listes partageront le meme emplacement memoire meme si elles
+# ont un nom different et ont l air de deux list differentes
+start = 1
+end = 100
+list_2 = [1,2,3,4,5,6,7,8,9]
+list_1 = list_2[start:end] # end NOT included
+list_1 = list_2[start:] # end is last element = len(myList) - 1
+list_1 = list_2[:end] # start is first element = 0, end NOT included
+list_1 = list_2[:] # whole list
+
+list_1 = [1]
+list_2 = list_1[:]
+list_1[0] = 2
+print(list_2)
+# 1
+
+list1 = [1]
+list2 = list1[:] # Copying the whole list, but in separate memory
+list1[0] = 2
+print(list2)
+# [1]
+
+myList = [10, 8, 6, 4, 2]
+newList = myList[0:1] # Copying part of the list
+print(newList)
+# [10]
+
+my_list = [10, 8, 6, 4, 2]
+new_list = my_list[-1:1] # si le start est positionné après le end, la list est vide
+print(new_list)
+# []
+my_list = [10, 8, 6, 4, 2]
+new_list = my_list[4:1]
+print(new_list)
+# []
 
 
 # Populer une list avec une boucle for
@@ -125,28 +162,6 @@ print(total)
 # 27
 
 
-# Copier une list avec un emplacement mémoire séparé
-# Si on ajoute pas [:] les deux listes partageront le meme emplacement memoire meme si elles
-# ont un nom different et ont l air de deux list differentes
-start = 1
-end = 100
-myList[start:end] # end NOT included
-myList[start:] # end is last element = len(myList) - 1
-myList[:end] # start is first element = 0, end NOT included
-myList[:] # whole list
-
-list1 = [1]
-list2 = list1[:] # Copying the whole list, but in separate memory
-list1[0] = 2
-print(list2)
-# [1]
-
-myList = [10, 8, 6, 4, 2]
-newList = myList[0:1] # Copying part of the list
-print(newList)
-# [10]
-
-
 # attention end ne peut pas etre situe avant start
 myList = [10, 8, 6, 4, 2]
 newList = myList[-1:1] # doesn't work
@@ -172,9 +187,10 @@ for i in range(len(myList)):
     if found:
         break
 if found:
-    print("Element found at index", i)
+    print("Element found at index", i) # la valeur i pour laquelle on a l'égalité est bien conservée
 else:
     print("Element absent")
+# Element found at index 4
 
 
 # Trouver le plus large number d'une liste
