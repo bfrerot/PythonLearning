@@ -1,11 +1,11 @@
 #########  --------- FUNCTIONS ----------  ########
 
-#A function is able to:
+# A function is able to:
 #   cause some effect
 #   evaluate a value
 
 
-#Every function has two parts:
+# Every function has two parts:
 # 1. The function signature defines the name of the function and any inputs it expects.
 # 2. The function body contains the code that runs every time the function is used.
 def multiply(x, y): # Function signature
@@ -14,41 +14,80 @@ def multiply(x, y): # Function signature
     return product
 
 
-#The function signature has four parts:
+# The function signature has four parts:
 # 1. The def keyword
 # 2. The function name, multiply
 # 3. The parameter list, (x, y)
 # 4. A colon (:) at the end of the line
 
 
-#Function name STARTS by a letter and conatins ONLY letters, numbers and _
+# Function name STARTS by a letter and contains ONLY letters, numbers and _
+# You must not have a function and a variable of the same name
+# It's legal, and possible, to have a variable named the same as a function's parameter
+# the meaning of the argument is dictated by its name, not by its position ‒ keyword argument passing.
+
+# Default arguments exist, if not specified at the invokation, the default value is used
+def introduction(first_name, last_name="Smith"):
+    print("Hello, my name is", first_name, last_name)
+introduction("James", "Doe")
+introduction("Henry")
+# Hello, my name is James Doe
+# Hello, my name is Henry Smith
+
+# positional arguments MUST NOT follow keyword arguments
+def subtra(a, b):
+    print(a - b)
+subtra(5, b=2) # outputs: 3
+subtra(a=5, 2) # Syntax Error
 
 
-#Functions come from at least three places:
-# 1- from Python itself - numerous functions (like print()) are an integral part of Python, and are always available without any additional effort on behalf of the programmer; we call these functions built-in functions;
-# 2- from Python's preinstalled modules - a lot of functions, very useful ones, but used significantly less often than built-in ones, are available in a number of modules installed together with Python; the use of these functions requires some additional steps from the programmer in order to make them fully accessible (we'll tell you about this in a while);
-# 3- directly from your code - you can write your own functions, place them inside your code, and use them freely;
+# a non-default argument CANNOT follow a default argument
+def add_numbers(a, b=2, c):
+    print(a + b + c)
+add_numbers(a=1, c=3)
+# error
+def add_numbers(a, c, b=2):
+    print(a + b + c)
+add_numbers(a=1, c=3)
+# 6
 
 
-#The process for executing a function can be summarized in three steps:
+# Functions come from at least three places:
+# 1- from Python itself - numerous functions (like print()) are an integral part of Python, 
+# and are always available without any additional effort on behalf of the programmer; 
+# we call these functions built-in functions;
+
+# 2- from Python's preinstalled modules - a lot of functions, very useful ones, 
+# but used significantly less often than built-in ones, are available in a number 
+# of modules installed together with Python; the use of these functions requires 
+# some additional steps from the programmer in order to make them fully accessible 
+
+# 3- directly from your code - you can write your own functions, place them inside 
+# your code, and use them freely
+
+
+# The process for executing a function can be summarized in three steps:
 # 1. The function is called, and any arguments are passed to the function as input.
 # 2. The function executes, and some action is performed with the arguments.
 # 3. The function returns, and the original function call is replaced with the return value.
 
 
-#Regarding returns:
-# 1- you are always allowed to ignore the function's result, and be satisfied with the function's effect (if the function has any)
-# 2- if a function is intented to return a useful result, it must contain the second variant of the return instruction.
+# Regarding returns:
+# 1- you are always allowed to ignore the function's result, and be satisfied with 
+# the function's effect (if the function has any)
+# 2- if a function is intented to return a useful result, it must contain the second 
+# variant of the return instruction.
 
 
-#Scopes:
+# Scopes:
 #The function func() has a different scope than the code that exists outside of the function. 
 #We can name an object inside func() the same name as something outside func() and Python can keep the two separated.
 # 1- a var defined out the function is usable into a function
 # 2- a var defined in a function is not recognised out of it
 # 3- if a var has the same name into a function and out of it, the function uses the var as defined into it
 #    use "global" to overcome this
-# 4- with lists, if a list is processed by a function, it will reflect the changes outside the function (see example)
+# 4- with lists, if a list is processed by a function, it will reflect the changes outside the function
+
 
 # Python resolves scope in the order in which each scope appears in the list LEGB.
 # 1- Local (L): The local, or current, scope. The scope that the Python interpreter is currently working in.
@@ -68,7 +107,8 @@ def outer_func():
         return z
     return inner_func()
 print (outer_func())
-8
+# 8
+
 
 # Here the case we can have an error, and how to fix it
 
@@ -77,14 +117,16 @@ def add_to_total(n):
     total = total + n
 add_to_total(5)
 print(total)
-Traceback (most recent call last):
-  File "C:\Users\bfrerot\OneDrive - ID Logistics\Documents\Python\IDLE.py", line 4, in <module>
-    add_to_total(5)
-  File "C:\Users\bfrerot\OneDrive - ID Logistics\Documents\Python\IDLE.py", line 3, in add_to_total
-    total = total + n
-UnboundLocalError: local variable 'total' referenced before assignment # The problem here is that the script attempts to make an assignment to
-# the variable total, which creates a new name in the local scope. Then,when Python executes the right-hand side of the assignment it finds
-# the name total in the local scope with nothing assigned to it yet.
+# Traceback (most recent call last):
+#   File "C:\Users\bfrerot\OneDrive - ID Logistics\Documents\Python\IDLE.py", line 4, in <module>
+#     add_to_total(5)
+#   File "C:\Users\bfrerot\OneDrive - ID Logistics\Documents\Python\IDLE.py", line 3, in add_to_total
+#     total = total + n
+# UnboundLocalError: local variable 'total' referenced before assignment 
+# The problem here is that the script attempts to make an assignment to
+# the variable total, which creates a new name in the local scope. Then,when Python executes 
+# the right-hand side of the assignment it finds the name total in the local scope with 
+# nothing assigned to it yet.
 # We need to use the global keyword to fix it:
 total = 0
 def add_to_total(n):
@@ -92,8 +134,7 @@ def add_to_total(n):
     total = total + n
 add_to_total(5)
 print(total)
-5
-
+# 5
 
 
 #Documenting a function with a DOCSTRING:
@@ -101,16 +142,13 @@ def multiply(x, y):
     """Return the product of two numbers x and y.""" # comment in function =  docstring
     product = x * y
     return product
+
+# finding information about the function
 help(multiply)
-Help on function multiply in module __main__:
-
-multiply(x, y)
-    Return the product of two numbers x and y. # comment retruned when help function is used
-
-
-
-
-
+# Help on function multiply in module __main__:
+# 
+# multiply(x, y)
+#     Return the product of two numbers x and y. # comment returned when help function is used
 
 
 # ------- Function VS Methods -------
@@ -118,7 +156,7 @@ multiply(x, y)
 #A method is a specific kind of function - it behaves like a function and looks like a function,
 #but differs in the way in which it acts, and in its invocation style.
 #result = data.method(arg)
-#MEthods are used to play with lists
+#methods are used to play with lists
 
 #A function doesn't belong to any data - it gets data, it may create new data and it (generally) produces a result.
 #result = function(arg)
@@ -132,7 +170,7 @@ def myFunction():
     print("Do I know that variable?", var)
 var = 1
 myFunction()
-Do I know that variable? 1
+# Do I know that variable? 1
 
 
 #type(anything)
@@ -144,35 +182,15 @@ print(type(a))
 float
 a="papa"
 print(type(a))
-<class 'str'>
+# <class 'str'>
+
 
 ## fonctions pour changer de type
 
-# de float ou int vers str
-a= 2.2
-print (str(a))
-2.2
-d= 4
-print (str(d))
-4 # en fait "4"
-
-b = "20.2"
-print (str(int(float(b))))
-20
-
-total_pancakes = 10
-pancakes_eaten = 5
-print ("Only " + str(total_pancakes - pancakes_eaten) + " pancakes left.")
-Only 5 pancakes left.# on a changé le resultat d'une operation en str
 
 # de string vers int, attention si virgule on ne pourra pas convertir en int
 # par contre possible dans l'autre sens de float vers int vers str (cf au-dessus)
-b = "20.2"
-print (int(b))
-Traceback (most recent call last):
-  File "C:\Users\bfrerot\OneDrive - ID Logistics\Documents\Python\IDLE.py", line 2, in <module>
-    print (int(b))
-ValueError: invalid literal for int() with base 10: '20.2'
+
 
 e = float(b)
 print (e)
