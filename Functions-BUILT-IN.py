@@ -759,9 +759,9 @@ print('hello world')
 # print i en fonction d'un range
 for n in range(3):# de 0 à 2
     print("Python")
-Python # n = 0
-Python # n = 1
-Python # n = 2   
+# Python # n = 0
+# Python # n = 1
+# Python # n = 2   
 
 # utiliser i en fonction d'un range + faire opération
 for n in range(10, 20):
@@ -890,7 +890,7 @@ print(a[x])
 
 a = ("a", "b", "c", "d", "e", "f", "g", "h")
 x = slice(1, len(a)-1, 2)
-print len(a)
+print(len(a))
 # 8
 print(a[x])
 # ('b', 'd', 'f')
@@ -1005,6 +1005,15 @@ print(z)
 # <class 'str'>
 # <class 'int'>
 
+a=5
+print(type(a))
+# <class 'int'>
+a=5.2
+print(type(a))
+# <class 'float'>
+a="papa"
+print(type(a))
+# <class 'str'>
 
 ### vars()	# Returns the __dict__ property of an object
 

@@ -42,6 +42,23 @@ print (2/4)
 print (2./4)
 0.5
 
+## INT vs FLOATS
+# donner des operations enfonction de variables
+a = float(input("give a float a:"))# input a float value for variable a here
+b = float(input("give a float b:"))# input a float value for variable b here
+print("a+b=",a+b)# output the result of addition here
+print("a-b=",a-b)# output the result of subtraction here
+print("a*b=",a*b)# output the result of multiplication here
+print("a/b=",a+b)# output the result of division here
+print("That's all, folks!")
+# give a float a:2.0
+# give a float b:4
+# a+b= 6.0
+# a-b= -2.0
+# a*b= 8.0
+# a/b= 6.0
+# That's all, folks!
+
 
 ##COMPLEX NUMBERS
 
