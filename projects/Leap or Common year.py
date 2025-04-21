@@ -1,5 +1,7 @@
-#Due to some astronomical reasons, years may be leap or common. The former are 366 days long, while the latter are 365 days long.
-#Since the introduction of the Gregorian calendar (in 1582), the following rule is used to determine the kind of year:
+#Due to some astronomical reasons, years may be leap or common. The former are 366 days long, 
+#while the latter are 365 days long.
+#Since the introduction of the Gregorian calendar (in 1582), the following rule is used to 
+#determine the kind of year:
 #if the year number isn't divisible by four, it's a common year;
 #otherwise, if the year number isn't divisible by 100, it's a leap year;
 #otherwise, if the year number isn't divisible by 400, it's a common year;

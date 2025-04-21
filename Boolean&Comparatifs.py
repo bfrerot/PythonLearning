@@ -115,13 +115,24 @@ print (2>1)
 True
 
 # None
-
+# on ne peut pas l'associer à une variable
 b = None
 print (b)
       # ca n affiche rien (none)
 
+print(None + 2)
+# TypeError: unsupported operand type(s) for +: 'NoneType' and 'int' 
+print(None + "none")
+# TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
 
-#  in, not in 
+def strange_function(n):
+    if(n % 2 == 0):
+        return True
+print(strange_function(7))
+# None
+
+
+###  in, not in 
 
 alphabet = "abcdefghijklmnopqrstuvwxyz"
 print("f" in alphabet)

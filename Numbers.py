@@ -156,6 +156,7 @@ print(16**(1/2))
 # 4
 
 # modulo %
+# 0%x = 0
 print (7 % 3)
 1 # si j'enleve des 3 combien me reste-t-il lorsque le restant est plus petit que 3 = mod
 # modulo % from left to right

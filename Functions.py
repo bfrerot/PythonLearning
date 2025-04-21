@@ -77,15 +77,18 @@ add_numbers(a=1, c=3)
 # the function's effect (if the function has any)
 # 2- if a function is intented to return a useful result, it must contain the second 
 # variant of the return instruction.
+# 3- all part AFTER returis IGNORED
 
 
 # Scopes:
 #The function func() has a different scope than the code that exists outside of the function. 
-#We can name an object inside func() the same name as something outside func() and Python can keep the two separated.
-# 1- a var defined out the function is usable into a function
+#We can name an object inside func() the same name as something outside func() and Python 
+# can keep the two separated.
+# 1- a var defined out of the function is usable into a function
 # 2- a var defined in a function is not recognised out of it
-# 3- if a var has the same name into a function and out of it, the function uses the var as defined into it
-#    use "global" to overcome this
+# 3- if a var has the same name into a function and out of it, the function uses the var 
+# as defined into it
+# use "global" to overcome this
 # 4- with lists, if a list is processed by a function, it will reflect the changes outside the function
 
 
