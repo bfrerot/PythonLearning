@@ -1,34 +1,45 @@
-### METHODS DICTIONARIES ###
+########## METHODS DICTIONARIES ##########
 
 
-# lister les methodes dispo pour les dictionaries
-device = {'hostname': 'router1', 'vendor': 'juniper', 'os': '12.1'}
+## .clear()
+# delete tous les items
 
-dir(device)
-['clear', 'copy', 'fromkeys', 'get', 'has_key', 'items', 'iteritems', 'iterkeys',
-'itervalues', 'keys', 'pop', 'popitem', 'setdefault', 'update', 'values',
-'viewitems', 'viewkeys', 'viewvalues']
+polEngDict.clear() 
 
 
-# dict.values()
+## .copy() 
+# Copier un dictionnaire -- 
+# !!! Contrairement aux list, les dictionnaires seront independants entre eux apres avoir ete copiés
 
-spam = {'color': 'red', 'age': 42} 
-for v in spam.values():       
-   print(v)
-red 
-42
+copyDict = polEngDict.copy()
 
-
-# dict.keys()
-
-spam = {'color': 'red', 'age': 42}
-for k in spam.keys():    
-    print(k)
-color
-age 
+myDict = {"A":1, "B":2}
+copyMyDict = myDict.copy()
+myDict.clear()
+print(copyMyDict)
+# {'A': 1, 'B': 2}
 
 
-#dict.items()
+## .fromkeys()
+
+x = ('key1', 'key2', 'key3')
+y = 0
+thisdict = dict.fromkeys(x, y)
+print(thisdict)
+# {'key1': 0, 'key2': 0, 'key3': 0}
+
+
+## .get
+
+picnicItems = {'apples': 5, 'cups': 2} 
+print ('I am bringing ' + str(picnicItems.get('cups', 0)) + ' cups.') 
+print ('I am bringing ' + str(picnicItems.get('eggs', 0)) + ' eggs.')
+# I am bringing 2 cups.
+# I am bringing 0 eggs. # comme eggs n est pas dans le dictionnaire, le get reourne un 0 par defaut
+
+
+## .items()
+
 spam = {'color': 'red', 'age': 42}
 for i in spam.items():    
     print(i)
@@ -36,70 +47,91 @@ for i in spam.items():
 ('age', 42)
 
 
-# dict.get
+## .keys()
 
-picnicItems = {'apples': 5, 'cups': 2} 
-print ('I am bringing ' + str(picnicItems.get('cups', 0)) + ' cups.') 
-print ('I am bringing ' + str(picnicItems.get('eggs', 0)) + ' eggs.')
-I am bringing 2 cups.
-I am bringing 0 eggs. # comme eggs n est pas dans le dictionnaire, le get reourne un 0 par defaut
+spam = {'color': 'red', 'age': 42}
+for k in spam.keys():    
+    print(k)
+# color
+# age 
 
 
-# dict.setdefault()
+## .pop()
 
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+print (car)
+car.pop("model")
+print(car)
+# {'brand': 'Ford', 'model': 'Mustang', 'year': 1964}
+# {'brand': 'Ford', 'year': 1964}
+
+
+## .popitem()
+
+dict = {"cat" : "chat", "dog" : "chien", "horse" : "cheval"}
+dict.popitem() # delete le dernier item MAIS AVANT PYTHON 3.6.7, REMOVE UN AU HASARD !!!!
+print(dict)  
+# {'cat' : 'chat', 'dog' : 'chien'}
+
+
+## setdefault()
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+x = car.setdefault("model", "Bronco")
+print(x)
+# Mustang
+
+## compter le nombre de caracteres dans un string ou phrase
 message = 'It was a bright cold day in April, and the clocks were striking thirteen.' 
 count = {}
 for character in message:
     count.setdefault(character, 0)
     count[character] = count[character] + 1
 print(count)
-s': 3, 'b': 1, 'r': 5, 'i': 6, 'g': 2, 'h': 3, 'c': 3, 'o': 2, 'l': 3, 'd': 3, 'y': 1, 'n': 4, 'A': 1, 'p': 1, ',': 1, 'e': 5, 'k': 2, '.': 1}
+# {'I': 1, 't': 6, ' ': 13, 'w': 2, 'a': 4, 's': 3, 'b': 1, 'r': 5, 'i': 6, 'g': 2, 'h': 3, 'c': 3, 'o': 2, 'l': 3, 'd': 3, 'y': 1, 'n': 4, 'A': 1, 'p': 1, ',': 1, 'e': 5, 'k': 2, '.': 1}
 
 
-# pprint.pprint() - pretty print
+## .update()
 
-permet de classer la date en ordre alaphabetique et 1 item par ligne
+polEngDict = {"kwiat" : "flower"}
+polEngDict.update("gleba" : "soil") # ERROR avec les :  ne marche pas
 
+polEngDict = {"kwiat" : "flower"}
+add = {"gleba" : "soil"}
+polEngDict.update(add) 
+print(polEngDict)
+# {'kwiat': 'flower', 'gleba': 'soil'}
 
-import pprint
-message = 'It was a bright cold day in April, and the clocks were striking thirteen.' 
-count = {}
-for character in message:
-    count.setdefault(character, 0)
-    count[character] = count[character] + 1
-pprint.print(count)
-{' ': 13,
- ',': 1,
- '.': 1,
- 'A': 1,
- 'I': 1,
- 'a': 4,
- 'b': 1,
- 'c': 3,
- 'd': 3,
- 'e': 5,
- 'g': 2,
- 'h': 3,
- 'i': 6,
- 'k': 2,
- 'l': 3,
- 'n': 4,
- 'o': 2,
- 'p': 1,
- 'r': 5,
- 's': 3,
- 't': 6,
- 'w': 2,
- 'y': 1}
+d1 = {'Adam Smith':'A', 'Judy Paxton':'B+'}
+d2 = {'Mary Louis':'A', 'Patrick White':'C'}
+d3 = {}
+for item in (d1, d2):
+    d3.update (item)
+print(d3)
+# {'Adam Smith': 'A', 'Judy Paxton': 'B+', 'Mary Louis': 'A', 'Patrick White': 'C'}
 
 
-# .pop() & .update() 
-device = {'hostname': 'router1', 'vendor': 'juniper', 'os': '12.1'}
-device.pop('os')
-oper = dict(cpu='5%', memory='10%')
-print(oper)
-device.update(oper)
-print(device)
+## .values()
 
-{'cpu': '5%', 'memory': '10%'}
-{'hostname': 'router1', 'vendor': 'juniper', 'cpu': '5%', 'memory': '10%'}
+dict = {"cat" : "chat", "dog" : "chien", "horse" : "cheval"}
+for english, french in dict.values(): # value = 1 - NE MARCHE PAS si on donne un couple (item)
+    print(english, "->", french)
+# Traceback (most recent call last):
+#   File "main.py", line 2, in <module>
+#     for english, french in dict.values(): 
+# ValueError: too many values to unpack (expected 2
+
+dict = {"cat" : "chat", "dog" : "chien", "horse" : "cheval"}
+for french in dict.values():
+    print(french)
+# chat
+# chien
+# cheval
