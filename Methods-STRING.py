@@ -7,10 +7,10 @@
 # if first value is number, or space, all letters are set in min
 
 print('aBcD'.capitalize())
-Abcd
+# Abcd
 
 print('1aBcD'.capitalize())
-1abcd
+# 1abcd
 
 print("Alpha".capitalize())
 print('ALPHA'.capitalize())
