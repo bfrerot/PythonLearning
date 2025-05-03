@@ -5,7 +5,7 @@ interfaces = ["gi0/0", "gi0/1", "gi0/2"]
 print (dir(interfaces))
 # ['__add__', '__class__', '__class_getitem__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__getstate__', '__gt__', '__hash__', '__iadd__', '__imul__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__', 'append', 'clear', 'copy', 'count', 'extend', 'index', 'insert', 'pop', 'remove', 'reverse', 'sort']
 
-## list.index
+## .index
 
 spam = ['hello', 'hi', 'howdy', 'heyas'] 
 print (spam.index('hello'))
@@ -18,7 +18,7 @@ spam.index('Pooka')
 # 1
 
 
-## list.append()
+## .append()
 # ajoute un element a la fin de la list
 
 list=[777, 2, 3, 4, 5, 6]
@@ -32,7 +32,7 @@ print (spam)
 # ['cat', 'dog', 'bat', 'moose']
 
 
-## list.clear()
+## .clear()
 # supprime tous les éléments d'une liste
 fruits = ["apple", "banana", "cherry"]
 fruits.clear()
@@ -40,7 +40,7 @@ print(fruits)
 # []
 
 
-## list.copy()
+## .copy()
 # copie les éléments d'une liste dans une autre
 fruits = ["apple", "banana", "cherry"]
 x = fruits.copy()
@@ -48,7 +48,7 @@ print(x)
 # ["apple", "banana", "cherry"]
 
 
-## list.count()
+## .count()
 # compte le nombre d'occurence dans la liste de la variable spécifiée
 fruits = ["apple", "banana", "cherry"]
 x = fruits.count("apple")
@@ -70,7 +70,7 @@ print (duplicates)
 # 4 # il y a 4 "2" dans la list
 
 
-## list.extend()
+## .extend()
 # rajoute des valeurs en fin de list
 fruits = ['apple', 'banana', 'cherry']
 cars = ['Ford', 'BMW', 'Volvo']
@@ -79,7 +79,7 @@ print(fruits)
 # ['apple', 'banana', 'cherry', 'Ford', 'BMW', 'Volvo']
 
 
-## list.index()
+## .index()
 # ~ list.remove 
 # donne l'index correspondant à une variable de la list
 fruits = ['apple', 'banana', 'cherry', 'cherry']
@@ -94,7 +94,7 @@ print(x)
 # 2
 
 
-## list.insert(index,"string")
+## .insert(index,"string")
 # insère une variable à l'index spécifié
 spam = ['cat', 'dog', 'bat'] 
 spam.insert(1, 'chicken') 
@@ -102,7 +102,7 @@ print (spam)
 # ['cat', 'chicken', 'dog', 'bat']
 
  
-## list.pop()
+## .pop()
 # supprime l'index spécifié
 fruits = ['apple', 'banana', 'cherry']
 fruits.pop(1)
@@ -110,7 +110,7 @@ print(fruits)
 # ['apple', 'cherry']
 
 
-## list.remove 
+## .remove 
 # ~ list.index()
 # supprime l'élément spécifié
 spam = ['cat', 'bat', 'rat', 'elephant'] 
@@ -131,7 +131,7 @@ print (spam)
 # ['bat', 'rat', 'hat']
 
 
-## list.reverse()
+## .reverse()
 # inverse l'ordre de la list
 fruits = ['apple', 'banana', 'cherry']
 fruits.reverse()
@@ -139,7 +139,7 @@ print(fruits)
 # ['cherry', 'banana', 'apple']
 
 
-## list.sort
+## .sort
 # sort the list alphabetically
 # classe les elem en ordre croissant par defaut
 

@@ -462,7 +462,30 @@ print(fun(25))
 56  # 25 + 28 + fun(31)=3 --> 56
 
 
-# Exception handling
+## Exemple de function récursive
+
+def fact(num):
+    if num == 1:
+        return 1
+    return fact(num - 1) * num
+
+print(fact(4))
+# 24
+
+# Calcul de fact(4) :
+# fact(4) = fact(3) * 4
+# fact(3) = fact(2) * 3
+# fact(2) = fact(1) * 2
+# fact(1) = 1 (cas de base)
+
+# Donc :
+# fact(2) = 1 * 2 = 2
+# fact(3) = 2 * 3 = 6
+# fact(4) = 6 * 4 = 24
+# ✅ Résultat affiché : 24
+
+
+## Exception handling
 
 def spam(divideBy):
     return 42 / divideBy

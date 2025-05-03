@@ -31,6 +31,23 @@ size, color, disposition = cat
 print (size)
 # fat
 
+# on peut attribuer des valeurs à des variables à partir d'une list
+# attention le nombre des variables doit corroborer le nombre d'éléments de la list
+
+fruits = ("Apples", "Oranges", "Bananas")
+a, b, c = fruits
+print(b)
+# Oranges
+
+fruits = ("Apples", "Oranges", "Bananas")
+a, b, c, d = fruits # d est en trop
+print(b)
+# Traceback (most recent call last):
+#   File "c:\PythonLearning\bac-à-sable.py", line 2, in <module>
+#     a, b, c, d = fruits
+#     ^^^^^^^^^^
+# ValueError: not enough values to unpack (expected 4, got 3)
+
 
 # Remplacement avec indexation
 # On peut changer un element dans la liste (contrairement à un string)

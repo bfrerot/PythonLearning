@@ -43,8 +43,8 @@ print ('I am bringing ' + str(picnicItems.get('eggs', 0)) + ' eggs.')
 spam = {'color': 'red', 'age': 42}
 for i in spam.items():    
     print(i)
-('color', 'red') 
-('age', 42)
+# ('color', 'red') 
+# ('age', 42)
 
 
 ## .keys()
