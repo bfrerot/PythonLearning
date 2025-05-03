@@ -27,10 +27,10 @@ print (num.is_integer())
 word = "black"
 print (word.is_integer()) # error si appliqué à un string
 False
-Traceback (most recent call last):
-  File "C:\Users\bfrerot\OneDrive - ID Logistics\Documents\Python\IDLE.py", line 4, in <module>
-    print (word.is_integer())
-AttributeError: 'str' object has no attribute 'is_integer'
+# Traceback (most recent call last):
+#   File "C:\Users\bfrerot\OneDrive - ID Logistics\Documents\Python\IDLE.py", line 4, in <module>
+#     print (word.is_integer())
+# AttributeError: 'str' object has no attribute 'is_integer'
 
 # .numerator
 

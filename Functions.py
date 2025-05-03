@@ -251,6 +251,7 @@ introduction("Clark", "Kent")
 # Hello, my name is Jesse Quick
 # Hello, my name is Clark Kent
 
+
 # parameters dans le desordre
 def introduction(firstName, lastName):
     print("Hello, my name is", firstName, lastName)
@@ -260,7 +261,8 @@ introduction(lastName = "Skywalker", firstName = "Luke") # if parameters are set
 # Hello, my name is James Bond
 # Hello, my name is Luke Skywalker
 
-# paremeters par defaut
+
+# parameters par defaut
 def introduction(firstName, lastName="Smith"):
     print("Hello, my name is", firstName, lastName)
 introduction("James")
@@ -270,6 +272,17 @@ def fun(inp=2,out=3):
     return inp * out
 print (fun(out=2))
 # 4
+
+
+# multiple parameters (*par)
+def fun(*val): # fun() accepte de multiple parameters
+    print(type(val))
+lst=[1,2,3,4,5]
+number = 400
+fun(lst,number)
+# <class 'tuple'> # car [1,2,3,4,5], 400 est un tuple
+
+
 
 # parameter par defaut ecrasé par celui indiqué
 def introduction(firstName, lastName="Smith"):

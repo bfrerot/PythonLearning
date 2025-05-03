@@ -53,6 +53,9 @@ print(x)
 
 
 ### bool()	# Returns the boolean value of the specified object and will always return True, unless the object is empty, like [], (), {}, False, 0, or None
+# When bool() is provided an empty list, an empty string or the value 0
+# as an argument, it returns False. The expression will evaluate to True when
+# bool () is given any other value, including negative numbers.
 
 x = bool(10)
 print(x)
@@ -61,6 +64,12 @@ True
 x = bool("jeanjaques)")
 print(x)
 True
+
+x = []
+y = ""
+z = -1
+print(bool(x),bool(y),bool(z))
+# False False True
 
 
 ### bytearray()	# Returns an array of bytes
