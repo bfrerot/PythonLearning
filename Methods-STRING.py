@@ -1,7 +1,7 @@
 ########## Methods STRING ##########
 
 
-## .capitalize()	# Converts the first character to upper case
+### .capitalize()	# Converts the first character to upper case
 
 # when first value is a letter set the first letter as Cap, others in min
 # if first value is number, or space, all letters are set in min
@@ -17,78 +17,118 @@ print('ALPHA'.capitalize())
 print(' Alpha'.capitalize())
 print('123'.capitalize())
 print("αβγδ".capitalize())
-Alpha
-Alpha
-alpha
-123
-Αβγδ
+# Alpha
+# Alpha
+#  alpha
+# 123
+# Αβγδ
 
 
-## .casefold()	# Converts string into lower case
+### .casefold()	# Converts string into lower case IN THE WHOLE STRING
 
-## .center()	# Returns a centered string
+txt = "Hello, And Welcome To My World!"
+x = txt.casefold()
+print(x)
+# hello, and welcome to my world!
+
+
+### .center()	# Returns a centered string
 
 print('Hello'.center(20, '='))
-=======Hello======== # on voit que si besoin le mot va deborder a gauche (mot impair)
+# =======Hello======== # on voit que si besoin le mot va deborder a gauche (mot impair)
+
 
 ## .count()	# Returns the number of times a specified value occurs in a string
 
 print("abcabc".count("b"))
 print('abcabc'.count("d"))
-2
-0
+# 2
+# 0
 
 
-## .encode()	# Returns an encoded version of the string
+## .decode() / .encode()	# Returns an decoded/encoded version of the string
 
-## .endswith()	# Returns true if the string ends with the specified value
+txt = "My name is Ståle"
+x = txt.encode()
+print(x)
+# b'My name is St\xc3\xa5le' 
+
+# Le préfixe b'...' indique que c’est un objet bytes, pas une str.
+# \xc3\xa5 est la représentation UTF-8 du caractère å.
+# En UTF-8, å est encodé en deux octets : 0xC3 et 0xA5
+
+# pour revenir en arrière on utilise .decode()
+print(x.decode())
+# My name is Ståle
+
+
+### .endswith()	# Returns true if the string ends with the specified value
 
 t = "zeta"
 print(t.endswith("a"))
 print(t.endswith("A"))
 print(t.endswith("et"))
 print(t.endswith("eta"))
-True
-False
-False
-True
+# True
+# False
+# False
+# True
 
 
-## .expandtabs()	# Sets the tab size of the string
+### .expandtabs()	# Sets the tab size of the string, default = 8
 
-## .find()	# Searches the string for a specified value and returns the position of where it was found
+txt = "H\te\tl\tl\to"
+x =  txt.expandtabs()
+print(x)
+# H      e       l       l       o
+x =  txt.expandtabs(2)
+print(x)
+# H e l l o
+
+
+### .find()	# Searches the string for a specified value and returns the position of where it was found
+            # If many, CONSIDER ONLY THE FIRST
 
 print("Emamamatata".find("ta"))
 print("Eta".find("mma"))
 print("Etata".find("ta"))
-7
--1
-1
+# 7
+# -1 # Si la sous-chaîne n'existe pas, elle renvoie -1.
+# 1
 
 
-## .format()	# Formats specified values in a string
+### .format()	# Formats specified values in a string
 
 ipadr = '10.1.1.1'
 vrf = 'notaires'
 ping = 'ping {} vrf {}'.format(ipadr, vrf)
 print (ping)
-ping 10.1.1.1 vrf notaires
+# ping 10.1.1.1 vrf notaires
 
-## .format_map()	# Formats specified values in a string
 
-## .index()	# Searches the string for a specified value and returns the position of where it was found
+### .format_map()	# Formats specified values in a string
+                    # mapping est un dictionnaire dont les clés correspondent aux noms dans les accolades
+
+data = {"name": "Alice", "age": 30}
+text = "My name is {name} and I am {age} years old."
+print(text.format_map(data))
+# My name is Alice and I am 30 years old.
+
+
+### .index()	# Searches the string for a specified value and returns the position of where it was found
 
 txt = "Hello, welcome to my world."
 x = txt.index("w") # avec une lettre, prendra en compte la premiere occurence de la lettre presente dans le string
 print(x)
-7
+# 7
 
 txt = "Hello, welcome to my world."
 x = txt.index("welcome") # avec un mot, prendra en compte la premiere lettre du mot
 print(x)
-7
+# 7
 
-## .isalnum()	# Returns True if all characters in the string are alphanumeric: ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
+
+### .isalnum()	# Returns True if all characters in the string are alphanumeric: ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 
 print('lambda30'.isalnum())
 print('lambda'.isalnum())
@@ -96,31 +136,80 @@ print('30'.isalnum())
 print('@'.isalnum())
 print('lambda_30'.isalnum())
 print(''.isalnum())
-True
-True
-True
-False
-False
-False
+# True
+# True
+# True
+# False
+# False
+# False
 
 
-## .isalpha()	# Returns True if all characters in the string are in the ALPHABET
+### .isalpha()	# Returns True if all characters in the string are in the ALPHABET
 
 print("Moooo".isalpha())
 print('Mu40'.isalpha())
-True
-False
+# True
+# False
 
 
-## .isascii()	# Returns True if all characters in the string are ascii characters
+### .isascii()	# Returns True if all characters in the string are ascii characters
+# ASCII = American Standard Code for Information Interchange
 
-## .isdecimal()	# Returns True if all characters in the string are decimals
+txt = "Company123"
+x = txt.isascii()
+print(x)
+# True
+txt = "#@!*Company123"
+x = txt.isascii()
+print(x)
+# True
 
-## .isdigit()	# Returns True if all characters in the string are digits
 
-## .isidentifier()	# Returns True if the string is an identifier
+### .isdecimal()	# envoie True si tous les caractères de la chaîne sont des chiffres décimaux (0–9), SANS point, virgule ni signe.
 
-## .islower()	# Returns True if all characters in the string are lower case
+txt = "1234"
+x = txt.isdecimal()
+print(x)
+# True
+
+txt = "1234.1"
+x = txt.isdecimal()
+print(x)
+# False
+
+
+### .isdigit()	# Returns True if all characters in the string are digits
+
+txt = "50800"
+txt2 = '135abcd'
+x = txt.isdigit()
+y = txt2.isdigit()
+print(x)
+print(y)
+# True
+# False
+
+
+### .isidentifier()	# Returns True if the string is an identifier
+# returns True if the string is a valid identifier, otherwise False.
+# A string is considered a valid identifier if it only contains alphanumeric letters (a-z) and (0-9), 
+# or underscores (_). A valid identifier cannot start with a number, or contain any spaces.
+
+a = "MyFolder"
+b = "Demo002"
+c = "2bring"
+d = "my demo"
+print(a.isidentifier())
+print(b.isidentifier())
+print(c.isidentifier())
+print(d.isidentifier())
+# True
+# True
+# False
+# False
+
+
+### .islower()	# Returns True if all characters in the string are lower case
 
 s = "TrAvIaTa"
 M = "MAJUSCULE"
@@ -128,28 +217,64 @@ m = "minuscule"
 print (s.islower()) # True si TOUT en minuscule sinon False
 print (M.islower())
 print (m.islower())
-False
-False
-True
+# False
+# False
+# True
 
 
-## .isnumeric()	# Returns True if all characters in the string are numeric
+### .isnumeric()	# Returns True if all characters in the string are numeric
 
-## .isprintable()	# Returns True if all characters in the string are printable
+txt = "50800"
+txt2 = '135abcd'
+x = txt.isnumeric()
+y = txt2.isnumeric()
+print(x)
+print(y)
+# True
+# False
 
-## .isspace()	# Returns True if all characters in the string are whitespaces
+
+### .isprintable()	# Returns True if all characters in the string are printable
+# False s’il y a au moins un caractère non imprimable, comme : \n (saut de ligne),
+# \t (tabulation), \r (retour chariot), etc.
+
+txt = "Hello! Are you #1?"
+x = txt.isprintable()
+print(x)
+# True
+
+txt = "Hello!\nAre you #1?"
+x = txt.isprintable()
+print(x)
+# False
+
+
+### .isspace()	# Returns True if all characters in the string are whitespaces
 
 print(' \n '.isspace())
 print(" ".isspace())
 print("mooo mooo mooo".isspace())
-True
-True
-False
+# True
+# True
+# False
 
 
-## .istitle()	# Returns True if the string follows the rules of a title
+### .istitle()	# Returns True if the string follows the rules of a title
+# returns True if all words in a text start with a upper case letter, AND the rest of the word are lower case letters,
+# otherwise False.
 
-## .isupper()	# Returns True if all characters in the string are upper case
+txt = "Hello, And Welcome To My World!"
+x = txt.istitle()
+print(x)
+# True
+
+txt = "hello, And Welcome To My World!"
+x = txt.istitle()
+print(x)
+# False
+
+
+### .isupper()	# Returns True if all characters in the string are upper case
 
 s = "TrAvIaTa"
 M = "MAJUSCULE"
@@ -157,12 +282,12 @@ m = "minuscule"
 print (s.isupper()) # True si TOUT en MAJUSCULE sinon False
 print (M.isupper())
 print (m.isupper())
-False
-True
-False
+# False
+# True
+# False
 
 
-## .join()	# Converts the elements of an iterable into a string
+### .join()	# Converts the elements of an iterable into a string
 
 print(",".join(["omicron", "pi", "rho"]))
 # omicron,pi,rho
@@ -189,116 +314,194 @@ print('\n'.join(commands)) # on va sauter une ligne
 # shut
 # no shut
 
-## .ljust()	# Returns a left justified version of the string
+
+### .ljust()	# Returns a left justified version of the string
 
 print ('Hello'.ljust(20, '-'))
-Hello---------------
+# Hello---------------
 
 
-## .lower()	# Converts a string into lower case
+### .lower()	# Converts a string into lower case
 
 s = "TrAvIaTa"
 print (s.lower())
 print (s)
-traviata
-TrAvIaTa # la variable n'est pas modifiée
+# traviata
+# TrAvIaTa # la variable n'est pas modifiée
 
 
-## .lstrip()	# Returns a left trim version of the string
+### .lstrip()	# Returns a left trim version of the string
 
 spam = '    Hello World    ' 
 print (spam.lstrip())
-Hello World    
+# Hello World    #
 
 
-## .maketrans()	# Returns a translation table to be used in translations
+### .maketrans()	# Returns a translation table to be used in translations
 
-## .partition()	# Returns a tuple where the string is parted into three parts
+txt = "Hello Sam!"
+mytable = str.maketrans("S", "P")
+print(txt.translate(mytable))
+# Hello Pam!
 
-## .replace()	# Returns a string where a specified value is replaced with a specified value
+txt = "Hi Alice! Are you excited?"
+remplacements = str.maketrans(
+    {"a": "@", "e": "3", "i": "1", "!": None, "?": None}
+)
+resultat = txt.translate(remplacements)
+print(resultat)
+# H1 @l1c3 Ar3 you 3xc1t3d
+
+
+### .partition()	# Returns a tuple where the string is parted into three parts
+
+
+### .replace()	# Returns a string where a specified value is replaced with a specified value
 
 print("www.netacad.com".replace("netacad.com", "pythoninstitute.org"))
-www.pythoninstitute.org
+# www.pythoninstitute.org
 
 print("Apple juice".replace("juice", ""))
-Apple
+# Apple
 
 var1 = float((input ("Enter a number: ")).replace(",","."))
 var2 = round(var1,2)
 print (var1,"rounded to 2 decimals places is",var2)
-Enter a number: 2,456
-2.456 rounded to 2 decimals places is 2.46
+# Enter a number: 2,456
+# 2.456 rounded to 2 decimals places is 2.46
 
-## .rfind()	# Searches the string for a specified value and returns the LAST position of where it was found
+
+### .rfind()	# Searches the string for a specified value and returns the LAST position of where it was found
 
 print("tau tau tau".rfind("ta"))
-8
+# 8
 
-print("Hello, welcome to my world.".rfind("e", 5, 10)) #on itére à partir du 5ème caractère donc ,=0 etc
+print("Welcome to my world.".rfind("e", 5, 10))
+# Cherche la dernière occurrence de la sous-chaîne "e" entre les indices 5 (start) et 10 (end exclusif, donc 9).
+# 6
+
+print("Welcome to my world.".rfind("z", 5, 10))
+# si pas d'occurence, affiche -1
+# -1
 
 
+### .rindex()	# Searches the string for a specified value and returns the last position of where it was found
+
+txt = "Mi casa, su casa."
+x = txt.rindex("casa")
 print(x)
+# 12
 
-## .rindex()	# Searches the string for a specified value and returns the last position of where it was found
 
-## .rjust()	# Returns a right justified version of the string
+### .rjust()	# Returns a right justified version of the string
 
 print ('Hello'.rjust(20, '*')) # par defaut ' '
-***************Hello
+# ***************Hello
 
 print ('Hello'.rjust(20))
-               Hello
+#                Hello
 
-## .rpartition()	# Returns a tuple where the string is parted into three parts
 
-## .rsplit()	# Splits the string at the specified separator, and returns a list
+### .rpartition()	# Returns a tuple where the string is parted into three parts
+# The rpartition() method searches for the last occurrence of a specified string, and splits the string into a tuple containing three elements.
+# --> first element contains the part before the specified string
+# --> second element contains the specified string.
+# --> third element contains the part after the string.
 
-## .rstrip()	# Returns a right trim version of the string
+txt = "I could eat bananas all day, bananas are my favorite fruit"
+x = txt.rpartition("bananas")
+print(x)
+# ('I could eat bananas all day, ', 'bananas', ' are my favorite fruit')
+
+
+### .rsplit()	# Splits the string at the specified separator, and returns a list
+
+txt = "apple, banana, cherry"
+x = txt.rsplit(", ")
+print(x)
+# ['apple', 'banana', 'cherry']
+
+
+### .rstrip()	# Returns a right trim version of the string
 
 spam = '    Hello World    ' 
 print (spam.rstrip())
-    Hello World
+#     Hello World
 
-## .split()	# Splits the string at the specified separator, and returns a list
+
+### .split()	# Splits the string at the specified separator, and returns a list
 
 print('MyABCnameABCisABCSimon'.split('ABC'))
-['My', 'name', 'is', 'Simon']
+# ['My', 'name', 'is', 'Simon']
 
-## .splitlines()	# Splits the string at line breaks and returns a list
 
-## .startswith()	# Returns true if the string starts with the specified value
+### .splitlines()	# Splits the string at line breaks and returns a list
+
+txt = "Thank you for the music\nWelcome to the jungle"
+x = txt.splitlines()
+print(x)
+# ['Thank you for the music', 'Welcome to the jungle']
+
+
+### .startswith()	# Returns true if the string starts with the specified value
 
 print("omega".startswith("meg"))
 print("omega".startswith("om"))
-False
-True
+# False
+# True
 
 
-## .strip()	# Returns a trimmed version of the string
+### .strip()	# Returns a trimmed version of the string
 
 spam = '    Hello World    ' 
 print (spam.strip())
-Hello World
+# Hello World#
 
 
-## .swapcase()	# Swaps cases, lower case becomes upper case and vice versa
+### .swapcase()	# Swaps cases, lower case becomes upper case and vice versa
 
 print("I know that I know nothing.".swapcase())
-i KNOW THAT i KNOW NOTHING.
+# i KNOW THAT i KNOW NOTHING.
 
-## .title()	# Converts the first character of each word to upper case
+
+### .title()	# Converts the first character of each word to upper case
 
 print("I know that I know nothing. Part 1.".title())
-I Know That I Know Nothing. Part 1.
+# I Know That I Know Nothing. Part 1.
 
-## .translate()	# Returns a translated string
 
-## .upper()	# Converts a string into upper case
+### .translate()	# Returns a translated string
+# returns a string where some specified characters are replaced with the character described in a dictionary, or in a mapping table
+# Use the maketrans() method to create a mapping table
+# If a character is not specified in the dictionary/table, the character will not be replaced
+# If you use a dictionary, you must use ascii codes instead of characters
+
+#use a dictionary with ascii codes to replace 83 (S) with 80 (P):
+mydict = {83:  80}
+txt = "Hello Sam!"
+print(txt.translate(mydict))
+# Hello Pam!
+
+
+### .upper()	# Converts a string into upper case
 
 s = "TrAvIaTa"
 print (s.upper())
 print (s)
-TRAVIATA
-TrAvIaTa # la variable n'est pas modifiée
+# TRAVIATA
+# TrAvIaTa # la variable n'est pas modifiée
 
-## .zfill()	# Fills the string with a specified number of 0 values at the beginning
+
+### .zfill()	# Fills the string with a specified number of 0 values at the beginning
+# The zfill() method adds zeros (0) at the beginning of the string, until it reaches the specified length.
+# If the value of the len parameter is less than the length of the string, no filling is done.
+
+txt = "50"
+x = txt.zfill(10)
+print(x)
+# 0000000050
+
+txt = "0000000050"
+x = txt.zfill(5) # 5 < len(txt) = 10
+print(x)
+# 0000000050 # inchangé

@@ -1,8 +1,4 @@
-def fun(x = 4, y = 5):
-    y -= 1
-    return x * y * 1
-print(fun())
 
-
-
-
+txt = "0000000050"
+x = txt.zfill(5)
+print(x)
