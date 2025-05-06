@@ -635,6 +635,11 @@ print(list(x)) #convert the map into a list, for readability:
 # <map object at 0x056D44F0>
 # [5, 6, 6]
 
+letters = ["beach", "car"]
+funified = list(map(lambda word: f"{word} is fun!", letters)) # Cette partie est une fonction anonyme (ou fonction lambda). Elle prend un argument word et retourne une nouvelle chaîne de caractères
+print(funified)
+# ['beach is fun!', 'car is fun!']
+
 
 ### max()	# Returns the largest item in an iterable
 

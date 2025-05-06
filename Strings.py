@@ -13,6 +13,22 @@ name[0] = 'K'
 'string'
 "string" # pareil mais fera la difference si apostrophes dans la string
 
+print("""red roses and violet roses""")
+# red roses and violet roses
+# Les triple guillemets """ ... """ permettent d'écrire des chaînes multilignes
+# mais si tu écris une phrase sur une seule ligne à l'intérieur
+# elle est affichée normalement
+print("""red roses 
+      
+      
+      
+      and violet roses""")
+# red roses 
+# 
+# 
+# 
+#       and violet roses
+
 # " I'm going on a run " # ok
 
 # ' I'm going on a run ' # nok

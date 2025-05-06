@@ -77,6 +77,12 @@ dict.popitem() # delete le dernier item MAIS AVANT PYTHON 3.6.7, REMOVE UN AU HA
 print(dict)  
 # {'cat' : 'chat', 'dog' : 'chien'}
 
+# on peut récupérer la valeur du popitem
+ui_elements = dict([('radio_button', 2),('text_box', 3),('standard_button', 5)])
+popped_element = ui_elements.popitem()
+print(list(popped_element))
+# ['standard_button', 5]
+
 
 ## setdefault()
 
