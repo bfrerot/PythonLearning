@@ -151,3 +151,30 @@ for x in adj:
 #tasty apple
 #tasty banana
 #tasty cherry
+
+
+# à propos de i
+# il va garder sa valeur après la boucle
+for i in range(3):
+    print(i, end=" ")
+print(i)
+# 0 1 2 2
+
+for j in range(5):
+    pass
+print(j)
+# 4    car c'est la dernière valeur de la boucle
+
+# contrairement à une boucle for DANS une fonction
+def boucle():
+    for i in range(3):
+        print(i, end=" ")
+boucle()
+# 0 1 2
+
+# Ici, `i` n'existe pas en dehors de la fonction
+try:
+    print(i)
+except NameError:
+    print("La variable 'i' n'existe pas ici")
+# 0 1 2 La variable 'i' n'existe pas ici

@@ -283,12 +283,24 @@ fun(lst,number)
 # <class 'tuple'> # car [1,2,3,4,5], 400 est un tuple
 
 
-
 # parameter par defaut ecrasé par celui indiqué
 def introduction(firstName, lastName="Smith"):
     print("Hello, my name is", firstName, lastName)
 introduction("James","Doe")
 # Hello, my name is James Doe # Smith (default parameter) is replaced by Doe (specified parameter)
+
+
+# on peut avoir une fonction qui appelle 2 parameters ou plus
+# mais ne se sert que d'1
+
+def fun(x,y=6):
+    return x**3  # y ne sert à rien, n'est pas invoqué, mais pas de problème
+print (fun(2))
+# 8
+def fun(data, *num ):
+    print(data)
+fun("Earth", 2, True, "Jupiter")
+# Earth
 
 
 ## on peut avoir une fonction dans une fonction etc

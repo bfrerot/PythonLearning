@@ -17,7 +17,24 @@ global	To declare a global variable
 if	To make a conditional statement
 import	To import a module
 in	To check if a value is present in a list, tuple, etc.
-is	To test if two variables are equal
+
+
+### is
+# To test if two variables are equal
+p = 10
+q = 10
+print (p is q) # égal à (p==q)
+# True
+
+# cas des list
+lst1 = [2,4,6]
+lst2 = [2,4,6]
+print(lst1 is lst2)
+print(lst1 == lst2)
+False
+True
+
+
 lambda	To create an anonymous function
 None	Represents a null value
 nonlocal	To declare a non-local variable

@@ -15,7 +15,6 @@
 # print(0.0000000000000000000001) --> 1e-22 --> Python always chooses the more economical form of the number's presentation
 
 
-
 ## INTEGERS
 
 #4 is an integer literal
@@ -41,6 +40,7 @@ print (2/4)
 0.5
 print (2./4)
 0.5
+
 
 ## INT vs FLOATS
 # donner des operations enfonction de variables
@@ -83,12 +83,21 @@ None
 
 
 
-##OPERATORS
+## OPERATORS
 
-#+, -, *, /, //, %, **
+# +, -, *, /, //, %, **
 
-#Priorities and order
-    #Multiplications/divisions precede Addition/soustraction
+# Priorities and order
+
+# Multiplications/divisions precede Addition/soustraction
+
+# Modulo will precede if on the left
+print(5%4**2//2)
+# 2
+# first 4**2 = 16
+# second 5%16 = 5
+# third 5//2 = 2
+
 
     #Modulo --> from Left to Right --> first 9 % 6 gives 3, and then 3 % 2 gives 1
 print(9 % 6 % 2) 
@@ -154,6 +163,10 @@ print(6./ 4)
 
 
 # puissance **
+# RAPPEL:
+# x**0=1
+# 0**x=0
+
 print (2**3)
 8
 print (4**5)

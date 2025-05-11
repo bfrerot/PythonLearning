@@ -30,32 +30,41 @@ x = all(mylist)
 print(x)
 True
 
+mylist = [1, "string", [1,2,3], (1,2,3), {1:"one",2:"two"}]
+x = all(mylist)
+print(x)
+True
 
-### any()	# Returns True if any item in an iterable object is true
+
+### any()	
+# Returns True if any item in an iterable object is true
 
 mylist = [False, True, False]
 x = any(mylist)
 True
 
 
-### ascii()	# Returns a readable version of an object. Replaces none-ascii characters with escape character
+### ascii()	
+# Returns a readable version of an object
+# Replaces none-ascii characters with escape character + ascii characters
 
 x = ascii("My name is Ståle")
 print(x)
-'My name is St\e5le' # comprend pas le retour
+# My name is St\e5le
 
 
-### bin()	# Returns the binary version of a number; the result will always have the prefix 0b
+### bin()	
+# Returns the binary version of a number; the result will always have the prefix 0b
 
 x = bin(36)
 print(x)
 0b100100
 
 
-### bool()	# Returns the boolean value of the specified object and will always return True, unless the object is empty, like [], (), {}, False, 0, or None
-# When bool() is provided an empty list, an empty string or the value 0
-# as an argument, it returns False. The expression will evaluate to True when
-# bool () is given any other value, including negative numbers.
+### bool()	
+# Returns the boolean value of the specified object and will always return True, unless the object is empty, like [], (), {}, False, 0, or None
+# When bool() is provided an empty list, an empty string or the value 0 it returns False
+# The expression will evaluate to True when bool () is given any other value, including negative numbers
 
 x = bool(10)
 print(x)
@@ -72,36 +81,47 @@ print(bool(x),bool(y),bool(z))
 # False False True
 
 
-### bytearray()	# Returns an array of bytes
+### bytearray()	
+# Returns an array of bytes
 
 x = bytearray(4)
 print(x)
 bytearray(b'\x00\x00\x00\x00') # à quoi ça sert ??
 
 
-### bytes()	# Returns a bytes object
+### bytes()	
+# Returns a bytes object
 
 x = bytes(6)
 print(x)
 b'\x00\x00\x00\x00\x00\x00'
 
 
-### callable()	# In general, a callable is something that can be called. This built-in method in Python checks and returns True if the object passed appears to be callable, but may not be, otherwise False.
+### callable()
+# In general, a callable is something that can be called
+# This built-in method in Python checks and returns True if the object passed appears to be callable
+# but may not be, otherwise False
 
 def x():
   a = 5
 print(callable(x))
 True
 
+print(callable(5))  # False (un entier n'est pas appelable)
+print(callable("Hello"))  # False (une chaîne n'est pas appelable)
+print(callable(len))  # True (len est une fonction intégrée, donc appelable)
 
-### chr()	# Returns a character from the specified Unicode code.
+
+### chr()
+# Returns a character from the specified Unicode code.
 
 x = chr(97)
 print (x)
 "a"
 
 
-### classmethod()	# Converts a method into a class method
+### classmethod()
+# Converts a method into a class method
 
 class Person:
     age = 25
@@ -113,24 +133,30 @@ Person.printAge()
 
 
 ### compile()	# Returns the specified source as an object, ready to be executed
-
+# La fonction compile() prend trois arguments :
+# premier argument = code source sous forme de chaîne ('print(55)\nprint(88)')
+# deuxième argument = nom du fichier (ou simplement un identifiant pour le code compilé, ici 'test')
+# troisième argument = mode d'exécution ('exec' pour exécuter plusieurs instructions)
 x = compile('print(55)\nprint(88)', 'test', 'exec')
 exec(x)
 55
 88
 
 
-### complex()	# Returns a complex number, complex(real,imaginary)
+### complex()
+# Returns a complex number, complex(real,imaginary)
 
 x = complex(3, 5)
 print(x)
-(3+5j)
+# (3+5j)
+# En Python, le suffixe j est utilisé pour représenter 
+# la partie imaginaire (au lieu de i utilisé en mathématiques)
 
 x = complex(3)
 print(x)
 (3+0j)
 
-x = complex('3+5j')
+x = complex('3+5j') # interprete le string comme nombre complexe
 print(x)
 (3+5j)
 

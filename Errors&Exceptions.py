@@ -1,82 +1,84 @@
+########## Error Handling ##########
+
+
+
 # Error will occur wherever it is possible
 # Syntax error = code's form not allowed in Python
 # Runtime error = error not detectable before start of program
 
 import math
-
 x = float(input("Enter x: ")) # if user write a string, error will occur
 y = math.sqrt(x) # if user write a negative number, error again
-
 print("The square root of", x, "equals to", y)
 
 
-# when code does somethng wrong
-# Python stop the program
-# and creates an exception
+## when code does something wrong Python does stop the program and creates an exception
 # = raising an exception    
 # if exception is addressed --> program continues
 # if nothing is done --> program stops and generate an error
 
 
-BaseException # anyerror
-# source tree
-
+## Errors refs
+# BaseException # = anyerror source tree
 
 ZeroDivisionError # you cannot divide by 0
-BaseException ← Exception ← ArithmeticError ← ZeroDivisionErro
+# BaseException ← Exception ← ArithmeticError ← ZeroDivisionErro
 
 value = 1
 value /= 0
-Traceback (most recent call last):
-  File "main.py", line 2, in <module>
-    value /= 0
-ZeroDivisionError: division by zero
+# Traceback (most recent call last):
+#   File "main.py", line 2, in <module>
+#     value /= 0
+#  ZeroDivisionError: division by zero
 
-overflowError # when an operation produces a number too big to be successfully stored
-BaseException ← Exception ← ArithmeticError ← OverflowError
+OverflowError # when an operation produces a number too big to be successfully stored
+# BaseException ← Exception ← ArithmeticError ← OverflowError
 
 
 IndexError # index introuvable,inexistant
-BaseException ← Exception ← LookupError ← IndexError
+# BaseException ← Exception ← LookupError ← IndexError
 
 list = []
 x = list[0]
-Traceback (most recent call last):
-  File "main.py", line 2, in <module>
-    x = list[0]
-IndexError: list index out of range
+# Traceback (most recent call last):
+# ""  File "main.py", line 2, in <module>
+#    x = list[0]
+# IndexError: list index out of range
 
 
 ArithmeticError # any arithmetic error
-BaseException ← Exception ← ArithmeticError 
+# BaseException ← Exception ← ArithmeticError 
 
 
 AssertionError # concrete exception raised by the assert instruction when its argument evaluates to False,
 # None, 0, or an empty string
-BaseException ← Exception ← AssertionError
+# BaseException ← Exception ← AssertionError
 
 
 KeyboardInterrupt # raised when the user uses a keyboard shortcut designed 
 # to terminate a program's execution (Ctrl-C in most OSs)
-BaseException ← KeyboardInterrupt
+# BaseException ← KeyboardInterrupt
+
 
 MemoryError # cannot be completed due to a lack of free memory
-BaseException ← Exception ← MemoryError
+# BaseException ← Exception ← MemoryError
+
 
 LookupError # errors resulting from invalid references to different collections (lists, dictionaries, tuples, etc.)
-BaseException ← Exception ← LookupError
+# BaseException ← Exception ← LookupError
+
 
 ImportError # an import operation fails
-BaseException ← Exception ← StandardError ← ImportError
+# BaseException ← Exception ← StandardError ← ImportError
+
 
 KeyError # when you try to access a collection's non-existent element
-BaseException ← Exception ← LookupError ← KeyError
+# BaseException ← Exception ← LookupError ← KeyError
 
 
 
+### try
 
-
-# try
 # avec try, python gere les erreurs
 
 # option 1 sans try
@@ -353,67 +355,3 @@ def readint(prompt, min, max):
 v = readint("Enter a number from -10 to 10: ", -10, 10)
 
 print("The number is:", v)
-
-
-## Compare strings --  think ASCII code
-
-# 0 --> 9 = 48 --> 57
-# a --> z = 97 --> 122
-# A --> Z = 65 --> 90
-# Numbers < CAPITAL < minuscule
-
-print ('a' < 'b')
-print ('a' < 'A')
-print ('b' < 'A')
-print ('aa' < 'ab')
-print ('aa' < 'a1')
-print ('a9' < 'a1')
-print ('0' > 'a')
-True
-False
-False
-True
-False
-False
-False
-
-    
-print ('10' == '010') # 4948 =! 484948
-print ('10' > '010') # 4948 > 484948
-print ('10' > '8') # 4948 < 56
-print ('20' < '8') # 5048 < 56
-print ('20' < '80') # 5048 < 5648
-False
-True
-False
-True
-True
-
-
-## ().sort // sorted()
-
-
-secondGreek = ['omega', 'alpha', 'pi', 'gamma']
-secondGreek.sort()
-print(secondGreek)
-print(secondGreek)
-['omega', 'alpha', 'pi', 'gamma']
-['alpha', 'gamma', 'omega', 'pi']
-
-
-firstGreek = ['omega', 'alpha', 'pi', 'gamma']
-firstGreek2 = sorted(firstGreek)
-print(firstGreek)
-print(firstGreek2)
-['omega', 'alpha', 'pi', 'gamma']
-['alpha', 'gamma', 'omega', 'pi']
-
- 
-## str() - make numbers become string
-
-itg = 13
-flt = 1.3
-si = str(itg)
-sf = str(flt)
-print(si + ' ' + sf)
-13 1.3

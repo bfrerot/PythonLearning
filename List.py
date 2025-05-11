@@ -57,6 +57,16 @@ print(new_list)
 # [777, 2, 3, 4, 5, 6]
 
 
+# List avec range négatif
+# une list s'indexe vers le haut et commence par 0 par défaut
+vowels = ["a", "e", "i", "o", "u"]
+all = list (range(-2)) + vowels
+print(list(range(-2)))
+print(all)
+[] # de 0 à -2.. pas possible
+['a', 'e', 'i', 'o', 'u']
+
+
 ### Concatenation, - and / are not supported
 
 # ADDITION

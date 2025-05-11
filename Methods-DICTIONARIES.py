@@ -3,20 +3,19 @@
 
 ## .clear()
 # delete tous les items
-
-polEngDict.clear() 
+polEngDict = {1:"imane",2:"ouweys",3:"soumaya"}
+polEngDict.clear()
+print(polEngDict)
+# {}
 
 
 ## .copy() 
 # Copier un dictionnaire -- 
 # !!! Contrairement aux list, les dictionnaires seront independants entre eux apres avoir ete copiés
 
-copyDict = polEngDict.copy()
-
 myDict = {"A":1, "B":2}
-copyMyDict = myDict.copy()
-myDict.clear()
-print(copyMyDict)
+copyDict = myDict.copy()
+print(copyDict)
 # {'A': 1, 'B': 2}
 
 
@@ -28,6 +27,13 @@ thisdict = dict.fromkeys(x, y)
 print(thisdict)
 # {'key1': 0, 'key2': 0, 'key3': 0}
 
+# si on ne spécifie qu'un parameter, il sera utilisé pour les KEY et la VALUE sera None
+x = ('key1', 'key2', 'key3')
+y = 0
+thisdict = dict.fromkeys(x)
+print(thisdict)
+# {'key1': None, 'key2': None, 'key3': None}
+
 
 ## .get
 
@@ -35,10 +41,11 @@ picnicItems = {'apples': 5, 'cups': 2}
 print ('I am bringing ' + str(picnicItems.get('cups', 0)) + ' cups.') 
 print ('I am bringing ' + str(picnicItems.get('eggs', 0)) + ' eggs.')
 # I am bringing 2 cups.
-# I am bringing 0 eggs. # comme eggs n est pas dans le dictionnaire, le get reourne un 0 par defaut
+# I am bringing 0 eggs. # comme eggs n est pas dans le dictionnaire, le get retourne un 0 par defaut
 
 
 ## .items()
+# par item on entend paire key/value
 
 spam = {'color': 'red', 'age': 42}
 for i in spam.items():    
@@ -56,6 +63,14 @@ for k in spam.keys():
 # age 
 
 
+dict = {"horse" : "cheval", "dog" : "chien", "cat" : "chat"}
+for key in sorted(dict.keys()):
+    print(key, "->", dict[key])
+# cat -> chat
+# dog -> chien
+# horse -> cheval
+
+
 ## .pop()
 
 car = {
@@ -71,7 +86,7 @@ print(car)
 
 
 ## .popitem()
-
+# SANS parameter
 dict = {"cat" : "chat", "dog" : "chien", "horse" : "cheval"}
 dict.popitem() # delete le dernier item MAIS AVANT PYTHON 3.6.7, REMOVE UN AU HASARD !!!!
 print(dict)  
@@ -85,6 +100,8 @@ print(list(popped_element))
 
 
 ## setdefault()
+# Si key existe, setdefault() retourne sa valeur sans modifier le dictionnaire, meme si VALEUR = None
+# Si key n'existe pas, setdefault() ajoute key avec default_value et renvoie default_value
 
 car = {
   "brand": "Ford",
@@ -95,7 +112,22 @@ x = car.setdefault("model", "Bronco")
 print(x)
 # Mustang
 
-## compter le nombre de caracteres dans un string ou phrase
+car = {
+  "brand": "Ford",
+  "model": None,
+  "year": 1964
+}
+x = car.setdefault("model", "Bronco")
+print(x)
+None
+
+y = car.setdefault("color", "Red")
+print(y)  # "Red"
+print(car)
+# Red
+# {'brand': 'Ford', 'model': 'Mustang', 'year': 1964, 'color': 'Red'}
+
+# compter le nombre de caracteres dans un string ou phrase
 message = 'It was a bright cold day in April, and the clocks were striking thirteen.' 
 count = {}
 for character in message:
@@ -110,12 +142,14 @@ print(count)
 polEngDict = {"kwiat" : "flower"}
 polEngDict.update("gleba" : "soil") # ERROR avec les :  ne marche pas
 
+# method 1 = ajouter un dictionnaire dans le dictionnaire
 polEngDict = {"kwiat" : "flower"}
 add = {"gleba" : "soil"}
 polEngDict.update(add) 
 print(polEngDict)
 # {'kwiat': 'flower', 'gleba': 'soil'}
 
+# method 1 + for
 d1 = {'Adam Smith':'A', 'Judy Paxton':'B+'}
 d2 = {'Mary Louis':'A', 'Patrick White':'C'}
 d3 = {}
@@ -123,6 +157,14 @@ for item in (d1, d2):
     d3.update (item)
 print(d3)
 # {'Adam Smith': 'A', 'Judy Paxton': 'B+', 'Mary Louis': 'A', 'Patrick White': 'C'}
+# A NOTER que la boucle for traite TOUT d1, puis passe à d2
+
+# method 2
+# utiliser un tuple dans une list comme parameter
+polEngDict = {"kwiat": "flower"}
+polEngDict.update([("kwiat", "soil")])
+print(polEngDict)
+# {'kwiat': 'soil'}
 
 
 ## .values()
@@ -130,10 +172,7 @@ print(d3)
 dict = {"cat" : "chat", "dog" : "chien", "horse" : "cheval"}
 for english, french in dict.values(): # value = 1 - NE MARCHE PAS si on donne un couple (item)
     print(english, "->", french)
-# Traceback (most recent call last):
-#   File "main.py", line 2, in <module>
-#     for english, french in dict.values(): 
-# ValueError: too many values to unpack (expected 2
+# ValueError: too many values to unpack (expected 2)
 
 dict = {"cat" : "chat", "dog" : "chien", "horse" : "cheval"}
 for french in dict.values():

@@ -1,6 +1,6 @@
 ##########  break  ##########
 
-# pour sortir complètement de la boucle
+# pour sortir  tout de suite ET complètement de la boucle
 
 text = "OpenEDG Python Institute"
 for letter in text:
@@ -10,8 +10,6 @@ for letter in text:
         letter = "_"
     print(letter, end="")
 #OpenEDG_
-
-
 
 
 

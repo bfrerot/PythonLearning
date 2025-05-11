@@ -1,8 +1,8 @@
-## -------- WHILE -------- ##
+########## WHILE ##########
 
 
 
-# boucle simple
+### boucle simple
 spam = 0
 while spam < 5:  
   print('Hello, world.')
@@ -13,7 +13,6 @@ while spam < 5:
 #Hello, world.
 #Hello, world.
 
-
 i = 1
 while i <= 4:
   print (i)
@@ -22,6 +21,12 @@ while i <= 4:
 #2
 #3
 #4
+
+# Attention si pas d'incrémentation, boucle infinie
+h = {"blue":1 , "red":2, "yellow":3}
+while len(h)>2:
+    print("h")
+# boucle infinie !
 
 
 # if/break

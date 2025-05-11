@@ -22,6 +22,11 @@ discard()	 	Remove the specified item
 
 ### intersection()	&	Returns a set, that is the intersection of two other sets
 
+a = {1, 2, 3, 4, 5, 6}
+b = {2, 6}
+print(a.intersection(b))
+# {2, 6}
+
 
 intersection_update()	&=	Removes the items in this set that are not present in other, specified set(s)
 isdisjoint()	 	Returns whether two sets have a intersection or not

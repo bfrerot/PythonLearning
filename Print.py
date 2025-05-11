@@ -172,6 +172,11 @@ print("My", "name", "is", sep="_", end="*")
 print("Monty", "Python.", sep="*", end="*\n")
 My_name_is*Monty*Python.*
 
+# sep=None = DEFAULT soit " "
+print("Hello","World",sep=None)
+A. Hello World
+
+
 
 # jeu de fleches avec print
 # Sample Solution

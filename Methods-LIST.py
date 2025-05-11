@@ -31,6 +31,13 @@ spam.append('moose')
 print (spam)
 # ['cat', 'dog', 'bat', 'moose']
 
+groceries_list1 = ["Milk", "Cheese"]
+groceries_list2 = ["Bread", "Butter"]
+groceries_list1.append(groceries_list2)
+print(groceries_list1)
+['Milk', 'Cheese', ['Bread', 'Butter']] # append une list PAS les elements
+# si on veut ajouter les éléments d'une liste indépendamment, il faut utiliser .extend()
+
 
 ## .clear()
 # supprime tous les éléments d'une liste
@@ -77,6 +84,12 @@ cars = ['Ford', 'BMW', 'Volvo']
 fruits.extend(cars)
 print(fruits)
 # ['apple', 'banana', 'cherry', 'Ford', 'BMW', 'Volvo']
+
+# MAIS NE RENVOIE PAS DE VALEUR
+ones = [1, 11, 111]
+ones_again = ones.extend([11, 111])
+print(ones_again)  # Affiche : None
+print(ones)         # Affiche : [1, 11, 111, 11, 111]
 
 
 ## .index()
