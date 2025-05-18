@@ -249,6 +249,15 @@ x = float(3)
 print(x)
 # 3.0
 
+print (float("1, 3"))
+# ValueError: could not convert string to float: '1,3'
+# float() attend un point . de séparation PAS une virgule ,
+print (float("1.3"))
+# ou
+z = float("1,3".replace(",", "."))
+print(z)
+# on pourra ajouter un input.replace à la place
+
 
 ### format()	# Formats a specified value
 

@@ -257,10 +257,10 @@ print (a)
 
 
 #shortcup operator
-x=x*2 = x*=2
-x=x/2 = x/=2
-b=b+10 = b+=10
-i=i+2*x = i+=2*x
+x=x*2 # = x*=2
+x=x/2 # = x/=2
+b=b+10 # = b+=10
+i=i+2*x # = i+=2*x
 
 
 # assigner variable --> commence par une lettre / pas d'espace / pas de caractere "special"
@@ -274,10 +274,10 @@ print (my_taxes)
 # pour interroger sur le type d'une variable, ici int ou float
 a = 10
 type(a) 
-<type 'int'>
+# <type 'int'>
 a =3.1
 print (type(a))
-<type 'float'>
+# <type 'float'>
 
 
 # exposant
@@ -289,16 +289,17 @@ print(0.0000000000000000000001)
 
 v=2e400
 print (v)
-inf # si la valeur est trop grande Python simplifie en l'infini
-print type(v)
-<class 'float'> # une int avec un exposant est une float
+# inf # si la valeur est trop grande Python simplifie en l'infini
+print(type(v))
+# <class 'float'> # une int avec un exposant est une float
 
 
 
 # float() error
 
 print (float("1, 3"))
-ValueError: could not convert string to float:
+# ValueError: could not convert string to float:
+# il faut remplacer la virgule par un point
 
 
 # octal & hexa values
@@ -325,35 +326,35 @@ n = 7.126
 print (f"The value of n is {n:.2f}")
 n = 7.1
 print (f"The value of n is {n:.2f}") # on force à 2 chiffres après la virgule, quite à rajouter des 0
-The value of n is 7.1 # ! devrait etre 7.12
-The value of n is 7.13
-The value of n is 7.10
+# The value of n is 7.1 # ! devrait etre 7.12
+# The value of n is 7.13
+# The value of n is 7.10
 
 # on peut aussi formatter les nombres
 n = 1234567890
 print (f"The value of n is {n:,}")
-The value of n is 1,234,567,890
+# The value of n is 1,234,567,890
 print (f"The value of n is {n:_}")
-The value of n is 1_234_567_890
+# The value of n is 1_234_567_890
 
 n = 1234.56
 print (f"The value of n is {n:,.2f}")
-The value of n is 1,234.56
+# The value of n is 1,234.56
 
 n=150000
 print (f"The value of n is {n:_.2f}")
-The value of n is 150_000.00
+# The value of n is 150_000.00
 
 # on peut aussi deduire un pourcentage à partir d'un ratio
 ratio = 0.9
 print (f"Over {ratio:.1%} of Pythonistas say 'Real Python rocks!'")
 print (f"Over {ratio:.2%} of Pythonistas say 'Real Python rocks!'")
-Over 90.0% of Pythonistas say 'Real Python rocks!'
-Over 90.00% of Pythonistas say 'Real Python rocks!'
+# Over 90.0% of Pythonistas say 'Real Python rocks!'
+# Over 90.00% of Pythonistas say 'Real Python rocks!'
 
 n=(2/10)
 print (f"The value of n is {n:.0%}")
-The value of n is 20%
+# The value of n is 20%
 
 
 # options complex numbers

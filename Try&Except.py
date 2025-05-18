@@ -17,6 +17,11 @@
 BaseException # = any error source tree
 
 
+ValueError # with values which may be inappropriately used in some context
+short_list = [1]
+one_value = short_list[0.5]
+
+
 ZeroDivisionError # you cannot divide by 0
 # BaseException ← Exception ← ArithmeticError ← ZeroDivisionErro
 # si on essaie  de mettre 0 en diviseur avec /, //, ou %
@@ -300,25 +305,3 @@ Traceback (most recent call last):
   File "main.py", line 4, in <module>
     assert x >= 2.0
 AssertionError
-
-
-
-#### lab ####
-
-def readint(prompt, min, max):
-    ok = True
-    while not ok:
-        try:
-            value = int(input(prompt))
-            ok = False
-        except ValueError:
-            print("Error: wrong input")
-        if ok:
-            ok = value >= min and value <= max
-        if not ok:
-            print("Error: the value is not within permitted range (" + str(min) + ".." + str(max) + ")")
-    return value;
-
-v = readint("Enter a number from -10 to 10: ", -10, 10)
-
-print("The number is:", v)

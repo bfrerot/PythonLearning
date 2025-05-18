@@ -1,7 +1,7 @@
 # calcul heure de fin reunion
 hour = int(input("Starting time (hours): "))
 mins = int(input("Starting time (minutes): "))
-dura = int(input("Event duration (minutes): "))
+dura = (input("Event duration (minutes): "))
 hourinmin = hour* 60
 newhourinmin = hourinmin + mins + dura
 newmin = newhourinmin % 60

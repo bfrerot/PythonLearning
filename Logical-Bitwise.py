@@ -1,35 +1,7 @@
-##########   Logical Operations in Python
-
-# Logical operations work with boolean values (True and False). 
-# The main logical operators in Python are:
+##########   Logical Bitwise
 
 
-###  and (Logical AND)
-# Returns True if both operands are True.Otherwise, returns False.
-
-print(True and True)   # True
-print(True and False)  # False
-print(False and False) # False
-
-
-### or (Logical OR)
-# Returns True if at least one operand is True. Returns False only if both operands are False.
-
-print(True or False)   # True
-print(False or False)  # False
-print(True or True)    # True
-
-
-### not (Logical NOT)
-# Reverses the boolean value.
-
-print(not True)  # False
-print(not False) # True
-
-
-
-########## Bitwise Operations in Python
-
+# Bitwise Operations in Python
 # Bitwise operations work at the bit level (binary representation of numbers).
 
 

@@ -67,13 +67,14 @@ print("    *\n   * *\n  *   *\n *     *\n***   ***\n  *   *\n  *   *\n  *****")
 #  *****
 
 print("\"I'm\"\n\"\"learning\"\"\n\"\"\"Python\"\"\"")
-"I'm"
-""learning""
-"""Python"""
+# "I'm"
+# ""learning""
+# """Python"""
 
-------- STRING FORMATING for PRINTING -------
 
-print() function
+########## STRING FORMATING for PRINTING ##########
+
+print()
 
 #1. The print() function is a built-in function. It prints/outputs a specified message to the screen/consol window.
 
@@ -103,58 +104,56 @@ print() function
 #   whereas the end parameter specifies what to print at the end of the print statement.
 
 
->>> print 'this is a string'
-this is a string
->>> s='string'
->>> print s # ne marche pas en python 3
-string
+print('this is a string')
+# this is a string
+s='string'
+print(s) 
+# string
+
 
 print("The itsy bitsy spider climbed up the waterspout.")
 print() # --> pour sauter une ligne
 print("Down came the rain and washed the spider out.")
-The itsy bitsy spider climbed up the waterspout.
-
-Down came the rain and washed the spider out.
+# The itsy bitsy spider climbed up the waterspout.
+#
+# Down came the rain and washed the spider out.
 
 
 print("The itsy bitsy spider\nlimbed up the waterspout.")  # --> \n renvoie à la ligne, qu'il soit suivi de data ou pas
 print()
 print("Down came the rain\nand washed the spider out.")
-The itsy bitsy spider
-limbed up the waterspout.
- 
-Down came the rain
-and washed the spider out.
+# The itsy bitsy spider
+# limbed up the waterspout.
+# 
+# Down came the rain
+# and washed the spider out.
 
-OU
+# OU
 
 print("The itsy bitsy spider\n")
 print()
 print("Down came the rain\n")
-The itsy bitsy spider
- 
- 
-Down came the rain
+# The itsy bitsy spider
+# 
+# Down came the rain
  
 print (r"i love \\\")
-#le r avant le "string" indique un raw string donc ignore tous les escape characterisés
-i love \\\
+# le r avant le "string" indique un raw string donc ignore tous les escape characterisés
+# i love \\\
 
 
 # " and '
 
 print("Homer don't care")
-Homer don't care
+# Homer don't care
 
 print('Homer don't care')
-...
-SyntaxError: invalid syntax
-
+# SyntaxError: invalid syntax
 
 # end="" --> is undercover like end="\n", donc la on force python a changer son comportement par defaut
 print("My name is", "Python.", end=" ") 
 print("Monty Python.")
-My name is Python. Monty Python.
+# My name is Python. Monty Python.
 
 for digit in "0165031806510":
     if digit == "0":
@@ -542,5 +541,5 @@ Traceback (most recent call last):
 TypeError: must be str, not int 
 
 
-print ("j'aime" , "" , 2 ,"" , "femmes") # contourne l impossibilite de concatener directement (+) des strings avec des int
-j'aime  2  femmes
+print ("j'aime" , "" , 2 ,"" , "films") # contourne l impossibilite de concatener directement (+) des strings avec des int
+# j'aime  2  films
