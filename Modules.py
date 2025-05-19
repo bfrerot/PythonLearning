@@ -1,15 +1,18 @@
-# python general index
+########## MODULES ##########
+
+
+
+### python general index
 
 https://docs.python.org/3/py-modindex.html
 
 
-# main/name
+### main/name
+# when you run a file directly, its __name__ variable is set to __main__;
+# when a file is imported as a module, its __name__ variable is set to the file's name (excluding .py)
 
-##when you run a file directly, its __name__ variable is set to __main__;
-##when a file is imported as a module, its __name__ variable is set to the file's name (excluding .py)
 
-
-# import module to be able to use it, one or many at a time
+### import module to be able to use it, one or many at a time
 
 import <module1>, <module2>, <modulex>
 import math
@@ -18,27 +21,68 @@ import math, random
 from math import * # importe toutes les entities / difference avec import math ??
 
 
-# namespace
+### namespace
 
-##each name must be unique by namespace
-##ex math.sin = sine from module math VS sin = variable defined by coder
+## Inside a certain namespace, each name must remain unique
+# Si on compare aux prénoms:
+#   dans un namespace, les prenoms sont uniques ex FREROT.benoit
+#   les prénoms peuvent etre dupliqués entre différents namespace ex FREROT.benoit GEFFROY.benoit DUMAS.benoit
+#   les prénoms pevent oujours exister comme variable dans le code général, sans etre confondu
 
+# variable
+import math
+sin = 10
+x=45
+print(math.sin(x)) # on invoque une method du module math = MATH.sin
+# 0.8509035245341184
 
-# on peut importer juste une entity + PAS BESOIN de qualifier (nommer) le module por s'en servir
+# function
+import math
+def sin(x):
+    if 2 * x == pi:
+        return 0.99999999
+    else:
+        return None
+pi = 3.14
+print(sin(pi/2))
+print(math.sin(math.pi/2))
+# 0.99999999
+# 1.0
 
+# On peut importer juste une entity + PAS BESOIN de qualifier (nommer) le module pour s'en servir
 from math import pi
-print (pi/2)
+from math import sin, pi
+print(sin(pi/2)) # et non pas print(math.sin(math.pi/2))
+# 1.0
+
+# MAIS, si on réutilise les keywords pour définir une variable/function/etc, alors ces derniers écrasent les keywords importés
+from math import sin, pi
+print(sin(pi / 2))
+# 1.0
+pi = 3.14 # défini après écrase le math.pi importé individuellement
+def sin(x): # écrase le math.sin importé individuellement
+    if 2 * x == pi:
+        return 0.99999999
+    else:
+        return None
+print(sin(pi / 2))
+# 0.99999999
+
+# ET INVERSEMENT
+pi = 3.14
+def sin(x):
+    if 2 * x == pi:
+        return 0.99999999
+    else:
+        return None
+print(sin(pi / 2))
+0.99999999
+from math import sin, pi
+print(sin(pi / 2))
+# 1.0
+
 
  
-# Meme apres import, les valeurs definis dans le module ne rentrent pas en conflit
-# avec les valeurs du meme nom (variables, functions) contenues dans le code existant
-
-import math
-sin = "sin"
-pi = "pi"
-print(math.sin(math.pi/2))
-1.0
-
 
 # import VS def
 
