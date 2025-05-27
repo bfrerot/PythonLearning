@@ -50,6 +50,10 @@ print(math.sin(math.pi/2))
 # 0.99999999
 # 1.0
 
+
+
+### IMPORT ###
+
 # On peut importer juste une entity + PAS BESOIN de qualifier (nommer) le module pour s'en servir
 from math import pi
 from math import sin, pi
@@ -87,7 +91,7 @@ from math import * # * veut dire TOUT par défaut
 # pas recommandé
  
 
-### aliasing : is giving any module and/or entity a name we prefer 
+## aliasing : is giving any module and/or entity a name we prefer 
 # or to avoid same names in the code even it coexists
 
 import math as boringstuff
@@ -102,7 +106,7 @@ from math import pi as P
 # from module import n as a, m as b, o as c
   
 
-### __pycache__/[modulename].cpython-[verMverm]
+## __pycache__/[modulename].cpython-[verMverm]
 # dans un dossier on place un module.py et un main.py
 # lorsque module.py est importé dans main.py, cela engendre:
 #   la création d'un répertoire __pycache__
@@ -138,11 +142,56 @@ print(module.addition(4, 4))
 # 8
 
 
+
+### PATH ###
 ### si les fichiers module et main sont dans des répertoires différents il faudra amender le PATH
 # voir en fonction du besoin, OS, etc
 
+#| Méthode                            | Fonctionne tout le temps ? | Explication                    |
+#| ---------------------------------- | -------------------------- | ------------------------------ |
+#| `path.append('../packages')`       | ❌ Non                      | Dépend du dossier d'exécution  |
+#| `path.append('C:/chemin/complet')` | ✅ Oui                      | Mais pas portable              |
+#| `path.append(...) via __file__`    | ✅ Oui                      | Recommandée et multiplateforme |
 
-# dir("module")
+
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'packages')))
+
+!# Problem: je n'arrive pas à tester positivement l'insertion d'un zipfile dans le path
+
+
+#Python considère un dossier comme un package seulement s’il contient un fichier __init__.py 
+#(même vide).
+#Si un dossier n’a pas ce fichier, Python ne peut pas l’interpréter comme un package Python, 
+#donc il ne pourra pas importer les modules contenus dans ce dossier.
+
+#Si on veut importer extra.good.best.sigma, alors les dossiers suivants 
+#doivent contenir un __init__.py :
+
+#packages/
+#├── extra/
+#│   ├── __init__.py     ← Obligatoire ici
+#│   ├── iota.py
+#│   ├── good/
+#│       ├── __init__.py ← Obligatoire ici aussi
+#│       ├── best/
+#│           ├── __init__.py ← Obligatoire aussi
+#│           ├── sigma.py
+#│           ├── tau.py
+#Sans l’un de ces fichiers, l’import import extra.good.best.sigma va planter, 
+#car Python ne pourra pas "traverser" ces dossiers comme packages.
+
+#Depuis Python 3.3, il existe les namespace packages qui peuvent fonctionner 
+#sans __init__.py en théorie.
+#Mais dans la pratique, surtout si on manipule des chemins personnalisés (comme avec sys.path.append),
+#ça peut poser problème.
+#Il vaut mieux mettre ces fichiers __init__.py pour garantir la compatibilité 
+#et éviter les erreurs d’import.
+
+
+
+### dir("module")
 
 ## when WHOLE MODULE IS IMPORTED we can dir() it to know all functions contained in the module
 ## use alias if module has been aliased
