@@ -1,4 +1,4 @@
-from random import random
+import platform
 
-for i in range(5):
-    print(random())
+x = platform.system()
+print(x)

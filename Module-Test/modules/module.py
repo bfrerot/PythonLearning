@@ -1,6 +1,6 @@
 #!/usr/bin/env python3 
 
-"" module.py - an example of a Python module ""
+# module.py - an example of a Python module #
 
 __counter = 0
 
@@ -28,3 +28,4 @@ if __name__ == "__main__":
   my_list = [i+1 for i in range(5)]
   print(suml(my_list) == 15)
   print(prodl(my_list) == 120)
+  

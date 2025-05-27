@@ -1,6 +1,7 @@
 ########## MODULES ##########
 
 
+# Packages contain Modules which contain functions/variables
 
 ### python general index
 
@@ -113,13 +114,32 @@ from math import pi as P
 # Lorsqu'un module est importé, il est implicitement exécuté
 # Cela explique que les fonctions soient créées, des variables etc
 
-# un module ne sera importé qu'une seule fois, meme si plusieurs instructions
-# d'import du meme module
+# un module ne sera importé qu'une seule fois, meme si plusieurs instructions d'import du meme module
 
 # when you run a file directly, its __name__ variable is set to __main__
 # when a file is imported as a module, its __name__ variable is set to the file's name (excluding .py)
+# __name__ == '__main__' permet d’écrire du code qui ne s’exécute que si le fichier est lancé directement, et pas quand il est importé
+
+# exemple
+# module= outil.py
+def addition(a, b):
+    return a + b
+if __name__ == "__main__":
+    print("Outil chargé.")
+    print("Test : 2 + 3 =", addition(2, 3))
+# si on veut le tester/executer:
+# Outil chargé.
+# Test : 2 + 3 = 5
+
+# mais si on l'importe, o , ne veut pas à chaque fois avoir l'information "outil chargé"
+import module
+print(module.addition(4, 4))
+# on execute et on aura pas le message inutile
+# 8
 
 
+### si les fichiers module et main sont dans des répertoires différents il faudra amender le PATH
+# voir en fonction du besoin, OS, etc
 
 
 # dir("module")
