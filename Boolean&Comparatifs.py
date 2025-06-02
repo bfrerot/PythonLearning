@@ -68,6 +68,28 @@ print ("ali" < "alo")
 True
 print ("abb" < "ada")
 True
+print ('alpha' < 'alphabet')
+True # longer = bigger
+print ('beta' > 'Beta')
+True # b = 98 vs B = 66
+print('10' > '010')
+True # 1 = 49 vs 0 = 48
+print('10' > '8')
+# False
+print('20' < '8')
+# True
+print('10' == 10)
+# False
+print('10' != 10)
+# True
+print('10' == 1)
+# False
+print('10' != 1)
+# True
+print('10' > 10)
+# TypeError: '>' not supported between instances of 'str' and 'int'
+
+
 
 
 ### pour comparer une variable à une valeur

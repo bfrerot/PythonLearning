@@ -1,4 +1,4 @@
-########## STRINGS #########
+########## STRINGS ##########
 
 ## Immutability: on ne peut changer les itérations d'un string ex Paris --> Karis 
 name = "Paris"
@@ -134,7 +134,7 @@ s[::2] # affiche tout mais saute 1 sur 2 caracteres
 # hlo
 s[::-1] # affiche tout mais à l'envers
 # olleh
-s[::-2] # affiche tout mais à l'envers
+s[::-2] # affiche 1 character sur 2 mais à l'envers
 # olh
 
 
@@ -203,3 +203,10 @@ print(b)
 #     a, b, c, d = fruits
 #     ^^^^^^^^^^
 # ValueError: not enough values to unpack (expected 4, got 3)
+
+
+## List à partir d'une string
+
+first_greek_3 = sorted('omega')
+print(first_greek_3)
+# ['a', 'e', 'g', 'm', 'o']

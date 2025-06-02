@@ -114,6 +114,7 @@ print(callable(len))  # True (len est une fonction intégrée, donc appelable)
 
 ### chr()
 # Returns a character from the specified Unicode code.
+# Invoking it with an invalid argument (e.g., a negative or invalid code point) causes ValueError or TypeError exceptions
 
 x = chr(97)
 print (x)
@@ -650,6 +651,15 @@ mylist = ["apple", "orange", "cherry"]
 x = len(mylist)
 print(x)
 # 3
+
+i_am = 'I\'m'
+print(len(i_am))
+# 3
+
+multiline = '''Line #1
+Line #2'''
+print(len(multiline))
+# 15 car compte un espace entre 1 et L, \n = 1 character
 
 
 ### list()	# Returns a list

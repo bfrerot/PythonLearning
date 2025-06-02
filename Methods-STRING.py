@@ -37,6 +37,13 @@ print(x)
 print('Hello'.center(20, '='))
 # =======Hello======== # on voit que si besoin le mot va deborder a gauche (mot impair)
 
+print('[' + 'Beta'.center(2) + ']')
+print('[' + 'Beta'.center(4) + ']')
+print('[' + 'Beta'.center(6) + ']')
+# [Beta]
+# [Beta]
+# [ Beta ]
+
 
 ## .count()	# Returns the number of times a specified value occurs in a string
 
@@ -96,6 +103,28 @@ print("Etata".find("ta"))
 # -1 # Si la sous-chaîne n'existe pas, elle renvoie -1.
 # 1
 
+print('kappa'.find('a', 2))
+# on commence à chercher à partir du 2ème élément
+# 4
+
+# autre exemple
+the_text = """A variation of the ordinary lorem ipsum
+text has been used in typesetting since the 1960s 
+or earlier, when it was popularized by advertisements 
+for Letraset transfer sheets. It was introduced to 
+the Information Age in the mid-1980s by the Aldus Corporation, 
+which employed it in graphics and word-processing templates
+for its desktop publishing program PageMaker (from Wikipedia)"""
+fnd = the_text.find('the')
+while fnd != -1:
+    print(fnd)
+    fnd = the_text.find('the', fnd + 1)
+# 15
+# 80
+# 198
+# 221
+# 238
+
 
 ### .format()	# Formats specified values in a string
 
@@ -116,6 +145,7 @@ print(text.format_map(data))
 
 
 ### .index()	# Searches the string for a specified value and returns the position of where it was found
+# the element searched for must occur in the sequence – its absence will cause a ValueError exception
 
 txt = "Hello, welcome to my world."
 x = txt.index("w") # avec une lettre, prendra en compte la premiere occurence de la lettre presente dans le string
@@ -332,9 +362,15 @@ print (s)
 
 ### .lstrip()	# Returns a left trim version of the string
 
+# La méthode .lstrip() sans argument supprime les espaces et autres caractères blancs
+# uniquement au début (left strip) de la chaîne.
 spam = '    Hello World    ' 
 print (spam.lstrip())
-# Hello World    #
+# Hello World    # 
+
+#lstrip("xyz") supprime tous les caractères x y et z du début de la chaîne 
+print("www.cisco.com".lstrip("w."))  
+# cisco.com # supprime les w et les .
 
 
 ### .maketrans()	# Returns a translation table to be used in translations
@@ -370,11 +406,21 @@ print (var1,"rounded to 2 decimals places is",var2)
 # Enter a number: 2,456
 # 2.456 rounded to 2 decimals places is 2.46
 
+# the three-parameter replace() variant uses the third argument (a number) to limit the number of replacements
+print("This is it!".replace("is", "are", 1))
+# Thare is it!
+print("This is it!".replace("is", "are", 2))
+# Thare are it!
+
 
 ### .rfind()	# Searches the string for a specified value and returns the LAST position of where it was found
 
 print("tau tau tau".rfind("ta"))
 # 8
+print("tau tau tau".rfind("ta", 9))
+# -1
+print("tau tau tau".rfind("ta", 3, 9))
+# 4
 
 print("Welcome to my world.".rfind("e", 5, 10))
 # Cherche la dernière occurrence de la sous-chaîne "e" entre les indices 5 (start) et 10 (end exclusif, donc 9).
@@ -434,6 +480,12 @@ print (spam.rstrip())
 print('MyABCnameABCisABCSimon'.split('ABC'))
 # ['My', 'name', 'is', 'Simon']
 
+print("phi       chi\npsi")
+# phi       chi
+# psi
+print("phi       chi\npsi".split())
+# ['phi', 'chi', 'psi']
+
 
 ### .splitlines()	# Splits the string at line breaks and returns a list
 
@@ -452,7 +504,8 @@ print("omega".startswith("om"))
 
 
 ### .strip()	# Returns a trimmed version of the string
-
+# The strip() method combines the effects caused by rstrip() and lstrip() 
+# – it makes a new string lacking all the leading and trailing whitespaces
 spam = '    Hello World    ' 
 print (spam.strip())
 # Hello World#

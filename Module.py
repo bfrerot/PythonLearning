@@ -153,12 +153,15 @@ print(module.addition(4, 4))
 #| `path.append('C:/chemin/complet')` | ✅ Oui                      | Mais pas portable              |
 #| `path.append(...) via __file__`    | ✅ Oui                      | Recommandée et multiplateforme |
 
-
+# import depuis le main.py SI le module/package n'est pas dans le meme dossier ni dans un dossier PATH par défaut
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'packages')))
-
-!# Problem: je n'arrive pas à tester positivement l'insertion d'un zipfile dans le path
+# si zipfile
+import sys
+import os
+zip_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'packages', 'extrapack.zip'))
+sys.path.append(zip_path)
 
 
 #Python considère un dossier comme un package seulement s’il contient un fichier __init__.py 
@@ -203,7 +206,12 @@ print(dir(math))
  'gcd', 'hypot', 'inf', 'isclose', 'isfinite', 'isinf', 'isnan', 'ldexp', 'lgamma', 'log', 'log10',
  'log1p', 'log2', 'modf', 'nan', 'pi', 'pow', 'radians', 'sin', 'sinh', 'sqrt', 'tan', 'tanh', 'tau',
   'trunc']
- 
+
+
+
+
+
+############ SOME WELL KNOWN MODULES - to be continued separately #############
  
 # Useful function group in math
  
