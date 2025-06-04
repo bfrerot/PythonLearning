@@ -1,0 +1,60 @@
+graph TD
+    A[BaseException] --> B[SystemExit]
+    A --> C[KeyboardInterrupt]
+    A --> D[GeneratorExit]
+    A --> E[Exception]
+    
+    E --> F[ArithmeticError]
+    F --> F1[ZeroDivisionError]
+    F --> F2[OverflowError]
+    F --> F3[FloatingPointError]
+    
+    E --> G[LookupError]
+    G --> G1[IndexError]
+    G --> G2[KeyError]
+    
+    E --> H[OSError]
+    H --> H1[FileNotFoundError]
+    H --> H2[PermissionError]
+    H --> H3[FileExistsError]
+    H --> H4[IsADirectoryError]
+    H --> H5[ConnectionError]
+    
+    E --> I[RuntimeError]
+    I --> I1[RecursionError]
+    I --> I2[NotImplementedError]
+    
+    E --> J[TypeError]
+    E --> K[ValueError]
+    K --> K1[UnicodeError]
+    K1 --> K1a[UnicodeDecodeError]
+    K1 --> K1b[UnicodeEncodeError]
+    
+    E --> L[AttributeError]
+    E --> M[NameError]
+    M --> M1[UnboundLocalError]
+    
+    E --> N[ImportError]
+    N --> N1[ModuleNotFoundError]
+    
+    E --> O[SyntaxError]
+    O --> O1[IndentationError]
+    O1 --> O1a[TabError]
+    
+    E --> P[AssertionError]
+    E --> Q[EOFError]
+    E --> R[StopIteration]
+    E --> S[MemoryError]
+    E --> T[Warning]
+    T --> T1[UserWarning]
+    T --> T2[DeprecationWarning]
+    T --> T3[SyntaxWarning]
+    T --> T4[RuntimeWarning]
+    
+    style A fill:#ff6b6b,stroke:#333,stroke-width:3px
+    style E fill:#4ecdc4,stroke:#333,stroke-width:2px
+    style F fill:#ffe66d,stroke:#333,stroke-width:1px
+    style G fill:#ffe66d,stroke:#333,stroke-width:1px
+    style H fill:#ffe66d,stroke:#333,stroke-width:1px
+    style I fill:#ffe66d,stroke:#333,stroke-width:1px
+    style T fill:#a8e6cf,stroke:#333,stroke-width:1px

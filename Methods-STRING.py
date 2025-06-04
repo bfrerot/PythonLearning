@@ -175,6 +175,8 @@ print(''.isalnum())
 
 
 ### .isalpha()	# Returns True if all characters in the string are in the ALPHABET
+# SPACE is not an alphabetic character
+
 
 print("Moooo".isalpha())
 print('Mu40'.isalpha())

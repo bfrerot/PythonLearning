@@ -1,9 +1,12 @@
-s1 = '12.8'
-i = int(s1)
-s2 = str(i)
-f = float(s2)
-print(s1 == s2)
+import sys
+import numpy as np
+
+MA = np.array([
+#    0. 1. 2
+    [1, 2, 3], # 0
+    [4, 5, 6], # 1
+    [7, 8, 9]  # 2
+])
 
 
- 
-   
+print(MA[:2, 2:])

@@ -417,7 +417,7 @@ class list(object)
  |      Extend list by appending elements from the iterable.
  |  
  |  index(self, value, start=0, stop=9223372036854775807, /)
- |      Return first index of value.
+ |      Return first   of value.
  |      
  |      Raises ValueError if the value is not present.
  |  
