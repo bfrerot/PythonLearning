@@ -1,12 +1,24 @@
-import sys
-import numpy as np
+class Stack:
+    def __init__(self):
+        self.__stack_list = []
 
-MA = np.array([
-#    0. 1. 2
-    [1, 2, 3], # 0
-    [4, 5, 6], # 1
-    [7, 8, 9]  # 2
-])
+    def push(self, val):
+        self.__stack_list.append(val)
+
+    def pop(self):
+        val = self.__stack_list[-1]
+        del self.__stack_list[-1]
+        return val
 
 
-print(MA[:2, 2:])
+little_stack = Stack() # = []
+another_stack = Stack() # = []
+funny_stack = Stack() # = []
+
+little_stack.push(1) # = [1]
+another_stack.push(little_stack.pop() + 1)  # = [2]
+funny_stack.push(another_stack.pop() - 2)  # = [0]
+
+print(funny_stack.pop())
+# 0
+
