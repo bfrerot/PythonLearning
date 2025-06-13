@@ -129,7 +129,8 @@ class Stack:
 
 stack_object = Stack()
 print(len(stack_object.__stack_list))
-AttributeError: 'Stack' object has no attribute '__stack_list'    
+# AttributeError: 'Stack' object has no attribute '__stack_list'  
+  
 # When any class component has a name starting with two underscores (__), it becomes private 
 # this means that it can be accessed ONLY FROM WITHIN the class.
 

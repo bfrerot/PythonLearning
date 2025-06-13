@@ -1,24 +1,28 @@
-class Stack:
-    def __init__(self):
-        self.__stack_list = []
+import numpy as np
 
-    def push(self, val):
-        self.__stack_list.append(val)
+A = np.array([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+])
 
-    def pop(self):
-        val = self.__stack_list[-1]
-        del self.__stack_list[-1]
-        return val
+B = np.array([
+    [6, 5],
+    [4, 3],
+    [2, 1]
+])
 
+print(B.T @ A)
+[[6, 4, 2]
+ [5, 3, 1]]
 
-little_stack = Stack() # = []
-another_stack = Stack() # = []
-funny_stack = Stack() # = []
+6*1 +4*4 + 2*7 = 36
+6*2 + 4*5 + 2*8 = 48
+6*3 + 4*6 + 2*9 = 60
 
-little_stack.push(1) # = [1]
-another_stack.push(little_stack.pop() + 1)  # = [2]
-funny_stack.push(another_stack.pop() - 2)  # = [0]
+5*1 + 3*4 + 1*7 = 24
+5*2 + 3*5 + 1*8 = 33
+5*3 + 3*6 + 1*9 = 42
 
-print(funny_stack.pop())
-# 0
-
+[[36, 48 , 60]
+  [24, 33, 42]]
