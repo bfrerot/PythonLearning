@@ -357,10 +357,6 @@ print(B.T @ A)
 
 
 
-
-
-
-
 2. Performance optimisée
 
 

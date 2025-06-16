@@ -96,12 +96,15 @@ print(pop())
 
 # we have to install a list inside each object of the class
 # we want the list to be hidden from the class users' sight
-# we have to add a specific statement or instruction. The properties have to be added to the class manually
+# we have to add a specific statement or instruction. 
+# The properties have to be added to the class manually
 # we will equip the class with a specific function – its specificity is dual:
 #   it has to be named in a strict way
 #   it is invoked implicitly, when the new object is created.
 # Such a function is called a constructor, as its general purpose is to construct a new object. 
-# The constructor should know everything about the object's structure, and must perform all the needed initializations.
+# The constructor should know everything about the object's structure, 
+# and must perform all the needed initializations.
+
 class Stack:
     def __init__ (self):
         print("Hi!")
@@ -113,12 +116,12 @@ class Stack:
     def __init__(self):
         self.name = [1,2]
 
-
 stack_object = Stack()
 print(len(stack_object.name))
 2
-# we've used dot notation, just like when invoking methods; this is the general convention for accessing an object's properties
-# we need to name the object, put a dot (.) after it, and specify the desired property's name; 
+# we've used dot notation, just like when invoking methods; this is the general convention
+# for accessing an object's properties
+# we need to name the object, put a dot (.) after it, and specify the desired property's name
 # we don't use parentheses! we do not invoke a method but a property;
 
 ## __
@@ -160,6 +163,57 @@ print(stack_object.pop())
 2
 print(stack_object.pop())
 3
+
+# IF we start functions names by 2*_ or more, we have a problem, as explained above
+class Stack:
+    def __init__(self):
+        self.__stack_list = []
+
+    def __push(self, val):
+        self.__stack_list.append(val)
+
+    def __pop(self):
+        val = self.__stack_list[-1]
+        del self.__stack_list[-1]
+        return val
+
+stack_object = Stack()
+
+stack_object.__push(3) # stack_object = [3]
+stack_object.__push(2) # stack_object = [3,2]
+stack_object.__push(1) # stack_object = [3,2,1]
+
+print(stack_object.__pop())
+print(stack_object.__pop())
+print(stack_object.__pop())
+# AttributeError: 'Stack' object has no attribute 'push'
+
+# 1*_ is ok
+class Stack:
+    def __init__(self):
+        self.__stack_list = []
+
+    def _push(self, val):
+        self.__stack_list.append(val)
+
+    def _pop(self):
+        val = self.__stack_list[-1]
+        del self.__stack_list[-1]
+        return val
+
+stack_object = Stack()
+
+stack_object._push(3) # stack_object = [3]
+stack_object._push(2) # stack_object = [3,2]
+stack_object._push(1) # stack_object = [3,2,1]
+
+print(stack_object._pop())
+print(stack_object._pop())
+print(stack_object._pop())
+1
+2
+3
+
 # Here, both functions have a parameter named "self" at the first position of the parameters list
 # it is NEEDED
 # All methods have to have this parameter. It plays the same role as the first constructor parameter

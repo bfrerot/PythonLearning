@@ -1,28 +1,40 @@
-import numpy as np
+class Stack:
+    def __init__(self):
+        self.__stack_list = []
 
-A = np.array([
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-])
+    def push(self, val):
+        self.__stack_list.append(val)
 
-B = np.array([
-    [6, 5],
-    [4, 3],
-    [2, 1]
-])
+    def pop(self):
+        value = self.__stack_list[-1]
+        del self.__stack_list[-1]
+        return value
 
-print(B.T @ A)
-[[6, 4, 2]
- [5, 3, 1]]
 
-6*1 +4*4 + 2*7 = 36
-6*2 + 4*5 + 2*8 = 48
-6*3 + 4*6 + 2*9 = 60
+class AddingStack(Stack):
+    def __init__(self):
+        Stack.__init__(self)
+        self.__sum = 0
 
-5*1 + 3*4 + 1*7 = 24
-5*2 + 3*5 + 1*8 = 33
-5*3 + 3*6 + 1*9 = 42
+    def get_sum(self):
+        return self.__sum
 
-[[36, 48 , 60]
-  [24, 33, 42]]
+    def push(self, val):
+        self.__sum += val
+        Stack.push(self, val)
+
+    def pop(self):
+        val = Stack.pop(self)
+        self.__sum -= val
+        return val
+
+
+stack_object = AddingStack()
+
+for i in range(5):
+    stack_object.push(i)
+print(stack_object.get_sum())
+
+for i in range(5):
+    print(stack_object.pop())
+    

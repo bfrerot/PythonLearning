@@ -39,3 +39,45 @@ https://numpy.org/doc/stable/user/whatisnumpy.html
 
 # Rappel on peut stocker par nombre de bits --> n^2 possibilités
 
+# An integer in Python is > 24bytes
+import sys
+print(sys.getsizeof(1)) 
+# 28
+print(sys.getsizeof(10**100)) 
+# 72
+
+# Lists are even larger
+print(sys.getsizeof([1]))
+# 64
+
+# Performance is not the best 
+import time
+l = list(range(100000))
+start = time.time()
+result = sum([x ** 2 for x in l])
+end = time.time()
+print(f"Result: {result}")
+print(f"Time taken: {end - start:.6f} seconds")
+# Result: 333328333350000
+# Time taken: 0.014646 seconds
+
+# Numpy size is much smaller
+import numpy as np
+print(np.dtype(int).itemsize)
+# 8
+print(np.dtype(np.int8).itemsize)
+# 1
+print(np.array([1]).nbytes)
+# 8
+
+# Numpy offers more performance
+import numpy as np
+import time
+a = np.arange(100000)
+start = time.time()
+result = np.sum(a ** 2)
+end = time.time()
+print(f"Result: {result}")
+print(f"Time taken: {end - start:.6f} seconds")
+# Result: 333328333350000
+# Time taken: 0.001936 seconds
