@@ -268,3 +268,64 @@ funny_stack.push(another_stack.pop() - 2)  # = [0]
 
 print(funny_stack.pop())
 # 0
+
+
+### EXEMPLE SUPERCLASS//CLASS
+
+class Stack:
+    def __init__(self):
+        self._stack_list = [] # crée une list vide
+        
+    def get_list(self):
+        return self._stack_list
+        
+    def push(self, val):
+        self._stack_list.append(val) # crée une fonction qui ajout une val à la fin de la list
+        return self._stack_list      # return la value
+
+    def pop(self):
+        value = self._stack_list[-1] # crée une fonction qui delete le dernier elem de la list 
+        del self._stack_list[-1]     # et renvoie la valeur de l'elm poppé
+        return value
+
+
+class AddingStack(Stack):
+    def __init__(self):
+        Stack.__init__(self) # invoque l'upper class Stack
+        self.__sum = 0       # crée une variable privée sum, integer
+
+    def get_sum(self):       # la fonction créée return la valeur de sum
+        return self.__sum
+
+    def push(self, val):      # la fonction ajoute une valeur à sum
+        self.__sum += val
+        Stack.push(self, val)
+
+    def pop(self):               # la fonction enleve une valeur à sum 
+        val = Stack.pop(self)
+        self.__sum -= val
+        return val
+
+
+stack_object = AddingStack()
+
+for i in range(5):
+    stack_object.push(i)
+print(stack_object.get_sum())
+10
+print(stack_object.get_list())
+[0, 1, 2, 3, 4]
+
+for i in range(5):
+    print(stack_object.pop())
+    4
+    3
+    2
+    1
+    0
+print(stack_object.get_sum())
+0
+print(stack_object.get_list())
+[0]
+
+    

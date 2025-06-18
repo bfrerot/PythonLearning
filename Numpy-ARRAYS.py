@@ -119,6 +119,21 @@ print(MA[:2, 2:])
 # [[3]
 #  [6]]
 
+a=np.array([[1,2,3,4,5,6,7],[8,9,10,11,12,13,14]])
+print(a)
+# [[1,2,3,4,5,6,7]
+#  [8,9,10,11,12,13,14]]
+print(a[0,1:6:2]) # with indexing (startswith:endswithsNON-INCLUS:interval)
+# [2 4 6]
+
+a=np.array([[1,2],[3,4]],[[5,6],[7,8]])
+print(a[0,1,0])
+# 3
+print(a[:,0,:])
+# [[1 2]
+#  [5 6]]
+
+
 MA[1] = np.array([10, 10, 10]) # --> remplace toute les valeurs de la ligne en précisant chaque valeur
 print(MA)
 # [[ 1,  2,  3],
@@ -134,6 +149,127 @@ print(MA)
 MA[1] = np.array([10, 9]) # --> si on met un nombre de valeurs autre 1 ou le nombre exact --> VelueError
 print(MA)
 # ValueError: could not broadcast input array from shape (2,) into shape (3,)
+
+
+### Array INITIALIZATION
+
+## np.zeros
+
+#1*D
+a = np.zeros(5)
+print(a)
+# [0. 0. 0. 0. 0.]
+
+#2*D
+a = np.zeros((2,5))
+print(a)
+# [[0. 0. 0. 0. 0.]
+#  [0. 0. 0. 0. 0.]]
+
+#3*D
+a = np.zeros((2,5,3)) # 2*elem de 5 rows et 3 col
+print(a)
+# [[[0. 0. 0.]
+#   [0. 0. 0.]
+#   [0. 0. 0.]
+#   [0. 0. 0.]
+#   [0. 0. 0.]]
+# 
+#  [[0. 0. 0.]
+#   [0. 0. 0.]
+#   [0. 0. 0.]
+#   [0. 0. 0.]
+#   [0. 0. 0.]]]
+
+#4*D
+a = np.zeros((2,3,4,5)) # 2*elem composés de 3*elem de 4 rows et 5 col
+print(a)
+# [[[0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]]
+
+#   [[0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]]
+
+#   [[0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]]]
+
+
+#  [[[0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]]
+
+#   [[0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]]
+
+#   [[0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]
+#    [0. 0. 0. 0. 0.]]]]
+ 
+ 
+## np.ones
+# same principles with 1s
+b = np.ones((2,5))
+print(a)
+# [[1. 1. 1. 1. 1.]
+#  [1. 1. 1. 1. 1.]]
+
+
+## np.x
+c = np.full((2,2), 99) # shape + number, 2*rows de 2*col, que des 99
+print(c)
+# [[99 99]
+#  [99 99]]
+
+## np.x + dtype
+b = np.ones((2,5), dtype='int8')
+print(a)
+# [[1 1 1 1 1]
+#  [1 1 1 1 1]]
+
+c = np.full((2,2), 99, dtype='float')
+print(c)
+# [[99. 99.]
+#  [99. 99.]]
+
+
+## np.full_like
+
+c = np.full((2,2), 99, dtype='float')
+print(c)
+# [[99. 99.]
+#  [99. 99.]]
+d = np.full_like(c.shape,55) # reprend la shape de c = 2*rows avec des 55, on est en 1*D ici
+print(d)
+# [55 55]
+d = np.full_like(c.shape,(55,3)) # reprend la shape de c = 2*rows avec des val définies 55 et 3
+print(d)
+# [55 3]
+d = np.full_like(c,(55,3)) # reprend c (shape & dim) = 2*rows de 2 *col avec des val définies 55 et 3
+print(d)
+# [[55.  3.]
+#  [55.  3.]]
+e = np.full_like(c,4) # # reprend c (shape & dim) = 2*rows de 2 *col avec des 4 partout
+print(e)
+# [[4. 4.]
+#  [4. 4.]]
+
+
+
+
+
+
+
+
 
 
 
@@ -242,6 +378,16 @@ print(a+b)
 print(a*b)
 [ 0, 10, 20, 30]
 
+a=np.array([[1,2,3,4,5,6,7],[8,9,10,11,12,13,14]])
+a[1,5]=20
+print(a)
+# [[ 1  2  3  4  5  6  7]
+#  [ 8  9 10 11 12 20 14]]
+a[:,2]=(100,200)
+print(a)
+print(a)
+# [[  1   2 100   4   5   6   7]
+#  [  8   9 200  11  12  20  14]]
 
 
 ### Arrays BOOLEAN 
