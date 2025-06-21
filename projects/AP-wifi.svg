@@ -1,0 +1,12 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cercle vert -->
+  <circle cx="100" cy="100" r="90" fill="#4429db" />
+  
+  <!-- Arcs Wi-Fi -->
+  <!-- Première barre (petite) -->
+  <path d="M100,60 A40,40 0 0,1 140,100" stroke="white" stroke-width="8" fill="none" />
+  <!-- Deuxième barre -->
+  <path d="M100,50 A50,50 0 0,1 150,100" stroke="white" stroke-width="8" fill="none" />
+  <!-- Troisième barre -->
+  <path d="M100,40 A60,60 0 0,1 160,100" stroke="white" stroke-width="8" fill="none" />
+</svg>
