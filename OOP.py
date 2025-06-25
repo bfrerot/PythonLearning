@@ -328,4 +328,464 @@ print(stack_object.get_sum())
 print(stack_object.get_list())
 [0]
 
+
+
+########## PROPERTIES
+
+##### INSTANCE VARIABLES
+
+### code example method publique
+
+class ExampleClass:
+    def __init__(self, val1 = 1): # le constructor, si on ne precise pas de val, val=1 par défaut
+        self.first = val1
+ 
+    def set_caca(self, val2): # une fonction dans la class, attend une val
+        self.caca = val2
+
+example_object_1 = ExampleClass() # ici val(val1) = 1 par défaut, que le constructor __init__ est invoqué
+print(example_object_1.__dict__) # .__dict__ est un attribut spécial de chaque objet en Python
+# {'first': 1}
+print(example_object_1.first)
+# 1
+example_object_2 = ExampleClass(2) # ici val(val1) est spécifié et = 2
+print(example_object_2.__dict__)
+# {'first': 2}
+print(example_object_2.first)
+# 2
+example_object_2.set_caca(10) # on invoque la fonction set_caca qui attend une valeur(val2): OBLIGATOIRE d'avoir créé example_object_2 = ExampleClass(2) avant sinon erreur
+print(example_object_2.caca)
+# 10
+print(example_object_2.__dict__)
+# {'first': 2, 'caca': 10} # l'objet example_object_2 se voit rajouter un attribut caca et = 10
+ 
+example_object_3 = ExampleClass(4) # ici val(val2) est spécifié et = 4
+print(example_object_3.__dict__)
+# {'first': 4}
+example_object_3.third = 5 # on crée un attribut directement SANS invoquer une fonction de la class
+print(example_object_3.__dict__)
+# {'first': 4, 'third': 5}
+print(example_object_3.third)
+# 5
+
+
+### exemple code method privée avec __
+
+class ExampleClass:
+    def __init__(self, val = 1):
+        self.__first = val
+
+    def set_second(self, val = 2):
+        self.__second = val
+
+
+example_object_1 = ExampleClass()
+example_object_2 = ExampleClass(2)
+
+example_object_2.set_second(3)
+
+example_object_3 = ExampleClass(4)
+example_object_3.__third = 5
+
+
+print(example_object_1.__dict__)
+# {'_ExampleClass__first': 1} # le print reprend le nom de la class: _CLASSNAME__METHODNAME
+print(example_object_2.__dict__)
+# {'_ExampleClass__first': 2, '_ExampleClass__second': 3}
+print(example_object_3.__dict__)
+# {'_ExampleClass__first': 4, '__third': 5} # ici third est créé hors classe donc __METHODNAME
+print(example_object_3.__third)
+# 5
+
     
+### ==> pourquoi créer des functions de class (methods) alors que l'on peut créer des attributs en direct ?
+
+# 1. **Contrôler et Protéger les Données**
+
+# avec les methods on peut :
+# - Vérifier que la valeur est correcte (par exemple, s’assurer qu’un âge est positif)
+# - Limiter ou transformer la valeur avant de l’enregistrer
+# - Empêcher de mettre n’importe quoi dans l’attribut
+
+# Ex
+def set_age(self, age):
+    if age < 0:
+        raise ValueError("L'âge ne peut pas être négatif")
+    self.age = age
+
+
+# 2. **Maintenir la Cohérence de l’Objet**
+
+# - mettre à jour plusieurs attributs en même temps ou garder une logique, la méthod permet de le faire proprement.
+# - déclencher d’autres actions** quand on modifie une valeur ex : recalculer un score, sauvegarder dans un fichier, etc.).
+
+
+# 3. **Faciliter la lecture et l’utilisation du code**
+
+# - Une méthode bien nommée explique clairement ce qu’elle fait (ex : `set_nom_utilisateur()`)
+# - Le code est plus lisible et plus facile à maintenir, surtout dans de gros projets
+
+
+# 4. **Préparer l’évolution future du code**
+
+# - Si on ajoute une règle, un contrôle ou une action plus tard, il n'y a qu’à modifier la méthode, 
+# pas tous les endroits où l’attribut est modifié directement
+
+
+# 5. **Utiliser les propriétés (`@property`)**
+
+# Python permet de masquer l’accès direct à un attribut avec des propriétés, 
+# pour gérer la lecture et l’écriture tout en gardant une syntaxe simple.
+# ex
+
+    @property
+    def caca(self):
+        return self._caca
+
+    @caca.setter
+    def caca(self, val):
+        if val < 0:
+            raise ValueError("Impossible")
+        self._caca = val
+
+# on pourra ainsi faire : obj.caca = 10 mais avec des contrôles cachés derrière.
+
+
+## __slots__ ou comment bloquer la création d'attributs à la volée
+
+# Quand on utilise __slots__ dans la class :
+# - on bloque la création d'attributs hos class
+# - les objets n’ont plus d’attribut par défaut comme .__dict__ ni individuel ce qui peut etre vu comme un inconvénient
+#   AttributeError: 'NomDeTaClasse' object has no attribute '__dict__'
+# - EN PLUS, en Python, chaque objet de classe possède un dictionnaire d’attributs (`__dict__`) qui lui permet d’avoir 
+#   dynamiquement de nouveaux attributs. CEPENDANT, cela consomme de la mémoire, donc il peut etre bon de s'en passer
+
+# Comment afficher quand même les valeurs ?
+
+# créer une méthode spéciale pour récupérer les valeurs des attributs déclarés dans `__slots__`.**  
+
+class ExampleClass:
+    __slots__ = ['first', 'second']
+    
+    def __init__(self, val=1):
+        self.first = val
+
+    def set_second(self, val):
+        self.second = val
+
+    def as_dict(self):
+        return {slot: getattr(self, slot, None) for slot in self.__slots__}
+
+obj = ExampleClass()
+print(obj.as_dict())
+# {'first': 1}
+
+obj.set_second(20)
+print(obj.as_dict())
+# {'first': 1, 'second': 20}
+
+obj.set_rogue(666)
+# AttributeError: 'ExampleClass' object has no attribute 'set_rogue'
+
+
+# Exemple SANS __slots__
+
+class Personne:
+    def __init__(self, nom, age):
+        self.nom = nom
+        self.age = age
+
+p = Personne("Alice", 30)
+p.adresse = "123 Rue Exemple"  # Possible, même si "adresse" n'est pas prévu
+print(p.adresse)  # Affiche : 123 Rue Exemple
+# Ici, on peut ajouter n’importe quel attribut à l’objet p
+
+
+# Exemple AVEC __slots__
+
+class Personne:
+    __slots__ = ['nom', 'age']
+    
+    def __init__(self, nom, age):
+        self.nom = nom
+        self.age = age
+
+p = Personne("Alice", 30)
+p.adresse = "123 Rue Exemple"  
+# AttributeError: 'p' object has no attribute 'adresse'
+
+
+## return depuis le constructor
+
+class ExampleClass:
+    def __init__(self, val1 = 1): 
+        self.first = val1
+        return self.first
+        
+example_object_1 = ExampleClass() 
+print(example_object_1)
+# TypeError: __init__() should return None, not 'int'
+
+# Python attend que __init__() retourne None
+# Donc lorsqu'on écrit return self.first, Python lève le TypeError
+# La méthode __init__() est un constructeur qui sert à initialiser l’objet après sa création
+# Elle doit toujours retourner None — elle ne doit pas avoir de return explicite avec une valeur.
+
+
+## return depuis une method (function de class)
+
+class ExampleClass:
+    def __init__(self, val1 = 1): 
+        self.first = val1
+        
+    def set_caca(self, val2):
+        self.caca = val2
+        return self.caca
+    
+example_object_2 = ExampleClass(10) 
+print(example_object_2)
+# <__main__.ExampleClass object at 0x000001BA8EFE8CD0>
+
+# Ce résultat est le comportement par défaut de Python quand on essaie d’afficher un objet d’une classe 
+# qui ne définit pas de méthode spéciale __str__() ou __repr__()
+# Python affiche alors le nom de la classe (__main__.ExampleClass)  
+# suivi de l’adresse mémoire de l’objet (at 0x000001BA8EFE8CD0)
+
+
+## print object depuis __init_ et method
+# si pas de __str__ ni __repr__, le print envoie l'emplacement mémoire
+class ExampleClass:
+    def __init__(self, val1 = 1): 
+        self.first = val1
+        
+    def set_caca(self, val2):
+        self.caca = val2
+        
+example_object_1 = ExampleClass() 
+print(example_object_1)
+# <__main__.ExampleClass object at 0x000001BA8EC37230>
+example_object_2 = ExampleClass(10) 
+print(example_object_2)
+# <__main__.ExampleClass object at 0x000001BA8EFE8CD0>
+
+
+## __repr__
+
+class ExampleClass:
+    def __init__(self, val1=1): 
+        self.first = val1
+
+    def set_caca(self, val2):
+        self.caca = val2
+        
+    def __repr__(self):
+        return f"ExampleClass(first={self.first}, caca={getattr(self, 'caca', None)})"
+
+example_object_2 = ExampleClass(10)
+print(example_object_2)
+# ExampleClass(first=10, caca=None)
+example_object_2.set_caca(666)
+print(example_object_2.caca)
+# 666
+
+# ==> Pourquoi __repr__() s'exécute-t-elle même si tu ne l'as pas appelée explicitement ?
+# print(objet) :
+# Python tente d’afficher une représentation lisible de l’objet
+# Pour cela, il cherche d’abord si la classe de l’objet a défini la méthode __str__()
+#   Si oui, il l'appelle pour obtenir la chaîne à afficher
+#   Si __str__() n’est pas défini, Python appelle alors la méthode __repr__() pour obtenir cette représentation
+#   Si aucune de ces méthodes n’est définie
+#       Python affiche le nom de la classe et l’adresse mémoire par défaut
+
+
+## __str__
+
+class Personne:
+    def __init__(self, nom, age):
+        self.nom = nom
+        self.age = age
+
+    def __str__(self):
+        return f"Personne: {self.nom}, âge: {self.age}"
+
+# Création d'une instance
+p = Personne("Alice", 30)
+
+# Affichage avec print()
+print(p)
+# Personne: Alice, âge: 30
+print(p.nom)
+# Alice
+
+# __str__() définit la chaîne de caractères qui sera affichée lorsque l'on print() l’objet.
+# Sans __str__(), ou __repr__, Python afficherait quelque chose comme <__main__.Personne object at 0x...>
+
+
+
+##### CLASS VARIABLES
+# class variable remains the same for all instances using the class
+# if the class variable changes, it changes for ALL instances variables
+class ExampleClass:
+    counter = 0 # class variable
+    def __init__(self, val = 1):
+        self.__first = val # instance variable
+        ExampleClass.counter += 1
+ 
+ 
+example_object_1 = ExampleClass()
+print(example_object_1.__dict__, example_object_1.counter)
+# 1
+example_object_2 = ExampleClass(2)
+print(example_object_2.__dict__, example_object_2.counter)
+# 2
+example_object_3 = ExampleClass(4)
+print(example_object_3.__dict__, example_object_3.counter)
+# 3
+
+# __dict__ de class
+
+class ExampleClass:
+    varia = 1
+    def __init__(self, val):
+        ExampleClass.varia = val
+
+
+print(ExampleClass.__dict__) # __dict__ d’une classe montre ses attributs, y compris les variables de class et méthods
+# {'__module__': '__main__', '__firstlineno__': 1, 'varia': 1, '__init__': <function ExampleClass.__init__ at 0x000001EFEB9B3E20>, '__static_attributes__': (),
+# '__dict__': <attribute '__dict__' of 'ExampleClass' objects>, '__weakref__': <attribute '__weakref__' of 'ExampleClass' objects>, '__doc__': None}
+
+example_object = ExampleClass(2) # la variable de class "varia" passe à 2
+# {'__module__': '__main__', '__firstlineno__': 1, 'varia': 2, '__init__': <function ExampleClass.__init__ at 0x000001EFEB9B3E20>, '__static_attributes__': (),
+# '__dict__': <attribute '__dict__' of 'ExampleClass' objects>, '__weakref__': <attribute '__weakref__' of 'ExampleClass' objects>, '__doc__': None}
+print(ExampleClass.__dict__)
+
+print(example_object.__dict__)
+# {} # vide, logique car aucune action pour l'instance elle-meme
+
+
+##### CLASS vs INSTANCE variables again
+
+class Animal:
+    espèce = "Mammifère"  # Variable de classe
+
+    def __init__(self, nom):
+        self.nom = nom  # Variable d'instance
+
+# Toutes les instances partagent la variable espèce
+a1 = Animal("Lion")
+a2 = Animal("Tigre")
+
+print(a1.espèce)  
+# Mammifère
+print(a2.espèce)  
+# Mammifère
+
+# Modifier la variable de classe
+Animal.espèce = "Vertébré"
+
+print(a1.espèce)  
+# Vertébré
+print(a2.espèce)  
+# Vertébré
+
+
+
+########## Checking attribute existence
+
+# error code example
+
+class ExampleClass:
+    def __init__(self, val):
+        if val % 2 != 0:
+            self.a = 1
+        else:
+            self.b = 1
+
+example_object = ExampleClass(1) # val % 2 != 0 donc a=1
+print(example_object.a)
+# 1
+print(example_object.b)
+# AttributeError: 'ExampleClass' object has no attribute 'b'
+
+
+# fix with try/except
+
+class ExampleClass:
+    def __init__(self, val):
+        if val % 2 != 0:
+            self.a = 1
+        else:
+            self.b = 1
+
+
+example_object = ExampleClass(1)
+try:
+    print(example_object.a) # 1
+except AttributeError:
+    pass
+try:
+    print(example_object.b) # pass
+except AttributeError:
+    pass
+    
+example_object = ExampleClass(2)
+try:
+    print(example_object.a) # pass
+except AttributeError:
+    pass
+try:
+    print(example_object.b) # 1
+except AttributeError:
+    pass
+ 
+
+# hasattr
+# check si un objet possède un attribut
+
+class ExampleClass:
+    def __init__(self, val):
+        if val % 2 != 0:
+            self.a = 1
+        else:
+            self.b = 1
+ 
+ 
+example_object = ExampleClass(1)
+
+if hasattr(example_object, 'a'):
+    print(example_object.a) # 1
+if hasattr(example_object, 'b'):
+    print(example_object.b)
+    
+example_object = ExampleClass(2)
+
+if hasattr(example_object, 'a'):
+    print(example_object.a) 
+if hasattr(example_object, 'b'):
+    print(example_object.b) # 1
+    
+    
+# s'applique aussi aux class
+
+class ExampleClass:
+    attr = 1
+print(hasattr(ExampleClass, 'attr'))
+# True
+print(hasattr(ExampleClass, 'prop'))
+# False
+
+
+# attribut de class vs instance
+
+class ExampleClass:
+    a = 1 # pour la class et les objets
+    def __init__(self):
+        self.b = 2 # pour les objets seulement
+ 
+ 
+example_object = ExampleClass()
+ 
+print(hasattr(example_object, 'b')) # true
+print(hasattr(example_object, 'a'))
+print(hasattr(ExampleClass, 'b'))
+print(hasattr(ExampleClass, 'a')) # true

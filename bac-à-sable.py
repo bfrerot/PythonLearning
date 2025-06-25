@@ -1,4 +1,13 @@
-import numpy as np
-h1 = np.ones((2,4))
-h2 = np.zeros((3,2))
-print(np.hstack([h1,h2]))
+class ExampleClass:
+    a = 1
+    def __init__(self):
+        self.b = 2
+ 
+ 
+example_object = ExampleClass()
+ 
+print(hasattr(example_object, 'b')) # true
+print(hasattr(example_object, 'a'))
+print(hasattr(ExampleClass, 'b'))
+print(hasattr(ExampleClass, 'a')) # true
+ 

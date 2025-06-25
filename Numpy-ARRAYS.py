@@ -108,6 +108,8 @@ print(MA[1])
 
 print(MA[1][0]) # ou print([1,0])
 # 4
+print(MA[1,2][0,2]) # row1 col0 = 4 , row2 col2 = 9
+# [4 9]
 
 print(MA[0:2])
 # [[1, 2, 3],
@@ -167,6 +169,11 @@ print(a)
 # [[  1   2 100   4   5   6   7]
 #  [  8   9 200  11  12  20  14]]
 
+## Indexing with a list
+a = np.array([1,2,3,4,5,6,7,8,9])
+print(a[[0,2,-1]])
+# [1 3 9]
+
 
 
 ### Array INITIALIZATION #############################################################################################################################################
@@ -184,8 +191,8 @@ print(b)
 b[0] = 100
 print(a)
 # [100   2   3]
-
-# to avoid we use .copy()
+,
+,#,,,, to avoid we use .copy()
 a = np.array([1,2,3])
 b = a.copy()
 print(b)
@@ -777,3 +784,42 @@ print(A<30)
 
 print(A[A > 30])
 # [40, 67, 61, 77, 83]
+
+filedata = np.genfromtxt('data.txt', delimiter=',')
+print(filedata)
+# [[  1.  13.  21.  11. 196.  75.   4.   3.  34.   6.   7.   8.   0.   1.   2.   3.   4.   5.]
+#  [  3.  42.  12.  33. 766.  75.   4.  55.   6.   4.   3.   4.   5.   6.   7.   0.  11.  12.]
+#  [  1.  22.  33.  11. 999.  11.   2.   1.  78.   0.   1.   2.   9.   8.   7.   1.  76.  88.]]
+print(np.any(filedata >50, axis=0))  # on regarde dans chaque colonne si on a un check positif
+# [False False False False  True  True False  True  True False False False False False False False  True  True]
+print(np.any((filedata >50) & (filedata <100), axis=0)) 
+# [False False False False False  True False  True  True False False False False False False False  True  True]
+print(~(np.any((filedata >50) & (filedata <100), axis=0))) # ~ = NOT
+# [ True  True  True  True  True False  True False False  True  True  True True  True  True  True False False]
+print(np.all(filedata >50, axis=0))
+# [False False False False  True False False False False False False False False False False False False False]
+
+
+
+
+
+### DIVERS / MISCELLANEOUS ###########################################################################################################################################
+
+## .genfromtxt()
+
+filedata = np.genfromtxt('data.txt', delimiter=',')
+print(filedata)
+# [[  1.  13.  21.  11. 196.  75.   4.   3.  34.   6.   7.   8.   0.   1.
+#     2.   3.   4.   5.]
+#  [  3.  42.  12.  33. 766.  75.   4.  55.   6.   4.   3.   4.   5.   6.
+#     7.   0.  11.  12.]
+#  [  1.  22.  33.  11. 999.  11.   2.   1.  78.   0.   1.   2.   9.   8.
+#     7.   1.  76.  88.]]
+
+# si on veut changer le type en int
+print(filedata.astype('int'))
+# [[  1  13  21  11 196  75   4   3  34   6   7   8   0   1   2   3   4   5]
+#  [  3  42  12  33 766  75   4  55   6   4   3   4   5   6   7   0  11  12]
+#  [  1  22  33  11 999  11   2   1  78   0   1   2   9   8   7   1  76  88]]
+
+

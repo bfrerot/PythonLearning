@@ -177,6 +177,21 @@ x = dict(name = "John", age = 36, country = "Norway")
 print(x)
 {'name': 'John', 'age': 36, 'country': 'Norway'}
 
+# .__dict__
+# __dict__ est un attribut spécial de chaque objet en Python
+# C’est un dictionnaire qui contient tous les attributs de l’objet (créés dans le constructeur, 
+# dans les méthodes, ou même à l’extérieur) et leurs valeurs.
+
+# Exemple simple
+class MaClasse:
+    def __init__(self):
+        self.x = 10
+        self.y = 20
+
+obj = MaClasse()
+print(obj.__dict__)
+# {'x': 10, 'y': 20}
+
 
 ### dir()	# Returns a list of the specified object's properties and methods
 # can be a variable, a module, etc
