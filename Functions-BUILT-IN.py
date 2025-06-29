@@ -1046,7 +1046,7 @@ print(x)
 # 22
 
 
-### super()	# Returns an object that represents the parent class RIEN COMPRIS A L EXEMPLE
+### super()	# Returns an object that represents the parent class 
 
 class Parent:
   def __init__(self, txt):
@@ -1061,6 +1061,22 @@ class Child(Parent):
 x = Child("Hello, and welcome!")
 x.printmessage()
 # Hello, and welcome!
+
+class Super:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return "My name is " + self.name + "."
+
+
+class Sub(Super):
+    def __init__(self, name):
+        super().__init__(name) # ici super() est la fonction builtin Python attention
+
+obj = Sub("Andy")
+print(obj)
+# My name is Andy.    
 
 
 ### tuple()	# Returns a tuple, You cannot change or remove items in a tuple.

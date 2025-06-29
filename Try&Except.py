@@ -186,25 +186,6 @@ ImportError # import statement fails
 RuntimeError #  generic error detected during runtime
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### try
 # avec try, python gere les erreurs
 
