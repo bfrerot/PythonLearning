@@ -142,7 +142,7 @@ except OverflowError:
 
 SyntaxError
 # raised when the control reaches a line of code which violates Python's grammar
-print("Bonjour tout le monde"
+print("Bonjour tout le monde")
 # SyntaxError: unexpected EOF while parsing
 
 
@@ -402,14 +402,13 @@ x = float(input("Enter a number: "))
 assert x >= 2.0
 x = math.sqrt(x)
 print(x)
-Enter a number: 2 # match le assert
+# Enter a number: 2 # match le assert
 1.4142135623730951
 
-Enter a number: 1,99 # ne match pas
-Traceback (most recent call last):
-  File "main.py", line 4, in <module>
-    assert x >= 2.0
-AssertionError
+# Enter a number: 1,99 # ne match pas
+# ..
+#     assert x >= 2.0
+# AssertionError
 
 # pour bien comprendre
 def foo(x):
@@ -423,4 +422,277 @@ except ZeroDivisionError: # l'error n''est pas repertoriée telle quelle donc ne
 except: # matche le par defaut
     print("some")
     
-# some
+    
+    
+### FINALLY
+
+# additionnal branch behing the try/Except block
+
+# ex SANS:
+def reciprocal(n):
+    try:
+        n = 1 / n
+    except ZeroDivisionError:
+        print("Division failed")
+        return None
+    else:
+        print("Everything went fine")
+        return n
+
+print(reciprocal(2))
+# Everything went fine
+# 0.5
+print(reciprocal(0))
+# Division failed
+# None
+
+# ex AVEC:
+def reciprocal(n):
+    try:
+        n = 1 / n
+    except ZeroDivisionError:
+        print("Division failed")
+        n = None
+    else:
+        print("Everything went fine")
+    finally:
+        print("It's time to say goodbye")
+        return n
+
+print(reciprocal(2))
+# Everything went fine
+# It's time to say goodbye
+# 0.5
+
+# ! à savoir: le finally est toujours exécuté avant que la valeur soit renvoyée à l'appelant. 
+# En d'autres termes, le finally est conçu pour s'exécuter juste avant que la fonction ne termine 
+# et ne retourne une valeur, même si cette valeur a été spécifiée dans le return avant:
+
+def reciprocal(n):
+    try:
+        n = 1 / n
+    except ZeroDivisionError:
+        print("Division failed")
+        n = None
+    else:
+        print("Everything went fine")
+        return n
+    finally:
+        print("It's time to say goodbye")
+        return n
+        
+print(reciprocal(2))
+# Everything went fine
+# It's time to say goodbye
+# 0.5
+    
+    
+
+### errors are Classes
+
+# ex simple:
+try:
+    i = int("Hello!")
+except Exception as e:
+    print(e)
+    print(e.__str__()) # dans ce cas précis, l'output sera le meme
+# invalid literal for int() with base 10: 'Hello!'
+# invalid literal for int() with base 10: 'Hello!'
+
+
+# ex plus compliqué: afficher la hierarchie d'une class d'Error
+
+def print_exception_tree(thisclass, nest = 0): 
+# Paramètre thisclass : la classe dont on veut afficher les sous-classes.
+# Paramètre nest : indique le niveau d'imbrication pour le rendu graphique (initialement 0)
+    if nest > 1:
+        print("   |" * (nest - 1), end="") # si plus de 1 sous-class, on met tab "   |" (n-1) fois
+    if nest > 0:
+        print("   +---", end="") # dès lors qu'on est dans une sous class de la class visée, on ajoute "   +---"
+
+    print(thisclass.__name__) # imprime le nom de la class, sans le .__name__ on aurait "<class 'ImportError'>"
+
+    for s in thisclass.__subclasses__(): # RECURSION, pour chaque subclass de la class visée
+        print_exception_tree(s, nest + 1) # la fonction s'appelle elle-même en augmentant nest de 1, cela permet de parcourir toute la hiérarchie
+
+print_exception_tree(ImportError)
+# ImportError
+#    +---ModuleNotFoundError
+#    +---ZipImportError
+
+print_exception_tree(BaseException)
+# BaseException
+#    +---BaseExceptionGroup
+#    |   +---ExceptionGroup
+#    +---Exception
+#    |   +---ArithmeticError
+#    |   |   +---FloatingPointError
+#    |   |   +---OverflowError
+#    |   |   +---ZeroDivisionError
+#    |   +---AssertionError
+#    |   +---AttributeError
+#    |   +---BufferError
+#    |   +---EOFError
+#    |   +---ImportError
+#    |   |   +---ModuleNotFoundError
+#    |   |   +---ZipImportError
+#    |   +---LookupError
+#    |   |   +---IndexError
+#    |   |   +---KeyError
+#    |   |   +---CodecRegistryError
+#    |   +---MemoryError
+#    |   +---NameError
+#    |   |   +---UnboundLocalError
+#    |   +---OSError
+#    |   |   +---BlockingIOError
+#    |   |   +---ChildProcessError
+#    |   |   +---ConnectionError
+#    |   |   |   +---BrokenPipeError
+#    |   |   |   +---ConnectionAbortedError
+#    |   |   |   +---ConnectionRefusedError
+#    |   |   |   +---ConnectionResetError
+#    |   |   +---FileExistsError
+#    |   |   +---FileNotFoundError
+#    |   |   +---InterruptedError
+#    |   |   +---IsADirectoryError
+#    |   |   +---NotADirectoryError
+#    |   |   +---PermissionError
+#    |   |   +---ProcessLookupError
+#    |   |   +---TimeoutError
+#    |   |   +---UnsupportedOperation
+#    |   +---ReferenceError
+#    |   +---RuntimeError
+#    |   |   +---NotImplementedError
+#    |   |   +---PythonFinalizationError
+#    |   |   +---RecursionError
+#    |   |   +---_DeadlockError
+#    |   +---StopAsyncIteration
+#    |   +---StopIteration
+#    |   +---SyntaxError
+#    |   |   +---IndentationError
+#    |   |   |   +---TabError
+#    |   |   +---_IncompleteInputError
+#    |   +---SystemError
+#    |   |   +---CodecRegistryError
+#    |   +---TypeError
+#    |   +---ValueError
+#    |   |   +---UnicodeError
+#    |   |   |   +---UnicodeDecodeError
+#    |   |   |   +---UnicodeEncodeError
+#    |   |   |   +---UnicodeTranslateError
+#    |   |   +---NotShareableError
+#    |   |   +---UnsupportedOperation
+#    |   +---Warning
+#    |   |   +---BytesWarning
+#    |   |   +---DeprecationWarning
+#    |   |   +---EncodingWarning
+#    |   |   +---FutureWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---RuntimeWarning
+#    |   |   +---SyntaxWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ImportWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---RuntimeWarning
+#    |   |   +---SyntaxWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---RuntimeWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---RuntimeWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---RuntimeWarning
+#    |   |   +---SyntaxWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ImportWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---RuntimeWarning
+#    |   |   +---SyntaxWarning
+#    |   |   +---UnicodeWarning
+#    |   |   +---UserWarning
+#    |   +---InterpreterError
+#    |   |   +---InterpreterNotFoundError
+#    |   +---ExceptionGroup
+#    +---GeneratorExit
+#    +---KeyboardInterrupt
+#    +---SystemExit
+
+
+
+### Create our own exceptions
+
+# The exceptions hierarchy is neither closed nor finished, and we can always extend it
+# It may be useful when we create a complex module which detects errors and raises exceptions, 
+#   and we want the exceptions to be easily distinguishable from any others brought by Python
+# This is done by defining our own new exceptions as subclasses derived from predefined ones
+
+# Choice 1: if we want to create an exception which will be utilized as a specialized case of any built-in exception
+# ==> derive it from just this one
+
+# Choice 2: If you want to build our own hierarchy, and don't want it to be closely connected to Python's exception tree
+# ==> derive it from any of the top exception classes, like Exception.
+
+class PizzaError(Exception): # cette classe hérite de Exception
+    def __init__(self, pizza, message): # Prend deux arguments : pizza (nom de la pizza concernée) et message (description de l’erreur)
+        Exception.__init__(self, message)
+        self.pizza = pizza
+
+
+class TooMuchCheeseError(PizzaError): # cette classe hérite de PizzaError
+    def __init__(self, pizza, cheese, message):
+        PizzaError.__init__(self, pizza, message)
+        self.cheese = cheese
+
+
+def make_pizza(pizza, cheese):
+    if pizza not in ['margherita', 'capricciosa', 'calzone']:
+        raise PizzaError(pizza, "no such pizza on the menu")
+    if cheese > 100:
+        raise TooMuchCheeseError(pizza, cheese, "too much cheese")
+    print("Pizza ready!")
+
+for (pz, ch) in [('calzone', 0), ('margherita', 110), ('mafia', 20)]:
+    try:
+        make_pizza(pz, ch)
+    except TooMuchCheeseError as tmce:
+        print(tmce, ':', tmce.cheese)
+    except PizzaError as pe:
+        print(pe, ':', pe.pizza)
+# Pizza ready!
+# too much cheese : 110
+# no such pizza on the menu : mafia

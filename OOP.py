@@ -1,6 +1,22 @@
 ########## OBJECT ORIENTED PROGRAMMATION ##########
 
 
+
+
+##### BASICS
+
+
+
+### BASIS TERMS
+# CLASS — an idea, blueprint, or recipe for an instance
+# INSTANCE — an instantiation of the class; very often used interchangeably with the term 'object'
+# OBJECT — Python's representation of data and methods; objects could be aggregates of instances
+# ATTRIBUTE — any object or class trait; could be a variable or method
+# METHOD — a function built into a class that is executed on behalf of the class or object; some say that it’s a 'callable attribute'
+# TYPE — refers to the class that was used to instantiate the object
+
+
+
 ### CLASS
 # A class (among other definitions) is a set of objects. An object is a being belonging to a class.
 # A class is an idea (more or less abstract) which can be used to create a number of incarnations – such an incarnation is called an object.
@@ -12,8 +28,16 @@ class TheSimplestClass:
 
 
 
-### OBJECT
-# An object is an incarnation of the requirements, traits, and qualities assigned to a specific class
+### OBJECT/INSTANCE OF A CLASS
+
+# An object is one particular physical instantiation of a class that occupies memory and has data elements
+# This is what 'self' refers to when we deal with class instances.
+
+# !! An object is everything in Python that you can operate on, like a class, instance, list, or dictionary.
+# The term instance is very often used interchangeably with the term object, because object refers to a particular instance of a class. 
+# It’s a bit of a simplification, because the term object is more general than instance.
+
+# An instance is an incarnation of the requirements, traits, and qualities assigned to a specific class
 # every existing object may be equipped with three groups of attributes:
 # an object has a name that uniquely identifies it within its home namespace (although there may be some anonymous objects, too)
 # an object has a set of individual properties which make it original, unique, or outstanding (although it's possible that some objects may have no properties at all)
@@ -27,28 +51,118 @@ class TheSimplestClass:
 # a verb – you probably define the object's activity.
 
 # example:
-
 # A pink Cadillac went quickly.
-
+# ==>
 # Object name = Cadillac
 # Home class = Wheeled vehicles
 # Property = Color (pink)
 # Activity = Go (quickly)
 
 # Rudolph is a large cat who sleeps all day.
-
+# ==>
 # Object name = Rudolph
 # Home class = Cat
 # Property = Size (large)
 # Activity = Sleep (all day)
 
-# define an object
+
+## define an object
 my_first_object = TheSimplestClass()
 # The act of creating an object of the selected class is also called an instantiation (as the object becomes an instance of the class).
 
 
+
+### ATTRIBUTE
+
+# An attribute is a capacious term that can refer to two major kinds of class traits:
+#   - variables, containing information about the class itself or a class instance; classes and class instances can own many variables
+#   - methods, formulated as Python functions; they represent a behavior that could be applied to the object
+
+# It is said that methods are the 'callable attributes' of Python objects
+
+
+
+### TYPE
+
+# type is one of the most fundamental and abstract terms of Python
+
+# it is the foremost type that any class can be inherited from; as a result, if you’re looking for the type of class, 
+# then type is returned
+
+# in all other cases, it refers to the class that was used to instantiate the object; it’s a general term describing 
+# the type/kind of any object
+
+# it’s the name of a very handy Python function that returns the class information about the objects passed as arguments to that function
+
+# it returns a new type object when type() is called with three arguments
+
+# Python comes with a number of built-in types, like numbers, strings, lists, etc., that are used to build more complex types
+# Creating a new class creates a new type of object, allowing new instances of that type to be made
+
+# Information about an object’s class is contained in __class__
+
+class Duck:
+    def __init__(self, height, weight, sex):
+        self.height = height
+        self.weight = weight
+        self.sex = sex
+
+    def walk(self):
+        pass
+
+    def quack(self):
+        return print('Quack')
+
+duckling = Duck(height=10, weight=3.4, sex="male")
+drake = Duck(height=25, weight=3.7, sex="male")
+hen = Duck(height=20, weight=3.4, sex="female")
+
+print(type(Duck))
+# <class 'type'>
+print(Duck.__class__)
+# <class 'type'> 
+print(duckling.__class__)
+# <class '__main__.Duck'>
+print(duckling.sex.__class__)
+# <class 'str'>
+print(duckling.quack.__class__)
+# <class 'method'>
+
+
+
+### CLASS & OBJECT & ATTRIBUTE Example
+
+class Duck: # example of a Class
+    def __init__(self, height, weight, sex):
+        self.height = height
+        self.weight = weight # example of an Atribute
+        self.sex = sex
+
+    def walk(self):
+        pass
+
+    def quack(self):
+        return print('Quack')
+        
+canard = Duck(21,3.5,"male") # example of an Object
+duckling = Duck(height=10, weight=3.4, sex="male")
+drake = Duck(weight=3.7, height=25, sex="male")
+hen = Duck(sex="female", weight=3.4, height=20 )
+print(canard.sex)
+# male
+print(duckling.height)
+# 10
+print(hen.weight)
+# 3.4
+print((drake.sex))
+# male
+canard.quack()
+# Quack
+
+
+
 ### INHERITANCE
-#  inheritance. Any object bound to a specific level of a class hierarchy inherits all the traits (as well as the requirements and qualities) defined inside any of the superclasses.
+# Any object bound to a specific level of a class hierarchy inherits all the traits (as well as the requirements and qualities) defined inside any of the superclasses.
 
 
 
@@ -56,6 +170,7 @@ my_first_object = TheSimplestClass()
 # A stack is a structure developed to store data in a very specific way.
 # The alternative name for a stack (but only in IT terminology) is LIFO = Last In First Out
 # A stack is an object with two elementary operations, conventionally named push (when a new element is put on the top) and pop (when an existing element is taken away from the top)
+
 
 ## the procedural approach
 # 1- decide how to store the values which will arrive onto the stack
@@ -91,6 +206,7 @@ print(pop())
 print(pop())   
 3
 
+
 ## the object approach
 # how the object stack begins,  class [name]:
 
@@ -124,7 +240,8 @@ print(len(stack_object.name))
 # we need to name the object, put a dot (.) after it, and specify the desired property's name
 # we don't use parentheses! we do not invoke a method but a property;
 
-## __
+
+## __ = private !
 class Stack:
     def __init__(self):
         self.__stack_list = []
@@ -136,6 +253,7 @@ print(len(stack_object.__stack_list))
   
 # When any class component has a name starting with two underscores (__), it becomes private 
 # this means that it can be accessed ONLY FROM WITHIN the class.
+
 
 ## the stack approach
 
@@ -270,7 +388,7 @@ print(funny_stack.pop())
 # 0
 
 
-### EXEMPLE SUPERCLASS//CLASS
+## EXEMPLE SUPERCLASS//CLASS
 
 class Stack:
     def __init__(self):
@@ -330,11 +448,16 @@ print(stack_object.get_list())
 
 
 
-########## PROPERTIES
 
-##### INSTANCE VARIABLES
 
-### code example method publique
+##### PROPERTIES
+
+
+
+### INSTANCE VARIABLES
+
+
+## code example method publique
 
 class ExampleClass:
     def __init__(self, val1 = 1): # le constructor, si on ne precise pas de val, val=1 par défaut
@@ -369,7 +492,7 @@ print(example_object_3.third)
 # 5
 
 
-### exemple code method privée avec __
+## exemple code method privée avec __
 
 class ExampleClass:
     def __init__(self, val = 1):
@@ -398,7 +521,7 @@ print(example_object_3.__third)
 # 5
 
     
-### ==> pourquoi créer des functions de class (methods) alors que l'on peut créer des attributs en direct ?
+## ==> pourquoi créer des functions de class (methods) alors que l'on peut créer des attributs en direct ?
 
 # 1. **Contrôler et Protéger les Données**
 
@@ -634,27 +757,43 @@ print(sun)
 
 
 
-##### CLASS VARIABLES
+### CLASS VARIABLES
+
 # class variable remains the same for all instances using the class
 # if the class variable changes, it changes for ALL instances variables
+
+class A:
+    X = 0
+    def __init__(self,v = 0):
+        self.Y = v
+        A.X += v
+
+
+a = A() # A.X += v ==> X = 0
+b = A(1) # A.X += v ==> X = 0 + 1 = 1
+c = A(2) # A.X += v ==> X = 1 + 2 = 3
+print(c.X)
+# 3
+
+
 class ExampleClass:
     counter = 0 # class variable
     def __init__(self, val = 1):
         self.__first = val # instance variable
         ExampleClass.counter += 1
  
- 
 example_object_1 = ExampleClass()
 print(example_object_1.__dict__, example_object_1.counter)
-# 1
+# {'_ExampleClass__first': 1} 1
 example_object_2 = ExampleClass(2)
 print(example_object_2.__dict__, example_object_2.counter)
-# 2
+# {'_ExampleClass__first': 2} 2
 example_object_3 = ExampleClass(4)
 print(example_object_3.__dict__, example_object_3.counter)
-# 3
+# {'_ExampleClass__first': 4} 3
 
-# __dict__ de class
+
+## __dict__ de class
 
 class ExampleClass:
     varia = 1
@@ -675,7 +814,8 @@ print(example_object.__dict__)
 # {} # vide, logique car aucune action pour l'instance elle-meme
 
 
-##### CLASS vs INSTANCE variables again
+
+### CLASS vs INSTANCE variables
 
 class Animal:
     espèce = "Mammifère"  # Variable de classe
@@ -702,7 +842,7 @@ print(a2.espèce)
 
 
 
-########## Checking attribute existence
+### Checking attribute existence
 
 # error code example
 
@@ -720,7 +860,7 @@ print(example_object.b)
 # AttributeError: 'ExampleClass' object has no attribute 'b'
 
 
-# fix with try/except
+## fix with try/except
 
 class ExampleClass:
     def __init__(self, val):
@@ -751,7 +891,7 @@ except AttributeError:
     pass
  
 
-# hasattr
+## hasattr
 # check si un objet possède un attribut
 
 class ExampleClass:
@@ -777,7 +917,7 @@ if hasattr(example_object, 'b'):
     print(example_object.b) # 1
     
     
-# s'applique aussi aux class
+## s'applique aussi aux class
 
 class ExampleClass:
     attr = 1
@@ -787,7 +927,7 @@ print(hasattr(ExampleClass, 'prop'))
 # False
 
 
-# attribut de class vs instance
+## attribut de class vs instance
 
 class ExampleClass:
     a = 1 # pour la class et les objets
@@ -804,12 +944,14 @@ print(hasattr(ExampleClass, 'a')) # true
 
 
 
-##### Methods   
+
+
+##### METHODS   
 
 # we know now that methods are functions embedded into classes
 # the method must have at least a parameter and if only one, it should be "self"
 
-### 1*parameter, self
+## 1*parameter, self
 
 class Classy:
     def method(self):
@@ -820,11 +962,10 @@ obj.method()
 # method
 
 
-### 2*parameters, self & par
+## 2*parameters, self & par
 class Classy:
     def method(self, par):
         print("method:", par)
- 
  
 obj = Classy()
 obj.method(1)
@@ -835,7 +976,9 @@ obj.method(3)
 # method: 3
 
 
+
 ### self parameter
+
 # self parameter is used to obtain access to the object's instance and class variables
 class Classy:
     varia = 2
@@ -847,7 +990,8 @@ obj.var = 3
 obj.method()
 # 2 3
 
-### une method qui appelle une autre method dans la meme Class
+
+# une method qui appelle une autre method dans la meme Class
 
 class Classy:
     def other(self):
@@ -863,7 +1007,9 @@ obj.method()
 # other
 
 
+
 ### __init__ 
+
 # __init__ method = constructor
 
 # If a class has a constructor, it is invoked automatically and implicitly when 
@@ -876,7 +1022,8 @@ obj.method()
 # CAN be used to set up the object, i.e., properly initialize its internal state, create 
 #   instance variables, instantiate any other objects if their existence is needed, etc.
 
-# __init__ avec 1*parameter en + de self
+
+## __init__ avec 1*parameter en + de self
 class Classy:
     def __init__(self, value):
         self.var = value
@@ -885,7 +1032,8 @@ obj_1 = Classy("object") # 1*parameter obligatoire et l'__init__ attribue le par
 print(obj_1.var)
 # object
 
-# __init__ avec 1*parameter (avec valeur par défaut) en + de self
+
+## __init__ avec 1*parameter (avec valeur par défaut) en + de self
 class Classy:
     def __init__(self, value = None):
         self.var = value
@@ -896,6 +1044,7 @@ print(obj_1.var)
 # object
 print(obj_2.var)
 # None
+
 
 
 ### visible vs hidden methods
@@ -922,10 +1071,14 @@ obj._Classy__hidden() # the good way adding _CLASSNAME to private method name
 
 
 
+
+
 ##### INNER LIFE of classes and objects
 
 # Each Python class object is pre-equipped with a set of useful attributes which 
 # can be used to examine its capabilities.
+
+
 
 ### __dict__
 
@@ -984,6 +1137,7 @@ print(Classy.__dict__)
 # ce qui indique qu’il n’y a pas de documentation associée à cette classe ou cet objet.
 
 
+
 ### __name__
 # contains the name of the class. It's nothing exciting, just a string
 # it exists ONLY inside CLASSES
@@ -1013,6 +1167,7 @@ print(Python.__name__, 'is a', Snake.__name__)
 # Python is a Snake
 
 
+
 ### __module__
 # stores the name of the module which contains the definition of the class
 class Classy:
@@ -1023,6 +1178,7 @@ print(Classy.__module__)
 obj = Classy()
 print(obj.__module__)
 # __main__
+
 
 
 ### __bases__
@@ -1065,6 +1221,7 @@ print(Python.__bases__[0].__name__, 'can be', Python.__name__)
 
 
 
+
 ##### REFLECTION & INTROSPECTION
 
 # introspection is the ability of a program to examine the type or properties of an object at runtime
@@ -1073,6 +1230,7 @@ print(Python.__bases__[0].__name__, 'can be', Python.__name__)
 
 
 ##### INVESTIGATING CLASSES
+
 # Both reflection and introspection enable a programmer to do anything with any object, no matter where it comes from
 
 class MyClass:
@@ -1103,6 +1261,7 @@ print(obj.__dict__)
 incIntsI(obj)
 print(obj.__dict__)
 # {'a': 1, 'b': 2, 'i': 5, 'ireal': 3.5, 'integer': 6, 'z': 5}
+   
     
     
 
@@ -1120,7 +1279,8 @@ print(obj.__dict__)
 #   by different classes, composition may be a better alternative
 
 
-### tranitivity
+
+### transitivity
 
 # if B is a subclass of A and C is a subclass of B, this also means that C is a subclass of A, the relationship is fully transitive
 
@@ -1247,7 +1407,8 @@ print(obj) # Python looks for __str__() or __repr__()
 # My name is Andy.
 
 
-# utilisation de super() Python builtin fonction
+## utilisation de super() Python builtin fonction
+
 #  super() retourne une "super classe" c'est-à-dire la classe parente dans le contexte actuel et appelle sa méthode __init__
 # Avantages :
 #  - Plus flexible, surtout dans le contexte de l'héritage multiple.  
@@ -1369,9 +1530,8 @@ object.m_middle()
 object.m_top()
 # top
 
-    
-        
 
+        
 ### Level-Line inheritance
 
 class Level1:
@@ -1452,12 +1612,27 @@ class Sub(SuperA, SuperB): # multiple inheritance
     pass
  
 obj = Sub()
- 
 print(obj.var_a, obj.fun_a())
 # 10 11
 print(obj.var_b, obj.fun_b())
 # 20 21
 # ici pas d'homonyme entre les class
+
+
+class A:
+    def __str__(self):
+        return 'a'
+
+class B:
+    def __str__(self):
+        return 'b'
+
+class C(A, B):
+    pass
+
+o = C()
+print(o)
+# a
 
 
 class Left:
@@ -1476,15 +1651,14 @@ class Sub(Left, Right): # Python ira chercher dans la class Left, puis Right
     pass
 
 obj = Sub()
-
 print(obj.var, obj.var_left, obj.var_right, obj.fun())
 # L LL RR Left
+
 
 class Sub2(Right, Left): # Python ira chercher dans la class Right, puis LEft
     pass
 
 obj = Sub()
-
 print(obj.var, obj.var_left, obj.var_right, obj.fun())
 # R LL RR Right
 
@@ -1492,7 +1666,8 @@ print(obj.var, obj.var_left, obj.var_right, obj.fun())
 
 ### Building a Hierarchy of classes
 
-# POLYMORPHISM
+
+## POLYMORPHISM
 
 class One:
     def do_it(self):
@@ -1560,4 +1735,242 @@ saluer(a)
 
 
 
+
+
 ##### Exceptions in OOP context
+
+
+### Exceptions are Classes
+
+# when an exception is raised, an object of the class is instantiated and goes through all levels of program execution,
+# looking for the except branch that is prepared to deal with it
+
+def print_exception_tree(thisclass, nest = 0):
+    if nest > 1:
+        print("   |" * (nest - 1), end="")
+    if nest > 0:
+        print("   +---", end="")
+
+    print(thisclass.__name__)
+
+    for subclass in thisclass.__subclasses__():
+        print_exception_tree(subclass, nest + 1)
+
+print_exception_tree(BaseException)
+
+# BaseException
+#    +---BaseExceptionGroup
+#    |   +---ExceptionGroup
+#    +---Exception
+#    |   +---ArithmeticError
+#    |   |   +---FloatingPointError
+#    |   |   +---OverflowError
+#    |   |   +---ZeroDivisionError
+#    |   +---AssertionError
+#    |   +---AttributeError
+#    |   +---BufferError
+#    |   +---EOFError
+#    |   +---ImportError
+#    |   |   +---ModuleNotFoundError
+#    |   |   +---ZipImportError
+#    |   +---LookupError
+#    |   |   +---IndexError
+#    |   |   +---KeyError
+#    |   |   +---CodecRegistryError
+#    |   +---MemoryError
+#    |   +---NameError
+#    |   |   +---UnboundLocalError
+#    |   +---OSError
+#    |   |   +---BlockingIOError
+#    |   |   +---ChildProcessError
+#    |   |   +---ConnectionError
+#    |   |   |   +---BrokenPipeError
+#    |   |   |   +---ConnectionAbortedError
+#    |   |   |   +---ConnectionRefusedError
+#    |   |   |   +---ConnectionResetError
+#    |   |   +---FileExistsError
+#    |   |   +---FileNotFoundError
+#    |   |   +---InterruptedError
+#    |   |   +---IsADirectoryError
+#    |   |   +---NotADirectoryError
+#    |   |   +---PermissionError
+#    |   |   +---ProcessLookupError
+#    |   |   +---TimeoutError
+#    |   |   +---UnsupportedOperation
+#    |   +---ReferenceError
+#    |   +---RuntimeError
+#    |   |   +---NotImplementedError
+#    |   |   +---PythonFinalizationError
+#    |   |   +---RecursionError
+#    |   |   +---_DeadlockError
+#    |   +---StopAsyncIteration
+#    |   +---StopIteration
+#    |   +---SyntaxError
+#    |   |   +---IndentationError
+#    |   |   |   +---TabError
+#    |   |   +---_IncompleteInputError
+#    |   +---SystemError
+#    |   |   +---CodecRegistryError
+#    |   +---TypeError
+#    |   +---ValueError
+#    |   |   +---UnicodeError
+#    |   |   |   +---UnicodeDecodeError
+#    |   |   |   +---UnicodeEncodeError
+#    |   |   |   +---UnicodeTranslateError
+#    |   |   +---NotShareableError
+#    |   |   +---UnsupportedOperation
+#    |   +---Warning
+#    |   |   +---BytesWarning
+#    |   |   +---DeprecationWarning
+#    |   |   +---EncodingWarning
+#    |   |   +---FutureWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---RuntimeWarning
+#    |   |   +---SyntaxWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ImportWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---RuntimeWarning
+#    |   |   +---SyntaxWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---RuntimeWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---RuntimeWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---RuntimeWarning
+#    |   |   +---SyntaxWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ImportWarning
+#    |   |   +---ImportWarning
+#    |   |   +---PendingDeprecationWarning
+#    |   |   +---ResourceWarning
+#    |   |   +---RuntimeWarning
+#    |   |   +---SyntaxWarning
+#    |   |   +---UnicodeWarning
+#    |   |   +---UserWarning
+#    |   +---InterpreterError
+#    |   |   +---InterpreterNotFoundError
+#    |   +---ExceptionGroup
+#    +---GeneratorExit
+#    +---KeyboardInterrupt
+#    +---SystemExit
+
+
+
+### .args
+
+# la méthode .args est un attribut des objets d'exception (instances de classes dérivées de BaseException, comme Exception). 
+# Si l'exception est levée sans argument (raise Exception()), alors e.args est une liste vide ([]).
+# Si l'exception est levée avec un seul argument (raise Exception("message")), alors e.args est une tuple avec un seul élément (("message",)).
+# Si plusieurs arguments sont donnés (raise Exception("msg1", "msg2")), alors e.args est une tuple contenant tous ces arguments (("msg1", "msg2")).
+
+def print_arguments(arguments):
+    lng = len(arguments)
+    if lng == 0:
+        print("")
+    elif lng == 1:
+        print(arguments[0])
+    else:
+        print(str(arguments))
+
+
+try:
+    raise Exception # La ligne raise Exception génère une exception de type Exception sans message.
+
+except Exception as e: # L'exception est attrapée dans le bloc except sous la variable e
+    print(e, e.__str__(), sep=' : ' ,end=' : ')
+    print_arguments(e.args) # = []
+#  :  : 
+
+try:
+    raise Exception("my exception")
+except Exception as e:
+    print(e, e.__str__(), sep=' : ', end=' : ')
+    print_arguments(e.args) # = (my exception) tupple
+# my exception : my exception : my exception
+
+try:
+    raise Exception("my", "exception")
+except Exception as e:
+    print(e, e.__str__(), sep=' : ', end=' : ')
+    print_arguments(e.args) # = ("my", "exception") tupple
+# ('my', 'exception') : ('my', 'exception') : ('my', 'exception')
+
+try:
+    raise Exception(12345)
+except Exception as e:
+    print(e, e.__str__(), sep=' : ', end=' : ')
+    print_arguments(e.args) # = ("12345") tupple, l'int 12345 a bien été chagée en str
+# 12345 : 12345 : 12345
+
+
+### Exemple intéressant
+# class + Error + boucle for
+
+class I:
+    def __init__(self):
+        self.s = 'abc'
+        self.i = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.i == len(self.s):
+            raise StopIteration
+        v = self.s[self.i]
+        self.i += 1
+        return v
+
+
+for x in I(): # va executer chaque method de la fonction
+    print(x,end='') # print le return final snas aller à la ligne, sans espace  
+# abc
+
+
+#  Étape | Action                                   | Résultat / Variable                                   | Affichage            |
+# |---------|------------------------------------------|--------------------------------------------------------|----------------------|
+# | 1       | Crée instance `I()`                      | `self.i=0`, `self.s='abc'`                              |                      |
+# | 2       | Appel `__iter__()`                       | Retourne l'objet lui-même                              |                      |
+# | 3       | Appel `__next__()`                       | `i=0`, retourne `'a'`, `i=1`                          | Affiche `'a'`        |
+# | 4       | Appel `__next__()`                       | `i=1`, retourne `'b'`, `i=2`                          | Affiche `'b'`        |
+# | 5       | Appel `__next__()`                       | `i=2`, retourne `'c'`, `i=3`                          | Affiche `'c'`        |
+# | 6       | Appel `__next__()`                       | `i=3`, levée `StopIteration`                          | Fin de la boucle     |
+
+# raise StopIteration est la façon officielle en Python de dire :  
+# ==> Fini, il n'y a plus d'éléments à fournir
+#     La boucle for ou tout autre code qui utilise l'itérateur va alors arrêter automatiquement la boucle
