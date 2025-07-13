@@ -1,10 +1,14 @@
-list_1 = []
+from os import strerror
 
-for ex in range(6):
-    list_1.append(10 ** ex)
+data = bytearray(10)
 
-list_2 = [10 ** ex for ex in range(6)]
+try:
+    binary_file = open('file.bin', 'rb')
+    binary_file.readinto(data)
+    binary_file.close()
 
-print(list_1)
-print(list_2)
+    for b in data:
+        print(hex(b), end=' ')
+except IOError as e:
+    print("I/O error occurred:", strerror(e.errno))
     

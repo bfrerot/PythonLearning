@@ -266,6 +266,8 @@ print(fibs)
 
 ### List comprehension
 
+
+## rappel
 list_1 = []
 
 for ex in range(6):
@@ -277,4 +279,60 @@ print(list_1)
 # [1, 10, 100, 1000, 10000, 100000]
 print(list_2)
 # [1, 10, 100, 1000, 10000, 100000]
-    
+
+
+## shorter code
+the_list = [1 if x % 2 == 0 else 0 for x in range(10)]
+
+print(the_list)
+# [1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
+
+
+## turn any list comprehension into a generator
+the_list = [1 if x % 2 == 0 else 0 for x in range(10)]
+the_generator = (1 if x % 2 == 0 else 0 for x in range(10))
+
+for v in the_list:
+    print(v, end=" ")
+# 1 0 1 0 1 0 1 0 1 0 
+print() # va à la ligne car on a mis " " comme end au-dessus
+
+for v in the_generator:
+    print(v, end=" ")
+# 1 0 1 0 1 0 1 0 1 0 
+print() # va à la ligne car on a mis " " comme end au-dessus
+
+print(type(the_list))
+# <class 'list'>
+print(len(the_list))
+# 10
+
+print(type(the_generator))
+# <class 'generator'>
+print(len(the_generator))
+# TypeError: object of type 'generator' has no len()
+
+
+## LIST vs GENERATOR
+
+# LIST
+#   - La syntaxe ici est une list comprehension []
+#   - évalue toutes les valeurs immédiatement et stocke tous les éléments en mémoire
+#   - Résultat : une liste contenant x éléments, ici 10 - [1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
+#   - Consomme plus de mémoire (stocke tous les éléments)
+#   - Accès direct via index
+
+# GENERATOR
+#   - La syntaxe est une expression génératrice ()
+#   - ne calcule pas immédiatement tous les éléments
+#   - Résultat : un objet générateur qui produit les valeurs à la demande
+#   - Moins de mémoire, car il génère un élément à la fois
+#   - Ne supporte pas l'indexation, uniquement l'itération
+
+
+## Cas d'usage : traitement d’un fichier très volumineux
+
+# Supposons un très gros fichier texte (par exemple plusieurs gigaoctets) que l'on souhaite analyser ligne par ligne
+# sans charger tout le fichier en mémoire.
+# ==> Problème : si le fichier est énorme cela peut consommer beaucoup de mémoire ou même faire planter votre programme
+

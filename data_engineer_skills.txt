@@ -1,0 +1,186 @@
+Voici une sélection de ressources en ligne (tutoriels, documentation, cours) et quelques ouvrages pour apprendre chacune des technologies que vous avez listées. Je vous indique aussi si des ressources gratuites ou payantes existent.
+
+---
+
+### 1. **Airbyte**
+- **Ressources en ligne** :
+  - [Site officiel](https://airbyte.com/) — Documentation, guides d’utilisation.
+  - [Tutoriel YouTube](https://www.youtube.com/watch?v=H6D3pWwX1JA) — Introduction à Airbyte.
+  - [Blog Airbyte](https://airbyte.com/blog) — Cas d’usage, nouveautés.
+- **Ouvrages** : Aucun ouvrage dédié, mais la documentation est très complète.
+
+---
+
+### 2. **BentoML**
+- **Ressources en ligne** :
+  - [Site officiel](https://bentoml.org/) — Documentation, guides de déploiement.
+  - [Tutoriels YouTube](https://www.youtube.com/watch?v=0Q6kWcDg2XI) — Déploiement de modèles ML.
+  - [Articles et blogs](https://blog.bentoml.org/) — Cas d’usage.
+- **Ouvrage** : Aucun ouvrage spécifique, la documentation est recommandée.
+
+---
+
+### 3. **CI/CD (Continuous Integration/Continuous Deployment)**
+- **Ressources en ligne** :
+  - [Codecademy — CI/CD](https://www.codecademy.com/articles/what-is-ci-cd) — Introduction.
+  - [Azure DevOps, GitHub Actions, Jenkins](https://docs.microsoft.com/en-us/azure/devops/pipelines/?view=azure-devops) — Documentation officielle.
+  - [Coursera — CI/CD Pipelines](https://www.coursera.org/learn/ci-cd) — Cours en ligne.
+- **Ouvrages** :
+  - *Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation* — Jez Humble, David Farley.
+
+---
+
+### 4. **Computer Vision**
+- **Ressources en ligne** :
+  - [Coursera — Deep Learning for Computer Vision](https://www.coursera.org/learn/deep-learning-computer-vision) — En anglais.
+  - [OpenCV](https://opencv.org/) — Bibliothèque de référence.
+  - [Fast.ai Course](https://course.fast.ai/) — Deep Learning pour CV.
+- **Ouvrages** :
+  - *Deep Learning for Computer Vision* — Rajalingapuram et al.
+  - *Learning OpenCV 3* — Adrian Kaehler, Gary Bradski.
+
+---
+
+### 5. **Deep Learning**
+- **Ressources en ligne** :
+  - [DeepLearning.ai Coursera](https://www.coursera.org/specializations/deep-learning) — Spécialisation.
+  - [Fast.ai](https://course.fast.ai/) — Gratuit, pratique.
+  - [Deep Learning Book](https://www.deeplearningbook.org/) — Ian Goodfellow, ouvrage de référence.
+- **Ouvrages** :
+  - *Deep Learning* — Ian Goodfellow, Yoshua Bengio, Aaron Courville.
+
+---
+
+### 6. **Déploiement cloud**
+- **Ressources en ligne** :
+  - [AWS Training](https://aws.amazon.com/training/) — Cours gratuits et payants.
+  - [Google Cloud Platform (GCP) Tutorials](https://cloud.google.com/training) — Documentation.
+  - [Azure DevOps](https://docs.microsoft.com/en-us/azure/devops/?view=azure-devops) — Guides.
+- **Ouvrages** :
+  - *Cloud Computing: Concepts, Technology & Architecture* — Thomas Erl.
+  - *Architecting Cloud Computing Solutions* — Kevin L. Jackson.
+
+---
+
+### 7. **FastAPI**
+- **Ressources en ligne** :
+  - [Site officiel](https://fastapi.tiangolo.com/) — Documentation complète.
+  - [Real Python — FastAPI tutorial](https://realpython.com/fastapi-python-web-apis/) — Tutoriel détaillé.
+  - [YouTube — FreeCodeCamp](https://www.youtube.com/watch?v=0s0pK7U7mYw) — Développement d’API.
+- **Ouvrages** : Pas encore d’ouvrage dédié, la documentation est très complète.
+
+---
+
+### 8. **Great Expectations**
+- **Ressources en ligne** :
+  - [Site officiel](https://greatexpectations.io/) — Documentation.
+  - [Blog et tutorials](https://docs.greatexpectations.io/en/latest/tutorials.html).
+- **Ouvrages** : Aucun, la documentation est principale.
+
+---
+
+### 9. **Kestra**
+- **Ressources en ligne** :
+  - [Site officiel](https://kestra.io/) — Documentation et guides.
+  - [GitHub](https://github.com/kestra-io/kestra) — code source et issues.
+  - [Articles et tutoriels](https://www.kestra.io/blog/) — Ressources pour apprendre à l’utiliser.
+- **Ouvrages** : Aucun ouvrage dédié, la documentation officielle est la meilleure ressource.
+
+---
+
+### 10. **Langchain**
+- **Ressources en ligne** :
+  - [Site officiel](https://python.langchain.com/) — Documentation.
+  - [Github](https://github.com/hwchase17/langchain) — Code source, exemples.
+  - [Tutorials YouTube](https://www.youtube.com/watch?v=HjzSxC0Tn4o) — Présentations.
+- **Ouvrages** : Pas encore d’ouvrage spécifique, mais la documentation et les blogs sont très riches.
+
+---
+
+### 11. **MLFlow**
+- **Ressources en ligne** :
+  - [Site officiel](https://mlflow.org/) — Documentation.
+  - [Coursera — Machine Learning with MLFlow](https://www.coursera.org/learn/mlflow) — Cours.
+  - [Blogs et tutoriels](https://databricks.com/blog/tag/mlflow) — Cas d’usage.
+- **Ouvrages** : Aucun ouvrage dédié, la documentation est très complète.
+
+---
+
+### 12. **PostgreSQL**
+- **Ressources en ligne** :
+  - [Official Documentation](https://www.postgresql.org/docs/) — Documentation complète.
+  - [PostgreSQL Tutorial](https://www.postgresqltutorial.com/) — Tutoriels pas à pas.
+  - [Coursera — Databases and SQL for Data Science](https://www.coursera.org/learn/sql-data-science) — Cours.
+- **Ouvrages** :
+  - *PostgreSQL: Up and Running* — Regina Obe, Leo Hsu.
+  - *PostgreSQL Administration Cookbook* — Simon Riggs.
+
+---
+
+### 13. **Pydantic**
+- **Ressources en ligne** :
+  - [Documentation officielle](https://pydantic.dev/)
+  - [FastAPI + Pydantic](https://fastapi.tiangolo.com/tutorial/validation/) — Tutoriel.
+- **Ouvrages** : Pas encore d’ouvrage dédié, la documentation suffit souvent.
+
+---
+
+### 14. **PySpark**
+- **Ressources en ligne** :
+  - [Official documentation](https://spark.apache.org/docs/latest/api/python/) — Documentation.
+  - [Coursera — Big Data Analysis with PySpark](https://www.coursera.org/learn/large-scale-data-analysis) — Cours.
+  - [Databricks Tutorials](https://databricks.com/p/ebook/learning-pyspark) — Tutoriels.
+- **Ouvrages** :
+  - *Learning PySpark* — Tomasz Drabas, Denny Lee.
+  - *Spark: The Definitive Guide* — Bill Chambers, Matei Zaharia.
+
+---
+
+### 15. **Pytest**
+- **Ressources en ligne** :
+  - [Documentation officielle](https://docs.pytest.org/en/latest/)
+  - [Tutorials](https://realpython.com/pytest-python-testing/) — Tutoriel complet.
+- **Ouvrages** : Peu d’ouvrages spécifiques, la documentation suffit souvent.
+
+---
+
+### 16. **Redpandas**
+- **Ressources en ligne** :
+  - [GitHub](https://github.com/RedpandaData/redpandas) — Documentation.
+  - [Blog posts](https://redpanda.com/blog/tag/redpandas) — Articles.
+- **Ouvrages** : Pas encore d’ouvrage dédié.
+
+---
+
+### 17. **Scikit-Learn (Sk-Learn)**
+- **Ressources en ligne** :
+  - [Site officiel](https://scikit-learn.org/stable/) — Documentation.
+  - [Coursera — Machine Learning with Python](https://www.coursera.org/learn/machine-learning-with-python) — Cours.
+  - [Kaggle — Tutorials](https://www.kaggle.com/learn/overview) — Exercices pratiques.
+- **Ouvrages** :
+  - *Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow* — Aurélien Géron.
+
+---
+
+### 18. **Streamlit**
+- **Ressources en ligne** :
+  - [Site officiel](https://streamlit.io/) — Documentation.
+  - [Tutorials YouTube](https://
+
+---
+
+### 18. **Streamlit**
+- **Ressources en ligne** :
+  - [Site officiel](https://streamlit.io/) — Documentation complète, guides d’utilisation.
+  - [Tutoriels YouTube](https://www.youtube.com/watch?v=JwSS70SNQfw) — Débuter avec Streamlit.
+  - [Blog officiel](https://blog.streamlit.io/) — Cas d’usage, astuces.
+- **Ouvrages** : Aucun ouvrage dédié, la documentation officielle est très riche.
+
+---
+
+## Résumé
+Pour chaque technologie, je vous recommande de commencer par la documentation officielle, qui est souvent la ressource la plus à jour et complète. Ensuite, vous pouvez compléter avec des tutoriels vidéo, des cours en ligne (Coursera, Udemy, Fast.ai) ou des livres spécialisés si vous souhaitez approfondir.
+
+---
+
+Si vous souhaitez que je vous prépare une liste de ressources spécifiques pour une ou plusieurs de ces technologies, n'hésitez pas à me le demander !

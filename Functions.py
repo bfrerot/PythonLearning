@@ -28,6 +28,7 @@ def multiply(x, y): # Function signature
 
 
 ## Functions come from at least three places:
+
 # 1- from Python itself - numerous functions (like print()) are an integral part of Python, 
 # and are always available without any additional effort on behalf of the programmer; 
 # we call these functions built-in functions;
@@ -74,7 +75,8 @@ happyNewYear ()
 # One...
 # Happy New Year!
 
-# return with an expression
+
+## return with an expression
 def boringFunction():
     return 123
 x = boringFunction()
@@ -92,7 +94,8 @@ print("This lesson is boring...")
 # 'Boredom Mode' ON.
 # This lesson is boring... # return value 123 is not used and it is fine
 
-# return / none default if no result from the function
+
+## return / none default if no result from the function
 def strangeFunction(n):
     if(n % 2 == 0):
         return True
@@ -100,6 +103,7 @@ print(strangeFunction(2))
 print(strangeFunction(1))
 True
 None # 1%2 = 1 donc return = None car rien de prevu par la function
+
 
 ## récupérer le return d'une fonction
 def ma_fonction():
@@ -129,6 +133,7 @@ print(ma_variable)  # Affiche : 42
 # 3- Global (G): The global scope, which is the top-most scope in the script. This contains all of the names 
 #defined in the script that are not contained in a function body.
 # 4- Built-in (B): The built-in scope contains all of the names, such as keywords, that are built-in to Python. Functions such as round()
+
 
 ## variable scope LOCAL vs GLOBAL
 
@@ -165,7 +170,7 @@ myFunction()
 # Do I know that variable? 1
 
 
-# same var name in and out the function
+## same var name in and out the function
 def myFunction():
     var = 2
     print("Do I know that variable?", var)
@@ -175,7 +180,8 @@ print(var)
 # Do I know that variable? 2
 # 1
 
-# export a var out the function with "global"
+
+## export a var out the function with "global"
 def myFunction():
     global var
     var = 2
@@ -185,7 +191,8 @@ var = 1
 myFunction()
 # Do I know that variable? 2
 
-# interaction avec les list
+
+## interaction avec les list
 def myFunction(myList1):
     print(myList1)
     del myList1[0]
@@ -238,6 +245,7 @@ def add_numbers(a, c, b=2):
 add_numbers(a=1, c=3)
 # 6
 
+
 ## ordre des parameters VS desordre
 
 # parameters dans l'odre
@@ -251,7 +259,6 @@ introduction("Clark", "Kent")
 # Hello, my name is Jesse Quick
 # Hello, my name is Clark Kent
 
-
 # parameters dans le desordre
 def introduction(firstName, lastName):
     print("Hello, my name is", firstName, lastName)
@@ -260,7 +267,6 @@ introduction(firstName = "James", lastName = "Bond")
 introduction(lastName = "Skywalker", firstName = "Luke") # if parameters are set in a different order with an = + parameter, the function doesn't care and sort it in the right way 
 # Hello, my name is James Bond
 # Hello, my name is Luke Skywalker
-
 
 # parameters par defaut
 def introduction(firstName, lastName="Smith"):
@@ -273,7 +279,6 @@ def fun(inp=2,out=3):
 print (fun(out=2))
 # 4
 
-
 # multiple parameters (*par)
 def fun(*val): # fun() accepte de multiple parameters
     print(type(val))
@@ -282,13 +287,11 @@ number = 400
 fun(lst,number)
 # <class 'tuple'> # car [1,2,3,4,5], 400 est un tuple
 
-
 # parameter par defaut ecrasé par celui indiqué
 def introduction(firstName, lastName="Smith"):
     print("Hello, my name is", firstName, lastName)
 introduction("James","Doe")
 # Hello, my name is James Doe # Smith (default parameter) is replaced by Doe (specified parameter)
-
 
 # on peut avoir une fonction qui appelle 2 parameters ou plus
 # mais ne se sert que d'1
@@ -302,8 +305,7 @@ def fun(data, *num ):
 fun("Earth", 2, True, "Jupiter")
 # Earth
 
-
-## on peut avoir une fonction dans une fonction etc
+# on peut avoir une fonction dans une fonction etc
 x = 5
 def outer_func():
     y = 3
@@ -329,6 +331,7 @@ help(multiply)
 
 
 ## difference entre invoquer et printer la function
+
 #invoquer
 def wishes():
     print("My Wishes")
@@ -428,7 +431,8 @@ def hiEverybody(myList):
 # Hi, John
 # Hi, Lucy
 
-# list comme result d'une function
+
+## list comme result d'une function
 
 def strangeListFunction(n):
     strangeList = []
@@ -536,3 +540,38 @@ except ZeroDivisionError:
 3.5 
 Error: Invalid argument. # ca ne continuera pas sur print(spam(1)), 
                          # car le code passe a except pour spam(0) et ne remontera pas 
+                         
+
+## closures
+
+def outer(par):
+    loc = par
+
+    def inner():
+        return loc # = 1
+    
+    return inner # = 1
+
+var = 1
+fun = outer(var)
+print(fun())
+# 1
+
+
+def make_closure(par):
+    loc = par
+
+    def power(p):
+        return p ** loc
+    return power
+
+fsqr = make_closure(2)
+fcub = make_closure(3)
+
+for i in range(5):
+    print(i, fsqr(i), fcub(i))
+# 0 0 0
+# 1 1 1
+# 2 4 8
+# 3 9 27
+# 4 16 64
