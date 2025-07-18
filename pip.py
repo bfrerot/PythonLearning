@@ -24,54 +24,54 @@
 
 ## pip help
 
-PS C:\PythonLearning> pip help
+# PS C:\PythonLearning> pip help
 
-Usage:
-  pip <command> [options]
+# Usage:
+#   pip <command> [options]
 
-Commands:
-  install                     Install packages.
-  lock                        Generate a lock file.
-  download                    Download packages.
-  uninstall                   Uninstall packages.
-  freeze                      Output installed packages in requirements format.
-  inspect                     Inspect the python environment.
-  list                        List installed packages.
-  show                        Show information about installed packages.
-  check                       Verify installed packages have compatible dependencies.
-  config                      Manage local and global configuration.
-  search                      Search PyPI for packages.
+# Commands:
+#   install                     Install packages.
+#   lock                        Generate a lock file.
+#   download                    Download packages.
+#   uninstall                   Uninstall packages.
+#   freeze                      Output installed packages in requirements format.
+#   inspect                     Inspect the python environment.
+#   list                        List installed packages.
+#   show                        Show information about installed packages.
+#   check                       Verify installed packages have compatible dependencies.
+#   config                      Manage local and global configuration.
+#   search                      Search PyPI for packages.
   
 
 ## pip list
 
-PS C:\PythonLearning> pip list
-Package                   Version
-------------------------- --------------
-..
-Jinja2                    3.1.6
-json5                     0.12.0
-jsonpointer               3.0.0
-jsonschema                4.23.0
-jsonschema-specifications 2025.4.1
-jupyter_client            8.6.3
-jupyter_core              5.7.2
-jupyter-events            0.12.0
-jupyter-lsp               2.2.5
-jupyter_server            2.16.0
-jupyter_server_terminals  0.5.3
-jupyterlab                4.4.2
-jupyterlab_pygments       0.3.0
-jupyterlab_server         2.27.3
-..
-matplotlib                3.10.3
-matplotlib-inline         0.1.7
-..
-numpy                     2.2.6
-..
-pandas                    2.2.3
-pandocfilters             1.5.1
-..
+# PS C:\PythonLearning> pip list
+# Package                   Version
+# ------------------------- --------------
+# ..
+# Jinja2                    3.1.6
+# json5                     0.12.0
+# jsonpointer               3.0.0
+# jsonschema                4.23.0
+# jsonschema-specifications 2025.4.1
+# jupyter_client            8.6.3
+# jupyter_core              5.7.2
+# jupyter-events            0.12.0
+# jupyter-lsp               2.2.5
+# jupyter_server            2.16.0
+# jupyter_server_terminals  0.5.3
+# jupyterlab                4.4.2
+# jupyterlab_pygments       0.3.0
+# jupyterlab_server         2.27.3
+# ..
+# matplotlib                3.10.3
+# matplotlib-inline         0.1.7
+# ..
+# numpy                     2.2.6
+# ..
+# pandas                    2.2.3
+# pandocfilters             1.5.1
+# ..
 
 
 ## pip search [anything]

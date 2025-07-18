@@ -668,3 +668,43 @@ print(data.decode('latin1'))
 #           the method's result may indicate that the byte array has only been filled fragmentarily 
 #           the result will show you that, too, and the part of the array not being used by the newly read contents remains untouched
 
+from os import strerror
+data = bytearray(10)
+try:
+    binary_file = open('file.bin', 'rb')
+    binary_file.readinto(data)
+    binary_file.close()
+
+    for b in data:
+        print(hex(b), end=' ')
+except IOError as e:
+    print("I/O error occurred:", strerror(e.errno))
+# 0xa 0xb 0xc 0xd 0xe 0xf 0x10 0x11 0x12 0x13  
+
+# avec bytearray et read()
+from os import strerror
+try:
+    binary_file = open('file.bin', 'rb')
+    data = bytearray(binary_file.read())
+    binary_file.close()
+
+    for b in data:
+        print(hex(b), end=' ')
+except IOError as e:
+    print("I/O error occurred:", strerror(e.errno))
+# 0xa 0xb 0xc 0xd 0xe 0xf 0x10 0x11 0x12 0x13
+
+
+# et avec un argument dans read()
+from os import strerror
+try:
+    binary_file = open('file.bin', 'rb')
+    data = bytearray(binary_file.read(5))
+    binary_file.close()
+
+    for b in data:
+        print(hex(b), end=' ')
+
+except IOError as e:
+    print("I/O error occurred:", strerror(e.errno))
+# 0xa 0xb 0xc 0xd 0xe
