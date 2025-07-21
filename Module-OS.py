@@ -43,6 +43,7 @@ print(os.listdir())
 
 ## os.listdir(projects)
 # crée une list des sous-réperoires et files du répertoire courant ou celui indiqué comme argument
+# **Note :** L'ordre peut varier selon le système d'exploitation (pas forcément alphabétique)
 
 print(os.listdir("projects"))
 # ['AP-wifi.svg', 'caesar_cipher.py', 'calcul BMI.py', 'calcul heure fin de reunion.py', 'calcul investissement intéret.py', 
@@ -102,3 +103,10 @@ import os
 os.removedirs("my_first_directory/my_second_directory")
 
  
+
+### pyperclip
+
+from platform import pyperclip 
+pyperclip.copy('Hello world!') 
+print (pyperclip.paste())
+# Hello world!

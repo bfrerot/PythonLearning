@@ -109,7 +109,7 @@ print(calendar.weekday(2025, 7, 17))
 
 
 
-## calendar.weekheader()
+## calendar.weekheader(x)
 # requires to specify the width in characters for one day of the week
 # If the width you provide is greater than 3 we'll still get the abbreviated weekday names consisting of 3 characters
 
@@ -118,6 +118,8 @@ print(calendar.weekheader(2))
 # Mo Tu We Th Fr Sa Su
 print(calendar.weekheader(5))
 #  Mon   Tue   Wed   Thu   Fri   Sat   Sun 
+print(calendar.weekheader())
+# TypeError: TextCalendar.formatweekheader() missing 1 required positional argument: 'width'
 
 
 

@@ -188,6 +188,23 @@ for v in powers_of_2(8):
 # La prochaine fois que vous demandez une valeur (avec next() ou dans une boucle) la fonction 
 #   reprend juste après le yield
 
+def I():
+    s = 'abcdef'
+    for c in s[::2]:
+        yield c
+for x in I():
+    print(x, end='')
+# ace
+
+def fun(n):
+    s = '+'
+    for i in range(n):
+        s += s
+        yield s
+for x in fun(2):
+    print(x, end='');
+# ++++++
+
 
 ## ex avec une list
 

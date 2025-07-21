@@ -320,7 +320,7 @@ print(t.strftime("%H:%M:%S"))
 dt = datetime(2020, 11, 4, 14, 53)
 print(dt)
 # 2020-11-04 14:53:00
-print(dt.strftime("%y/%B/%d %H:%M:%S"))
+print(dt.strftime("%y/%B/%d %H:%M:%S")) # le B indique de mettre en lettres le mois
 # 20/November/04 14:53:00
 
 import time

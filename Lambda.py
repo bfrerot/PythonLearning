@@ -7,7 +7,10 @@
 # Programmers use the lambda function to simplify the code, to make it clearer and easier to understand
 
 # lambda function is a function without a name 
-# It's not a problem, as youwe can name such a function if we really need, but in many cases the lambda function can exist and work while remaining fully incognito.
+# It's not a problem, as we can name such a function if we really need, but in many cases the lambda function can exist and work while remaining fully incognito
+
+# lambda function accept any number of argument(s)
+# BUT lambda function can evaluate ONLY 1 expression
 
 two = lambda: 2
 sqr = lambda x: x * x
@@ -122,8 +125,32 @@ seed() # vide ne sert pas à grand chose..Python produit une sequence différent
 
 data = [randint(-10,10) for x in range(5)]
 filtered = list(filter(lambda x: x > 0 and x % 2 == 0, data))
-
 print(data)
 # [-6, 8, 0, -1, 9]
 print(filtered)
 # [8]
+
+my_tuple = (0, 1, 2, 3, 4, 5, 6)
+foo = tuple(filter(lambda x: x > 1, my_tuple))
+print(foo)
+# (2, 3, 4, 5, 6)
+
+my_tuple = (0, 1, 2, 3, 4, 5, 6)
+foo = tuple(filter(lambda x: x-0 and x-1, my_tuple))
+print(foo)
+# (2, 3, 4, 5, 6)
+
+
+numbers = [i*i for i in range(5)]              # 1. Génère une liste des carrés
+foo = list(filter(lambda x: x % 2, numbers))   # 2. Filtre les nombres impairs
+print(foo)                                     # 3. Affiche le résultat
+# [1,9]
+
+# Pour chaque x dans numbers :
+# x = 0  → lambda 0: 0 % 2  → 0  → falsy → ❌ rejeté
+# x = 1  → lambda 1: 1 % 2  → 1  → truthy → ✅ gardé  
+# x = 4  → lambda 4: 4 % 2  → 0  → falsy → ❌ rejeté
+# x = 9  → lambda 9: 9 % 2  → 1  → truthy → ✅ gardé
+# x = 16 → lambda 16: 16 % 2 → 0  → falsy → ❌ rejeté
+
+

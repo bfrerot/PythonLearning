@@ -1,10 +1,8 @@
-import calendar  
-c = calendar.Calendar()
-for data in c.monthdays2calendar(2020, 12):
-    print(data)
-# [(0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6)]
-# [(7, 0), (8, 1), (9, 2), (10, 3), (11, 4), (12, 5), (13, 6)]
-# [(14, 0), (15, 1), (16, 2), (17, 3), (18, 4), (19, 5), (20, 6)]
-# [(21, 0), (22, 1), (23, 2), (24, 3), (25, 4), (26, 5), (27, 6)]
-# [(28, 0), (29, 1), (30, 2), (31, 3), (0, 4), (0, 5), (0, 6)]
-    
+class Demo:
+    def __init__(self, value):
+        self.instance_var = value
+d1 = Demo(100)
+print('contents of d1:', d1.__dict__)
+d2 = Demo(200)
+d1.another_var = 'another variable in the object'
+print('contents of d1:', d1.__dict__)

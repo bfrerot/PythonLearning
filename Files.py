@@ -352,6 +352,9 @@ except Exception as exc:
 # Simple is better than complex.
 # Complex is better than complicated.
 
+# ==> read() 
+# reads the number of character/byte from the file, returns a string, is able to read the whole file at once default arg being (-1)
+
 ## avec while
 from os import strerror
 try:

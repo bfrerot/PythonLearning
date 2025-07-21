@@ -254,6 +254,17 @@ print(len(stack_object.__stack_list))
 # When any class component has a name starting with two underscores (__), it becomes private 
 # this means that it can be accessed ONLY FROM WITHIN the class.
 
+class A:
+    def __init__(self, v):
+        self.__a = v + 1
+
+
+a = A(0)
+print(a._A__a)
+# 1
+print(a.__a)
+# AttributeError: 'A' object has no attribute '__a'
+
 
 ## the stack approach
 
@@ -455,6 +466,35 @@ print(stack_object.get_list())
 
 
 ### INSTANCE VARIABLES
+
+
+# The keyword "self" is used to indicate that this variable is created coherently and individually for the instance to make it independent 
+# from other instances of the same class
+class Demo:
+    def __init__(self, value):
+        self.instance_var = value
+d1 = Demo(100)
+d2 = Demo(200)
+print("d1's instance variable is equal to:", d1.instance_var)
+# 100
+print("d2's instance variable is equal to:", d2.instance_var)
+# 200
+# ==> we instantiate the class twice, each time passing a different value to be stored inside the object
+#     the print instructions prove the fact that instance variable values are kept independently because the printed values differ
+
+
+# instance variables can be created during any moment of an object's life. 
+# using the built-in __dict__ property that is present for every Python object
+
+class Demo:
+    def __init__(self, value):
+        self.instance_var = value
+d1 = Demo(100)
+print('contents of d1:', d1.__dict__)
+# contents of d1: {'instance_var': 100}
+d1.another_var = 'another variable in the object'
+print('contents of d1:', d1.__dict__)
+# contents of d1: {'instance_var': 100, 'another_var': 'another variable in the object'} # 
 
 
 ## code example method publique
