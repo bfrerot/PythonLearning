@@ -13,11 +13,32 @@ https://docs.python.org/3/py-modindex.html
 # when you run a file directly, its __name__ variable is set to __main__;
 # when a file is imported as a module, its __name__ variable is set to the file's name (excluding .py)
 
-## import module to be able to use it, one or many at a time
+
+## import 
+# import module to be able to use it, one or many at a time
+
 import <module1>, <module2>, <modulex>
 import math
 import math, random
 from math import * # importe toutes les entities / difference avec import math ??
+
+# import VS invocation
+
+from p.m import f
+f()
+
+from p.m import f as func_f
+func_f()
+
+import p.m
+p.m.f()
+
+import p.m as module_m
+module_m.f()
+
+import p
+p.m.f()
+
 
 ##namespace
 # Inside a certain namespace, each name must remain unique

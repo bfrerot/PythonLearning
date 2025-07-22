@@ -27,6 +27,65 @@ class TheSimplestClass:
     pass
 
 
+### EXEMPLE SUPERCLASS//CLASS
+
+class Stack:
+    def __init__(self):
+        self._stack_list = [] # crée une list vide
+        
+    def get_list(self):
+        return self._stack_list
+        
+    def push(self, val):
+        self._stack_list.append(val) # crée une fonction qui ajout une val à la fin de la list
+        return self._stack_list      # return la value
+
+    def pop(self):
+        value = self._stack_list[-1] # crée une fonction qui delete le dernier elem de la list 
+        del self._stack_list[-1]     # et renvoie la valeur de l'elm poppé
+        return value
+
+
+class AddingStack(Stack):
+    def __init__(self):
+        Stack.__init__(self) # invoque l'upper class Stack
+        self.__sum = 0       # crée une variable privée sum, integer
+
+    def get_sum(self):       # la fonction créée return la valeur de sum
+        return self.__sum
+
+    def push(self, val):      # la fonction ajoute une valeur à sum
+        self.__sum += val
+        Stack.push(self, val)
+
+    def pop(self):               # la fonction enleve une valeur à sum 
+        val = Stack.pop(self)
+        self.__sum -= val
+        return val
+
+
+stack_object = AddingStack()
+
+for i in range(5):
+    stack_object.push(i)
+print(stack_object.get_sum())
+10
+print(stack_object.get_list())
+[0, 1, 2, 3, 4]
+
+for i in range(5):
+    print(stack_object.pop())
+    4
+    3
+    2
+    1
+    0
+print(stack_object.get_sum())
+0
+print(stack_object.get_list())
+[0]
+
+
 
 ### OBJECT/INSTANCE OF A CLASS
 
@@ -44,11 +103,11 @@ class TheSimplestClass:
 # an object has a set of abilities to perform specific activities, able to change the object itself, or some of the other objects
 # Each subclass is more specialized (or more concrete) than its superclass. Conversely, each superclass is more general (more abstract) than any of its subclasses.
 
-# hint  which can help you identify any of the three spheres above. 
-# Whenever you describe an object and you use:
-# a noun – you probably define the object's name;
-# an adjective – you probably define the object's property;
-# a verb – you probably define the object's activity.
+
+# Whenever we describe an object we use:
+#   a noun = object's name
+#   an adjective = object's property
+#   a verb = object's activity
 
 # example:
 # A pink Cadillac went quickly.
@@ -81,16 +140,74 @@ my_first_object = TheSimplestClass()
 # It is said that methods are the 'callable attributes' of Python objects
 
 
+## private attribute
+# __ = private !
+
+class Stack:
+    def __init__(self):
+        self.__stack_list = []
+
+
+stack_object = Stack()
+print(len(stack_object.__stack_list))
+# AttributeError: 'Stack' object has no attribute '__stack_list'  
+  
+# When any class component has a name starting with two underscores (__), it becomes private 
+# this means that it can be accessed ONLY FROM WITHIN the class.
+
+class A:
+    def __init__(self, v):
+        self.__a = v + 1
+
+
+a = A(0)
+print(a._A__a)
+# 1
+print(a.__a)
+# AttributeError: 'A' object has no attribute '__a'
+
+
+
+### CLASS & OBJECT & ATTRIBUTE Example
+
+class Duck: # example of a Class
+    def __init__(self, height, weight, sex):
+        self.height = height
+        self.weight = weight # example of an Atribute
+        self.sex = sex
+
+    def walk(self):
+        pass
+
+    def quack(self):
+        return print('Quack')
+        
+canard = Duck(21,3.5,"male") # example of an Object
+duckling = Duck(height=10, weight=3.4, sex="male")
+drake = Duck(weight=3.7, height=25, sex="male")
+hen = Duck(sex="female", weight=3.4, height=20 )
+print(canard.sex)
+# male
+print(duckling.height)
+# 10
+print(hen.weight)
+# 3.4
+print((drake.sex))
+# male
+canard.quack()
+# Quack
+
+
 
 ### TYPE
 
 # type is one of the most fundamental and abstract terms of Python
 
-# it is the foremost type that any class can be inherited from; as a result, if you’re looking for the type of class, 
-# then type is returned
+# it is the foremost type that any class can be inherited from
+# if we look for the type of class, type is returned
 
-# in all other cases, it refers to the class that was used to instantiate the object; it’s a general term describing 
-# the type/kind of any object
+# in all other cases, it refers to the class that was used to instantiate the object
+# it’s a general term describing the type/kind of any object
 
 # it’s the name of a very handy Python function that returns the class information about the objects passed as arguments to that function
 
@@ -130,37 +247,6 @@ print(duckling.quack.__class__)
 
 
 
-### CLASS & OBJECT & ATTRIBUTE Example
-
-class Duck: # example of a Class
-    def __init__(self, height, weight, sex):
-        self.height = height
-        self.weight = weight # example of an Atribute
-        self.sex = sex
-
-    def walk(self):
-        pass
-
-    def quack(self):
-        return print('Quack')
-        
-canard = Duck(21,3.5,"male") # example of an Object
-duckling = Duck(height=10, weight=3.4, sex="male")
-drake = Duck(weight=3.7, height=25, sex="male")
-hen = Duck(sex="female", weight=3.4, height=20 )
-print(canard.sex)
-# male
-print(duckling.height)
-# 10
-print(hen.weight)
-# 3.4
-print((drake.sex))
-# male
-canard.quack()
-# Quack
-
-
-
 ### INHERITANCE
 # Any object bound to a specific level of a class hierarchy inherits all the traits (as well as the requirements and qualities) defined inside any of the superclasses.
 
@@ -172,7 +258,8 @@ canard.quack()
 # A stack is an object with two elementary operations, conventionally named push (when a new element is put on the top) and pop (when an existing element is taken away from the top)
 
 
-## the procedural approach
+## procedural approach
+
 # 1- decide how to store the values which will arrive onto the stack
 #       a list [] is the best option
 stack = []
@@ -207,7 +294,8 @@ print(pop())
 3
 
 
-## the object approach
+## object approach
+
 # how the object stack begins,  class [name]:
 
 # we have to install a list inside each object of the class
@@ -241,32 +329,7 @@ print(len(stack_object.name))
 # we don't use parentheses! we do not invoke a method but a property;
 
 
-## __ = private !
-class Stack:
-    def __init__(self):
-        self.__stack_list = []
-
-
-stack_object = Stack()
-print(len(stack_object.__stack_list))
-# AttributeError: 'Stack' object has no attribute '__stack_list'  
-  
-# When any class component has a name starting with two underscores (__), it becomes private 
-# this means that it can be accessed ONLY FROM WITHIN the class.
-
-class A:
-    def __init__(self, v):
-        self.__a = v + 1
-
-
-a = A(0)
-print(a._A__a)
-# 1
-print(a.__a)
-# AttributeError: 'A' object has no attribute '__a'
-
-
-## the stack approach
+## stack approach
 
 class Stack:
     def __init__(self):
@@ -399,7 +462,8 @@ print(funny_stack.pop())
 # 0
 
 
-## EXEMPLE SUPERCLASS//CLASS
+
+### EXEMPLE SUPERCLASS//CLASS
 
 class Stack:
     def __init__(self):
@@ -651,7 +715,7 @@ obj.set_rogue(666)
 # AttributeError: 'ExampleClass' object has no attribute 'set_rogue'
 
 
-# Exemple SANS __slots__
+## Exemple SANS __slots__
 
 class Personne:
     def __init__(self, nom, age):
@@ -664,7 +728,7 @@ print(p.adresse)  # Affiche : 123 Rue Exemple
 # Ici, on peut ajouter n’importe quel attribut à l’objet p
 
 
-# Exemple AVEC __slots__
+## Exemple AVEC __slots__
 
 class Personne:
     __slots__ = ['nom', 'age']
@@ -808,7 +872,6 @@ class A:
         self.Y = v
         A.X += v
 
-
 a = A() # A.X += v ==> X = 0
 b = A(1) # A.X += v ==> X = 0 + 1 = 1
 c = A(2) # A.X += v ==> X = 1 + 2 = 3
@@ -833,25 +896,39 @@ print(example_object_3.__dict__, example_object_3.counter)
 # {'_ExampleClass__first': 4} 3
 
 
-## __dict__ de class
+## __dict__ de class VS d'object
+
+# A class variable is a class property that exists in just one copy, and it is stored outside any class instance
+# Because it is owned by the class itself, all class variables are shared by all instances of the class
+# BUT as the class variable is defined outside the object, it is NOT LISTED IN THE OBJECT's __dict__
 
 class ExampleClass:
     varia = 1
     def __init__(self, val):
         ExampleClass.varia = val
 
-
 print(ExampleClass.__dict__) # __dict__ d’une classe montre ses attributs, y compris les variables de class et méthods
 # {'__module__': '__main__', '__firstlineno__': 1, 'varia': 1, '__init__': <function ExampleClass.__init__ at 0x000001EFEB9B3E20>, '__static_attributes__': (),
 # '__dict__': <attribute '__dict__' of 'ExampleClass' objects>, '__weakref__': <attribute '__weakref__' of 'ExampleClass' objects>, '__doc__': None}
 
-example_object = ExampleClass(2) # la variable de class "varia" passe à 2
-# {'__module__': '__main__', '__firstlineno__': 1, 'varia': 2, '__init__': <function ExampleClass.__init__ at 0x000001EFEB9B3E20>, '__static_attributes__': (),
-# '__dict__': <attribute '__dict__' of 'ExampleClass' objects>, '__weakref__': <attribute '__weakref__' of 'ExampleClass' objects>, '__doc__': None}
-print(ExampleClass.__dict__)
-
+example_object = ExampleClass(2) 
 print(example_object.__dict__)
 # {} # vide, logique car aucune action pour l'instance elle-meme
+
+
+class Demo:
+    class_var = 'TEST'
+
+d1 = Demo()
+d2 = Demo()
+print(Demo.class_var)
+# TEST
+print(d1.class_var)
+# TEST
+print(d2.class_var)
+# TEST
+print('contents of d1:', d1.__dict__)
+# contents of d1: {} 
 
 
 
@@ -881,8 +958,50 @@ print(a2.espèce)
 # Vertébré
 
 
+## Il faut EVITER de creer des variables d'instance du meme nom que des variables de class
+# ci-dessous un exemple du fonctionnement
 
-### Checking attribute existence
+class Demo:
+    class_var = 'shared variable'
+
+d1 = Demo()
+d3 = d1
+d2 = Demo()
+
+# both instances allow access to the class variable
+print(d1.class_var)
+# shared variable
+print(d2.class_var)
+# shared variable
+
+# d1 object has no instance variable
+print('contents of d1:', d1.__dict__)
+# contents of d1: {}
+
+# d1 object receives an instance variable named 'class_var'
+d1.class_var = "I'm messing with the class variable"
+
+# d1 object owns the variable named 'class_var' which holds a different value than the class variable named in the same way
+print('contents of d1:', d1.__dict__)
+# contents of d1: {'class_var': "I'm messing with the class variable"}
+print(d1.class_var)
+# I'm messing with the class variable
+
+# d3 object is linked to d1 so has the same value
+print(d3.class_var)
+# I'm messing with the class variable
+
+# d2 object variables were not influenced
+print('contents of d2:', d2.__dict__)
+# contents of d2: {}
+
+# d2 object variables were not influenced
+print('contents of class variable accessed via d2:', d2.class_var)
+# contents of class variable accessed via d2: shared variable
+
+
+
+## Checking attribute existence
 
 # error code example
 
@@ -900,7 +1019,7 @@ print(example_object.b)
 # AttributeError: 'ExampleClass' object has no attribute 'b'
 
 
-## fix with try/except
+# fix with try/except
 
 class ExampleClass:
     def __init__(self, val):
@@ -931,7 +1050,7 @@ except AttributeError:
     pass
  
 
-## hasattr
+# hasattr
 # check si un objet possède un attribut
 
 class ExampleClass:
@@ -957,7 +1076,7 @@ if hasattr(example_object, 'b'):
     print(example_object.b) # 1
     
     
-## s'applique aussi aux class
+# s'applique aussi aux class
 
 class ExampleClass:
     attr = 1
@@ -967,7 +1086,7 @@ print(hasattr(ExampleClass, 'prop'))
 # False
 
 
-## attribut de class vs instance
+# attribut de class vs instance
 
 class ExampleClass:
     a = 1 # pour la class et les objets
