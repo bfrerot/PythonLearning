@@ -221,6 +221,12 @@ print(y)
 # True
 # False
 
+foo = ("Mary has 21 little sheep")
+print (foo.split())
+# ['Mary', 'has', '21', 'little', 'sheep']
+print (foo.split()[2].isdigit())
+# True
+
 
 ### .isidentifier()	# Returns True if the string is an identifier
 # returns True if the string is a valid identifier, otherwise False.
@@ -252,6 +258,16 @@ print (m.islower())
 # False
 # False
 # True
+
+strng = '\''.join(("Mary", "had", "21", "sheep"))
+print(strng)
+# Mary'had'21'sheep
+print(strng[0:1])
+# M
+print(strng[0:2])
+# Ma
+print(strng[0:1].islower())
+# False
 
 
 ### .isnumeric()	# Returns True if all characters in the string are numeric
@@ -487,6 +503,12 @@ print("phi       chi\npsi")
 # psi
 print("phi       chi\npsi".split())
 # ['phi', 'chi', 'psi']
+
+foo = ("Mary has 21 little sheep")
+print (foo.split())
+# ['Mary', 'has', '21', 'little', 'sheep']
+print (foo.split()[2].isdigit())
+# True
 
 
 ### .splitlines()	# Splits the string at line breaks and returns a list

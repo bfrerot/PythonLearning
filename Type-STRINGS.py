@@ -165,6 +165,13 @@ print("F" not in alphabet)
 # True
 # True
 
+# funny thing
+# ==> "", empty string is a part of any string
+print ("" in "nimportequ'elle string")
+# True
+print ("" in "")
+# True
+
 
 ## f-strings ou formatted strings litterals - python 3.6 and above
 

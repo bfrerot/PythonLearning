@@ -3,31 +3,61 @@
 
 
 
-##### BASICS
+##### BASIS TERMS
+
+### CLASS — an idea, blueprint, or recipe for an instance
+
+class TheClass:
+    class_variable = True  # This is a class variable (property)
+
+    def __init__(self):
+        self.instance_variable = False  # This is an instance variable
+
+    def do_this(self):  # This is a class function (method)
+        return TheClass.class_variable
+    
+    
+    
+### OBJECT/INSTANCE — an instantiation of the class; very often used interchangeably with the term 'object'
+
+class TheClass:
+    pass
+
+the_object = TheClass()  # the_object is an object of TheClass class
 
 
 
-### BASIS TERMS
-# CLASS — an idea, blueprint, or recipe for an instance
-# INSTANCE — an instantiation of the class; very often used interchangeably with the term 'object'
-# OBJECT — Python's representation of data and methods; objects could be aggregates of instances
-# ATTRIBUTE — any object or class trait; could be a variable or method
-# METHOD — a function built into a class that is executed on behalf of the class or object; some say that it’s a 'callable attribute'
-# TYPE — refers to the class that was used to instantiate the object
+### ATTRIBUTE — any object or class trait; could be a variable or method
+
+### METHOD — a function built into a class that is executed on behalf of the class or object; some say that it’s a 'callable attribute'
+
+######################################################################################################################################################################################
 
 
 
-### CLASS
-# A class (among other definitions) is a set of objects. An object is a being belonging to a class.
-# A class is an idea (more or less abstract) which can be used to create a number of incarnations – such an incarnation is called an object.
-# When a class is derived from another class, their relation is named inheritance. The class which derives from the other class is named a subclass. The second side of this relation is named superclass
+##### CLASS
+
+# A class (among other definitions) is a set of objects. An object is a being belonging to a class
+# A class is an idea (more or less abstract) which can be used to create a number of incarnations – such an incarnation is called an object
+# When a class is derived from another class, their relation is named inheritance ==> subclass(superclass)
+# Each subclass is more specialized (or more concrete) than its superclass
+# Conversely, each superclass is more general (more abstract) than any of its subclasses
+
 
 # define a class
 class TheSimplestClass:
     pass
 
+# inheritance
+class Alpha: # superclass of Beta
+    value = "Alpha"
 
-### EXEMPLE SUPERCLASS//CLASS
+    def say(self):
+        return self.value.lower()
+
+class Beta(Alpha): # subclass of Alpha()
+    pass
+
 
 class Stack:
     def __init__(self):
@@ -87,22 +117,22 @@ print(stack_object.get_list())
 
 
 
-### OBJECT/INSTANCE OF A CLASS
+
+
+##### OBJECT/INSTANCE OF A CLASS
 
 # An object is one particular physical instantiation of a class that occupies memory and has data elements
-# This is what 'self' refers to when we deal with class instances.
+# This is what 'self' refers to when we deal with class instances
 
-# !! An object is everything in Python that you can operate on, like a class, instance, list, or dictionary.
-# The term instance is very often used interchangeably with the term object, because object refers to a particular instance of a class. 
-# It’s a bit of a simplification, because the term object is more general than instance.
+# !! An object is everything in Python that you can operate on, like a class, instance, list, or dictionary
+# The term instance is very often used interchangeably with the term object, because object refers to a particular instance of a class
+# It’s a bit of a simplification, because the term object is more general than instance !!
 
 # An instance is an incarnation of the requirements, traits, and qualities assigned to a specific class
 # every existing object may be equipped with three groups of attributes:
-# an object has a name that uniquely identifies it within its home namespace (although there may be some anonymous objects, too)
-# an object has a set of individual properties which make it original, unique, or outstanding (although it's possible that some objects may have no properties at all)
-# an object has a set of abilities to perform specific activities, able to change the object itself, or some of the other objects
-# Each subclass is more specialized (or more concrete) than its superclass. Conversely, each superclass is more general (more abstract) than any of its subclasses.
-
+#    a name that uniquely identifies it within its home namespace 
+#    a set of individual properties which make it original, unique, or outstanding
+#    a set of abilities to perform specific activities
 
 # Whenever we describe an object we use:
 #   a noun = object's name
@@ -125,81 +155,269 @@ print(stack_object.get_list())
 # Activity = Sleep (all day)
 
 
-## define an object
+# define an object
 my_first_object = TheSimplestClass()
 # The act of creating an object of the selected class is also called an instantiation (as the object becomes an instance of the class).
 
 
 
-### ATTRIBUTE
+### CLASS vs INSTANCE variables
+
+class Animal:
+    espèce = "Mammifère"  # Variable de classe
+
+    def __init__(self, nom):
+        self.nom = nom  # Variable d'instance
+
+# Toutes les instances partagent la variable espèce
+a1 = Animal("Lion")
+a2 = Animal("Tigre")
+
+print(a1.espèce)  
+# Mammifère
+print(a2.espèce)  
+# Mammifère
+
+
+# Modifier la variable de classe depuis la Class !! ==> impacte tous les Objets = Good practice
+Animal.espèce = "Vertébré"
+
+print(a1.espèce)  
+# Vertébré
+print(a2.espèce)  
+# Vertébré
+
+
+## Il faut EVITER de creer des variables d'instance du meme nom que des variables de class
+# ci-dessous un exemple du fonctionnement
+
+class Demo:
+    class_var = 'shared variable'
+
+d1 = Demo()
+d3 = d1
+d2 = Demo()
+
+# both instances allow access to the class variable
+print(d1.class_var)
+# shared variable
+print(d2.class_var)
+# shared variable
+
+# d1 object has no instance variable
+print('contents of d1:', d1.__dict__)
+# contents of d1: {}
+
+# d1 object receives an instance variable named 'class_var'
+d1.class_var = "I'm messing with the class variable"
+
+# d1 object owns the variable named 'class_var' which holds a different value than the class variable named in the same way
+print('contents of d1:', d1.__dict__)
+# contents of d1: {'class_var': "I'm messing with the class variable"}
+print(d1.class_var)
+# I'm messing with the class variable
+
+# d3 object is linked to d1 so has the same value
+print(d3.class_var)
+# I'm messing with the class variable
+
+# d2 object variables were not influenced
+print('contents of d2:', d2.__dict__)
+# contents of d2: {}
+
+# d2 object variables were not influenced
+print('contents of class variable accessed via d2:', d2.class_var)
+# contents of class variable accessed via d2: shared variable
+
+
+# Bien comprendre l'interaction sur les variables de Class, selon qu'elle soient modifiées via l'Objet ou la Class
+class BluePrint:
+    __element = 1
+
+    def __init__(self):
+        self.component = 1
+
+    def __action(self):
+        pass
+
+product = BluePrint()
+print(product.__dict__)
+# {'component': 1} # pas de __element, la variable de Class n'est PAS une variable d'Objet
+
+# How change the private BluePrint class variable "stamps" value ?
+
+# ==> Via l'Object
+
+product._BluePrint__element +=1 # va chercher la variable de Class et en crée une spécifique à l'Objet, indépendante de celle de de Class, et l'augmente de 1
+print(BluePrint._BluePrint__element) # n'agira pas sur la variable de Class
+# 1
+print(product._BluePrint__element) # agira bien sur la variable d'objet
+# 2
+print(product.__dict__)
+# {'component': 1, '_BluePrint__element': 2} # la variable est bien dans le object.__dict__ maintenant
+
+# ==> Via la Class
+
+BluePrint._BluePrint__element +=1
+print(BluePrint._BluePrint__element) # +1 sur la variable de Class
+# 2
+print(product._BluePrint__element) # aucun changement sur la variable d'Objet
+# 2
+
+
+
+
+
+##### ATTRIBUTE
 
 # An attribute is a capacious term that can refer to two major kinds of class traits:
 #   - variables, containing information about the class itself or a class instance; classes and class instances can own many variables
 #   - methods, formulated as Python functions; they represent a behavior that could be applied to the object
-
 # It is said that methods are the 'callable attributes' of Python objects
 
+class Person:
+    species = "Homo sapiens" # Variable de classe
 
-## private attribute
+    def __init__(self, name, age):  # Method dite constructor
+        self.name = name    # Attribut d'instance
+        self.age = age      # Attribut d'instance
+        self.__secret = "secret_value"    # Attribut privé d'instance - ENCAPSULATION
+
+    def greet(self):        # Méthode d'instance
+        return f"Bonjour, je m'appelle {self.name}"
+
+
+
+### CLASS VARIABLES
+
+# class variable remains the same for all instances using the class
+# if the class variable changes, it changes for ALL instances variables
+
+class A:
+    X = 0
+    def __init__(self,v = 0):
+        self.Y = v
+        A.X += v
+
+a = A() # A.X += v ==> X = 0
+b = A(1) # A.X += v ==> X = 0 + 1 = 1
+c = A(2) # A.X += v ==> X = 1 + 2 = 3
+print(c.X)
+# 3
+
+
+class ExampleClass:
+    counter = 0 # class variable
+    def __init__(self, val = 1):
+        self.__first = val # instance variable
+        ExampleClass.counter += 1
+ 
+example_object_1 = ExampleClass()
+print(example_object_1.__dict__, example_object_1.counter)
+# {'_ExampleClass__first': 1} 1
+example_object_2 = ExampleClass(2)
+print(example_object_2.__dict__, example_object_2.counter)
+# {'_ExampleClass__first': 2} 2
+example_object_3 = ExampleClass(4)
+print(example_object_3.__dict__, example_object_3.counter)
+# {'_ExampleClass__first': 4} 3
+
+
+class Package:
+    spam = ''
+
+    def __init__(self, content):
+        Package.spam += content + ":"
+
+envelope_1 = Package("Capacitors")
+print(Package.spam)
+# Capacitors
+envelope_2 = Package("Transistors")
+print(Package.spam)
+# Capacitors:Transistors: # spam value has changed
+print(envelope_2.spam)
+# Capacitors:Transistors:
+
+
+
+### attributes for classes VS for instances:
+
+class Person:
+    species = "Homo sapiens" # Attribut de classe
+
+    def __init__(self, name, age):  # ==> = __static_attributes__
+        self.name = name    # Attribut d'instance
+        self.age = age      # Attribut d'instance
+        self.__secret = "secret_value"    # Attribut privé d'instance - ENCAPSULATION
+
+    def greet(self):        # Méthode d'instance
+        return f"Bonjour, je m'appelle {self.name}"
+
+p = Person("Alice", 30)      # Création d’une instance (objet) de la class Person
+
+# ==> Attributs de la classe
+print(Person.__dict__)  # Dictionnaire des attributs de la classe Person()
+# {'__module__': '__main__', '__firstlineno__': 48, 'species': 'Homo sapiens', '__init__': <function Person.__init__ at 0x000002047D312020>, 
+#  'greet': <function Person.greet at 0x000002047D3120C0>, '__static_attributes__': ('__secret', 'age', 'name'), 
+#  '__dict__': <attribute '__dict__' of 'Person' objects>,
+#  '__weakref__': <attribute '__weakref__' of 'Person' objects>, '__doc__': None}
+# on voit bien: species, __init__ + __static_attributes__ associés, greet
+
+# ==> Attributs de l’objet
+print(p.__dict__)  # Dictionnaire des attributs de l’objet p(Person)
+# {'name': 'Alice', 'age': 30, '_Person__secret': 'secret_value'}
+# on voit bien: name et age qui sont attendus comme argument pour créer l'instance + _Person__secret qui est "encapsulée" (cachée)
+
+
+# Accès aux attributs
+print("Classe :", Person.species)
+print("Objet :", p.species)  # hérité de la class
+
+print("Nom de l'objet :", p.name)
+print("Age de l'objet :", p.age)
+
+# Accès à l'attribut privé (name mangling)
+print(p._Person__secret)  # Attention !!! accès direct déconseillé en pratique
+# secret_value
+
+
+
+
+
+
+### ENCAPSULATION - private attribute
 # __ = private !
+
+# L'encapsulation en Python (et en programmation orientée objet en général) désigne le fait de cacher certains détails internes d'une class
+# pour éviter qu'ils soient modifiés ou utilisés de manière inappropriée directement depuis l'extérieur
+# Cela permet de protéger l'intégrité des données et de contrôler l'accès à celles-ci via des méthodes (getter, setter)
+
+# C'est une pratique qui consiste à limiter l'accès direct à certains attributs ou méthodes d'une classe
+# La façon la plus courante d'implémenter cela est de rendre certains attributs "privés" ou "protégés"
+# En Python, cette notion est basée sur la convention plutôt que sur une restriction stricte, contrairement à d'autres langages (comme Java)
+
+
+# Différents types d'encapsulation en Python
+
+# | Syntaxe         | Signification                        | Description                                              
+# |-----------------|--------------------------------------|----------------------------------------------------------------------------
+# | _attribut       | **Protégé** (convention)             | Indique que l'attribut est destiné à un usage interne
+# | __attribut      | **Privé** (manglé, name mangling)    | Renomme l'attribut pour le rendre difficile d'accès direct depuis l'extérieur
 
 class Stack:
     def __init__(self):
         self.__stack_list = []
 
-
 stack_object = Stack()
 print(len(stack_object.__stack_list))
 # AttributeError: 'Stack' object has no attribute '__stack_list'  
-  
-# When any class component has a name starting with two underscores (__), it becomes private 
-# this means that it can be accessed ONLY FROM WITHIN the class.
-
-class A:
-    def __init__(self, v):
-        self.__a = v + 1
-
-
-a = A(0)
-print(a._A__a)
-# 1
-print(a.__a)
-# AttributeError: 'A' object has no attribute '__a'
+# on voit bien que l'on ne peut pas accéder "simplement" à l'attribut privé
 
 
 
-### CLASS & OBJECT & ATTRIBUTE Example
-
-class Duck: # example of a Class
-    def __init__(self, height, weight, sex):
-        self.height = height
-        self.weight = weight # example of an Atribute
-        self.sex = sex
-
-    def walk(self):
-        pass
-
-    def quack(self):
-        return print('Quack')
-        
-canard = Duck(21,3.5,"male") # example of an Object
-duckling = Duck(height=10, weight=3.4, sex="male")
-drake = Duck(weight=3.7, height=25, sex="male")
-hen = Duck(sex="female", weight=3.4, height=20 )
-print(canard.sex)
-# male
-print(duckling.height)
-# 10
-print(hen.weight)
-# 3.4
-print((drake.sex))
-# male
-canard.quack()
-# Quack
 
 
-
-### TYPE
+##### TYPE
 
 # type is one of the most fundamental and abstract terms of Python
 
@@ -247,18 +465,441 @@ print(duckling.quack.__class__)
 
 
 
-### INHERITANCE
-# Any object bound to a specific level of a class hierarchy inherits all the traits (as well as the requirements and qualities) defined inside any of the superclasses.
+
+
+##### INHERITANCE
+
+# Any object bound to a specific level of a class hierarchy inherits all the traits (as well as the requirements and qualities) defined inside any of the superclasses
+
+# The most important factor of the process is the relation between the superclass and all of its subclasses:
+
+#       - single inheritance class is always simpler, safer, and easier to understand and maintain
+
+#       - multiple inheritance is always risky, as you have many more opportunities to make a mistake in identifying 
+#           these parts of the superclasses which will effectively influence the new class
+#         multiple inheritance may make overriding extremely tricky; moreover, using the super() function becomes ambiguous
+#         multiple inheritance violates the single responsibility principle (https://en.wikipedia.org/wiki/Single_responsibility_principle) 
+#           as it makes a new class of two (or more) classes that know nothing about each other
+#         multiple inheritance should be the last of all possible solutions – if you really need the many different functionalities offered 
+#           by different classes, composition may be a better alternative
 
 
 
-### STACK
+### Method Resolution Order - MRO
+
+# MRO, in general, is a way, a strategy, in which a particular programming language scans through the upper part of a class’s hierarchy
+# in order to find the method it currently needs
+
+# La règle principale en héritage multiple:
+#	- Python doit pouvoir déterminer dans quel ordre il va rechercher les méthodes ou attributs si plusieurs classes parents ont des méthodes du même nom
+#	- la MRO doit être cohérente et respecter la hiérarchie pour éviter des ambiguïtés ou des cycles
+
+class Top:
+    pass
+
+class Left(Top): # La class Left hérite de Top
+    pass
+
+class Right(Top): # La class Right hérite de Top
+    pass
+
+class Bottom(Left, Right): # La class Bottom hérite de Left et Right, ce qui est cohérent car Left et Right ont un ancêtre commun Top
+    pass
+
+class Bottom1(Left, Top): # ok mais inutile car Left hérite déjà de Top plus haut
+    pass
+
+class Bottom2(Top, Left): # ici on inverse l’ordre : (Top, Left)
+    pass
+# TypeError: Cannot create a consistent method resolution order (MRO) for bases Top, Left
+# ==> Python ne peut pas créer une MRO cohérente parce que :
+#     Left hérite dejà de Top, Left est déjà une sous-classe de Top donc cette hiérarchie crée un conflit de MRO
+# La MRO doit respecter la hiérarchie des class !!
+
+
+# L'objet peut accéder aux variables d'instance de la superclass
+class Sup:
+    supVar = 1
+
+class Sub(Sup):
+    subVar = 2
+
+obj = Sub()
+
+print(obj.subVar)
+# 2 ==> class Sub
+print(obj.supVar)
+# 1 ==> class Super (upper class)
+
+
+# L'objet NE PEUT PAS accéder aux variables de __init__ + __static_attributes__ associés de la superclass, par défaut:
+class Super:
+    def __init__(self):
+        self.supVar = 11
+
+class Sub(Super):
+    def __init__(self):
+        self.subVar = 12
+
+obj = Sub()
+print(obj.supVar)
+# AttributeError: 'Sub' object has no attribute 'supVar'
+
+# sauf si on utilise super().__init__() qui va aller chercher les statics_attributes de la superclass:
+class Super:
+    def __init__(self):
+        self.supVar = 11
+
+class Sub(Super):
+    def __init__(self):
+        super().__init__() # ici !
+        self.subVar = 12
+
+obj = Sub()
+print(obj.supVar)
+# 11
+
+
+# When you try to access any object's entity, Python will try to:
+#   1 ==> find it inside the object itself, NOK ?
+#   2 ==> find it in all classes involved in the object's inheritance line from bottom to top, NOK ?
+#   3 ==> AttributeError
+
+class Top:
+    def m_top(self):
+        print("top")
+
+class Middle(Top):
+    def m_middle(self):
+        print("middle")
+
+class Bottom(Middle):
+    def m_bottom(self):
+        print("bottom")
+
+object = Bottom()
+object.m_bottom()
+# bottom
+object.m_middle() # in Bottom() ?, no ==> in Middle() ?, yes
+# middle
+object.m_top()
+# top
+
+object2 = Top()
+object2.m_bottom() # in Top() ?, no ==> Error
+# AttributeError: 'Top' object has no attribute 'm_bottom'
+    
+
+
+### TRANSITIVITY
+
+# if B is a subclass of A and C is a subclass of B, this also means that C is a subclass of A, the relationship is fully transitive
+
+class Vehicle:
+    pass
+ 
+class LandVehicle(Vehicle):
+    pass
+ 
+class TrackedVehicle(LandVehicle):
+    pass
+# The Vehicle class is the superclass for both the LandVehicle and TrackedVehicle classes
+# The LandVehicle class is a subclass of Vehicle and a superclass of TrackedVehicle at the same time
+# The TrackedVehicle class is a subclass of both the Vehicle and LandVehicle classes
+
+
+
+### LEVEL-LINE INHERITANCE
+# Python looks for an entity from bottom to top
+
+class Level1:
+    variable_1 = 100
+    
+    def __init__(self):
+        self.var_1 = 101
+
+    def fun_1(self):
+        return 102
+
+class Level2(Level1):
+    variable_2 = 200
+    
+    def __init__(self):
+        super().__init__()
+        self.var_2 = 201
+    
+    def fun_2(self):
+        return 202
+
+class Level3(Level2):
+    variable_3 = 300
+    
+    def __init__(self):
+        super().__init__()
+        self.var_3 = 301
+
+    def fun_3(self):
+        return 302
+
+obj = Level3()
+
+print(obj.variable_1, obj.var_1, obj.fun_1())
+# 100 101 102
+print(obj.variable_2, obj.var_2, obj.fun_2())
+# 200 201 202
+print(obj.variable_3, obj.var_3, obj.fun_3())
+# 300 301 302
+
+
+    
+### MULTIPLE INHERITANCE
+
+# Python can go into either way between classes and its upper classes to find variable, methods etc, from bottom to upper
+class Alpha:
+    value = "Alpha"
+
+    def say(self):
+        return self.value.lower()
+
+class Beta(Alpha):
+    pass
+
+class Gamma(Alpha):
+    def say(self):
+        return self.value.upper() # 1- va chercher une variable "value", Gamma() ?, nok
+
+class Delta(Gamma, Beta):
+    pass
+
+d = Delta()
+print(d.say())
+# ALPHA
+# ==>
+# 1- va chercher une method say()
+#   1a- dans Delta() ?, nok
+#   1b- dans Gamma() ?, yes !
+#       2- va chercher une variable "value"
+#           2a- dans Delta() ?, nok
+#           2b- dans Gamma() ?, nok
+#           2c- dans Alpha() ?, yes !
+#               3- return "Alpha" en uppercase = ALPHA
+
+
+# SANS HOMONYME
+# sans priorisation entre upper classes
+class SuperA:
+    var_a = 10
+    def fun_a(self):
+        return 11
+ 
+class SuperB:
+    var_b = 20
+    def fun_b(self):
+        return 21
+ 
+class Sub(SuperA, SuperB): # multiple inheritance
+    pass
+ 
+obj = Sub()
+print(obj.var_a, obj.fun_a())
+# 10 11
+print(obj.var_b, obj.fun_b())
+# 20 21
+
+
+# AVEC HOMONYME
+# ici __str__(), dont l'existence est automatiquement recherchée, et print le return configuré
+class A:
+    def __str__(self):
+        return 'a'
+
+class B:
+    def __str__(self):
+        return 'b'
+
+class C(A, B): # A() est consulté avant B()
+    pass
+
+class D(B, A): # B() est consulté avant A()
+    pass
+
+o = C()
+print(o)
+# a
+o2 = D()
+print(o2)
+# b
+
+
+
+### ISSUBCLASS(CLASS,SUBCLASS)
+
+# python builtin function to check if a class is subclass of another class
+
+class Vehicle:
+    pass
+
+class LandVehicle(Vehicle):
+    pass
+
+class TrackedVehicle(LandVehicle):
+    pass
+
+for cls1 in [Vehicle, LandVehicle, TrackedVehicle]:
+    for cls2 in [Vehicle, LandVehicle, TrackedVehicle]:
+        print(issubclass(cls1, cls2), end="\t")
+    print()
+# True    False   False
+# True    True    False
+# True    True    True    
+
+# each class is a subclass of itself !
+
+
+
+### ISINSTANCE(OBJECT,CLASS)
+
+# python builtin function to check if an object is related to a class
+# Let's assume that you've got a cake (OBJECT) and we want to know what recipe (CLASS) has been used to make it
+# Why? Because we want to know what to expect from it, whether it contains nuts or not, which is crucial information to some people.
+
+class Vehicle:
+    pass
+
+class LandVehicle(Vehicle):
+    pass
+
+class TrackedVehicle(LandVehicle):
+    pass
+
+my_vehicle = Vehicle()
+my_land_vehicle = LandVehicle()
+my_tracked_vehicle = TrackedVehicle()
+
+for obj in [my_vehicle, my_land_vehicle, my_tracked_vehicle]:
+    for cls in [Vehicle, LandVehicle, TrackedVehicle]:
+        print(isinstance(obj, cls), end="\t")
+    print()
+# True    False   False
+# True    True    False
+# True    True    True
+
+# if an obect is an instance of a class, it will be an instance of all upperclass of this class
+
+
+
+
+### OBJECT1 = OBJECT2
+# The is operator checks whether two variables (object_one and object_two here) refer to the same object
+
+class SampleClass:
+    def __init__(self, val):
+        self.val = val
+
+object_1 = SampleClass(0) # = 0
+object_2 = SampleClass(2) # = 2
+object_3 = object_1 # = 0 mais aussi object_1 et object_3 partagent désormais le meme emplacement mémoire, la meme valeur
+print(object_1.val)
+# 0
+print(object_3.val)
+# 0
+object_3.val += 1 # = 1  ==> object_1.val += 1 en //
+print(object_1.val)
+# 1
+print(object_3.val)
+# 1
+
+print(object_1 is object_2)
+# False
+print(object_2 is object_3)
+# False
+print(object_3 is object_1)
+# True ==> like list, the 2*objects are linked
+
+
+
+### SUPER()
+
+# ==> appel direct à la classe parente
+# manière directe PAS RECOMMANDEE car ne gère pas certains aspects liés à l'héritage multiple ou à la chaîne d'héritage multiple
+
+# super() retourne une "super classe" c'est-à-dire la classe parente dans le contexte actuel et appelle sa méthode __init__
+# Avantages :
+#  - Plus flexible, surtout dans le contexte de l'héritage multiple
+#  - Respecte la chaîne d'héritage et peut faire appel à la méthode __init__ de la classe suivante dans l'ordre MRO (Method Resolution Order)
+
+class Sup:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):  # Python check toujours si method __str__() or __repr__()
+        return "My name is " + self.name + "."
+
+class Sub(Sup):
+    def __init__(self, name):
+        Sup.__init__(self, name)
+
+obj = Sub("Andy")
+print(obj)  
+# My name is Andy.
+
+
+### POLYMORPHISM
+
+# Polymorphism is a mechanism which enables the programmer to modify the behavior of any of the object's superclasses without modifying these classes themselves
+
+class One:
+    def do_it(self):
+        print("do_it from One")
+
+    def doanything(self): # 1
+        self.do_it()
+        
+
+class Two(One):
+    def do_it(self): # 2
+        print("do_it from Two") # 3
+
+one = One()
+two = Two()
+
+one.doanything()
+# do_it from One
+two.doanything() # 1 - 2 - 3
+# do_it from Two
+
+
+# the situation in which the subclass is able to modify its superclass behavior is polymorphism 
+# below we remove the choice to find the variable instance Two() class
+class One:
+    def do_it(self): # 4a- One.do_it()
+        print("do_it from One") # 4b- = print "do_it from One"
+
+    def doanything(self): # 2- doanything() ?,yes !
+        self.do_it() # 3a- is do_it() already in Two() ?,nok ==> 3b- ok so we use One.do_it()
+
+class Two(One): # 1- doanything() ?,nok   # 3a- nok
+    pass
+
+one = One()
+two = Two()
+
+one.doanything()
+# do_it from One
+two.doanything() # 1 - 2 - 3 - 4
+# do_it from One
+
+
+
+
+
+##### STACK
 # A stack is a structure developed to store data in a very specific way.
 # The alternative name for a stack (but only in IT terminology) is LIFO = Last In First Out
 # A stack is an object with two elementary operations, conventionally named push (when a new element is put on the top) and pop (when an existing element is taken away from the top)
 
 
-## procedural approach
+## PROCEDURAL approach
 
 # 1- decide how to store the values which will arrive onto the stack
 #       a list [] is the best option
@@ -294,20 +935,20 @@ print(pop())
 3
 
 
-## object approach
+## OBJECT approach
 
 # how the object stack begins,  class [name]:
 
 # we have to install a list inside each object of the class
 # we want the list to be hidden from the class users' sight
-# we have to add a specific statement or instruction. 
+# we have to add a specific statement or instruction
 # The properties have to be added to the class manually
 # we will equip the class with a specific function – its specificity is dual:
 #   it has to be named in a strict way
-#   it is invoked implicitly, when the new object is created.
-# Such a function is called a constructor, as its general purpose is to construct a new object. 
+#   it is invoked implicitly, when the new object is created
+# Such a function is called a constructor, as its general purpose is to construct a new object
 # The constructor should know everything about the object's structure, 
-# and must perform all the needed initializations.
+#   and must perform all the needed initializations.
 
 class Stack:
     def __init__ (self):
@@ -329,7 +970,7 @@ print(len(stack_object.name))
 # we don't use parentheses! we do not invoke a method but a property;
 
 
-## stack approach
+## STACK approach
 
 class Stack:
     def __init__(self):
@@ -463,340 +1104,12 @@ print(funny_stack.pop())
 
 
 
-### EXEMPLE SUPERCLASS//CLASS
-
-class Stack:
-    def __init__(self):
-        self._stack_list = [] # crée une list vide
-        
-    def get_list(self):
-        return self._stack_list
-        
-    def push(self, val):
-        self._stack_list.append(val) # crée une fonction qui ajout une val à la fin de la list
-        return self._stack_list      # return la value
-
-    def pop(self):
-        value = self._stack_list[-1] # crée une fonction qui delete le dernier elem de la list 
-        del self._stack_list[-1]     # et renvoie la valeur de l'elm poppé
-        return value
-
-
-class AddingStack(Stack):
-    def __init__(self):
-        Stack.__init__(self) # invoque l'upper class Stack
-        self.__sum = 0       # crée une variable privée sum, integer
-
-    def get_sum(self):       # la fonction créée return la valeur de sum
-        return self.__sum
-
-    def push(self, val):      # la fonction ajoute une valeur à sum
-        self.__sum += val
-        Stack.push(self, val)
-
-    def pop(self):               # la fonction enleve une valeur à sum 
-        val = Stack.pop(self)
-        self.__sum -= val
-        return val
-
-
-stack_object = AddingStack()
-
-for i in range(5):
-    stack_object.push(i)
-print(stack_object.get_sum())
-10
-print(stack_object.get_list())
-[0, 1, 2, 3, 4]
-
-for i in range(5):
-    print(stack_object.pop())
-    4
-    3
-    2
-    1
-    0
-print(stack_object.get_sum())
-0
-print(stack_object.get_list())
-[0]
-
-
-
 
 
 ##### PROPERTIES
 
 
-
-### INSTANCE VARIABLES
-
-
-# The keyword "self" is used to indicate that this variable is created coherently and individually for the instance to make it independent 
-# from other instances of the same class
-class Demo:
-    def __init__(self, value):
-        self.instance_var = value
-d1 = Demo(100)
-d2 = Demo(200)
-print("d1's instance variable is equal to:", d1.instance_var)
-# 100
-print("d2's instance variable is equal to:", d2.instance_var)
-# 200
-# ==> we instantiate the class twice, each time passing a different value to be stored inside the object
-#     the print instructions prove the fact that instance variable values are kept independently because the printed values differ
-
-
-# instance variables can be created during any moment of an object's life. 
-# using the built-in __dict__ property that is present for every Python object
-
-class Demo:
-    def __init__(self, value):
-        self.instance_var = value
-d1 = Demo(100)
-print('contents of d1:', d1.__dict__)
-# contents of d1: {'instance_var': 100}
-d1.another_var = 'another variable in the object'
-print('contents of d1:', d1.__dict__)
-# contents of d1: {'instance_var': 100, 'another_var': 'another variable in the object'} # 
-
-
-## code example method publique
-
-class ExampleClass:
-    def __init__(self, val1 = 1): # le constructor, si on ne precise pas de val, val=1 par défaut
-        self.first = val1
- 
-    def set_caca(self, val2): # une fonction dans la class, attend une val
-        self.caca = val2
-
-example_object_1 = ExampleClass() # ici val(val1) = 1 par défaut, que le constructor __init__ est invoqué
-print(example_object_1.__dict__) # .__dict__ est un attribut spécial de chaque objet en Python
-# {'first': 1}
-print(example_object_1.first)
-# 1
-example_object_2 = ExampleClass(2) # ici val(val1) est spécifié et = 2
-print(example_object_2.__dict__)
-# {'first': 2}
-print(example_object_2.first)
-# 2
-example_object_2.set_caca(10) # on invoque la fonction set_caca qui attend une valeur(val2): OBLIGATOIRE d'avoir créé example_object_2 = ExampleClass(2) avant sinon erreur
-print(example_object_2.caca)
-# 10
-print(example_object_2.__dict__)
-# {'first': 2, 'caca': 10} # l'objet example_object_2 se voit rajouter un attribut caca et = 10
- 
-example_object_3 = ExampleClass(4) # ici val(val2) est spécifié et = 4
-print(example_object_3.__dict__)
-# {'first': 4}
-example_object_3.third = 5 # on crée un attribut directement SANS invoquer une fonction de la class
-print(example_object_3.__dict__)
-# {'first': 4, 'third': 5}
-print(example_object_3.third)
-# 5
-
-
-## exemple code method privée avec __
-
-class ExampleClass:
-    def __init__(self, val = 1):
-        self.__first = val
-
-    def set_second(self, val = 2):
-        self.__second = val
-
-
-example_object_1 = ExampleClass()
-example_object_2 = ExampleClass(2)
-
-example_object_2.set_second(3)
-
-example_object_3 = ExampleClass(4)
-example_object_3.__third = 5
-
-
-print(example_object_1.__dict__)
-# {'_ExampleClass__first': 1} # le print reprend le nom de la class: _CLASSNAME__METHODNAME
-print(example_object_2.__dict__)
-# {'_ExampleClass__first': 2, '_ExampleClass__second': 3}
-print(example_object_3.__dict__)
-# {'_ExampleClass__first': 4, '__third': 5} # ici third est créé hors classe donc __METHODNAME
-print(example_object_3.__third)
-# 5
-
-    
-## ==> pourquoi créer des functions de class (methods) alors que l'on peut créer des attributs en direct ?
-
-# 1. **Contrôler et Protéger les Données**
-
-# avec les methods on peut :
-# - Vérifier que la valeur est correcte (par exemple, s’assurer qu’un âge est positif)
-# - Limiter ou transformer la valeur avant de l’enregistrer
-# - Empêcher de mettre n’importe quoi dans l’attribut
-
-# Ex
-def set_age(self, age):
-    if age < 0:
-        raise ValueError("L'âge ne peut pas être négatif")
-    self.age = age
-
-
-# 2. **Maintenir la Cohérence de l’Objet**
-
-# - mettre à jour plusieurs attributs en même temps ou garder une logique, la méthod permet de le faire proprement.
-# - déclencher d’autres actions** quand on modifie une valeur ex : recalculer un score, sauvegarder dans un fichier, etc.).
-
-
-# 3. **Faciliter la lecture et l’utilisation du code**
-
-# - Une méthode bien nommée explique clairement ce qu’elle fait (ex : `set_nom_utilisateur()`)
-# - Le code est plus lisible et plus facile à maintenir, surtout dans de gros projets
-
-
-# 4. **Préparer l’évolution future du code**
-
-# - Si on ajoute une règle, un contrôle ou une action plus tard, il n'y a qu’à modifier la méthode, 
-# pas tous les endroits où l’attribut est modifié directement
-
-
-# 5. **Utiliser les propriétés (`@property`)**
-
-# Python permet de masquer l’accès direct à un attribut avec des propriétés, 
-# pour gérer la lecture et l’écriture tout en gardant une syntaxe simple.
-# ex
-
-    @property
-    def caca(self):
-        return self._caca
-
-    @caca.setter
-    def caca(self, val):
-        if val < 0:
-            raise ValueError("Impossible")
-        self._caca = val
-
-# on pourra ainsi faire : obj.caca = 10 mais avec des contrôles cachés derrière.
-
-
-## __slots__ ou comment bloquer la création d'attributs à la volée
-
-# Quand on utilise __slots__ dans la class :
-# - on bloque la création d'attributs hos class
-# - les objets n’ont plus d’attribut par défaut comme .__dict__ ni individuel ce qui peut etre vu comme un inconvénient
-#   AttributeError: 'NomDeTaClasse' object has no attribute '__dict__'
-# - EN PLUS, en Python, chaque objet de classe possède un dictionnaire d’attributs (`__dict__`) qui lui permet d’avoir 
-#   dynamiquement de nouveaux attributs. CEPENDANT, cela consomme de la mémoire, donc il peut etre bon de s'en passer
-
-# Comment afficher quand même les valeurs ?
-
-# créer une méthode spéciale pour récupérer les valeurs des attributs déclarés dans `__slots__`.**  
-
-class ExampleClass:
-    __slots__ = ['first', 'second']
-    
-    def __init__(self, val=1):
-        self.first = val
-
-    def set_second(self, val):
-        self.second = val
-
-    def as_dict(self):
-        return {slot: getattr(self, slot, None) for slot in self.__slots__}
-
-obj = ExampleClass()
-print(obj.as_dict())
-# {'first': 1}
-
-obj.set_second(20)
-print(obj.as_dict())
-# {'first': 1, 'second': 20}
-
-obj.set_rogue(666)
-# AttributeError: 'ExampleClass' object has no attribute 'set_rogue'
-
-
-## Exemple SANS __slots__
-
-class Personne:
-    def __init__(self, nom, age):
-        self.nom = nom
-        self.age = age
-
-p = Personne("Alice", 30)
-p.adresse = "123 Rue Exemple"  # Possible, même si "adresse" n'est pas prévu
-print(p.adresse)  # Affiche : 123 Rue Exemple
-# Ici, on peut ajouter n’importe quel attribut à l’objet p
-
-
-## Exemple AVEC __slots__
-
-class Personne:
-    __slots__ = ['nom', 'age']
-    
-    def __init__(self, nom, age):
-        self.nom = nom
-        self.age = age
-
-p = Personne("Alice", 30)
-p.adresse = "123 Rue Exemple"  
-# AttributeError: 'p' object has no attribute 'adresse'
-
-
-## return depuis le constructor
-
-class ExampleClass:
-    def __init__(self, val1 = 1): 
-        self.first = val1
-        return self.first
-        
-example_object_1 = ExampleClass() 
-print(example_object_1)
-# TypeError: __init__() should return None, not 'int'
-
-# Python attend que __init__() retourne None
-# Donc lorsqu'on écrit return self.first, Python lève le TypeError
-# La méthode __init__() est un constructeur qui sert à initialiser l’objet après sa création
-# Elle doit toujours retourner None — elle ne doit pas avoir de return explicite avec une valeur.
-
-
-## return depuis une method (function de class)
-
-class ExampleClass:
-    def __init__(self, val1 = 1): 
-        self.first = val1
-        
-    def set_caca(self, val2):
-        self.caca = val2
-        return self.caca
-    
-example_object_2 = ExampleClass(10) 
-print(example_object_2)
-# <__main__.ExampleClass object at 0x000001BA8EFE8CD0>
-
-# Ce résultat est le comportement par défaut de Python quand on essaie d’afficher un objet d’une classe 
-# qui ne définit pas de méthode spéciale __str__() ou __repr__()
-# Python affiche alors le nom de la classe (__main__.ExampleClass)  
-# suivi de l’adresse mémoire de l’objet (at 0x000001BA8EFE8CD0)
-
-
-## print object depuis __init_ et method
-# si pas de __str__ ni __repr__, le print envoie l'emplacement mémoire
-class ExampleClass:
-    def __init__(self, val1 = 1): 
-        self.first = val1
-        
-    def set_caca(self, val2):
-        self.caca = val2
-        
-example_object_1 = ExampleClass() 
-print(example_object_1)
-# <__main__.ExampleClass object at 0x000001BA8EC37230>
-example_object_2 = ExampleClass(10) 
-print(example_object_2)
-# <__main__.ExampleClass object at 0x000001BA8EFE8CD0>
-
-
-## __repr__
+### __REPR__()
 
 class ExampleClass:
     def __init__(self, val1=1): 
@@ -825,7 +1138,8 @@ print(example_object_2.caca)
 #       Python affiche le nom de la classe et l’adresse mémoire par défaut
 
 
-## __str__
+
+### __STR__()
 
 class Personne:
     def __init__(self, nom, age):
@@ -861,196 +1175,8 @@ print(sun)
 
 
 
-### CLASS VARIABLES
+### HASATTR(OBJECT,ATTRIBUTE)
 
-# class variable remains the same for all instances using the class
-# if the class variable changes, it changes for ALL instances variables
-
-class A:
-    X = 0
-    def __init__(self,v = 0):
-        self.Y = v
-        A.X += v
-
-a = A() # A.X += v ==> X = 0
-b = A(1) # A.X += v ==> X = 0 + 1 = 1
-c = A(2) # A.X += v ==> X = 1 + 2 = 3
-print(c.X)
-# 3
-
-
-class ExampleClass:
-    counter = 0 # class variable
-    def __init__(self, val = 1):
-        self.__first = val # instance variable
-        ExampleClass.counter += 1
- 
-example_object_1 = ExampleClass()
-print(example_object_1.__dict__, example_object_1.counter)
-# {'_ExampleClass__first': 1} 1
-example_object_2 = ExampleClass(2)
-print(example_object_2.__dict__, example_object_2.counter)
-# {'_ExampleClass__first': 2} 2
-example_object_3 = ExampleClass(4)
-print(example_object_3.__dict__, example_object_3.counter)
-# {'_ExampleClass__first': 4} 3
-
-
-## __dict__ de class VS d'object
-
-# A class variable is a class property that exists in just one copy, and it is stored outside any class instance
-# Because it is owned by the class itself, all class variables are shared by all instances of the class
-# BUT as the class variable is defined outside the object, it is NOT LISTED IN THE OBJECT's __dict__
-
-class ExampleClass:
-    varia = 1
-    def __init__(self, val):
-        ExampleClass.varia = val
-
-print(ExampleClass.__dict__) # __dict__ d’une classe montre ses attributs, y compris les variables de class et méthods
-# {'__module__': '__main__', '__firstlineno__': 1, 'varia': 1, '__init__': <function ExampleClass.__init__ at 0x000001EFEB9B3E20>, '__static_attributes__': (),
-# '__dict__': <attribute '__dict__' of 'ExampleClass' objects>, '__weakref__': <attribute '__weakref__' of 'ExampleClass' objects>, '__doc__': None}
-
-example_object = ExampleClass(2) 
-print(example_object.__dict__)
-# {} # vide, logique car aucune action pour l'instance elle-meme
-
-
-class Demo:
-    class_var = 'TEST'
-
-d1 = Demo()
-d2 = Demo()
-print(Demo.class_var)
-# TEST
-print(d1.class_var)
-# TEST
-print(d2.class_var)
-# TEST
-print('contents of d1:', d1.__dict__)
-# contents of d1: {} 
-
-
-
-### CLASS vs INSTANCE variables
-
-class Animal:
-    espèce = "Mammifère"  # Variable de classe
-
-    def __init__(self, nom):
-        self.nom = nom  # Variable d'instance
-
-# Toutes les instances partagent la variable espèce
-a1 = Animal("Lion")
-a2 = Animal("Tigre")
-
-print(a1.espèce)  
-# Mammifère
-print(a2.espèce)  
-# Mammifère
-
-# Modifier la variable de classe
-Animal.espèce = "Vertébré"
-
-print(a1.espèce)  
-# Vertébré
-print(a2.espèce)  
-# Vertébré
-
-
-## Il faut EVITER de creer des variables d'instance du meme nom que des variables de class
-# ci-dessous un exemple du fonctionnement
-
-class Demo:
-    class_var = 'shared variable'
-
-d1 = Demo()
-d3 = d1
-d2 = Demo()
-
-# both instances allow access to the class variable
-print(d1.class_var)
-# shared variable
-print(d2.class_var)
-# shared variable
-
-# d1 object has no instance variable
-print('contents of d1:', d1.__dict__)
-# contents of d1: {}
-
-# d1 object receives an instance variable named 'class_var'
-d1.class_var = "I'm messing with the class variable"
-
-# d1 object owns the variable named 'class_var' which holds a different value than the class variable named in the same way
-print('contents of d1:', d1.__dict__)
-# contents of d1: {'class_var': "I'm messing with the class variable"}
-print(d1.class_var)
-# I'm messing with the class variable
-
-# d3 object is linked to d1 so has the same value
-print(d3.class_var)
-# I'm messing with the class variable
-
-# d2 object variables were not influenced
-print('contents of d2:', d2.__dict__)
-# contents of d2: {}
-
-# d2 object variables were not influenced
-print('contents of class variable accessed via d2:', d2.class_var)
-# contents of class variable accessed via d2: shared variable
-
-
-
-## Checking attribute existence
-
-# error code example
-
-class ExampleClass:
-    def __init__(self, val):
-        if val % 2 != 0:
-            self.a = 1
-        else:
-            self.b = 1
-
-example_object = ExampleClass(1) # val % 2 != 0 donc a=1
-print(example_object.a)
-# 1
-print(example_object.b)
-# AttributeError: 'ExampleClass' object has no attribute 'b'
-
-
-# fix with try/except
-
-class ExampleClass:
-    def __init__(self, val):
-        if val % 2 != 0:
-            self.a = 1
-        else:
-            self.b = 1
-
-
-example_object = ExampleClass(1)
-try:
-    print(example_object.a) # 1
-except AttributeError:
-    pass
-try:
-    print(example_object.b) # pass
-except AttributeError:
-    pass
-    
-example_object = ExampleClass(2)
-try:
-    print(example_object.a) # pass
-except AttributeError:
-    pass
-try:
-    print(example_object.b) # 1
-except AttributeError:
-    pass
- 
-
-# hasattr
 # check si un objet possède un attribut
 
 class ExampleClass:
@@ -1110,33 +1236,22 @@ print(hasattr(ExampleClass, 'a')) # true
 # we know now that methods are functions embedded into classes
 # the method must have at least a parameter and if only one, it should be "self"
 
-## 1*parameter, self
 
-class Classy:
-    def method(self):
-        print("method")
+### SELF()
 
-obj = Classy()
-obj.method()
-# method
-
-
-## 2*parameters, self & par
-class Classy:
-    def method(self, par):
-        print("method:", par)
- 
-obj = Classy()
-obj.method(1)
-obj.method(2)
-obj.method(3)
-# method: 1
-# method: 2
-# method: 3
-
-
-
-### self parameter
+# The keyword "self" is used to indicate that this variable is created coherently and individually for the instance to make it independent 
+# from other instances of the same class
+class Demo:
+    def __init__(self, value):
+        self.instance_var = value
+d1 = Demo(100)
+d2 = Demo(200)
+print("d1's instance variable is equal to:", d1.instance_var)
+# 100
+print("d2's instance variable is equal to:", d2.instance_var)
+# 200
+# ==> we instantiate the class twice, each time passing a different value to be stored inside the object
+#     the print instructions prove the fact that instance variable values are kept independently because the printed values differ
 
 # self parameter is used to obtain access to the object's instance and class variables
 class Classy:
@@ -1148,6 +1263,71 @@ obj = Classy()
 obj.var = 3
 obj.method()
 # 2 3
+
+
+# 2 ways for print
+
+# ==> with return, clean and the best for clarity
+
+class Storage:
+    def __init__(self):
+        self.rack = 1
+
+    def get(self):
+        return self.rack
+
+    def prin(self):
+        return(self.get())    # via self.attribute 
+
+stuff = Storage()
+print(stuff.prin())  
+# 1
+
+class Storage:
+    def __init__(self):
+        self.rack = 1
+
+    def get(self):
+        return self.rack
+
+    def prin(self):
+        return(Storage.get(self))  # via Class.attribute(self)
+
+stuff = Storage()
+print(stuff.prin())  
+# 1
+
+# ==> with print, a bit weirdy, à éviter mais comprendre le fonctionnement est bon pourla compréhension en général
+
+class Storage:
+    def __init__(self):
+        self.rack = 1
+
+    def get(self):
+        return self.rack
+
+    def prin(self):
+        print(self.get())     # via self.attribute
+
+stuff = Storage()
+print(stuff.prin())  
+# 1
+# None ==> print None en plus car pas d'action return définie
+
+class Storage:
+    def __init__(self):
+        self.rack = 1
+
+    def get(self):
+        return self.rack
+
+    def prin(self):
+        print(Storage.get(self))    # via Class.attribute(self) 
+
+stuff = Storage()
+print(stuff.prin())  
+# 1
+# None ==> print None en plus car pas d'action return définie
 
 
 # une method qui appelle une autre method dans la meme Class
@@ -1167,19 +1347,47 @@ obj.method()
 
 
 
-### __init__ 
+### 1*parameter, self
 
-# __init__ method = constructor
+class Classy:
+    def method(self):
+        print("method")
 
-# If a class has a constructor, it is invoked automatically and implicitly when 
-# the object of the class is instantiated.
+obj = Classy()
+obj.method()
+# method
+
+
+
+## 2*parameters, self & par
+class Classy:
+    def method(self, par):
+        print("method:", par)
+ 
+obj = Classy()
+obj.method(1)
+obj.method(2)
+obj.method(3)
+# method: 1
+# method: 2
+# method: 3
+
+
+
+### __INIT__ 
+
+# = constructor
+
+# If a class has a constructor, it is invoked automatically and implicitly when the object of the class is instantiated
 
 # constructor:
-# MUST have the self parameter (it's set automatically, as usual)
-# MAY have more parameters than just self; if this happens, the way in which the class name
-#   is used to create the object must reflect the __init__ definition;
-# CAN be used to set up the object, i.e., properly initialize its internal state, create 
-#   instance variables, instantiate any other objects if their existence is needed, etc.
+#   MUST have the self parameter (it's set automatically, as usual)
+#   MAY have more parameters than just self; if this happens, the way in which the class name
+#       is used to create the object must reflect the __init__ definition;
+#   CAN be used to set up the object, i.e., properly initialize its internal state, create 
+#       instance variables, instantiate any other objects if their existence is needed, etc.
+#   CAN raise an Exception
+#   CANNOT return a result
 
 
 ## __init__ avec 1*parameter en + de self
@@ -1206,31 +1414,6 @@ print(obj_2.var)
 
 
 
-### visible vs hidden methods
-
-class Classy:
-    def visible(self):
-        print("visible")
- 
-    def __hidden(self): # the __ before hidden sets the method as private
-        print("hidden")
- 
-obj = Classy() # object obj is linked to Classy() class
-obj.visible() # invokes visible method from Classy() class
-# visible
-
-try:
-    obj.__hidden() # won't work as __hidden is privet, we need to add the class name
-except:
-    print("failed")
-# failed
-
-obj._Classy__hidden() # the good way adding _CLASSNAME to private method name
-# hidden
-
-
-
-
 
 ##### INNER LIFE of classes and objects
 
@@ -1238,8 +1421,7 @@ obj._Classy__hidden() # the good way adding _CLASSNAME to private method name
 # can be used to examine its capabilities.
 
 
-
-### __dict__
+### __DICT__() in depth
 
 class Classy:
     varia = 1
@@ -1297,7 +1479,7 @@ print(Classy.__dict__)
 
 
 
-### __name__
+### __NAME__
 # contains the name of the class. It's nothing exciting, just a string
 # it exists ONLY inside CLASSES
 # so to find the class name of a particular OBJECT, you can use a function named type(), 
@@ -1327,7 +1509,7 @@ print(Python.__name__, 'is a', Snake.__name__)
 
 
 
-### __module__
+### __MODULE__
 # stores the name of the module which contains the definition of the class
 class Classy:
     pass
@@ -1340,7 +1522,7 @@ print(obj.__module__)
 
 
 
-### __bases__
+### __BASES__
 # __bases__ is a tuple. The tuple contains classes (not class names) which are direct 
 # superclasses for the class
 # The order is the same as that used inside the class definition
@@ -1388,6 +1570,8 @@ print(Python.__bases__[0].__name__, 'can be', Python.__name__)
 
 
 
+
+
 ##### INVESTIGATING CLASSES
 
 # Both reflection and introspection enable a programmer to do anything with any object, no matter where it comes from
@@ -1425,478 +1609,7 @@ print(obj.__dict__)
     
 
 
-##### INHERITANCE
-
-# The most important factor of the process is the relation between the superclass and all of its subclasses 
-# a single inheritance class is always simpler, safer, and easier to understand and maintain
-# multiple inheritance is always risky, as you have many more opportunities to make a mistake in identifying 
-#   these parts of the superclasses which will effectively influence the new class
-# multiple inheritance may make overriding extremely tricky; moreover, using the super() function becomes ambiguous
-# multiple inheritance violates the single responsibility principle (https://en.wikipedia.org/wiki/Single_responsibility_principle) 
-#   as it makes a new class of two (or more) classes that know nothing about each other
-# multiple inheritance should be the last of all possible solutions – if you really need the many different functionalities offered 
-#   by different classes, composition may be a better alternative
-
-
-
-### transitivity
-
-# if B is a subclass of A and C is a subclass of B, this also means that C is a subclass of A, the relationship is fully transitive
-
-class Vehicle:
-    pass
- 
-class LandVehicle(Vehicle):
-    pass
- 
-class TrackedVehicle(LandVehicle):
-    pass
-# The Vehicle class is the superclass for both the LandVehicle and TrackedVehicle classes
-# The LandVehicle class is a subclass of Vehicle and a superclass of TrackedVehicle at the same time
-# The TrackedVehicle class is a subclass of both the Vehicle and LandVehicle classes
-
-
-
-### issubclass(class,subclass)
-
-# python builtin function to check if a class is subclass of another class
-
-class Vehicle:
-    pass
-
-class LandVehicle(Vehicle):
-    pass
-
-class TrackedVehicle(LandVehicle):
-    pass
-
-for cls1 in [Vehicle, LandVehicle, TrackedVehicle]:
-    for cls2 in [Vehicle, LandVehicle, TrackedVehicle]:
-        print(issubclass(cls1, cls2), end="\t")
-    print()
-# True    False   False
-# True    True    False
-# True    True    True    
-
-# each class is a subclass of itself !
-
-
-
-### isinstance(object,class)
-
-# python builtin function to check if an object is related to a class
-# Let's assume that you've got a cake (OBJECT) and we want to know what recipe (CLASS) has been used to make it
-# Why? Because we want to know what to expect from it, whether it contains nuts or not, which is crucial information to some people.
-
-class Vehicle:
-    pass
-
-class LandVehicle(Vehicle):
-    pass
-
-class TrackedVehicle(LandVehicle):
-    pass
-
-my_vehicle = Vehicle()
-my_land_vehicle = LandVehicle()
-my_tracked_vehicle = TrackedVehicle()
-
-for obj in [my_vehicle, my_land_vehicle, my_tracked_vehicle]:
-    for cls in [Vehicle, LandVehicle, TrackedVehicle]:
-        print(isinstance(obj, cls), end="\t")
-    print()
-# True    False   False
-# True    True    False
-# True    True    True
-
-# if an obect is an instance of a class, it will be an instance of all upperclass of this class
-
-
-
-### object_one is object_two
-# The is operator checks whether two variables (object_one and object_two here) refer to the same object
-
-class SampleClass:
-    def __init__(self, val):
-        self.val = val
-
-object_1 = SampleClass(0) # = 0
-object_2 = SampleClass(2) # = 2
-object_3 = object_1 # = 0 mais aussi object_1 et object_3 partagenet désormais le meme emplacement mémoire, la meme valeur
-print(object_1.val)
-# 0
-print(object_3.val)
-# 0
-object_3.val += 1 # = 1  ==> object_1.val += 1 en //
-print(object_1.val)
-# 1
-print(object_3.val)
-# 1
-
-print(object_1 is object_2)
-# False
-print(object_2 is object_3)
-# False
-print(object_3 is object_1)
-# True ==> like list, the 2*objects are linked
-print(object_1.val, object_2.val, object_3.val)
-# 1 2 1
-
-
-
-### super()
-
-# ==> appel direct à la classe parente
-# manière directe, mais pas recommandée en Python moderne, car cela ne gère pas 
-# certains aspects liés à l'héritage multiple ou à la chaîne d'héritage multiple.
-
-class Super:
-    def __init__(self, name):
-        self.name = name
-
-    def __str__(self):
-        return "My name is " + self.name + "."
-
-class Sub(Super):
-    def __init__(self, name):
-        Super.__init__(self, name) # ici Super() est la superclass =! super() la fonction python builtin
-
-obj = Sub("Andy")
-print(obj) # Python looks for __str__() or __repr__() 
-# My name is Andy.
-
-
-## utilisation de super() Python builtin fonction
-
-#  super() retourne une "super classe" c'est-à-dire la classe parente dans le contexte actuel et appelle sa méthode __init__
-# Avantages :
-#  - Plus flexible, surtout dans le contexte de l'héritage multiple.  
-#  - Respecte la chaîne d'héritage et peut faire appel à la méthode __init__ de la classe suivante dans l'ordre MRO (Method Resolution Order) ==> A CREUSER
-
-class Super:
-    def __init__(self, name):
-        self.name = name
-
-    def __str__(self):
-        return "My name is " + self.name + "."
-
-
-class Sub(Super):
-    def __init__(self, name):
-        super().__init__(name) # ici super() est la fonction builtin Python attention
-
-obj = Sub("Andy")
-print(obj)
-# My name is Andy.    
-
-
-
-### Method Resolution Order
-# MRO, in general, is a way, a strategy, in which a particular programming language scans through the upper part of a class’s hierarchy
-# in order to find the method it currently needs
-
-# class variables
-class Super:
-    supVar = 1
-
-class Sub(Super):
-    subVar = 2
-
-obj = Sub()
-
-print(obj.subVar)
-# 2 ==> class Sub
-print(obj.supVar)
-# 1 ==> class Super (upper class)
-
-# instance variables
-class Super:
-    def __init__(self):
-        self.supVar = 11
-
-class Sub(Super):
-    def __init__(self):
-        super().__init__()
-        self.subVar = 12
-
-obj = Sub()
-# 12 ==> Sub.subVar
-# 11 ==> Super.supVar
-
-# When you try to access any object's entity, Python will try to (in this order):
-#   - find it inside the object itself;
-#   - find it in all classes involved in the object's inheritance line from bottom to top;
-#   - If both of the above fail, AttributeError
-
-class Top:
-    def m_top(self):
-        print("top")
-
-class Middle(Top):
-    def m_middle(self):
-        print("middle")
-
-class Bottom(Middle):
-    def m_bottom(self):
-        print("bottom")
-
-object = Bottom()
-object.m_bottom()
-# bottom
-object.m_middle()
-# middle
-object.m_top()
-# top
-    
-# Logical inheritance path is Bottom==> Middle ==> Top
-# But if we try to force an other way it won't work:
-class Top:
-    def m_top(self):
-        print("top")
-
-class Middle(Top):
-    def m_middle(self):
-        print("middle")
-
-class Bottom(Top, Middle): # Logicall inheritance path is Bottom==> Middle ==> Top, so should be class Bottom(Middle, Top)
-    def m_bottom(self):
-        print("bottom")
-
-object = Bottom()
-object.m_bottom()
-object.m_middle()
-object.m_top()
-# TypeError: Cannot create a consistent method resolution order (MRO) for bases Top, Middle  
-
-# If we had foced it in the good way, would be ok:
-class Top:
-    def m_top(self):
-        print("top")
-
-class Middle(Top):
-    def m_middle(self):
-        print("middle")
-
-class Bottom(Middle, Top): # Logicall inheritance path is Bottom==> Middle ==> Top, so should be class Bottom(Middle, Top)
-    def m_bottom(self):
-        print("bottom")
-
-object = Bottom()
-object.m_bottom()
-# bottom
-object.m_middle()
-# middle
-object.m_top()
-# top
-
-
-        
-### Level-Line inheritance
-
-class Level1:
-    variable_1 = 100
-    
-    def __init__(self):
-        self.var_1 = 101
-
-    def fun_1(self):
-        return 102
-
-class Level2(Level1):
-    variable_2 = 200
-    
-    def __init__(self):
-        super().__init__()
-        self.var_2 = 201
-    
-    def fun_2(self):
-        return 202
-
-class Level3(Level2):
-    variable_3 = 300
-    
-    def __init__(self):
-        super().__init__()
-        self.var_3 = 301
-
-    def fun_3(self):
-        return 302
-
-obj = Level3()
-
-print(obj.variable_1, obj.var_1, obj.fun_1())
-# 100 101 102
-print(obj.variable_2, obj.var_2, obj.fun_2())
-# 200 201 202
-print(obj.variable_3, obj.var_3, obj.fun_3())
-# 300 301 302
-
-
-class Level1:
-    var = 100
-    def fun(self):
-        return 101
-
-class Level2(Level1):
-    var = 200
-    def fun(self):
-        return 201
-
-class Level3(Level2):
-    pass
-
-obj = Level3()
-
-print(obj.var, obj.fun())
-# 200 201 ==> cherche dans la class level3 = nok, cherche dans la class Level2 OK
-print(obj.var, obj.fun())
-# 200 201 ==> meme requete pas de changement dans le resultat
-# Python looks for an entity from bottom to top
-    
-    
-    
-### Multiple inheritance
-
-class SuperA:
-    var_a = 10
-    def fun_a(self):
-        return 11
- 
-class SuperB:
-    var_b = 20
-    def fun_b(self):
-        return 21
- 
-class Sub(SuperA, SuperB): # multiple inheritance
-    pass
- 
-obj = Sub()
-print(obj.var_a, obj.fun_a())
-# 10 11
-print(obj.var_b, obj.fun_b())
-# 20 21
-# ici pas d'homonyme entre les class
-
-
-class A:
-    def __str__(self):
-        return 'a'
-
-class B:
-    def __str__(self):
-        return 'b'
-
-class C(A, B):
-    pass
-
-o = C()
-print(o)
-# a
-
-
-class Left:
-    var = "L"
-    var_left = "LL"
-    def fun(self):
-        return "Left"
-
-class Right:
-    var = "R"
-    var_right = "RR"
-    def fun(self):
-        return "Right"
-
-class Sub(Left, Right): # Python ira chercher dans la class Left, puis Right
-    pass
-
-obj = Sub()
-print(obj.var, obj.var_left, obj.var_right, obj.fun())
-# L LL RR Left
-
-
-class Sub2(Right, Left): # Python ira chercher dans la class Right, puis LEft
-    pass
-
-obj = Sub()
-print(obj.var, obj.var_left, obj.var_right, obj.fun())
-# R LL RR Right
-
-
-
-### Building a Hierarchy of classes
-
-
-## POLYMORPHISM
-
-class One:
-    def do_it(self):
-        print("do_it from One")
-
-    def doanything(self): # 1
-        self.do_it()
-
-class Two(One):
-    def do_it(self): # 2
-        print("do_it from Two") # 3
-
-one = One()
-two = Two()
-
-one.doanything()
-# do_it from One
-two.doanything() # 1 - 2 - 3
-# do_it from Two
-
-# the situation in which the subclass is able to modify its superclass behavior is polymorphism 
-
-# below we remove the choice to find the variable instance Two() class
-class One:
-    def do_it(self): # 3 - back tu Upper class
-        print("do_it from One") # 4
-
-    def doanything(self): # 1
-        self.do_it()
-
-class Two(One): # 2 - is any "self.do_it()" ? No
-    pass
-
-one = One()
-two = Two()
-
-one.doanything()
-# do_it from One
-two.doanything() # 1 - 2 - 3 - 4
-# do_it from One
-
-# no class is given once and for all
-# Each class's behavior may be modified at any time by any of its subclasses
-# We can use polymorphism to extend class flexibility
-
-class Personne:
-    def dire_bonjour(self):
-        print("Bonjour, je suis une personne.")
-
-class Animal:
-    def dire_bonjour(self):
-        print("Miaou !")
-
-def saluer(objet):
-    objet.dire_bonjour()
-
-# On peut passer une Personne ou un Animal à la fonction
-p = Personne()
-a = Animal()
-
-saluer(p)  
-# Bonjour, je suis une personne.
-saluer(a)  
-# Miaou !
-
-
-
-
-
-##### Exceptions in OOP context
+##### EXCEPTIONS in OOP context
 
 
 ### Exceptions are Classes
@@ -2050,7 +1763,7 @@ print_exception_tree(BaseException)
 
 
 
-### .args
+### .ARGS
 
 # la méthode .args est un attribut des objets d'exception (instances de classes dérivées de BaseException, comme Exception). 
 # Si l'exception est levée sans argument (raise Exception()), alors e.args est une liste vide ([]).

@@ -16,6 +16,9 @@
 #                                     The date and time of certain actions must be preserved and we must deal with it
 
 
+
+### FROM DATETIME IMPORT DATETIME
+
 ## datetime(year, month, day, hour, minute, second, microsecond, tzinfo, fold)
 
 # year = 1 - 9999
@@ -41,6 +44,63 @@ print("now:", datetime.now())
 print("utcnow:", datetime.utcnow())
 # utcnow: 2025-07-16 18:01:38.854552
 
+
+## datetime.timestamp()
+# eturns a float value expressing the number of seconds elapsed between the date and time indicated by the datetime object and January 1, 1970, 00:00:00 (UTC)
+from datetime import datetime
+dt = datetime(2020, 10, 4, 14, 55)
+print("Timestamp:", dt.timestamp())
+# Timestamp: 1601823300.0
+
+
+
+## date.fromisoformat()
+
+from datetime import datetime
+
+# Date et heure au format ISO
+iso_string = "2024-12-15T14:30:00"
+dt = datetime.fromisoformat(iso_string)
+print(f"Date/heure : {dt}")
+# Date/heure : 2024-12-15 14:30:00
+print(f"Année : {dt.year}")
+# Année : 2024
+print(f"Mois : {dt.month}")
+# Mois : 12
+print(f"Jour : {dt.day}")
+# Jour : 15
+print(f"Heure : {dt.hour}")
+# Heure : 14
+
+# Avec fuseau horaire
+iso_string_tz = "2024-12-15T14:30:00+02:00"
+dt_tz = datetime.fromisoformat(iso_string_tz)
+print(f"\nAvec fuseau horaire : {dt_tz}")
+# Avec fuseau horaire : 2024-12-15 14:30:00+02:00
+
+
+
+## .strptime()
+# creates a datetime object from a string representing a date and time
+# requires to specify the format in which we saved the date and time
+
+from datetime import datetime
+print(datetime.strptime("2019/11/04 14:53:00", "%Y/%m/%d %H:%M:%S")) # données AVANT , format AVANT
+# 2019-11-04 14:53:00 # ..a juste mis des "-" à la place des "/"
+
+# doit matcher entre données et format sinon error, pa de valeur par defaut
+from datetime import datetime
+print(datetime.strptime("2019/11/04 14:53", "%Y/%m/%d %H:%M:%S")) # manque les sec dans les données
+# ValueError: time data '2019/11/04 14:53' does not match format '%Y/%m/%d %H:%M:%S'
+
+import time
+print(time.strptime("2019/11/04 14:53:00", "%Y/%m/%d %H:%M:%S"))
+# time.struct_time(tm_year=2019, tm_mon=11, tm_mday=4, tm_hour=14, tm_min=53, tm_sec=0, tm_wday=0, tm_yday=308, tm_isdst=-1)
+
+
+
+
+### FROM DATETIME IMPORT DATE
 
 
 ## date.today()
@@ -78,47 +138,13 @@ print(my_date)
 
 
 
-## datetime.timestamp()
-# eturns a float value expressing the number of seconds elapsed between the date and time indicated by the datetime object and January 1, 1970, 00:00:00 (UTC)
-from datetime import datetime
-dt = datetime(2020, 10, 4, 14, 55)
-print("Timestamp:", dt.timestamp())
-# Timestamp: 1601823300.0
-
-
-
 ## date.fromtimestamp()
 
+from datetime import date
 timestamp = time.time()
 d = date.fromtimestamp(timestamp) # method fromtimestamp() = déduit la date en fonction du timestamp (time.time())
 print("Date:", d)
 # Date: 2025-07-15
-
-
-
-## date.fromisoformat()
-
-from datetime import datetime
-
-# Date et heure au format ISO
-iso_string = "2024-12-15T14:30:00"
-dt = datetime.fromisoformat(iso_string)
-print(f"Date/heure : {dt}")
-# Date/heure : 2024-12-15 14:30:00
-print(f"Année : {dt.year}")
-# Année : 2024
-print(f"Mois : {dt.month}")
-# Mois : 12
-print(f"Jour : {dt.day}")
-# Jour : 15
-print(f"Heure : {dt.hour}")
-# Heure : 14
-
-# Avec fuseau horaire
-iso_string_tz = "2024-12-15T14:30:00+02:00"
-dt_tz = datetime.fromisoformat(iso_string_tz)
-print(f"\nAvec fuseau horaire : {dt_tz}")
-# Avec fuseau horaire : 2024-12-15 14:30:00+02:00
 
 # Juste une date
 from datetime import date
@@ -152,6 +178,7 @@ print(e)
 # 1992-01-16
 
 
+
 ## .weekday()  isoweekday()
 # returns the day of the week as an integer from 0 = Monday to 6 = Sunday
 # with isoweekdy(), integer from 1 = Monday to 7 = Sunday
@@ -167,6 +194,8 @@ print(d.isoweekday()) # 1 = lundi
 # 1
 
 
+
+### FROM DATETIME IMPORT TIME
 
 ## time() - time(hour, minute, second, microsecond, tzinfo, fold)
 
@@ -191,6 +220,31 @@ print("Microsecond:", t.microsecond)
 # Microsecond: 1
 
 
+
+## time.time() & timestamp
+
+# The date class gives the ability to create a date object from a timestamp
+
+# In Unix the timestamp expresses the number of seconds since January 1, 1970, 00:00:00 (UTC)
+# This date is called the Unix epoch because this is when the counting of time began on Unix systems
+
+# timestamp is actually the difference between a particular date (including time) and January 1, 1970, 00:00:00 (UTC), expressed in seconds
+# To create a date object from a timestamp we must pass a Unix timestamp to the fromtimestamp method
+# We can use the time module which provides time-related functions
+# One of them is a function called time(), which returns the number of seconds from 1st January 1970 to the current moment in the form of a float number
+
+from datetime import date
+import time
+
+print(time)
+# <module 'time' (built-in)>
+timestamp = time.time() # method time() du module time = nbre de sec depuis le 1/1/1970
+print("Timestamp:", timestamp)
+# Timestamp: 1752567892.3991797
+
+
+
+### IMPORT TIME
 
 ## time.ctime()
 # converts the time in seconds since January 1, 1970 (Unix epoch) to a string
@@ -275,7 +329,6 @@ print(time.localtime(timestamp))
 ## asctime() - mktime()
 
 import time
-
 timestamp = 1572879180
 st = time.gmtime(timestamp)
 
@@ -298,6 +351,8 @@ print(time.mktime((2019, 11, 4, 14, 53, 0, 0, 308, 0)))
 # ==> 1572879180.0
 
 
+
+### FROM DATETIME IMPORT TIME ou DATETIME ou DATE
 
 ## .strftime()
 # very important method, it allows to return the date and time in the format we specify
@@ -333,26 +388,8 @@ print(time.strftime("%Y/%m/%d %H:%M:%S")) # à partir de l'heure du système loc
 
 
 
-## .strptime()
-# creates a datetime object from a string representing a date and time
-# requires to specify the format in which we saved the date and time
 
-from datetime import datetime
-print(datetime.strptime("2019/11/04 14:53:00", "%Y/%m/%d %H:%M:%S")) # données AVANT , format AVANT
-# 2019-11-04 14:53:00 # ..a juste mis des "-" à la place des "/"
-
-# doit matcher entre données et format sinon error, pa de valeur par defaut
-from datetime import datetime
-print(datetime.strptime("2019/11/04 14:53", "%Y/%m/%d %H:%M:%S")) # manque les sec dans les données
-# ValueError: time data '2019/11/04 14:53' does not match format '%Y/%m/%d %H:%M:%S'
-
-import time
-print(time.strptime("2019/11/04 14:53:00", "%Y/%m/%d %H:%M:%S"))
-# time.struct_time(tm_year=2019, tm_mon=11, tm_mday=4, tm_hour=14, tm_min=53, tm_sec=0, tm_wday=0, tm_yday=308, tm_isdst=-1)
-
-
-
-## date & time operation
+### date & time operation
 # To create a timedelta object, just perform a subtraction on the date or datetime objects
 
 from datetime import date
@@ -367,6 +404,9 @@ print(dt1 - dt2)
 # 365 days, 9:07:00
 
 
+
+
+### FROM DATETIME IMPORT TIMEDELTA
 
 ## timedelta
 # arguments accepted by the class constructor:
