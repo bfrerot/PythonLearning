@@ -49,9 +49,9 @@
 #   - write to the stream: the portions of the data from the memory (ex: a variable) are transferred to the file
 
 # three basic modes used to open the stream:
-#   - read mode: a stream opened in this mode allows read operations only; trying to write to the stream will cause an exception UnsupportedOperation
-#   - write mode: a stream opened in this mode allows write operations only; attempting to read the stream will cause UnsupportedOperation again
-#   - update mode: a stream opened in this mode allows both writes and reads
+#   - READ mode: a stream opened in this mode allows read operations only; trying to write to the stream will cause an exception UnsupportedOperation
+#   - WRITE mode: a stream opened in this mode allows write operations only; attempting to read the stream will cause UnsupportedOperation again
+#   - UPDATE mode: a stream opened in this mode allows both writes and reads
 
 # The stream behaves almost like a tape recorder
 # ==> read something from a stream? a virtual head moves over the stream according to the number of bytes transferred from the stream
@@ -71,7 +71,7 @@
 
 
 
-#### OPEN()
+#### OPEN(FILE, MODE, ENCODING)
 
 ### to invoke the object (the file)
 
@@ -80,62 +80,64 @@ stream = open(file, mode = 'r', encoding = None)
 
 ### open()
 #   - very first operation performed on the stream
-#   - successful, the function returns a stream object
-#   - otherwise, an exception is raised, ex:FileNotFoundError
+#       - successful ? ==> the function returns a stream object
+#       - otherwise ==> an exception is raised, ex:FileNotFoundError
 
 
-### file = specifies the name of the file to be associated with the stream
+### file 
+# = specifies the name of the file to be associated with the stream
 
 
-### mode = specifies the open mode used for the stream
+### mode 
+# = specifies the open mode used for the stream
 #   - default opening mode is read in text mode
 #   - string filled with a sequence of characters, and each of them has its own special meaning:
 
-## ==> r = open mode: read
+## ==> R = open mode: READ
 #     the stream will be opened in read mode
 #     the file associated with the stream must exist and has to be readable, otherwise exception raised
 
-## ==> w = open mode: write
+## ==> W = open mode: WRITE
 #     the stream will be opened in write mode
 #     the file associated with the stream doesn't need to exist
 #     if it doesn't exist it will be created
 #     if it exists, it will be truncated to the length of zero (erased)
 #     if the creation isn't possible (ex: due to system permissions), exception
 
-## ==>a = open mode: append
-#     the stream will be opened in append mode
-#     the file associated with the stream doesn't need to exist
-#     if it doesn't exist, it will be created
-#     if it exists the virtual recording head will be set at the end of the file, the previous content of the file remains UNTOUCHED !
+## ==> A = open mode: APPEND
+#      the stream will be opened in append mode
+#      the file associated with the stream doesn't need to exist
+#      if it doesn't exist, it will be created
+#      if it exists the virtual recording head will be set at the end of the file, the previous content of the file remains UNTOUCHED !
 
-## ==> r+ = open mode: read and update
-#     the stream will be opened in read and update mode
-#     the file associated with the stream MUST EXIST and has to be WRITEABLE, otherwise exception
-#     both read and write operations are allowed for the stream
+## ==> R+ = open mode: READ and UPDATE
+#      the stream will be opened in read and update mode
+#      the file associated with the stream MUST EXIST and has to be WRITEABLE, otherwise exception
+#      both read and write operations are allowed for the stream
 
-## ==> w+ open mode: write and update
-#     the stream will be opened in write and update mode
-#     the file associated with the stream doesn't need to exist
-#     if it doesn't exist, it will be created
-#     the previous content of the file remains UNTOUCHED
-#     both read and write operations are allowed for the stream.
+## ==> W+ open mode: WRITE and UPDATE
+#      the stream will be opened in write and update mode
+#      the file associated with the stream doesn't need to exist
+#      if it doesn't exist, it will be created
+#      the previous content of the file remains UNTOUCHED
+#      both read and write operations are allowed for the stream.
 
-# If there is a letter b at the end of the mode string it means that the stream is to be opened in binary mode
-# If the mode string ends with a letter t the stream is opened in text mode
+# If there is a letter B at the end of the mode string it means that the stream is to be opened in BINARY mode
+# If the mode string ends with a letter T the stream is opened in TEXT mode
 # TEXT MODE is the DEFAULT behaviour assumed when no binary/text mode specifier is used
 # the successful opening of a file will set the current file position (the virtual reading/writing head) before 
 #   the first byte of the file if the mode is not a and after the last byte of the file if the mode is set to a
 
 ## encoding = specifies the encoding type, ex:UTF-8 when working with text files
 #   - default encoding depends on the platform used
+
 # all the streams are divided into text and binary streams:
 #   - TEXT streams are structured in lines, they contain typographical characters (letters, digits, punctuation, etc),
 #   arranged in rows (lines), as seen with the naked eye when you look at the contents of the file in the editor
-#   - BINARY streams don't contain text but a sequence of bytes of any value, ex: an executable program, an image, 
-#   an audio or a video clip, a database file, etc.
+#   - BINARY streams don't contain text but a sequence of bytes of any value
+#   ex: an executable program, an image, an audio or a video clip, a database file, etc.
 #   Because these files don't contain lines, the reads and writes relate to portions of data of any size. 
 #   Hence the data is read/written byte by byte, or block by block, where the size of the block usually ranges from one to an arbitrarily chosen value
-
 
 # ! In Unix/Linux systems, the line ends are marked by a single character named LF (ASCII code 10) designated in Python programs as \n.
 # Other operating systems, especially these derived from the prehistoric CP/M system (which applies to Windows family systems, too)
@@ -162,20 +164,21 @@ stream = open(file, mode = 'r', encoding = None)
 # the source code run in a Windows environment will work properly
 
 
-### 3 Exceptions where open() is not needed
-import sys # 3 processes included int he sys module
 
-## ==> sys.stdin = standard input
+### 3 Exceptions where open() is not needed
+import sys # 3 processes included int the SYS MODULE
+
+## ==> SYS.STDIN = standard input
 # stdin stream is normally associated with the keyboard, pre-open for reading and regarded as the primary data source for the running programs
 # the well-known input() function reads data from stdin by default
 
 
-## ==> sys.stdout = standard output
+## ==> SYS.STDOUT = standard output
 # stdout stream is normally associated with the screen, pre-open for writing, regarded as the primary target for outputting data by the running program
 # the well-known print() function outputs the data to the stdout stream
 
 
-# #==> sys.stderr = standard error output
+# #==> SYS.STDERR = standard error output
 # stderr stream is normally associated with the screen, pre-open for writing, regarded as the primary place 
 #   where the running program should send information on the errors encountered during its work
 
@@ -199,7 +202,6 @@ try:
 except Exception as exc:
     print("Cannot open the file:", exc)
 # ---
-
 ### 1. **Airbyte**
 # - **Ressources en ligne** :
 #   - [Site officiel](https://airbyte.com/) — Documentation, guides d’utilisation.
@@ -207,8 +209,9 @@ except Exception as exc:
 #   - [Blog Airbyte](https://airbyte.com/blog) — Cas d’usage, nouveautés.
 # - **Ouvrages** : Aucun ouvrage dédié, mais la documentation est très complète.
 # ...
-#etc
+# etc
 # ==> OK
+
 
 
 
@@ -225,6 +228,7 @@ stream.close()
 #   - If the stream was opened for writing and then a series of write operations were performed, it may happen that the data sent 
 #     to the stream has not been transferred to the physical device yet due to a mechanism called caching or buffering
 #   - Since the closing of the stream forces the buffers to flush them, it may be that the flushes fail and therefore the close() fails too
+
 
 
 
@@ -286,9 +290,10 @@ except IOError as exc:
 
 
 
+
 #### Gestion de l'erreur
 
-### try/exept + errno
+### try/exept + ERRNO
 # errno fournit des constantes pour représenter différents codes d'erreur
 # Quand une erreur survient lors de l'ouverture d'un fichier, une exception IOError (ou OSError dans Python 3) est levée
 # cette exception possède un attribut errno qui indique le type précis d'erreur
@@ -323,7 +328,7 @@ except Exception as exc:
 # The file doesn't exist.
 
 
-### strerror()
+### STRERROR()
 # comes from the os module 
 # 1 * argument = error number
 # returns a string describing the meaning of the error 

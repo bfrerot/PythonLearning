@@ -281,7 +281,7 @@ print(math.trunc(4.0))
 
 ## math.factorial(x) 
 # returns x! 
-# x has to be an integral and not a negative
+# x MUST be an INTEGER and POSITIVE
 
 print(math.factorial(0))    
 # 1
@@ -294,6 +294,16 @@ print(math.factorial(5))
 print(math.factorial(10))   
 # 3628800
 
+# dans un code
+print(math.factorial( -3.0 ))
+# TypeError: 'float' object cannot be interpreted as an integer
+# Python voit le - avent de voir le .,
+
+print(math.factorial( 3.0 ))
+# TypeError: 'float' object cannot be interpreted as an integer
+
+print(math.factorial( -3))
+# ValueError: factorial() not defined for negative values
 
 
 ### Hypoténuse

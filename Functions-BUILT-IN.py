@@ -193,20 +193,40 @@ print(obj.__dict__)
 # {'x': 10, 'y': 20}
 
 
-### dir()	# Returns a list of the specified object's properties and methods
-# can be a variable, a module, etc
+### dir()	
+# returns a list of the specified object's properties and methods
+# PARAMETER can be a variable, a module, (), None
+# RETURN can be a list of:
+#   the module's attribute
+#   names of class attributes
+#   names of object attributes
+#   names of the base class attributes
 
+
+# object/class
 class Person:
   name = "John"
   age = 36
   country = "Norway"
 print(dir(Person))
-['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'age', 'country', 'name']
+# ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'age', 'country', 'name']
 
+# module
 import math
 for name in dir(math):
   print(name, end=" ")
 # __doc__ __loader__ __name__ __package__ __spec__ acos acosh asin asinh atan atan2 atanh cbrt ceil comb copysign cos cosh degrees dist e erf erfc exp exp2 expm1 fabs factorial floor fma fmod frexp fsum gamma gcd hypot inf isclose isfinite isinf isnan isqrt lcm ldexp lgamma log log10 log1p log2 modf nan nextafter perm pi pow prod radians remainder sin sinh sqrt sumprod tan tanh tau trunc ulp
+
+
+# current local
+print(dir())
+# ['__annotations__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__']
+
+# None
+print(dir(None))
+# ['__bool__', '__class__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getstate__', 
+#  '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', 
+#  '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__']
 
 
 ### divmod()	# Returns the quotient and the remainder when argument1 is divided by argument2

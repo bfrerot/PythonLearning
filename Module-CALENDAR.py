@@ -8,6 +8,12 @@
 # saturday  ==> 5 ==> calendar.SATURDAY
 # sunday    ==> 6 ==> calendar.SUNDAY
 
+
+### IMPORT CALENDAR
+
+
+## .CALLENDAR(YYYY)
+
 import calendar 
 print(calendar.calendar(2020)) # similar to the result of the cal command available in Unix
 #                                    2020
@@ -55,7 +61,7 @@ print(calendar.calendar(2020)) # similar to the result of the cal command availa
 
 
 
-## calendar.month() / calendar.prmonth
+## .MONTH(YYYY,M) .PRMONTH(YYYY,M)
 
 import calendar
 print(calendar.month(2020, 11))   
@@ -85,7 +91,7 @@ calendar.prmonth(2020, 11)
 
 
 
-## calendar.setfirstweekday
+## .SETFIRSTWEEKDAY(calendar.DAY)
 
 import calendar
 calendar.setfirstweekday(calendar.SUNDAY) # or calendar.setfirstweekday(6)
@@ -100,7 +106,7 @@ calendar.prmonth(2020, 12)
 
 
 
-## calendar.weekday
+## .WEEKDAY(YYYY,M,D)
 # returns the day of the week as an integer value for the given year, month, and day
 
 import calendar
@@ -109,7 +115,7 @@ print(calendar.weekday(2025, 7, 17))
 
 
 
-## calendar.weekheader(x)
+## .WEEKHEADER(INT)
 # requires to specify the width in characters for one day of the week
 # If the width you provide is greater than 3 we'll still get the abbreviated weekday names consisting of 3 characters
 
@@ -123,7 +129,7 @@ print(calendar.weekheader())
 
 
 
-## calendar.isleap()/.leapdays()
+## .ISLEAP(YYYY) .LEAPDAYS(YYYY,YYYY)
 
 import calendar
 print(calendar.isleap(2020))
@@ -133,11 +139,9 @@ print(calendar.leapdays(2010, 2021))  # Up to but not including 2021, returns th
 
 
 
-## calendar.Calendar 
-# ==> provides methods to prepare calendar data for formatting
-
-# .itermonthdays() 
+## .ITERMONTHDAYS(YYYY,M) 
 # returns a list or tupples
+
 import calendar
 cal = calendar.Calendar()
 print(list(cal.itermonthdays(2024, 7)))
@@ -163,7 +167,8 @@ for iter in c.itermonthdays3(2019, 11): # regroupe année/mois/date du jour
 # (2019, 11, 27) (2019, 11, 28) (2019, 11, 29) (2019, 11, 30) (2019, 12, 1)
 
 
-# .iterweekdays()
+
+## .ITERWEEKDAYS()
 
 import calendar  
 c = calendar.Calendar(calendar.SUNDAY)
@@ -172,7 +177,8 @@ for weekday in c.iterweekdays():
 # 6 0 1 2 3 4 5
 
 
-# .monthdays2calendar()
+
+## .MONTHDAYS2CALENDAR(YYYY,M)
 # takes the year and month, and returns a list of weeks in a specific month
 # Each week is a tuple consisting of day numbers and weekday numbers
 
@@ -188,8 +194,18 @@ for data in c.monthdays2calendar(2020, 12):
 
 
 
-## calendar.TextCalendar 
+## .TEXTCALENDAR
 # ==> is used to create regular text calendars
+
+import calendar
+text_cal = calendar.TextCalendar()
+# Afficher le calendrier de juillet 2024 en texte
+print(text_cal)
+# <calendar.TextCalendar object at 0x00000217184F9310>
+
+
+
+## .FORMATMONTH(YYY,M)
 
 import calendar
 text_cal = calendar.TextCalendar()
@@ -204,7 +220,7 @@ print(text_cal.formatmonth(2024, 7))
 
 
 
-## calendar.HTMLCalendar 
+## .HTMLCALENDAR()
 # ==> is used to create HTML calendars
 
 import calendar
@@ -226,7 +242,8 @@ print(html_output)
 
 
 
-## calendar.LocalTextCalendar 
+## LOCALTEXTCALENDAR(LOCALE='STR') 
+
 # ==> is a subclass of the calendar.TextCalendar class
 #     The constructor of this class takes the local parameter to return the appropriate months and weekday names
 
@@ -244,7 +261,8 @@ print(local_cal.formatmonth(2024, 7))
 
 
 
-## calendar.LocalHTMLCalendar 
+## .LOCALHTMLCALENDAR
+
 # ==> is a subclass of the calendar.HTMLCalendar class
 #     The constructor of this class takes the locale parameter to return the appropriate months and weekday names
 # <table border="0" cellpadding="0" cellspacing="0" class="month">
@@ -261,7 +279,7 @@ print(local_cal.formatmonth(2024, 7))
 
 
 
-## .itermonthdates
+## .ITERMONTHDATES(YYYY,M)
 # retourne les dates complètes pour former des semaines entières d'ou le debut par 10-28, 10-29 etc pour lundi, mardi etc
 
 import calendar  

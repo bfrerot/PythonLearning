@@ -232,8 +232,10 @@ introduction("Henry")
 ## positional arguments MUST NOT follow keyword arguments
 def subtra(a, b):
     print(a - b)
-subtra(5, b=2) # outputs: 3
-subtra(a=5, 2) # Syntax Error
+subtra(5, b=2) 
+# 3
+subtra(a=5, 2) 
+# Syntax Error
 
 def add_numbers(a, b=2, c):
     print(a + b + c)
@@ -253,11 +255,12 @@ def introduction(firstName, lastName):
     print("Hello, my name is", firstName, lastName)
 
 introduction("Luke", "Skywalker") # if parameter is not specified with an = + parameter value, default order is respected
-introduction("Jesse", "Quick")
-introduction("Clark", "Kent")
 # Hello, my name is Luke Skywalker
+introduction("Jesse", "Quick")
 # Hello, my name is Jesse Quick
+introduction("Clark", "Kent")
 # Hello, my name is Clark Kent
+
 
 # parameters dans le desordre
 def introduction(firstName, lastName):
@@ -267,6 +270,7 @@ introduction(firstName = "James", lastName = "Bond")
 introduction(lastName = "Skywalker", firstName = "Luke") # if parameters are set in a different order with an = + parameter, the function doesn't care and sort it in the right way 
 # Hello, my name is James Bond
 # Hello, my name is Luke Skywalker
+
 
 # parameters par defaut
 def introduction(firstName, lastName="Smith"):
@@ -279,6 +283,7 @@ def fun(inp=2,out=3):
 print (fun(out=2))
 # 4
 
+
 # multiple parameters (*par)
 def fun(*val): # fun() accepte de multiple parameters
     print(type(val))
@@ -287,11 +292,13 @@ number = 400
 fun(lst,number)
 # <class 'tuple'> # car [1,2,3,4,5], 400 est un tuple
 
+
 # parameter par defaut ecrasé par celui indiqué
 def introduction(firstName, lastName="Smith"):
     print("Hello, my name is", firstName, lastName)
 introduction("James","Doe")
 # Hello, my name is James Doe # Smith (default parameter) is replaced by Doe (specified parameter)
+
 
 # on peut avoir une fonction qui appelle 2 parameters ou plus
 # mais ne se sert que d'1
@@ -305,6 +312,7 @@ def fun(data, *num ):
 fun("Earth", 2, True, "Jupiter")
 # Earth
 
+
 # on peut avoir une fonction dans une fonction etc
 x = 5
 def outer_func():
@@ -315,6 +323,16 @@ def outer_func():
     return inner_func()
 print (outer_func())
 # 8
+
+def quote(x):
+    def embed(y):
+        return x + y + x
+    return embed
+
+dq = quote('"')
+print(dq('Jane Doe'))
+# "Jane Doe"
+
 
 
 ## create Documentation about a function we create with a DOCSTRING
@@ -456,6 +474,7 @@ print(createList(5))
 [0, 1, 2, 3, 4]
 
 
+
 ## Exemple de boucle et correction avec insertion d'une termination condition
 
 #SANS
@@ -464,8 +483,8 @@ def fun(a):
 
 print(fun(25))
 ...
-[Previous line repeated 996 more times]
-RecursionError: maximum recursion depth exceeded
+# [Previous line repeated 996 more times]
+# RecursionError: maximum recursion depth exceeded
 
 #AVEC
 def fun(a):
@@ -476,6 +495,7 @@ def fun(a):
 
 print(fun(25))
 56  # 25 + 28 + fun(31)=3 --> 56
+
 
 
 ## Exemple de function récursive
@@ -501,6 +521,7 @@ print(fact(4))
 # ✅ Résultat affiché : 24
 
 
+
 ## Exception handling
 
 def spam(divideBy):
@@ -512,34 +533,38 @@ print(spam(1))
 
 def spam(divideBy):
     try:
-    	return 42 / divideBy    
-	except ZeroDivisionError: 
-	    print('Error: Invalid argument.')
-print(spam(2)) 
+        return 42 / divideBy
+    except ZeroDivisionError:
+        print('Error: Invalid argument.')
+        return None  # ou une autre valeur par défaut
+    except Exception as e:
+        print(f'Unexpected error: {e}')
+        return None
+print(spam(2))
+# 21.0
 print(spam(12)) 
+# 3.5
 print(spam(0)) 
+# Error: Invalid argument.
+# None
 print(spam(1))
-21.0 
-3.5 
-Error: Invalid argument. # msg d erreur mais le programme continue
-None 
-42.0
+# 42.0
 
-OU
+# OU:
 
 def spam(divideBy):    
     return 42 / divideBy
 try:
     print(spam(2))    
-	print(spam(12))    
-	print(spam(0))    
-	print(spam(1)) 
+    print(spam(12))    
+    print(spam(0))    
+    print(spam(1)) 
 except ZeroDivisionError:    
 	print('Error: Invalid argument.')
 21.0 
 3.5 
-Error: Invalid argument. # ca ne continuera pas sur print(spam(1)), 
-                         # car le code passe a except pour spam(0) et ne remontera pas 
+# Error: Invalid argument. # ca ne continuera pas sur print(spam(1)), 
+                           # car le code passe a except pour spam(0) et ne remontera pas 
                          
 
 ## closures

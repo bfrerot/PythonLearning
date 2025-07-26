@@ -38,6 +38,15 @@ print(two())
 # 2 ==> exécution de la fonction
 
 
+## lambda n'accepte PAS de RETURN
+# Lambda functions are single expressions, and return is not allowed inside them
+
+lambda x, y: return x + y
+
+# Correct way:
+lambda x, y: x + y
+
+
 ## cas d'usage
 
 def print_function(args, fun):
@@ -53,6 +62,19 @@ print_function([x for x in range(-2, 3)], poly)
 # f(0)=2
 # f(1)=0
 # f(2)=2    
+
+
+## mélande de lambda et de fonction
+
+def f(a, b):
+    return a(b)
+# La fonction f prend deux arguments : a (une fonction) et b (une valeur)
+
+print(f(lambda x: x and True, 1 > 0))   
+# 1er argument a est une lambda : lambda x: x and True == True + True
+# 2ème argument b est 1 > 0, ce qui retourne True
+# True
+
 
 # ==> avec LAMBDA
 # pas besoin de créer la fonction poly() ==> remplacée par lambda x: 2 * x**2 - 4 * x + 2

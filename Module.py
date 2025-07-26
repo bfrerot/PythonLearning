@@ -9,38 +9,15 @@ https://docs.python.org/3/py-modindex.html
 
 
 
-## main/name
+### __MAIN__ vs __NAME__
+
 # when you run a file directly, its __name__ variable is set to __main__;
 # when a file is imported as a module, its __name__ variable is set to the file's name (excluding .py)
 
 
-## import 
-# import module to be able to use it, one or many at a time
 
-import <module1>, <module2>, <modulex>
-import math
-import math, random
-from math import * # importe toutes les entities / difference avec import math ??
+### NAMESPACE
 
-# import VS invocation
-
-from p.m import f
-f()
-
-from p.m import f as func_f
-func_f()
-
-import p.m
-p.m.f()
-
-import p.m as module_m
-module_m.f()
-
-import p
-p.m.f()
-
-
-##namespace
 # Inside a certain namespace, each name must remain unique
 # Si on compare aux prénoms:
 #   dans un namespace, les prenoms sont uniques ex FREROT.benoit
@@ -70,6 +47,70 @@ print(math.sin(math.pi/2))
 
 
 ### IMPORT ###
+
+## one module
+import math
+
+
+## many modules
+import math, random
+
+
+## all entities form a module
+from math import * 
+
+
+## valid imports from a module or chain of modules
+from packageA.subpackageB.subpackageC.moduleD import * # all functions
+from packageA.subpackageB.subpackageC.moduleD import function
+from packageA.subpackageB.subpackageC.moduleD import function as f # renaming the function
+
+
+## valid functions invocations
+
+from p.m import f
+f() # f() is well known
+
+from p.m import f as func_f
+func_f() # f() is well known but as func_f()
+
+import p
+p.m.f()
+
+import p.m
+p.m.f() # f() is not explicitely known and could have homonyms so we MUST add the full name
+
+import p.m as module_m  # like an alias for a chain of modules
+module_m.f() # same as before 
+
+
+## relative import
+
+# Relative imports use leading dots "."
+# A single leading dot indicates a relative import, starting with the current package. 
+# Two or more leading dots indicate a relative import to the parent(s) of the current package, one level per dot after the first
+
+'''
+package/
+    __init__.py
+    subpackage1/
+        __init__.py
+        moduleX.py
+        moduleY.py
+    subpackage2/
+        __init__.py
+        moduleZ.py
+    moduleA.py
+'''
+# imports relatifs valides depuis package/subpackage1/__init__.py ou package/subpackage1/moduleX.py:
+from .moduleY import spam
+from .moduleY import spam as ham
+from . import moduleY
+from ..subpackage1 import moduleY
+from ..subpackage2.moduleZ import eggs
+from ..moduleA import foo
+
+
 
 # On peut importer juste une entity + PAS BESOIN de qualifier (nommer) le module pour s'en servir
 from math import pi
