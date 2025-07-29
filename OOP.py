@@ -161,7 +161,9 @@ my_first_object = TheSimplestClass()
 
 
 
-### CLASS vs INSTANCE variables
+
+
+##### CLASS vs INSTANCE variables
 
 class Animal:
     espèce = "Mammifère"  # Variable de classe
@@ -266,9 +268,7 @@ print(product._BluePrint__element) # aucun changement sur la variable d'Objet
 
 
 
-
-
-##### ATTRIBUTE
+### ATTRIBUTE
 
 # An attribute is a capacious term that can refer to two major kinds of class traits:
 #   - variables, containing information about the class itself or a class instance; classes and class instances can own many variables
@@ -385,7 +385,7 @@ print(p._Person__secret)  # Attention !!! accès direct déconseillé en pratiqu
 
 
 
-### ENCAPSULATION - private attribute
+##### ENCAPSULATION - private attribute
 # __ = private !
 
 # L'encapsulation en Python (et en programmation orientée objet en général) désigne le fait de cacher certains détails internes d'une class
@@ -823,7 +823,7 @@ print(object_3 is object_1)
 # ==> appel direct à la classe parente
 # manière directe PAS RECOMMANDEE car ne gère pas certains aspects liés à l'héritage multiple ou à la chaîne d'héritage multiple
 
-# super() retourne une "super classe" c'est-à-dire la classe parente dans le contexte actuel et appelle sa méthode __init__
+# super() retourne une "super class" c'est-à-dire la classe parente dans le contexte actuel et appelle sa méthode __init__
 # Avantages :
 #  - Plus flexible, surtout dans le contexte de l'héritage multiple
 #  - Respecte la chaîne d'héritage et peut faire appel à la méthode __init__ de la classe suivante dans l'ordre MRO (Method Resolution Order)
@@ -842,6 +842,121 @@ class Sub(Sup):
 obj = Sub("Andy")
 print(obj)  
 # My name is Andy.
+
+
+## invoquer super().__init__()
+
+# choix A, python3+, recommandé
+class SpamException (Exception):
+    def __init__ (self, message):
+        super().__init__(message)
+        self.message = message
+#raise SpamException( "Spam" ) # enlever le # pour voir tester
+
+# Traceback (most recent call last):
+#   File "c:\PythonLearning\error_test.py", line 5, in <module>
+#     raise SpamException( "Spam" )
+# SpamException: Spam
+
+
+# choix B, python2/3
+class Spam2Exception (Exception):
+    def __init__ (self, message):
+        super(Spam2Exception, self).__init__(message)
+        self.message = message
+# raise Spam2Exception( "Spam" ) # enlever le # pour voir tester
+
+
+## question, si plusieurs superclass ?
+# ==> super() en Python 3 gère automatiquement l'héritage multiple grâce au MRO (Method Resolution Order)
+class A:
+    def __init__(self, value):
+        print(f"A init: {value}")
+        self.a_value = value
+
+class B:
+    def __init__(self, value):
+        print(f"B init: {value}")
+        self.b_value = value
+
+class C(A, B):
+    def __init__(self, value):
+        print(f"C init: {value}")
+        super().__init__(value)  # Appelle automatiquement selon le MRO
+        self.c_value = value
+
+c = C("test")
+
+c = C()
+# C init: test
+# A init: test
+
+# pour voir l'orde de résolution:
+print(C.__mro__)
+# (<class '__main__.C'>, <class '__main__.A'>, <class '__main__.B'>, <class 'object'>)
+
+
+## pour viser une superclass en particulier
+class A:
+    def __init__(self, value):
+        print(f"A init: {value}")
+        self.a_value = value
+
+class B:
+    def __init__(self, value):
+        print(f"B init: {value}")
+        self.b_value = value
+
+class C(A, B):
+    def __init__(self, value):
+        # Appeler spécifiquement B, peu importe le MRO
+        B.__init__(self, value)
+
+c = C("test")
+# B init: test
+
+
+## pour viser toutes les superclass, avec **kwargs ou "kwargs" peut etre modifié par n'importe quel string
+class A:
+    def __init__(self, **kwargs):
+        print("A init")
+        super().__init__(**kwargs)
+
+class B:
+    def __init__(self, **kwargs):
+        print("B init")
+        super().__init__(**kwargs)
+
+class C(A, B):
+    def __init__(self, **kwargs):
+        print("C init")
+        super().__init__(**kwargs)
+
+c = C()
+# C init
+# A init
+# B init
+
+class A:
+    def __init__(self, **caca):
+        print("A init")
+        super().__init__(**caca)
+
+class B:
+    def __init__(self, **caca):
+        print("B init")
+        super().__init__(**caca)
+
+class C(A, B):
+    def __init__(self, **caca):
+        print("C init")
+        super().__init__(**caca)
+
+c = C()
+# C init
+# A init
+# B init
+
 
 
 ### POLYMORPHISM
@@ -1237,7 +1352,7 @@ print(hasattr(ExampleClass, 'a')) # true
 # the method must have at least a parameter and if only one, it should be "self"
 
 
-### SELF()
+### SELF
 
 # The keyword "self" is used to indicate that this variable is created coherently and individually for the instance to make it independent 
 # from other instances of the same class
@@ -1347,7 +1462,7 @@ obj.method()
 
 
 
-### 1*parameter, self
+## 1*parameter, self
 
 class Classy:
     def method(self):
@@ -1411,6 +1526,7 @@ print(obj_1.var)
 # object
 print(obj_2.var)
 # None
+
 
 
 
@@ -1808,6 +1924,7 @@ except Exception as e:
     print(e, e.__str__(), sep=' : ', end=' : ')
     print_arguments(e.args) # = ("12345") tupple, l'int 12345 a bien été chagée en str
 # 12345 : 12345 : 12345
+
 
 
 ### Exemple intéressant

@@ -1,5 +1,6 @@
 ########## MATH MODULE ##########
 
+https://docs.python.org/fr/3.13/library/math.html
 
 # MATH module comes with the standard Python release, and contains some useful constants and functions for carrying out mathematical operations
 # Note: all trigonometrical functions take their arguments expressed in radians
@@ -17,7 +18,7 @@ import math
 ### Racine carrée
 
 ## math.sqrt(x) 
-# racine carrée de x
+# racine carrée de x, en float
 
 print(math.sqrt(16))    
 # 4.0
@@ -318,3 +319,9 @@ print(math.hypot(1, 1))
 # 1.4142135623730951 (√2)
 print(math.hypot(5, 12))    
 # 13.0 (triangle 5-12-13)
+
+# si on ne met qu'un seul argument, int ou float, le return sera la meme valeur en float
+print(math.hypot(4.0))
+# 4.0
+print(math.hypot(4))
+# 4.0

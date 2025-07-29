@@ -2,9 +2,11 @@
 
 
 # Packages contain Modules which contain functions/variables
+# Python is interpreted however it compiles the py file into pyc file
+# Compiled Python files is stored inside the __pycache__ folder
 
-## python general index
 
+### python general index
 https://docs.python.org/3/py-modindex.html
 
 
@@ -13,6 +15,35 @@ https://docs.python.org/3/py-modindex.html
 
 # when you run a file directly, its __name__ variable is set to __main__;
 # when a file is imported as a module, its __name__ variable is set to the file's name (excluding .py)
+# The __name__ is a built-in variable and CAN be modified
+
+
+
+### __INIT__.PY
+
+# __init__.py is contained in regular packages
+# __init__.py is automatically executed when the regular package is imported
+
+
+
+### SEARCHED BY - DIRECTORIES 
+
+import spam
+print(spam.ham)
+print(spam.eggs)
+# Directory where spam.py was run
+# Current directory if the interpreter is run interactively
+# List of directories contained in PYTHONPATH environment variable
+# Python installation-dependent directories configured during installation
+# List of directories in sys.path
+
+# When a module named spam is imported
+#   1- the interpreter first searches for a built-in module with that name
+#   2- then searches for a file named spam.py in a list of directories given by the variable sys.path
+#       ==> sys.path is initialized from these locations:
+#              2a- The directory containing the input script or the current directory when no file is specified
+#              2b- PYTHONPATH, a list of directory names with the same syntax as the shell variable PATH
+#              2c- The installation-dependent default
 
 
 
@@ -109,7 +140,6 @@ from . import moduleY
 from ..subpackage1 import moduleY
 from ..subpackage2.moduleZ import eggs
 from ..moduleA import foo
-
 
 
 # On peut importer juste une entity + PAS BESOIN de qualifier (nommer) le module pour s'en servir

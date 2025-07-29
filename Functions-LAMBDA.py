@@ -71,8 +71,7 @@ def f(a, b):
 # La fonction f prend deux arguments : a (une fonction) et b (une valeur)
 
 print(f(lambda x: x and True, 1 > 0))   
-# 1er argument a est une lambda : lambda x: x and True == True + True
-# 2ème argument b est 1 > 0, ce qui retourne True
+# ==> évalue x and True pour x = 1>0, = True, True and True = True
 # True
 
 

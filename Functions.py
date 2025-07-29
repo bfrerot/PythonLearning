@@ -313,7 +313,7 @@ fun("Earth", 2, True, "Jupiter")
 # Earth
 
 
-# on peut avoir une fonction dans une fonction etc
+# on peut avoir une fonction dans une fonction
 x = 5
 def outer_func():
     y = 3
@@ -332,6 +332,15 @@ def quote(x):
 dq = quote('"')
 print(dq('Jane Doe'))
 # "Jane Doe"
+
+# ==>
+# quote(quo) : fonction qui crée une autre fonction
+# embed(str), qui utilise la valeur quo capturée, ici ", est une fonction anonyme
+# dblq = quote("") ==> quote() retourne la fonction embed(str) où quo est maintenant "
+#                      dblq devient cette fonction embed(str)
+# dblq('Jane Doe') ==> embed('Jane Doe'), return " + Jane Doe + "
+
+
 
 
 

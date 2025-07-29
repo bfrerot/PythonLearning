@@ -47,10 +47,17 @@ for i in range(5):
 0.5112747213686085
 # same values each time
 
+# maximum 2 arguments: le premier étant la graine, le deuxième optionnel version
+seed(1, 2, 3)
+for i in range(5):
+    print(random())
+# TypeError: Random.seed() takes from 1 to 3 positional arguments but 4 were given
 
 
-### random() 
+
+### .random() 
 # produces a float number x, which falls within the range 0.0 ≤ x < 1.0
+# ne prend PAS d'argument
 
 import random
 print(random.random())
@@ -65,9 +72,12 @@ for i in range(5):
 0.9930295466333776
 0.023790533052207796
 
+print(random.random(4))
+# TypeError: Random.random() takes no arguments (1 given)
 
 
-### random.randrange(start, stop ,step)
+
+### randrange(start, stop ,step)
 # produces an integer number x, which is taken from the range start ≤ x < stop with step 
 # start argument defaults to 0 
 # step argument defaults to 1
@@ -88,7 +98,7 @@ print(randrange(3, 10, 2))
 
 
 
-### random.randint(start, stop) 
+### .randint(start, stop) 
 # stop inclus
 
 from random import randrange, randint
@@ -110,12 +120,13 @@ print (secretNumber) # equal to (left,right + 1)
 
 
 
-### random.choice(liste, tuple, string)
+### .choice(liste, tuple, string) 
 
-from random import choice
+from random import choice,choices
 lst = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 tup = 20,23,24
 var = "palestine"
+
 print(choice(lst)) # 1 element de la list
 # 9
 print(choice(tup)) # 1 elem du tuple
@@ -125,9 +136,28 @@ print(choice(var))
 
 
 
-### random.sample(lst/tupple/string,int)
+### .choices((liste, tuple, string), weights, k)
+# returns a list
+# weights == poids pour chaque elem de la list
+# k == nombre de réptition
+print(choices(lst, weights = [10,1,1,1,1,1,1,1,1,1], k = 14))
+# [5, 1, 4, 9, 1, 10, 4, 5, 6, 10, 3, 1, 1, 9]
+print(choices(tup, weights = [10,1,1], k = 5))
+# [20, 23, 20, 20, 20]
+
+
+
+### .sample(lst/tupple/string,int)
 from random import sample
 print(sample(lst, 5))    #   5 elements de la liste dans un sens au hasard
 [10, 9, 8, 1, 4]
 print(sample(lst, 10))     #   10 elements de la liste dans un sens au hasard
 [4, 10, 5, 2, 7, 3, 9, 6, 1, 8]
+
+# avec k, positionnal argument
+print(random.sample([ "spam" , "ham" , "eggs" ], k = 2 ))
+# ['eggs', 'spam']
+print(random.sample(k = 2, [ "spam" , "ham" , "eggs" ] ))
+# SyntaxError: positional argument follows keyword argument
+print(random.sample([ "spam" , "ham" , "eggs" ], 2 ))
+# ['ham', 'eggs']

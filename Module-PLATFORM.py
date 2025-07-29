@@ -69,6 +69,7 @@ print(version())
 
 ## platform.python_implementation()
 # returns a string denoting the Python implementation
+# return values are CPython , IronPython , Jython , PyPy
 
 from platform import python_implementation
 print(python_implementation())

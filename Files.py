@@ -329,7 +329,7 @@ except Exception as exc:
 
 
 ### STRERROR()
-# comes from the os module 
+# comes from the OS module 
 # 1 * argument = error number
 # returns a string describing the meaning of the error 
     
