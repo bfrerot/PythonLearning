@@ -30,6 +30,16 @@
 # not
 # and
 # or
+z = 2
+y = 1
+x = y < z or z > y and y > z or z < y
+print(x)
+# True
+x = y < z or (z > y and y > z) or z < y
+print(x)
+# True
+
+
 # and # true if all occurences are true =  CONJUNCTION
 # or # true if at least one of all occurences is true = DISJUNCTION
 
@@ -91,7 +101,6 @@ print('10' > 10)
 
 
 
-
 ### pour comparer une variable à une valeur
 
 var = 0
@@ -102,6 +111,25 @@ print (var == 0)
 False
 print (var != 0)
 True
+
+
+x = 23.42
+print(bool(x) + True)
+# 2
+
+
+### True or False ?
+print(not 0)        
+# True
+print(not 23)       
+# False
+print(not '')       
+# True
+print(not 'Peter')  
+# False
+print(not None)     
+# True
+
 
 
 ### Priorite des operateurs
@@ -135,7 +163,9 @@ True
 
 
 ### None
-# on ne peut PAS l'associer à une variable
+# It is true that the None value can not be used as an argument of arithmetic operators
+# But the None value can be assigned and compared to variables and that can happen outside of a function
+
 b = None
 print (b)
       # ca n affiche rien (none)

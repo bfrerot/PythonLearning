@@ -43,6 +43,63 @@ else:
     play_chess_at_home()
 
 
+## IF vs ELIF
+# si plusieurs IF de suite matchent les conditions, elles sont toutes appliquées
+# si IF suivi de ELIF, seul 1 occurence sera matchée, la première qui matche
+
+# ==> How much will the delivery cost be if the order value is 1700 and the state is FL (Florida)?
+
+# avec IF ELIF
+order = int(input('Please enter the order value: ')) # 1700
+state = input('Please enter the state (as postal abbreviation): ') # FL
+delivery = 0
+ 
+if state in ['NC', 'SC', 'VA']:
+    if order <= 1000:
+        delivery = 70
+    elif 1000 < order < 2000:
+        delivery = 80
+    else:
+        delivery = 90
+else:
+    delivery = 50
+    
+if state in ['GA', 'WV', 'FL']:
+    if order > 1000: # matche une seule fois
+        delivery += 30
+    elif order < 2000 and state in ['WV', 'FL']:
+        delivery += 40
+    else:
+        delivery += 25
+print(delivery)
+# 80
+
+# avec IF IF IF ..
+order = int(input('Please enter the order value: ')) # 1700
+state = input('Please enter the state (as postal abbreviation): ') # FL
+delivery = 0
+ 
+if state in ['NC', 'SC', 'VA']:
+    if order <= 1000:
+        delivery = 70
+    elif 1000 < order < 2000:
+        delivery = 80
+    else:
+        delivery = 90
+else:
+    delivery = 50
+    
+if state in ['GA', 'WV', 'FL']:
+    if order > 1000: # matche une fois
+        delivery += 30
+    elif order < 2000 and state in ['WV', 'FL']: # matche une 2ème fois
+        delivery += 40
+    else:
+        delivery += 25
+print(delivery)
+# 120
+
+
 ## how to identify the larger of two numbers
 
 number1 = int(input("Enter the first number: "))

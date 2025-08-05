@@ -112,3 +112,17 @@ dict = {"cat" : "chat", "dog" : "chien", "horse" : "cheval"}
 del dict
 print(dict)
 # NameError
+
+
+## 1 = 1.0 !
+data = {}
+data[1] = 1
+data['1'] = 2
+data[1.0] = 4  # ici data[1] = data[1.0] donc 1 est écrasé par 4
+print(data)
+# {1: 4, '1': 2}
+res = 0
+for d in data:
+    res += data[d]
+print(res)
+# 6

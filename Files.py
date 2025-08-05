@@ -82,6 +82,13 @@ stream = open(file, mode = 'r', encoding = None)
 #   - very first operation performed on the stream
 #       - successful ? ==> the function returns a stream object
 #       - otherwise ==> an exception is raised, ex:FileNotFoundError
+#       - can be used with a for loop, which reads the file line by line
+#           ==> for x in open('file', 'rt'):
+#                   print(x)
+#               Line 1
+#               Line n
+
+
 
 
 ### file 
@@ -129,7 +136,7 @@ stream = open(file, mode = 'r', encoding = None)
 #   the first byte of the file if the mode is not a and after the last byte of the file if the mode is set to a
 
 ## encoding = specifies the encoding type, ex:UTF-8 when working with text files
-#   - default encoding depends on the platform used
+#   - default encoding depends on the platform used mais généralement = UTF-8
 
 # all the streams are divided into text and binary streams:
 #   - TEXT streams are structured in lines, they contain typographical characters (letters, digits, punctuation, etc),
@@ -228,6 +235,30 @@ stream.close()
 #   - If the stream was opened for writing and then a series of write operations were performed, it may happen that the data sent 
 #     to the stream has not been transferred to the physical device yet due to a mechanism called caching or buffering
 #   - Since the closing of the stream forces the buffers to flush them, it may be that the flushes fail and therefore the close() fails too
+
+
+colors = ['red\n', 'yellow\n', 'blue\n']
+file = open('wellert.txt', 'w+')
+file.writelines(colors)
+file.close()
+file.seek(0) # too late file.close() has been done already
+for line in file:
+    print(line)
+# ValueError: I/O operation on closed file.
+
+
+colors = ['red\n', 'yellow\n', 'blue\n']
+file = open('wellert.txt', 'w+')
+file.writelines(colors)
+file.seek(0)
+for line in file:
+    print(line)
+file.close()
+# red
+# 
+# yellow
+# 
+# blue
 
 
 
@@ -404,6 +435,15 @@ except IOError as e:
 # Characters in file: 131
 
 #!! reading a terabyte-long file using this method may corrupt your OS
+
+
+## .read(n)
+# allows reading n characters from a file
+with open('example.txt', 'r') as fichier:
+    print(fichier.read(3))  # lit les 3 premiers caractères
+# Lig
+    print(fichier.read(4))  # lit les 4 caractères suivants
+# ne 1
 
 
 
@@ -589,6 +629,25 @@ line #9
 line #10
 
 
+# avec while et read()
+text = '''Lorem ipsum dolor sit amet,
+consectetur adipisicing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+'''
+with open('wellert.txt', 'w') as f: # Le fichier est fermé automatiquement à la fin du with
+    f.write(text)
+ 
+try:
+    file = open('wellert.txt', 'r')
+    data = file.read()         # works
+    # data = file.readline()   # reads only one line
+    # data = file.readlines()  # reads every line, but as a list
+    # data = file.load()       # Something went wrong!
+    print(data)
+except:
+    print('Something went wrong!')
+    
+    
 
 ### BYTEARRAY
 
@@ -716,3 +775,29 @@ try:
 except IOError as e:
     print("I/O error occurred:", strerror(e.errno))
 # 0xa 0xb 0xc 0xd 0xe
+
+
+
+### .SEEK()
+# used to move the cursor (or file pointer) to a specific position within an open file
+# It allows to control where in the file we start reading or writing
+
+with open('example.txt', 'r') as f:
+    f.seek(10)  # Move cursor to byte 10 from the start
+    data = f.read(5)  # Read 5 bytes from position 10
+    print(data)
+# igne 
+
+
+file = open('data.txt', 'w+')
+print('Name of the file: ', file.name)
+s = 'Peter Wellert\nHello everybody'
+file.write(s)
+file.seek(0) # revient au début du fichier
+for line in file:
+    print(line)
+file.close()
+# Name of the file:  data.txt
+# Peter Wellert
+# 
+# Hello everybody

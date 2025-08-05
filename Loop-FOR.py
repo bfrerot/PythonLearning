@@ -178,3 +178,11 @@ try:
 except NameError:
     print("La variable 'i' n'existe pas ici")
 # 0 1 2 La variable 'i' n'existe pas ici
+
+
+### cas de boucle infinie
+
+data = ['peter', 'paul', 'mary']
+for d in data:
+    data.append(d.upper()) # la list va augementer sans arret
+    print(data)

@@ -45,12 +45,16 @@ print('[' + 'Beta'.center(6) + ']')
 # [ Beta ]
 
 
-## .count()	# Returns the number of times a specified value occurs in a string
+## .count("x", index)	# Returns the number of times a specified value occurs in a string
 
 print("abcabc".count("b"))
 print('abcabc'.count("d"))
 # 2
 # 0
+
+data = 'abbabadaadbbaccabc'
+print(data.count('ab', 1)) #on  commence à b , le 2ème caractère, index 1
+# 2
 
 
 ## .decode() / .encode()	# Returns an decoded/encoded version of the string
@@ -361,6 +365,10 @@ print('\n'.join(commands)) # on va sauter une ligne
 # int gi0/0
 # shut
 # no shut
+
+the_string = ',,'.join({'alpha', 'omega'}) # ici l'iterable est un set
+print(the_string)
+# alpha,,omega
 
 
 ### .ljust()	# Returns a left justified version of the string

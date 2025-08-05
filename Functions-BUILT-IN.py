@@ -260,6 +260,16 @@ x = 'print(55)'
 eval(x)
 # 55
 
+result = eval("2 + 3")
+print(result)  
+# 5
+
+# Evaluating variables
+x = 10
+print(eval("x + 5"))  
+# 15
+
+
 
 ### exec()	# Executes the specified code (or object)
 
@@ -270,6 +280,22 @@ exec(x)
 
 ### filter()	# Use a filter function to exclude items in an iterable object
 
+numbers = (1, 2, 5, 9, 15)
+ 
+def filter_numbers(num):
+    nums = (1, 5, 17)
+    if num in nums:
+        return True
+    else:
+        return False
+ 
+filtered_numbers = filter(filter_numbers, numbers)
+for n in filtered_numbers:
+    print(n)
+# 1
+# 5
+
+
 ages = [5, 12, 17, 18, 24, 32]
 def myFunc(x):
   if x < 18:
@@ -278,6 +304,7 @@ def myFunc(x):
     return True
 adults = filter(myFunc, ages) # pas reussi à le printer, c juste un filtre 
 print (adults)
+# <filter object at 0x0000023D9F925C00>
 for x in adults:
   print(x)
 # 18
@@ -523,6 +550,44 @@ y = id(x)
 print(y)
 # 22520260536256
 
+class A:
+    def __init__(self, x=0):
+        self.x = x
+ 
+obj1 = A(2)
+obj2 = A(2)
+print(id(obj1) == id(obj2)) 
+# False # les obj sont différents
+print(id(obj1))
+# 2384063197744
+print(id(obj2))
+# 1253138468048
+
+obj1 = A(2)
+obj2 = obj1 # ici obj2 est une copie de obj1
+print(id(obj1) == id(obj2))
+# True
+print(id(obj1))
+# 1773527200304
+print(id(obj2))
+# 1773527200304
+
+dict1 = {1:"a",2:"b"}
+dict2 = dict1
+print(id(dict1) == id(dict2))
+# True
+
+str1 = 'Hello'
+str2 = 'Hello'
+print(id(str1) == id(str2))
+# True ==> deux variables ayant le meme string partagent le meme id()
+print(id(str1))
+# 1905559360672
+print(id(str2))
+# 1905559360672
+
+
+
 
 ### input()	# Allowing user input
 # the result of the input() function is a string.
@@ -695,6 +760,12 @@ multiline = '''Line #1
 Line #2'''
 print(len(multiline))
 # 15 car compte un espace entre 1 et L, \n = 1 character
+
+data = ()
+print(data.__len__())
+# 0
+print(data.__len__() == len(data))
+# True
 
 
 ### list()	# Returns a list
@@ -1109,27 +1180,53 @@ print(x)
 ### type()	# Returns the type of an object
 
 a = ('apple', 'banana', 'cherry')
-b = "Hello World"
-c = 33
-x = type(a)
-y = type(b)
-z = type(c)
-print(x)
-print(y)
-print(z)
+print(type(a))
 # <class 'tuple'>
+
+b = "Hello World"
+print(type(b))
 # <class 'str'>
+
+c = 33
+print(type(c))
 # <class 'int'>
 
-a=5
-print(type(a))
-# <class 'int'>
-a=5.2
-print(type(a))
+d = 33.3
+print(type(d))
 # <class 'float'>
-a="papa"
-print(type(a))
-# <class 'str'>
+
+e = {a,1,True}
+print(type(e))
+# <class 'set'>
+
+f = {1:a,2:b}
+print(type(f))
+# <class 'dict'>
+
+g = [1,2,3,"a", "b"]
+print(type(g))
+# <class 'list'>
+
+h = 1J
+print(type(h))
+# <class 'complex'>
+
+data = [1, {}, (2,), (), {3}, [4, 5]] # = int,dict,tup,tup,set,list
+points = 0
+for i in range(len(data)):
+    if type(data[i]) == list:
+        points += 1
+    elif type(data[i]) == tuple:
+        points += 10
+    elif type(data[i]) == set:
+        points += 100
+    elif type(data[i]) == dict:
+        points += 1000
+    else:
+        points += 10000
+print(points)
+# 11 121
+
 
 ### vars()	# Returns the __dict__ property of an object
 

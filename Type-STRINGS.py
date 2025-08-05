@@ -41,6 +41,8 @@ s="hello"
 print(s + ' concatenate me!')
 # hello concatenate me!
 
+print("Pales" "tine")
+# Palestine ==> pas besoin de "+" entre strings
 
 ## Multiplication
 letter = 'z'

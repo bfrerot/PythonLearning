@@ -1595,6 +1595,49 @@ print(Classy.__dict__)
 
 
 
+### .__DICT__ VS DIR()
+
+class Cat:
+    Species = 1
+ 
+    def get_species(self):
+        return 'kitty'
+ 
+class Tiger(Cat):
+    def get_species(self):
+        return 'tiggy'
+ 
+    def set_species(self):
+        pass
+
+# ==> object 
+creature = Tiger()print(creature.__dict__                        
+# {}
+print(dir(creature))
+# ['Species', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__firstlineno__', '__format__', '__ge__', '__getattribute__', 
+#  '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', 
+#  '__repr__', '__setattr__', '__sizeof__', '__static_attributes__', '__str__', '__subclasshook__', '__weakref__', 'get_species', 'set_species']
+
+# ==> Class
+print(Tiger.__dict__)
+# {'__module__': '__main__', '__firstlineno__': 8, 'get_species': <function Tiger.get_species at 0x000001F4A1481940>, 
+# 'set_species': <function Tiger.set_species at 0x000001F4A1480C20>, # '__static_attributes__': (), '__doc__': None}
+print(dir(Tiger))
+# ['Species', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__firstlineno__', '__format__', '__ge__', '__getattribute__', 
+#  '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', 
+#  '__repr__', '__setattr__', '__sizeof__', '__static_attributes__', '__str__', '__subclasshook__', '__weakref__', 'get_species', 'set_species']
+
+# ==> Superclass
+print(Cat.__dict__)
+# {'__module__': '__main__', '__firstlineno__': 1, 'Species': 1, 'get_species': <function Cat.get_species at 0x000001F4A1473E20>,
+#  '__static_attributes__': (), '__dict__': <attribute '__dict__' of 'Cat' objects>, '__weakref__': <attribute '__weakref__' of 'Cat' objects>, '__doc__': None}
+print(dir(Cat))
+# ['Species', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__firstlineno__', '__format__', '__ge__', '__getattribute__', 
+# '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', 
+# '__repr__', '__setattr__', '__sizeof__', '__static_attributes__', '__str__', '__subclasshook__', '__weakref__', 'get_species']
+
+
+
 ### __NAME__
 # contains the name of the class. It's nothing exciting, just a string
 # it exists ONLY inside CLASSES

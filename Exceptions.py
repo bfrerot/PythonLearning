@@ -354,7 +354,17 @@ print(reciprocal(2))
 # It's time to say goodbye  --2
 # 0.5 --3
     
-    
+def func():
+    try:
+        print(23)
+        return 100
+    finally:
+        print(42)
+ 
+print(func())   
+# 23
+# 42
+# 100 ==> retourne chercher le return du try
 
 
 
@@ -421,7 +431,7 @@ print_exception_tree(BaseException)
 #    |   |   |   +---ConnectionAbortedError
 #    |   |   |   +---ConnectionRefusedError
 #    |   |   |   +---ConnectionResetError
-#    |   |   +---FileExistsError
+#    |   |   +---FileExistsError  ==> includes mkdir issues about already existing Directories !
 #    |   |   +---FileNotFoundError
 #    |   |   +---InterruptedError
 #    |   |   +---IsADirectoryError

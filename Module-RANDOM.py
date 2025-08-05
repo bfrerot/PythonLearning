@@ -161,3 +161,21 @@ print(random.sample(k = 2, [ "spam" , "ham" , "eggs" ] ))
 # SyntaxError: positional argument follows keyword argument
 print(random.sample([ "spam" , "ham" , "eggs" ], 2 ))
 # ['ham', 'eggs']
+
+
+
+### .uniform(a, b)
+# Renvoie un float entre a et b inclus
+import random
+print(random.uniform(1.5, 5.5))  
+# 3.842
+
+
+
+### shuffle(x)
+# Mélange la liste x en place
+import random
+liste = [1, 2, 3, 4, 5]
+random.shuffle(liste)
+print(liste)  
+# [3, 1, 5, 2, 4]

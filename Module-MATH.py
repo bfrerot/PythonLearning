@@ -6,12 +6,15 @@ https://docs.python.org/fr/3.13/library/math.html
 # Note: all trigonometrical functions take their arguments expressed in radians
 import math
 
-## math.pi 
-# = π constant value
 
 
-## math.e 
-# Euler's number value
+### constants
+
+math.pi	    # Pi, the ratio of the circumference of a circle to its diameter	3.141592653589793
+math.e	    # Euler's number, the base of natural logarithms	2.718281828459045
+math.tau	# Tau, the ratio of a circle's circumference to its radius (2 * pi)	6.283185307179586
+math.inf	# Positive infinity	float('inf')
+math.nan	# Not-a-Number (NaN) float('nan')
 
 
 

@@ -192,6 +192,59 @@ myFunction()
 # Do I know that variable? 2
 
 
+## interaction avec les variables
+x = 1 
+def a(x):
+    return 2 * x
+print(x)
+# 1
+x = 2 + a(x) 
+print(x)
+# 4 # x a bien changé de valeur
+print(a(x))
+# 8
+print(x)
+# 4 # mais x n'a pas changé de valeur ici
+
+num = 1
+def func(x):
+    x = x + 3
+    print(x)
+func(num)
+# 4
+print(num)
+# 1
+
+num = 1
+def func(y):
+    global num # num devient global, donc la fonction agit sur  la variable exterieure "num"
+    num = y + 3
+    print(num)
+func(num)
+# 4
+print(num)
+# 4 # num a bien changé de valeur via la fonction
+
+def increment(c, num):
+    c.count += 1     # incrémente l'attribut .count de l'objet counter
+    num += 1         # num += 1 : incrémente la variable LOCALE num
+                     # Modifier num dans la fonction ne modifie pas la variable number en dehors de la fonction
+class Counter:
+    def __init__(self):
+        self.count = 0
+counter = Counter() # counter.count = 0
+number = 0
+for i in range(0, 100):
+    increment(counter, number)
+print(
+    "counter is "
+    + str(counter.count)    
+    + ", number of times is "
+    + str(number)
+)
+# counter is 100, number of times is 0
+
+
 ## interaction avec les list
 def myFunction(myList1):
     print(myList1)
@@ -246,6 +299,16 @@ def add_numbers(a, c, b=2):
     print(a + b + c)
 add_numbers(a=1, c=3)
 # 6
+
+
+def test(x, y=23, z=10):
+    print('x is', x, 'and y is', y, 'and z is', z)
+test(3, 7)
+# x is 3 and y is 7 and z is 10
+test(42, z=24)
+# x is 42 and y is 23 and z is 24
+test(z=60, x=100)
+# x is 100 and y is 23 and z is 60
 
 
 ## ordre des parameters VS desordre
