@@ -295,11 +295,12 @@ print(type(v))
 
 
 
-# float() error
+# float()
 
-print (float("1, 3"))
-# ValueError: could not convert string to float:
-# il faut remplacer la virgule par un point
+# print(float("1, 3"))  # ValueError ...
+# print(float("1. 3"))  # ValueError ...
+# print(float("1,3"))   # ValueError ...
+print(float("1.3"))     # 1.3
 
 
 # octal & hexa values

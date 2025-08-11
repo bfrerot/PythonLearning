@@ -152,7 +152,7 @@ print(fruits)
 # ['cherry', 'banana', 'apple']
 
 
-## .sort
+## .sort()
 # sort the list alphabetically
 # classe les elem en ordre croissant par defaut
 

@@ -191,6 +191,13 @@ print(math.exp(2))
 print(math.exp(-1))     
 # 0.36787944117144233 (e^-1)
 
+## math.pow(x, y)
+# calcule x  à la  puissance y, donne un float
+
+resultat = math.pow(2, 3)  # 2 élevé à la puissance 3
+print(resultat)  
+# 8.0
+
 
 
 ### Fonctions logarithmiques
@@ -278,6 +285,25 @@ print(math.trunc(-4.9))
 # -4
 print(math.trunc(4.0))  
 # 4
+
+
+## math.fabs(x)
+# calcule la valeur absolue d’un nombre
+# Retourne toujours un float positif
+# Utile pour obtenir la distance sans signe
+
+print(math.fabs(-5))     
+# 5.0
+print(math.fabs(3.14))   
+# 3.14
+print(math.fabs(0))      
+# 0.0
+
+def get_absolute_integer(num):
+    import math
+    return math.floor(math.fabs(num))
+print(get_absolute_integer(-23.42))  
+# 23
 
 
 

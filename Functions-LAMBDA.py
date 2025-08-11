@@ -89,7 +89,12 @@ print_function([x for x in range(-2, 3)], lambda x: 2 * x**2 - 4 * x + 2)
 # f(1)=0
 # f(2)=2
 
-# ==> code has become shorter, clearer, and more legible
+# cas d'erreur
+def f(a, b):
+    return b(b) # TypeError: 'int' object is not callable
+print(f(lambda x: x + 1, 0))
+# TypeError: 'int' object is not callable
+
 
 
 ## LAMBDA + map()

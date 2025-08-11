@@ -391,7 +391,42 @@ except Exception as exc:
 # ==> read() 
 # reads the number of character/byte from the file, returns a string, is able to read the whole file at once default arg being (-1)
 
-## avec while
+
+## avec whith
+
+with open('example.txt', 'w+') as f:
+    f.write('Peter, Paul, Mary')
+ 
+x = open('example.txt', 'r')
+print(x.read(1))  
+# P
+with open('example.txt', 'w+') as f:
+    f.write('Peter, Paul, Mary')
+
+with open('example.txt', 'r') as x:
+    for ch in x.read():
+        print(ch) # P
+# P
+# e
+# t
+# e
+# r
+# ,
+# 
+# P
+# a
+# u
+# l
+# ,
+# 
+# M
+# a
+# r
+# y        
+        
+
+## avec while       
+        
 from os import strerror
 try:
     counter = 0

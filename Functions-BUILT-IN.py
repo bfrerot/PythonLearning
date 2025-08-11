@@ -255,6 +255,7 @@ for i, animal in enumerate(animaux):
 
 
 ### eval()	# Evaluates and executes an expression
+# évalue une chaîne de caractères comme si c'était une expression Python
 
 x = 'print(55)'
 eval(x)
@@ -269,6 +270,11 @@ x = 10
 print(eval("x + 5"))  
 # 15
 
+x, y = eval(input('Enter two numbers: ')) # 3, 4
+print(x)
+print(y)
+# 3
+# 4
 
 
 ### exec()	# Executes the specified code (or object)
@@ -692,6 +698,10 @@ print (int(b))
 # ..
 #    print (int(b))
 # ValueError: invalid literal for int() with base 10: '20.2'
+
+data = ['Peter', 'Paul', 'Mary']
+print(data[int(-1 / 2)]) # = data[0]
+# Peter
 
 
 ### isinstance()	# Returns True if a specified object is an instance of a specified object

@@ -73,7 +73,7 @@ print(os.listdir())
 
 
 ## os.getcwd()
-# = pwd = permet de savoir dans  quel répertoire courrant on se situe
+# = pwd = permet de savoir dans  quel répertoire courrant on se situe, CHEMIN COMPLET
 
 import os
 os.makedirs("my_first_directory/my_second_directory")
@@ -103,6 +103,21 @@ import os
 os.removedirs("my_first_directory/my_second_directory")
 
  
+## os.path.isfile()
+# Vérifie si le chemin correspond à un fichier existant
+
+import os
+file_path = input("Entrez le chemin du fichier : ")
+# example.txt
+if os.path.isfile(file_path):
+    print("Le fichier existe.")
+else:
+    print("Le fichier n'existe pas.")
+# Le fichier existe.
+
+
+
+
 
 ### pyperclip
 

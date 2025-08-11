@@ -281,6 +281,31 @@ introduction("Henry")
 # Hello, my name is James Doe
 # Hello, my name is Henry Smith
 
+class Class:
+    def __init__(self, val=0):
+        self.val = val
+# valid invokations
+object_1 = Class()  # default is used
+print(object_1.val)
+# 0
+object_2 = Class(1)  # value is forced
+print(object_2.val)
+# 1
+object_3 = Class(None)  # None is a value
+print(object_3.val)
+# None
+object_4 = Class(True)  # True is a value
+print(object_4.val)
+# True
+
+# We can also define functions that accept variable number of arguments, using the * args
+def add(*args):
+    return sum(args)
+print(add(1, 1, 1))
+# 3
+print(add(1))
+# 1
+
 
 ## positional arguments MUST NOT follow keyword arguments
 def subtra(a, b):

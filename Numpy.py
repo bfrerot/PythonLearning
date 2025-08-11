@@ -1,4 +1,4 @@
-########## Numpy ##########
+########## NUMPY ##########
 
 
 https://numpy.org/doc/stable/user/whatisnumpy.html

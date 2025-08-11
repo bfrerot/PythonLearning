@@ -881,7 +881,39 @@ OSError
 # │   ├── errno.EIO
 
 
-  
+##codes errno
+'''
+Code   errno	   Description	                                            
+1	   EPERM       Opération non permise                
+2	   ENOENT      Fichier ou répertoire non trouvé	    
+3	   ESRCH       Aucun processus correspondant trouvé	 
+4	   EINTR       Appel système interrompu	
+5 	   EIO         Erreur d'entrée/sortie	Problème d’E/S (disque, périphérique)
+6	   ENXIO       Aucun périphérique ou adresse	Périphérique non accessible ou inexistant
+7	   E2BIG       Argument trop long	
+13	   EACCES      Permission refusée ou insuffisante 
+17     EEXIST      Fichier existe déjà
+21	   EISDIR      Cible est un répertoire pas un fichier
+22     EINVAL      Argument invalide	
+23	   ENOTDIR     Pas un répertoire	
+24	   EMFILE      Trop de fichiers ouverts	
+28	   ENOSPC      Espace disque insuffisant	
+30	   EROFS       Disque ou système de fichiers en lecture seule
+'''
+
+try:
+    f = open('non_existing_file', 'r')
+    print(1, end=' ')
+except IOError as error:
+    print(error.errno, end=' ') # 2 = numero erreur errno = 2	   ENOENT      Fichier ou répertoire non trouvé
+    print(2, end=' ') # 2
+else:
+    f.close()
+    print(3, end=' ')
+# 2 2
+
+
+ 
 ### KeyboardInterrupt 
 # BaseException ← KeyboardInterrupt
 # raised when the user uses a keyboard shortcut designed to terminate a program's execution (Ctrl-C in most OSs)
