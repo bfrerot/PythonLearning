@@ -9,6 +9,7 @@ name[0] = 'K'
 # NameError: name 'Paris' is not defined
 
 
+
 ## Guillemets
 'string'
 "string" # pareil mais fera la difference si apostrophes dans la string
@@ -16,8 +17,7 @@ name[0] = 'K'
 print("""red roses and violet roses""")
 # red roses and violet roses
 # Les triple guillemets """ ... """ permettent d'écrire des chaînes multilignes
-# mais si tu écris une phrase sur une seule ligne à l'intérieur
-# elle est affichée normalement
+# mais si on écrit une phrase sur une seule ligne à l'intérieur elle est affichée normalement
 print("""red roses 
       
       
@@ -29,14 +29,18 @@ print("""red roses
 # 
 #       and violet roses
 
+# " ' " ==> ok
 # " I'm going on a run " # ok
 
+# ' ' ' ==> nok
 # ' I'm going on a run ' # nok
 # SyntaxError: invalid syntax
 
 
+
 ## Concatenation
-# on peut additioner des str entre elles MAIS PAS des str ET des int/float
+
+# on peut additioner des str entre elles 
 s="hello"
 print(s + ' concatenate me!')
 # hello concatenate me!
@@ -44,11 +48,35 @@ print(s + ' concatenate me!')
 print("Pales" "tine")
 # Palestine ==> pas besoin de "+" entre strings
 
+# MAIS PAS des str ET des int/float/bool/complex/None
+
+s="hello"
+print(s + None)
+# TypeError: can only concatenate str (not "NoneType") to str
+
+s="hello"
+print(s + True)
+# TypeError: can only concatenate str (not "bool") to str
+
+s="hello"
+print(s + 1J)
+# TypeError: can only concatenate str (not "complex") to str
+
+s="hello"
+print(s + 10)
+# TypeError: can only concatenate str (not "int") to str
+
+s="hello"
+print(s + 10.5)
+# TypeError: can only concatenate str (not "float") to str
+
+
 ## Multiplication
 letter = 'z'
 L=letter*10 
 print (L)
 # zzzzzzzzzz
+
 
 
 ## Multilignes - ''' 
@@ -60,6 +88,7 @@ print(texte_multiligne)
 # Ceci est un exemple
 # de chaîne de caractères
 # sur plusieurs lignes.
+
 
 
 ## Print
@@ -87,9 +116,10 @@ print("I like \"Monty Python\"") # \ suivi d'un signe special à ignorer qui ser
 # I like "Monty Python"
 
 print('I like "Monty Python"') # toujours attention aux types de guillemets
-print("I like 'Monty Python'")
 # I like "Monty Python"
+print("I like 'Monty Python'")
 # I like 'Monty Python'
+
 
 
 ## Indexing & Slicing
@@ -124,7 +154,7 @@ s[-5:0] # n'affiche rien car dans ce cas la boundary doit exister
 # rien à afficher mais pas d'erreur; le premier est EGAL au second
 s = "Bonjour"
 print(s[-5:0])
-# rien à afficher mais pas d'erreur, le premier est APRES le second
+# 
 
 s[:-1] # affiche tout sauf le dernier caractere
 # hell
@@ -136,7 +166,7 @@ s[::2] # affiche tout mais saute 1 sur 2 caracteres
 # hlo
 s[::-1] # affiche tout mais à l'envers
 # olleh
-s[::-2] # affiche 1 character sur 2 mais à l'envers
+s[::-2] # affiche 1 charactere sur 2 mais à l'envers
 # olh
 
 
@@ -159,12 +189,13 @@ mystring[0:9:3] # commence a l'indexé 0 (a), jusqu'à l'indexé 9 (mais non inc
 # | `s[-1:-5:-1]` | `'olle'`  | De `'o'` vers `'e'` (ordre inverse)      |
 
 
+
 ##  in, not in 
 
 alphabet = "abcdefghijklmnopqrstuvwxyz"
 print("f" in alphabet)
-print("F" not in alphabet)
 # True
+print("F" not in alphabet)
 # True
 
 # funny thing
@@ -173,6 +204,7 @@ print ("" in "nimportequ'elle string")
 # True
 print ("" in "")
 # True
+
 
 
 ## f-strings ou formatted strings litterals - python 3.6 and above
@@ -185,19 +217,26 @@ print (f"{n} times {m} is {n*m}")
 # AVANT PYTHON 3.6 
 
 # on utilise .format()
-n = 3
-m = 4
-print ("{} has {} heads and {} arms".format(name, heads, arms))
+monster = "titus"
+a = 8
+h = 4
+print ("{} has {} heads and {} arms".format(monster, h, a))
+# titus has 4 heads and 8 arms
 
 # ou encore %
+print('%(language)s has %(number)01d quote types.' %{'language': "Python", "number": 2})
+# Python has 2 quote types.
 print('%(language)s has %(number)03d quote types.' %{'language': "Python", "number": 2})
 # Python has 002 quote types.
+
+# ==> voir dans Functions-PRINT.py
+
 
 
 ## Strings à partir d'une List
 
 # on peut attribuer des valeurs à des variables à partir d'une list
-# attention le nombre des variables doit corroborer le nombre d'éléments de la list
+# attention le nombre des variables doit matcher le nombre d'éléments de la list
 
 fruits = ("Apples", "Oranges", "Bananas")
 a, b, c = fruits
@@ -216,6 +255,12 @@ print(b)
 
 ## List à partir d'une string
 
+# créer une list
+x = list(('apple', 'banana', 'cherry'))
+print(x)
+# ['apple', banana', 'cherry']
+
+# créer une liste alphabétique à partir d'un string
 first_greek_3 = sorted('omega')
 print(first_greek_3)
 # ['a', 'e', 'g', 'm', 'o']

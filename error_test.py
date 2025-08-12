@@ -1,7 +1,11 @@
-data = {1: 0, 2: 1, 3: 2, 0: 1}
-x = 0
- 
-for _ in range(len(data)):
-    x = data[x]
- 
-print(x)
+
+value1 = 1
+value2 = 2
+value3 = 3
+myDictionary = {
+    "key1" : value1,
+    "key2" : value2,
+    "key3" : value3,
+    }
+print(myDictionary)
+# {'key1': 1, 'key2': 2, 'key3': 3}

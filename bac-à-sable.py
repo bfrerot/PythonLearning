@@ -185,42 +185,6 @@ file.close()
 
 #############
 
-# name = input('What is your name?')
-name = 'Peter'  # Just for convenience
-sum = 0
-score = 0
-count = 0
-"""
-while score != -1:
-    score = int(input('Enter your scores: (-1 to end)'))
-    if score == -1:
-        break
-    sum += score
-    count += 1
-"""
-sum = 120 + 180 + 165 + 224  # Just for convenience
-count = 4  # Just for convenience
-average = sum / count
-print('%-20s, your average score is: %5.1f' % (name, average))
-# Peter , your average score is: 172.2
- 
-# print('%-20i, ... %5.1f' % (name, average)) # TypeError: ...
-# print('%-20d, ... %5.1f' % (name, average)) # TypeError: ...
-# print('%-20f, ... %5.1f' % (name, average)) # TypeError: ...
-print('%-20s, ... %1.5s' % (name, average))   # ... 172.
-print('%-20s, ... %1.5f' % (name, average))   # ... 172.2500
-print('%-20s, ... %5.1s' % (name, average))   # ... 1
- 
-# Other possibilities to format a string in Python:
-name, age = 'Peter', 30
-print(f'My name is {name} and I am {age} years old.')
-# My name is Peter and I am 30 years old.
-s = 'My name is {name} and I am {age} years old.'
-print(s.format(name='Peter', age=30))
-# My name is Peter and I am 30 years old.
-
-
-#############
 
 list = ['Peter', 'Paul', 'Mary']
  

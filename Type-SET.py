@@ -1,4 +1,4 @@
-########## SET
+########## SET ##########
 
 # Sets are used to store multiple items in a single variable
 # Set is one of 4 built-in data types in Python used to store collections of data
@@ -7,10 +7,12 @@
 # ==> A set is a collection which is unordered, unchangeable, unindexed, do not accept duplicates
 # ==> Once a set is created we cannot change its items but we can remove items and add new items
 
-
+# create an empty set
 myset = set()
 print(myset)
 # set()
+
+# add an elem
 myset.add(1)
 print(myset)
 # {1}
@@ -19,9 +21,15 @@ myset.add(2)
 print(myset)
 # {1, 2}
 
+# trying to add a duplicate
 myset.add(2)
 print(myset)
-# {1, 2} ==> 2 déjà présent, PAS DE DOUBLON
+# {1, 2} ==> 2 déjà présent, PAS DE DOUBLON, pas d'erreur non plus
+
+mylist = [1,1,1,2,2,2,3,3,3]
+set1 = set(mylist)
+print(set1)
+# {1, 2, 3} # PAS DE DOUBLON
 
 
 
@@ -54,14 +62,6 @@ print(set4)
 
 
 
-## pas de doublon
-mylist = [1,1,1,2,2,2,3,3,3]
-set1 = set(mylist)
-print(set1)
-# {1, 2, 3}
-
-
-
 ## len()
 thisset = {"apple", "banana", "cherry"}
 print(len(thisset))
@@ -84,7 +84,7 @@ print(thisset)
 
 
 
-## Python Collections (Arrays)
+## Reminder ==> Python Collections (Arrays)
 # There are 4 collection data types in the Python programming language:
 
 # List is a collection which is ordered and changeable. Allows duplicate members

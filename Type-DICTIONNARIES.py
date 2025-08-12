@@ -1,6 +1,7 @@
-########## DICTIONNARIES
+########## DICTIONNARIES ##########
 
-## Dictionaries are unordered, changeable (mutable), and indexed collections of data.
+
+### Dictionaries are unordered, changeable (mutable), and indexed collections of data.
 # In Python 3.6x dictionaries have become ordered by default.
 
 ## A dictionary is a set of key-value pairs
@@ -19,23 +20,34 @@ dict = {"cat" : "chat", "dog" : "chien", "horse" : "cheval"}
 phoneNumbers = {'boss' : 5551234567, 'Suzy' : 22657854310}
 emptyDictionary = {}
 print(dict)
-print(phoneNumbers)
-print(emptyDictionary)
 # {'dog': 'chien', 'horse': 'cheval', 'cat': 'chat'}
+print(phoneNumbers)
 # {'Suzy': 5557654321, 'boss': 5551234567}
+print(emptyDictionary)
 # {}
 
 
 ### Penser à définir les variables au préalable avant de mettre dans la liste sinon NameError
+# les keys doivent etre des strings ou numbers par exemple; si variable, il faut la définir avant
 myDictionary = {
     key1 : value1,
     key2 : value2,
     key3 : value3,
     }
 # NameError: name 'key1' is not defined
+value1 = 1
+value2 = 2
+value3 = 3
+myDictionary = {
+    "key1" : value1,
+    "key2" : value2,
+    "key3" : value3,
+    }
+print(myDictionary)
+# {'key1': 1, 'key2': 2, 'key3': 3}
 
 
-### une paire clé/value peut etre une liste
+### une paire key/value peut etre comparée à une liste
 
 colors = {
     "white" : (255, 255, 255),
@@ -58,8 +70,8 @@ dict = {"cat" : "chat", "dog" : "chien", "horse" : "cheval"}
 phoneNumbers = {'boss' : 5551234567, 'Suzy' : 22657854310}
 emptyDictionary = {}
 print(dict['cat'])
-print(phoneNumbers['Suzy'])
 # chat
+print(phoneNumbers['Suzy'])
 # 22657854310
 
 # PAS d'indexation !
@@ -68,7 +80,7 @@ print(phoneNumbers[1])
 # KeyError
 
 
-## for + dictionnaire
+### for + dictionnaire
 
 dict = {"cat" : "chat", "dog" : "chien", "horse" : "cheval"}
 words = ['cat', 'lion', 'horse']
@@ -96,7 +108,7 @@ print(dict)
 dict = {"cat" : "chat", "dog" : "chien", "horse" : "cheval"}
 dict['swan'] = 'cygne'
 print(dict)
-# {'cat': 'chat', 'dog': 'chien', 'horse': 'cheval', 'swan': 'cygne'}
+# {'cat': 'chat', 'dog': 'chien', 'horse': 'cheval', 'swan': 'cygne'} # ajoute à la fin
 
 
 ### delete une key
@@ -114,7 +126,7 @@ print(dict)
 # NameError
 
 
-## 1 = 1.0 !
+## 1 = 1.0 =! "1"
 data = {}
 data[1] = 1
 data['1'] = 2

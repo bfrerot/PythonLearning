@@ -1,12 +1,22 @@
-########## LISTS
+########## LISTS ##########
 
-# The elements inside a list may have different types: integers, floats, lists.
+
+
+### BASICS 
+
+# The elements inside a list may have different types: integers, floats, lists, bool, complex dictionnaries
+my_list=[1,2.3,True,1J,["a","b","c"], (1,), {1:"a", 2:"b"}]
+print(my_list)
+# [1, 2.3, True, 1j, ['a', 'b', 'c'], (1,), {1: 'a', 2: 'b'}]
+
+
 # The elements in a list are always numbered starting from 0
 # Lists can be nested, e.g.: myList = [1, 'a', ["list", 64, [0, 1], False]]
-# Mettre entre crochets [], séparés par une ,
+# Mettre entre crochets [] et séparer les éléments par une ,
 my_list=[1,2,3] 
 print (my_list)
-[1, 2, 3]
+# [1, 2, 3]
+
 
 
 ### INDEXATION
@@ -15,6 +25,7 @@ print (my_list)
 my_list=[1,2,3]
 print (my_list[0])
 # 1
+
 
 # L'indexation peut etre négative
 numbers = [111, 7, 2, 1]
@@ -26,31 +37,20 @@ print(numbers[-2]) # = l'avant-dernier élément de la liste
 
 
 # Donner une valeur a des variables a partir d'une list, en // de l'indexation
+# attention le nombre des variables doit corroborer le nombre d'éléments de la list
 cat = ['fat', 'black', 'loud'] 
 size, color, disposition = cat
 print (size)
 # fat
 
-# on peut attribuer des valeurs à des variables à partir d'une list
-# attention le nombre des variables doit corroborer le nombre d'éléments de la list
-
-fruits = ("Apples", "Oranges", "Bananas")
-a, b, c = fruits
-print(b)
-# Oranges
-
 fruits = ("Apples", "Oranges", "Bananas")
 a, b, c, d = fruits # d est en trop
 print(b)
-# Traceback (most recent call last):
-#   File "c:\PythonLearning\bac-à-sable.py", line 2, in <module>
-#     a, b, c, d = fruits
-#     ^^^^^^^^^^
 # ValueError: not enough values to unpack (expected 4, got 3)
 
 
 # Remplacement avec indexation
-# On peut changer un element dans la liste (contrairement à un string)
+# On peut changer un element dans la liste != contrairement à un string !!
 new_list = [1, 2, 3, 4, 5, 6]
 new_list[0]=777
 print(new_list)
@@ -58,76 +58,80 @@ print(new_list)
 
 
 # List avec range négatif
-# une list s'indexe vers le haut et commence par 0 par défaut
 vowels = ["a", "e", "i", "o", "u"]
-all = list (range(-2)) + vowels
-print(list(range(-2)))
-print(all)
-[] # de 0 à -2.. pas possible
-['a', 'e', 'i', 'o', 'u']
+all = list (range(-2)) # de 0 à -2.. pas possible MAIS pas d'erreur
+print(all) 
+# []
+
+myList = [10, 8, 6, 4, 2]
+newList = myList[-1:1] # doesn't work
+print(newList)
+# []
 
 
-### Concatenation, - and / are not supported
 
-# ADDITION
+### CONCATENATION
+
+# , - / are not supported
+
+# addition
+
 my_list=[1,2,3]
 my_other_list=[4, 5, 6]
 print (my_list + my_other_list)
 # [1, 2, 3, 4, 5, 6]
-new_list = my_list + my_other_list
-print (new_list)
-# [1, 2, 3, 4, 5, 6]
-new_list = my_other_list + my_list 
-print (new_list)
+
+my_list=[1,2,3]
+my_other_list=[4, 5, 6]
+print (my_other_list + my_list) # le resultat dépend de l'ordre
 # [4, 5, 6, 1, 2, 3]
 
 
-#MULTIPLICATION
+# multiplication
+
 list1 = [1,2,3,4,5]
 print (list1 * 3)
 # [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5]
 
 
-# Mesurer la taille de la liste = compter le nbre d 'elements
+# len()
+
+# mesure la taille de la liste = compter le nbre d 'elements
 numbers = [10, 5, 7, 2, 1]
 print ("List length:", len(numbers)) # printing the list's length
 # List length: 5
 
 
-# Deleter des elements
+# del
+# Delete des elements
 del numbers[1] 
 del numbers # remove all the list
 del numbers[1:3] # delete a slice from element 1 to 2 as end (3) not included
 del numbers [:] # remove all the elements NOT the list itself
  
-
 # RAPPEL - si des list sont liees par une egalite, alors elles sont storees au meme endroit meme si elles on nom different
 l1 = ["A", "B", "C"]
 l2 = l1
 l3 = l2
 print(l1)
+# ["A", "B", "C"]
 print(l2)
+# ["A", "B", "C"]
 print(l3)
 # ["A", "B", "C"]
-# ["A", "B", "C"]
-# ["A", "B", "C"]
+
+
 del l1[0] # modifie l1 + l2 + l3
 del l2 # ne delete pas l1 et l3
 print(l1)
+# ['B', 'C']
 print(l3)
+# ['B', 'C']
 print(l2)
-# ['B', 'C']
-# ['B', 'C']
-# Traceback (most recent call last):
-#   File "c:\PythonLearning\bac-à-sable.py", line 11, in <module>
-#     print(l2)
-#           ^^
 # NameError: name 'l2' is not defined. Did you mean: 'l1'?
 
-
 # Copier une list avec un emplacement mémoire séparé
-# Si on ajoute pas [:] les deux listes partageront le meme emplacement memoire meme si elles
-# ont un nom different et ont l air de deux list differentes
+# Si on ajoute pas [:] les deux listes partageront le meme emplacement memoire meme si elles ont un nom different
 start = 1
 end = 100
 list_2 = [1,2,3,4,5,6,7,8,9]
@@ -136,25 +140,9 @@ list_1 = list_2[start:] # end is last element = len(myList) - 1
 list_1 = list_2[:end] # start is first element = 0, end NOT included
 list_1 = list_2[:] # whole list
 
-list_1 = [1]
-list_2 = list_1[:]
-list_1[0] = 2
-print(list_2)
-# 1
-
-list1 = [1]
-list2 = list1[:] # Copying the whole list, but in separate memory
-list1[0] = 2
-print(list2)
-# [1]
-
-myList = [10, 8, 6, 4, 2]
-newList = myList[0:1] # Copying part of the list
-print(newList)
-# [10]
-
+# si le start est positionné après le end, la list est vide
 my_list = [10, 8, 6, 4, 2]
-new_list = my_list[-1:1] # si le start est positionné après le end, la list est vide
+new_list = my_list[-1:1] 
 print(new_list)
 # []
 my_list = [10, 8, 6, 4, 2]
@@ -174,7 +162,6 @@ lst = [i for i in range (-1,2)] # the first argument determines the initial (fir
 print (lst)
 #[-1, 0, 1]
 
-
 lst = [[0,1,2,3] for i in range (2)]
 print (lst)
 #[[0, 1, 2, 3], [0, 1, 2, 3]]
@@ -188,23 +175,24 @@ for i in range(len(myList)):
 print(total)
 # 27
 
-
-# attention end ne peut pas etre situe avant start
-myList = [10, 8, 6, 4, 2]
-newList = myList[-1:1] # doesn't work
-print(newList)
-[0]
+# la fonction builtin sum() fait le meme travail
+hat_list = [1, 2, 3, 4, 5]
+print (sum(hat_list))
+# 15
 
 
 # Checker si un element est dans la list ou pas, et attribuer un True/False en fonction
 myList = [0, 3, 12, 8, 2]
 print(5 in myList)
-print(5 not in myList)
-print(12 in myList)
 # False
+print(5 not in myList)
 # True
+print(12 in myList)
 # True
 
+
+
+### EXEMPLES de CODES
 
 # trouver une elem dans un liste et donner sa position
 toFind = int(input("Which number are you looking for?: "))
@@ -230,7 +218,7 @@ print(largest)
 # 15
 
 
-# INverser la position des éléments d'une liste
+# Inverser la position des éléments d'une liste
 my_list = []
 for e in range (1,100):
     my_list.append(e)
@@ -243,6 +231,7 @@ print(my_list)
 # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99]
 # 99
 # [99, 98, 97, 96, 95, 94, 93, 92, 91, 90, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+
 
 # Evolution du groupe des Beatles
 beatles = []
@@ -277,6 +266,7 @@ for i in range(len(my_list) - 1):  # we need (5 - 1) comparisons
 print(my_list)
 # [8, 6, 2, 4, 10]
 
+
 # avec interaction user
 my_list = []
 swapped = True
@@ -305,94 +295,6 @@ print(my_list)
 # Enter a list element: 44
 # Enter a list element: 34
 # [2.0, 3.0, 23.0, 34.0, 34.0, 44.0, 45.0, 65.0, 67.0, 98.0]
-
-# version plus étoffée
-myList = [8, 10, 6, 2, 4]  # Liste à trier
-swapped = True
-pass_num = 0  # Pour compter les passages
-print("Liste initiale:", myList)
-print("Début du tri...\n")
-while swapped:
-    swapped = False
-    pass_num += 1
-    print(f"--- Passage numéro {pass_num} ---")
-    for i in range(len(myList) - 1):
-        print(f"Comparaison entre {myList[i]} et {myList[i + 1]}")
-        if myList[i] > myList[i + 1]:
-            print(f"  ➤ Échange: {myList[i]} ↔ {myList[i + 1]}")
-            myList[i], myList[i + 1] = myList[i + 1], myList[i]
-            swapped = True
-            print("  Liste actuelle:", myList)
-        else:
-            print("  ➤ Pas d'échange")
-    print("État de la liste après ce passage:", myList, "\n")
-
-print("✅ Tri terminé ! Liste finale:", myList)
-# Liste initiale: [8, 10, 6, 2, 4]
-# Début du tri...
-# 
-# --- Passage numéro 1 ---
-# Comparaison entre 8 et 10
-#   ➤ Pas d'échange
-# Comparaison entre 10 et 6
-#   ➤ Échange: 10 ↔ 6
-#   Liste actuelle: [8, 6, 10, 2, 4]
-# Comparaison entre 10 et 2
-#   ➤ Échange: 10 ↔ 2
-#   Liste actuelle: [8, 6, 2, 10, 4]
-# Comparaison entre 10 et 4
-#   ➤ Échange: 10 ↔ 4
-#   Liste actuelle: [8, 6, 2, 4, 10]
-# État de la liste après ce passage: [8, 6, 2, 4, 10]
-# 
-# --- Passage numéro 2 ---
-# Comparaison entre 8 et 6
-#   ➤ Échange: 8 ↔ 6
-#   Liste actuelle: [6, 8, 2, 4, 10]
-# Comparaison entre 8 et 2
-#   ➤ Échange: 8 ↔ 2
-#   Liste actuelle: [6, 2, 8, 4, 10]
-# Comparaison entre 8 et 4
-#   ➤ Échange: 8 ↔ 4
-#   Liste actuelle: [6, 2, 4, 8, 10]
-# Comparaison entre 8 et 10
-#   ➤ Pas d'échange
-# État de la liste après ce passage: [6, 2, 4, 8, 10]
-# 
-# --- Passage numéro 3 ---
-# Comparaison entre 6 et 2
-#   ➤ Échange: 6 ↔ 2
-#   Liste actuelle: [2, 6, 4, 8, 10]
-# Comparaison entre 6 et 4
-#   ➤ Échange: 6 ↔ 4
-#   Liste actuelle: [2, 4, 6, 8, 10]
-# Comparaison entre 6 et 8
-#   ➤ Pas d'échange
-# Comparaison entre 8 et 10
-#   ➤ Pas d'échange
-# État de la liste après ce passage: [2, 4, 6, 8, 10]
-# 
-# --- Passage numéro 4 ---
-# Comparaison entre 2 et 4
-#   ➤ Pas d'échange
-#   ➤ Pas d'échange
-#   ➤ Pas d'échange
-# Comparaison entre 4 et 6
-#   ➤ Pas d'échange
-# Comparaison entre 4 et 6
-# Comparaison entre 4 et 6
-#   ➤ Pas d'échange
-#   ➤ Pas d'échange
-# Comparaison entre 6 et 8
-#   ➤ Pas d'échange
-# Comparaison entre 8 et 10
-# Comparaison entre 8 et 10
-#   ➤ Pas d'échange
-# État de la liste après ce passage: [2, 4, 6, 8, 10]
-# État de la liste après ce passage: [2, 4, 6, 8, 10]
-# 
-# ✅ Tri terminé ! Liste finale: [2, 4, 6, 8, 10]
-
 
 
 # lister des elem donnes et les classer du plus petit au plus grand
@@ -564,17 +466,18 @@ b=2
 c=3
 t = [a,b,c]
 print(t)
-print(min(t))
 # [1, 2, 3]
+print(min(t))
 # 1
 
 t = ["a","b","c"] # si a b et c sont des lettres
 print(t)
-print(min(t))
 # ['a', 'b', 'c']
-# a
-t = ["1","2","3"] # si a b et c sont des lettres, error
-print(t)
 print(min(t))
+# a
+
+t = ["1","2","3"] # si a b et c sont des chiffres
+print(t)
 # ['1', '2', '3']
+print(min(t))
 # 1
