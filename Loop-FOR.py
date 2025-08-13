@@ -1,15 +1,114 @@
 ##########  FOR  ##########
 
 
-# print i si i in list
+
+### print i si i in list
+
 animaux = ['girafe','tigre','singe','souris']
-for i in animaux:   #  i pour itération, va lister toutes les itérations de la liste
-	print (i)
+for i in animaux:   #  pour chaque itération "i" dans la variable "animaux", ici une list
+	print (i)       # print l'itération "i"
 #girafe
 #tigre
 #singe
 #souris
 
+# on peut itérer en utilisant: 
+#       une lettre ou un mot: for lettre in "abc": print(lettre)
+#       un nom avec des chiffres APRES le premier caractère: for lettre1 in "abc": print(lettre1)
+#       underscore: for _ in "abc": print(_)
+
+animaux = ['girafe','tigre','singe','souris']
+for caca in animaux:   
+	print (caca)  
+ 
+animaux = ['girafe','tigre','singe','souris']
+for _ in animaux:   
+	print (_)   
+ 
+animaux = ['girafe','tigre','singe','souris']
+for 3 in animaux:   
+	print (3)
+# SyntaxError: cannot assign to literal
+
+animaux = ['girafe','tigre','singe','souris']
+for ! in animaux:
+	print (!) 
+# SyntaxError: invalid syntax  
+
+# à propos de l'itérateur i !!!!
+# IL VA GARDER SA VALEUR APRES LA BOUCLE
+for i in range(3):
+    print(i, end=" ")
+print(i)
+# 0 1 2 2
+
+for j in range(5):
+    pass
+print(j)
+# 4    car c'est la dernière valeur de la boucle
+
+
+
+### NESTED loop = une loop dans une loop etc
+for n in range(1, 4):
+    for j in range(4, 7):
+        print(f"n = {n} and j = {j}") # f-string
+#n = 1 and j = 4
+#n = 1 and j = 5
+#n = 1 and j = 6
+#n = 2 and j = 4
+#n = 2 and j = 5
+#n = 2 and j = 6
+#n = 3 and j = 4
+#n = 3 and j = 5
+#n = 3 and j = 6
+
+adj = ["red", "big", "tasty"]
+fruits = ["apple", "banana", "cherry"]
+for x in adj:
+  for y in fruits:
+    print(x, y)
+#red apple
+#red banana
+#red cherry
+#big apple
+#big banana
+#big cherry
+#tasty apple
+#tasty banana
+#tasty cherry
+
+
+
+
+
+
+# contrairement à une boucle for DANS une fonction
+def boucle():
+    for i in range(3):
+        print(i, end=" ")
+boucle()
+# 0 1 2
+
+# Ici, `i` n'existe pas en dehors de la fonction
+try:
+    print(i)
+except NameError:
+    print("La variable 'i' n'existe pas ici")
+# 0 1 2 La variable 'i' n'existe pas ici
+
+
+
+### BOUCLE INFINIE
+
+data = ['peter', 'paul', 'mary']
+for d in data:
+    data.append(d.upper()) # la list va augementer sans arret
+    print(data)
+    
+    
+    
+### CAS d'USAGES
 
 # print i si i in string + ajouter un espace
 exampleString = 'silly walks'
@@ -34,21 +133,19 @@ for i in range(4): # On peut melanger avec du range pour n'afficher qu'une parti
 #tigre
 #singe
 #souris
-for i in range(2): # 0,1
-	print (animaux[i])
-#girafe
-#tigre
 
 
-# print i in list et son index + usage de enumerate()
+# print i in list + son index + usage de enumerate()
 animaux = ['girafe','tigre','singe','souris']
-print(enumerate(animaux))
 for i, ani in enumerate(animaux): # pour avoir l'element ET l'index
 	print (i,ani)
 #0 girafe
 #1 tigre
 #2 singe
-#3 souris
+#3 souris 
+
+print(enumerate(animaux))
+# <enumerate object at 0x0000010E5DF093F0>
 
 vendors = ['arista', 'juniper', 'big_switch', 'cisco']
 for index, each in enumerate(vendors):
@@ -121,68 +218,3 @@ for num_people in range(2, 6):
 #3 people: $33.33 each
 #4 people: $25.00 each
 #5 people: $20.00 each
-
-
-# NESTED loop = une loop dans une loop etc
-for n in range(1, 4):
-    for j in range(4, 7):
-        print(f"n = {n} and j = {j}") # f-string
-#n = 1 and j = 4
-#n = 1 and j = 5
-#n = 1 and j = 6
-#n = 2 and j = 4
-#n = 2 and j = 5
-#n = 2 and j = 6
-#n = 3 and j = 4
-#n = 3 and j = 5
-#n = 3 and j = 6
-
-adj = ["red", "big", "tasty"]
-fruits = ["apple", "banana", "cherry"]
-for x in adj:
-  for y in fruits:
-    print(x, y)
-#red apple
-#red banana
-#red cherry
-#big apple
-#big banana
-#big cherry
-#tasty apple
-#tasty banana
-#tasty cherry
-
-
-# à propos de i
-# il va garder sa valeur après la boucle
-for i in range(3):
-    print(i, end=" ")
-print(i)
-# 0 1 2 2
-
-for j in range(5):
-    pass
-print(j)
-# 4    car c'est la dernière valeur de la boucle
-
-# contrairement à une boucle for DANS une fonction
-def boucle():
-    for i in range(3):
-        print(i, end=" ")
-boucle()
-# 0 1 2
-
-# Ici, `i` n'existe pas en dehors de la fonction
-try:
-    print(i)
-except NameError:
-    print("La variable 'i' n'existe pas ici")
-# 0 1 2 La variable 'i' n'existe pas ici
-
-
-### cas de boucle infinie
-
-data = ['peter', 'paul', 'mary']
-for d in data:
-    data.append(d.upper()) # la list va augementer sans arret
-    print(data)

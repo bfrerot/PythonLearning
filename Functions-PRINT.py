@@ -1,4 +1,4 @@
-############################# VARIABLES + print #############################
+########## PRINT() ##########
 
 animal = "tigre"
 print (animal) # pas de "/' c'est une variable

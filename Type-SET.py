@@ -31,6 +31,12 @@ set1 = set(mylist)
 print(set1)
 # {1, 2, 3} # PAS DE DOUBLON
 
+# remove un elem
+fruits = {"apple", "banana", "cherry"}
+fruits.discard("banana")
+print(fruits)
+# {'apple', 'cherry'}
+
 
 
 ## data dans les set

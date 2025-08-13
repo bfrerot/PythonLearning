@@ -1,21 +1,4 @@
-### METHODS LISTS ###
-
-# lister les methodes dispo pour une list
-interfaces = ["gi0/0", "gi0/1", "gi0/2"]
-print (dir(interfaces))
-# ['__add__', '__class__', '__class_getitem__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__getstate__', '__gt__', '__hash__', '__iadd__', '__imul__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__', 'append', 'clear', 'copy', 'count', 'extend', 'index', 'insert', 'pop', 'remove', 'reverse', 'sort']
-
-## .index
-
-spam = ['hello', 'hi', 'howdy', 'heyas'] 
-print (spam.index('hello'))
-0
-
-# if same value many times in a list, ONLY the first is taken in account
-
-spam = ['Zophie', 'Pooka', 'Fat-tail', 'Pooka'] 
-spam.index('Pooka')
-# 1
+######## METHODS LISTS ########
 
 
 ## .append()
@@ -36,26 +19,29 @@ groceries_list2 = ["Bread", "Butter"]
 groceries_list1.append(groceries_list2)
 print(groceries_list1)
 ['Milk', 'Cheese', ['Bread', 'Butter']] # append une list PAS les elements
-# si on veut ajouter les éléments d'une liste indépendamment, il faut utiliser .extend()
+# ==> si on veut ajouter les éléments d'une liste indépendamment, il faut utiliser .extend()
+
 
 
 ## .clear()
-# supprime tous les éléments d'une liste
+# supprime tous les éléments d'une liste mais  pas la list elle-meme
 fruits = ["apple", "banana", "cherry"]
 fruits.clear()
 print(fruits)
 # []
 
 
+
 ## .copy()
-# copie les éléments d'une liste dans une autre
+# copie les éléments d'une liste dans une autre, les listes sont distinctes
 fruits = ["apple", "banana", "cherry"]
 x = fruits.copy()
 print(x)
 # ["apple", "banana", "cherry"]
 
 
-## .count()
+
+## .count(value)
 # compte le nombre d'occurence dans la liste de la variable spécifiée
 fruits = ["apple", "banana", "cherry"]
 x = fruits.count("apple")
@@ -77,6 +63,7 @@ print (duplicates)
 # 4 # il y a 4 "2" dans la list
 
 
+
 ## .extend()
 # rajoute des valeurs en fin de list
 fruits = ['apple', 'banana', 'cherry']
@@ -92,28 +79,45 @@ print(ones_again)  # Affiche : None
 print(ones)         # Affiche : [1, 11, 111, 11, 111]
 
 
+
 ## .index()
-# ~ list.remove 
 # donne l'index correspondant à une variable de la list
 fruits = ['apple', 'banana', 'cherry', 'cherry']
 x = fruits.index("cherry")
 print(x)
 # 2
 
-# si plusieurs occureces identiques, ne prend en compte que le premier
+# si plusieurs occurences identiques, ne prend en compte que le premier
 fruits = ['apple', 'banana', 'cherry', 'cherry']
 x = fruits.index("cherry")
 print(x)
 # 2
 
+spam = ['hello', 'hi', 'howdy', 'heyas'] 
+print (spam.index('hello'))
+0
 
-## .insert(index,"string")
+# if same value many times in a list, ONLY the first is taken in account
+
+spam = ['Zophie', 'Pooka', 'Fat-tail', 'Pooka'] 
+spam.index('Pooka')
+# 1
+
+
+
+## .insert(index, value)
 # insère une variable à l'index spécifié
 spam = ['cat', 'dog', 'bat'] 
 spam.insert(1, 'chicken') 
 print (spam)
 # ['cat', 'chicken', 'dog', 'bat']
 
+spam = ['cat', 'dog', 'bat'] 
+spam.insert(1, 4) 
+print (spam)
+# ['cat', 4, 'dog', 'bat']
+
+ 
  
 ## .pop()
 # supprime l'index spécifié
@@ -122,9 +126,15 @@ fruits.pop(1)
 print(fruits)
 # ['apple', 'cherry']
 
+# si pas d'index spécifié, pop le dernier ou au hasrd selon version Python
+fruits = ['apple', 'banana', 'cherry']
+fruits.pop()
+print(fruits)
+# ['apple', 'cherry']
 
-## .remove 
-# ~ list.index()
+
+
+## .remove()
 # supprime l'élément spécifié
 spam = ['cat', 'bat', 'rat', 'elephant'] 
 spam.remove('bat') 
@@ -144,12 +154,14 @@ print (spam)
 # ['bat', 'rat', 'hat']
 
 
+
 ## .reverse()
 # inverse l'ordre de la list
 fruits = ['apple', 'banana', 'cherry']
 fruits.reverse()
 print(fruits)
 # ['cherry', 'banana', 'apple']
+
 
 
 ## .sort()
@@ -166,7 +178,7 @@ spam.sort(reverse=True)
 print (spam)
 # ['rat', 'cat', 'cat', 'cat']
 
-# on ne peut pas mélanger int et str
+# PYTHON3 ==> on ne peut pas utilisercette méthod avec un mix de int et str
 cars = ['Ford', 23, 'BMW', 4, 'Volvo']
 cars.sort()
 print(cars)
@@ -175,19 +187,18 @@ print(cars)
 #    cars.sort()
 # TypeError: '<' not supported between instances of 'int' and 'str'
 # PS C:\PythonLearning> 
-# PYTHON2
-# si list contient str et int, les int seront avant les str
+
+# PYTHON2 ==> si list contient str et int, les int seront avant les str
 spam = ['cat', 1, 'rat', 2,'cat',3,  'cat'] 
 spam.sort()
 print (spam)
 # [1, 2, 3, 'cat', 'cat', 'cat', 'rat']
-# NE MARCHE PAS EN PYTHON3 !!!
 
 # les str en MAJ sont avant les str en min
 spam = ['a', 'z', 'A', 'Z'] 
 spam.sort() 
 print(spam) 
-['A', 'Z', 'a', 'z']
+['A', 'Z', 'a', 'z'] # correspond à l'odre croissant des valeurs numériques des caracteres
 
 # list.sort(key=?)
 # Ex1

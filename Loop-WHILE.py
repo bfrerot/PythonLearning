@@ -2,11 +2,12 @@
 
 
 
-### boucle simple
+### boucle simple + incrémentation
+
 spam = 0
 while spam < 5:  
   print('Hello, world.')
-  spam = spam + 1
+  spam = spam + 1  # SANS cela, INFINITE LOOP
 #Hello, world.
 #Hello, world.
 #Hello, world.
@@ -16,27 +17,60 @@ while spam < 5:
 i = 1
 while i <= 4:
   print (i)
-  i = i+1
+  i = i+1 # SANS cela, INFINITE LOOP
 #1
 #2
 #3
 #4
 
-# Attention si pas d'incrémentation, boucle infinie
-h = {"blue":1 , "red":2, "yellow":3}
-while len(h)>2:
-    print("h")
-# boucle infinie !
+#INSERER UN COUNTER POUR SORTIR DE LA LOOP
+counter = 5
+while counter: # pas de precision sur la valeur de counter signifie different de zero = while counter !=0:
+    print("Inside the loop.", counter)
+    counter -= 1	
+print("Outside the loop.", counter)
+#Inside the loop. 5
+#Inside the loop. 4
+#Inside the loop. 3
+#Inside the loop. 2
+#Inside the loop. 1
+#Outside the loop. 0
 
 
-# if/break
+### WHILE NOT
+# La condition de la boucle est not name. Cela signifie que la boucle continue tant que la variable name est fausse ou vide
+# En Python, une chaîne vide ('') est considérée comme falsy, c'est-à-dire équivalente à False
+# Donc, not name sera True lorsque name est vide. Cela entraîne l'exécution du corps de la boucle
+
+name = '' 
+while not name:
+  print('Enter your name:') 
+  name = input() 
+print('How many guests will you have?') 
+numOfGuests = int(input())
+if numOfGuests: # means !=0 
+  print('Be sure to have enough room for all your guests.')
+print('Done')
+#Enter your name:# no name + Enter --> the loop restart
+#
+#Enter your name:
+#benoit
+#How many guests will you have?
+#1
+#Be sure to have enough room for all your guests.
+#Done
+
+
+
+### Avef IF/BREAK
+
 i = 1
 while i < 6:
   print(i)
   if (i == 3):
     break # on sort de la boucle et i += 1 en-dessous ne sera pas appliqué
   i += 1
-print(i)
+print(i) # RAPPEL, i conserve sa dernière valeur à la sortie de la boucle
 #1
 #2
 #3
@@ -49,17 +83,19 @@ while word != 'chupacabra':
     if word == 'chupacabra':
         break
 print ('You\'ve successfully left the loop.')
-#Enter a word: oiu
-#Enter a word: chupacabra
-#You've successfully left the loop.
+# Enter a word: oiu
+# Enter a word: chupacabra
+# You've successfully left the loop.
 
 
-# if/continue
+
+# Avec IF/ELIF/ELSE
+
 wordwithoutvowel=''
-userword = input('Please enter any word: ')
-print (userword)
+userword = input('Please enter any word: ')    # gregory
+print (userword)                               # gregory
 userword = userword.upper()
-print (userword)
+print (userword)                               # GREGORY
 for letter in userword:
     if letter == 'A':
         continue
@@ -76,11 +112,11 @@ for letter in userword:
         # ou print letter si on veut les afficher une par une en sautant un eligne à chaque fois
 
 print (wordwithoutvowel)
-#Please Enter a word: gregory
-#gregory
-#GREGORY
 #GRGRY
 
+
+
+### Exemples Cas d'Usages
 
 word = "Python"
 index = 0
@@ -116,20 +152,6 @@ while x < 11:
 #13579
 
 
-i = 1
-while i < 6:
-  print(i)
-  i += 1
-else:
-  print("i is no longer less than 6")
-#1
-#2
-#3
-#4
-#5
-#i is no longer less than 6
-
-
 # Compter les nombres pairs et impairs
 odd_numbers = 0
 even_numbers = 0
@@ -159,21 +181,7 @@ print("Even numbers count:", even_numbers)
 #Even numbers count: 4
 
 
-#Inserer un counter pour sortir de la loop
-counter = 5
-while counter: # pas de precision sur la valeur de counter signifie different de zero = while counter !=0:
-    print("Inside the loop.", counter)
-    counter -= 1	
-print("Outside the loop.", counter)
-#Inside the loop. 5
-#Inside the loop. 4
-#Inside the loop. 3
-#Inside the loop. 2
-#Inside the loop. 1
-#Outside the loop. 0
-
-
-#Trouver le bon numero OU Rester bloqué for ever
+# Trouver le bon numero OU Rester bloqué for ever
 secret_number = 777
 print(
 """
@@ -205,91 +213,4 @@ print("Well done, muggle! You are free now.")
 #Give ma a number: 4566288
 #Ha ha! You're stuck in my loop!
 #Give ma a number: 777
-#Well done, muggle! You are free now.   
-    
-
-# Trouver le nombre de lignes sachant que chaque ligne a "x" brique de + que celle d'au-dessus (mur de briques) 
-# et si manque de brique pour completer une rangée on arrete et on ne compte que les rangées pleines.
-blocks = int(input("Enter the number of blocks: "))
-height = 0
-inlayer = 1
-while inlayer <= blocks:
-    height += 1
-    blocks -= inlayer
-    inlayer += 1 # 1 brique de plus
-print("The height of the pyramid:", height)
-#Enter the number of blocks: 28
-#The height of the pyramid: 7
-
-def pyramid_height(blocks):
-    height = 0
-    layer = 1  # Le premier rang nécessite 1 bloc
-    while blocks >= layer:
-        blocks -= layer  # Déduire les blocs nécessaires pour ce rang
-        height += 1  # Incrémenter la hauteur puisque ce rang peut être construit
-        layer += 2  # Le prochain rang nécessite 2 blocs de plus que le précédent
-    return height
-blocks = int(input("Entrez le nombre de blocs : "))
-print("Hauteur de la pyramide :", pyramid_height(blocks))
-#Entrez le nombre de blocs : 17
-#Hauteur de la pyramide : 4
-
-
-
-#In 1937, a German mathematician named Lothar Collatz formulated an intriguing hypothesis (it still remains unproven)
-#which can be described in the following way:
-# - take any non-negative and non-zero integer number and name it c0;
-# - if it's even, evaluate a new c0 as c0 ÷ 2;
-# - otherwise, if it's odd, evaluate a new c0 as 3 × c0 + 1;
-# - if c0 ≠ 1, skip to point 2.
-c0 = int(input("Enter c0: "))
-if c0 > 1:
-	steps = 0
-	while c0 != 1:
-		if c0 %2 != 0: # si C est impair
-			cnew = 3 * c0 + 1
-		else:
-			cnew = c0 // 2 # rappel "//" pour avoir int sinon sera en float 
-		print(c0)
-		c0 = cnew
-		steps += 1
-	print (c0) # sinon on n'aura pas toujours le 1 comme dernière value d'affichée
-	print("steps =",steps)
-else:
-	print("Bad c0 value")
-#Enter c0: 6
-#6
-#3
-#10
-#5
-#16
-#8
-#4
-#2
-#1
-#steps = 8
-
-
-# while not
-name = '' 
-while not name:
-  print('Enter your name:') 
-  name = input() 
-print('How many guests will you have?') 
-numOfGuests = int(input())
-if numOfGuests: # means !=0 
-  print('Be sure to have enough room for all your guests.')
-print('Done')
-#Enter your name:# no name + Enter --> the loop restart
-#
-#Enter your name:
-#benoit
-#How many guests will you have?
-#1
-#Be sure to have enough room for all your guests.
-#Done
-
-### La condition de la boucle est not name. Cela signifie que la boucle continue tant que la variable name est fausse ou vide.
-#En Python, une chaîne vide ('') est considérée comme falsy, c'est-à-dire équivalente à False.
-#Donc, not name sera True lorsque name est vide. Cela entraîne l'exécution du corps de la boucle.
-#La boucle continuera de s'exécuter tant que l'utilisateur ne saisit pas un nom.
+#Well done, muggle! You are free now.

@@ -427,6 +427,12 @@ x=x/2 # = x/=2
 b=b+10 # = b+=10
 i=i+2*x # = i+=2*x
 
+x = 2
+y = 1
+x *= y + 9 # TOUT CE QUI EST DROITE de l'égalité est un ENSEMBLE à calculer AVANT d'appliquer l'égalité
+print(x)
+# 20
+
 
 ## INT
 a=5

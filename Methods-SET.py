@@ -1,7 +1,7 @@
 ########## METHODS SETs ##########
 
 
-### add()	 	
+### .add()	 	
 # Adds an element to the set
 
 fruits = {"apple", "banana", "cherry"}
@@ -11,7 +11,7 @@ print(fruits)
 
 
 
-### clear()	 	
+### .clear()	 	
 # Removes all the elements from the set
 
 fruits = {"apple", "banana", "cherry"}
@@ -21,7 +21,7 @@ print(fruits)
 
 
 
-### copy()	 	
+### .copy()	 	
 # Returns a copy of the set
 
 fruits = {"apple", "banana", "cherry"}
@@ -31,10 +31,9 @@ print(x)
 
 
 
-### difference()	
+### .difference()	
 # Returns a set containing the difference between two or more sets
 # a.difference(b)	Éléments dans a mais pas dans b
-# b.difference(a)	Éléments dans b mais pas dans a
 
 x = {"apple", "banana", "cherry"}
 y = {"google", "microsoft", "apple"}
@@ -49,7 +48,7 @@ print(a.difference(b))
 
 
 
-### difference_update()	
+### .difference_update()	
 # Removes the items in this set that are also included in another, specified set
 
 x = {"apple", "banana", "cherry"}
@@ -60,17 +59,21 @@ print(x)
 
 
 
-### discard()	 	
+### .discard()	 	
 # Remove the specified item
+# Si x n’est pas dans le set, ne fait rien et ne lève pas d’erreur CONTRAIREMENT à remove()
 
 fruits = {"apple", "banana", "cherry"}
 fruits.discard("banana")
 print(fruits)
 # {'apple', 'cherry'}
+fruits.discard("caca") # n'existe pas mais pas d'erreur
+print(fruits)
+# {'apple', 'cherry'}
 
 
 
-### intersection()	
+### .intersection()	
 # Returns a set, that is the intersection of two other sets
 
 a = {1, 2, 3, 4, 5, 6}
@@ -80,7 +83,7 @@ print(a.intersection(b))
 
 
 
-### intersection_update()	
+### .intersection_update()	
 # Removes the items in this set that are not present in other, specified set(s)
 
 x = {"apple", "banana", "cherry"}
@@ -91,7 +94,7 @@ print(x)
 
 
 
-### isdisjoint()	 	
+### .isdisjoint()	 	
 # Returns whether two sets have a intersection or not
 
 x = {"apple", "banana", "cherry"}
@@ -108,7 +111,7 @@ print(z)
 
 
 
-### issubset()	
+### .issubset()	
 # Returns whether another set contains this set or not
 
 x = {"a", "b", "c"}
@@ -125,7 +128,7 @@ print(z)
 
 
 
-### issuperset()	
+### .issuperset()	
 # Returns whether this set contains another set or not
 
 x = {"f", "e", "d", "c", "b", "a"}
@@ -142,7 +145,7 @@ print(z)
 
 
 
-### pop()	 	
+### .pop()	 	
 # Removes an element from the set
 
 fruits = {"apple", "banana", "cherry"}
@@ -152,13 +155,15 @@ print(fruits)
 
 
 
-### remove()	 	
+### .remove()	 	
 # Removes the specified element
-
 fruits = {"apple", "banana", "cherry"}
 fruits.remove("banana")
 print(fruits)
 # {'cherry', 'apple'}
+fruits.remove("caca") # n'existe pas ==> KeyError
+print(fruits)
+# KeyError: 'caca'
 
 
 

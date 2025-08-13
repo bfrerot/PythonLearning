@@ -1,11 +1,12 @@
+the_list = [1 if x % 2 == 0 else 0 for x in range(10)]
+the_generator = (1 if x % 2 == 0 else 0 for x in range(10))
 
-value1 = 1
-value2 = 2
-value3 = 3
-myDictionary = {
-    "key1" : value1,
-    "key2" : value2,
-    "key3" : value3,
-    }
-print(myDictionary)
-# {'key1': 1, 'key2': 2, 'key3': 3}
+for v in the_list:
+    print(v, end=" ")
+# 1 0 1 0 1 0 1 0 1 0 
+print() # va à la ligne car on a mis " " comme end au-dessus
+
+for v in the_generator:
+    print(v, end=" ")
+# 1 0 1 0 1 0 1 0 1 0 
+print() # va à la ligne car on a mis " " comme end au-dessus

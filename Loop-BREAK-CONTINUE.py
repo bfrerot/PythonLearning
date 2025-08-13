@@ -1,6 +1,6 @@
-##########  break  ##########
+##########  BREAK ##########
 
-# pour sortir  tout de suite ET complètement de la boucle
+# pour sortir TOUT D SUITE ET COMPLETEMENT de la boucle
 
 text = "OpenEDG Python Institute"
 for letter in text:
@@ -13,12 +13,12 @@ for letter in text:
 
 
 
-##########  continue  ##########
+##########  CONTINUE  ##########
 
-# pour ignorer l'occurence si elle match le if
+# pour IGNORER l'occurence si elle matche le if
 
-user_word = input("Give me a word: ")
-user_word = user_word.upper()  # Convertir en majuscules
+user_word = input("Give me a word: ") # Benoit
+user_word = user_word.upper()  # Benoit ==> BENOIT
 forbidden_letter = ['I', 'O', 'U', 'E', 'A']  # Liste des lettres interdites
 
 result = ""  # Variable pour stocker le mot sans les lettres interdites
@@ -30,3 +30,4 @@ for letter in user_word:
         continue # ici rien après donc on repart à la prochaine occurence "letter"
 
 print(result)
+# BNT

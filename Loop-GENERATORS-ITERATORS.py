@@ -1,18 +1,19 @@
 ########## GENERATORS - ITERATORS ##########
 
 
-### range()
+
+### RANGE()
 
 for i in range(5):
     print(i,end='')
 # 01234
 
 
-### iterator protocol
 
-# The iterator protocol is a way in which an object should behave to conform to the rules imposed by 
-# the context of the for and in statements
-# An object conforming to the iterator protocol is called an iterator.
+### ITERATOR PROTOCOL
+
+# The iterator protocol is a way in which an object should behave to conform to the rules imposed by the context of the for and in statements
+# An object conforming to the iterator protocol is called an iterator
 
 # An iterator must provide two methods:
 #       __iter__() ==> should return the object itself and which is invoked once (it's needed for Python to successfully start the iteration)
@@ -21,7 +22,15 @@ for i in range(5):
 #                      if there are no more values to provide the method should raise the StopIteration exception
 
 
-## ex: Fibonacci numbers
+## ==> ex: Fibonacci numbers
+'''
+Fibonacci numbers (Fibi) are defined as follows:
+Fib1 = 1
+Fib2 = 1
+Fibi = Fibi-1 + Fibi-2  
+==> cf processus.xls/Fibonacci 
+'''
+
 
 class Fib:
     def __init__(self, nn): # s'execute 1 fois
@@ -50,7 +59,7 @@ for i in Fib(10):
     print(i)
 # __init__
 # __iter__
-# __next__# 
+# __next__
 # 1
 # __next__
 # 1
@@ -72,89 +81,9 @@ for i in Fib(10):
 # 55
 # __next__
 
-# Fibonacci numbers (Fibi) are defined as follows:
-# Fib1 = 1
-# Fib2 = 1
-# Fibi = Fibi-1 + Fibi-2   
 
 
-## autre version
-class Fib:
-    def __init__(self, nn): # 2. init avec Fib(8), nn=8
-        self.__n = nn # 3.1 self.__n = nn = 8
-        self.__i = 0 # 3.2 i = 0
-        self.__p1 = self.__p2 = 1 # 3.3 p1 et p2 = 1
-        print("Fib init") # 3.4 affiche "Fib init"
-
-    def __iter__(self): # 4.1 La boucle `for i in object:` commence, la méthode __iter__() de Class est donc appelée
-        return self # 4.2 Elle affiche "Class iter" à chaque fois que la boucle commence une nouvelle itération ou un nouveau parcours
-                    #     La méthode __iter__() de Class n’est appelée qu’une seule fois pour obtenir l’itérateur (l’objet retourné par cette méthode)
-    
-    def __next__(self): # s'execute 9 fois avec 8 print, la neuvième étant le cassage de boucle
-        self.__i += 1
-        if self.__i > self.__n:
-            raise StopIteration
-        if self.__i in [1, 2]:
-            return 1
-        ret = self.__p1 + self.__p2
-        self.__p1, self.__p2 = self.__p2, ret
-        return ret
-
-class Class:
-    def __init__(self, n):
-        self.__iter = Fib(n) # 1. init avec self.__iter = Fib(8)
-
-    def __iter__(self):
-        print("Class iter")
-        return self.__iter
-
-object = Class(8)
-
-for i in object:
-    print(i)
-# Fib init
-# Class iter
-# 1
-# 1
-# 2
-# 3
-# 5
-# 8
-# 13
-# 21  
-
-# init + iter
-i  	0								
-n   8								
-p1	1								
-p2  1
-
-# 9*__next__								
-# i	             1	     2	     3	     4	     5	     6	     7	     8	     9
-# i>n(1>8?)	     False	False	False	False	False	False	False	False	True
-# i in[1,2]	     True	True	False	False	False	False	False	False	THE END
-# return           1     1	   							
-# ret= p1 + p2	   2	 2	     2	     3	     5	     8	     13	     21	
-# p1  	           1	 1	     1	     2	     3	     5	     8	     13	
-# p2  	           1	 1	     2	     3	     5	     8	     13	     21	
-# return ret			         2	     3	     5	     8	     13	     21	
-
-
-
-### yield
-
-# par principe un iterator devrait faire çà
-def fun(n):
-    for i in range(n):
-        return i # ici le retrun casse la boucle dès le premier tour
-
-# introduction de yield
-def fun(n):
-    for i in range(n):
-        yield i # turns the function into a generator
-
-print(fun(4))
-# <generator object fun at 0x000001DD5B9EB850>
+### YIELD
 
 # 1. provides the value of the expression specified after the yield keyword, just like return, 
 #    but doesn't lose the state of the function
@@ -163,9 +92,26 @@ print(fun(4))
 # 3. The invocation will return the object's identifier, not the series we expect from the generator
 
 
+# par principe un iterator devrait faire çà
+def fun(n):
+    for i in range(n):
+        return i # ici le retrun casse la boucle dès le premier tour
+print(fun(4))
+0
+1
+2
+3    
 
-### build a generator
 
+# introduction de yield
+def fun(n):
+    for i in range(n):
+        yield i # turns the function into a generator
+print(fun(4))
+# <generator object fun at 0x000001DD5B9EB850>
+
+
+#==> build a generator
 def powers_of_2(n):  
     power = 1
     for i in range(n):
@@ -185,8 +131,7 @@ for v in powers_of_2(8):
 
 # Lors du premier appel (par exemple, dans une boucle), la fonction démarre, power = 1
 # Elle atteint "yield power" : elle renvoie 1 et se met en pause
-# La prochaine fois que vous demandez une valeur (avec next() ou dans une boucle) la fonction 
-#   reprend juste après le yield
+# La prochaine fois que l'on demande une valeur (avec next() ou dans une boucle) la fonction reprend juste après le yield
 
 def I():
     s = 'abcdef'
@@ -196,17 +141,16 @@ for x in I():
     print(x, end='')
 # ace
 
+
 def fun(n):
-    s = '+'
+    s = '+'  # pris en compte 
     for i in range(n):
         s += s
         yield s
 for x in fun(2):
     print(x, end='');
-# ++++++
+# ++++++  ==> +  ++(0)  ++++(1)
 
-
-## ex avec une list
 
 def powers_of_2(n):
     power = 1
@@ -218,7 +162,6 @@ t = [x for x in powers_of_2(5)]
 print(t)
 # [1, 2, 4, 8, 16]
 
-# OU
 
 def powers_of_2(n):
     power = 1
@@ -230,8 +173,6 @@ t = list(powers_of_2(5))
 print(t)
 # [1, 2, 4, 8, 16]
 
-
-## ex avec if in
 
 def powers_of_2(n):
     power = 1
@@ -250,8 +191,7 @@ for i in range(20):
 # 16
 
 
-## Fibonacci again
-
+# Fibonacci again
 def fibonacci(n):
     p2 = p1 = 1
     for i in range(n):
@@ -265,19 +205,20 @@ def fibonacci(n):
 fibs = list(fibonacci(10))
 print(fibs)
 # [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+'''
+processus
 
-# processus
-
-# n 	10										
-# p1	1										
-# p2  1										
-# i	             0	      1	      2      3	      4	      5	     6	     7	     8	     9	     10
-# i in[1,2]   	True	True	False	False	False	False	False	False	False	False	THE END
-# yield        	 1	      1									
-# n= p1 + p2			          2	     3	      5       8	     13 	 21	     34	     55	
-# p1  		                      1	     2	      3	      5	     8	     13      21	     34	
-# p2  			                  2	     3	      5	      8	     13	     21      34	     55	
-# yield n			              2	     3	      5	      8	     13	     21      34	     55	
+n 	10										
+p1	1										
+p2  1										
+i	             0	      1	      2      3	      4	      5	     6	     7	     8	     9	     10
+i in[1,2]   	True	True	False	False	False	False	False	False	False	False	THE END
+yield        	 1	      1									
+n= p1 + p2			          2	     3	      5       8	     13 	 21	     34	     55	
+p1  		                      1	     2	      3	      5	     8	     13      21	     34	
+p2  			                  2	     3	      5	      8	     13	     21      34	     55	
+yield n			              2	     3	      5	      8	     13	     21      34	     55	
+'''
 
 
 
@@ -286,44 +227,33 @@ print(fibs)
 
 ## rappel
 list_1 = []
-
 for ex in range(6):
     list_1.append(10 ** ex)
-
-list_2 = [10 ** ex for ex in range(6)]
-
 print(list_1)
 # [1, 10, 100, 1000, 10000, 100000]
+
+list_2 = [10 ** ex for ex in range(6)] # shorter code
 print(list_2)
 # [1, 10, 100, 1000, 10000, 100000]
 
 
-## shorter code
-the_list = [1 if x % 2 == 0 else 0 for x in range(10)]
-
-print(the_list)
-# [1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
-
 
 ## turn any list comprehension into a generator
-the_list = [1 if x % 2 == 0 else 0 for x in range(10)]
-the_generator = (1 if x % 2 == 0 else 0 for x in range(10))
 
+the_list = [1 if x % 2 == 0 else 0 for x in range(10)]
 for v in the_list:
     print(v, end=" ")
 # 1 0 1 0 1 0 1 0 1 0 
-print() # va à la ligne car on a mis " " comme end au-dessus
-
-for v in the_generator:
-    print(v, end=" ")
-# 1 0 1 0 1 0 1 0 1 0 
-print() # va à la ligne car on a mis " " comme end au-dessus
-
 print(type(the_list))
 # <class 'list'>
 print(len(the_list))
 # 10
 
+the_generator = (1 if x % 2 == 0 else 0 for x in range(10))
+for v in the_generator:
+    print(v, end=" ")
+# 1 0 1 0 1 0 1 0 1 0 
+print() # va à la ligne car on a mis " " comme end au-dessus
 print(type(the_generator))
 # <class 'generator'>
 print(len(the_generator))
@@ -352,4 +282,3 @@ print(len(the_generator))
 # Supposons un très gros fichier texte (par exemple plusieurs gigaoctets) que l'on souhaite analyser ligne par ligne
 # sans charger tout le fichier en mémoire.
 # ==> Problème : si le fichier est énorme cela peut consommer beaucoup de mémoire ou même faire planter votre programme
-
