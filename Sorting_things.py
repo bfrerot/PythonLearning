@@ -1,6 +1,10 @@
-### Method 1
-# from a string
-# .join(sorted(list from string))
+### Method 1 ==> ordonner un string  avec ''.join + sorted
+# ==> avec sorted(iterable) 
+# crée une liste ordonnée
+# +
+# ==> ''.join(sorted(iterable))
+# recrée un string 
+
 
 letters = 'zyx'
 new_string = ''.join(sorted(letters))
@@ -9,8 +13,29 @@ new_string = ''.join(sorted(letters))
 print(new_string)
 # xyz
 
+# string
+print(''.join(sorted("letters")))
+# eelrstt
 
-### Method 2
+# dictionnary
+print(''.join(sorted({"z":24,"y":23,"x":22,"a":1})))
+# axyz
+
+# set
+print(''.join(sorted({"z","y","x","a"})))
+# axyz
+
+# tuple
+print(''.join(sorted(("z","y","x","a"))))
+# axyz
+
+# list
+print(''.join(sorted(["z","y","x","a"])))
+# axyz
+
+
+
+### Method 2 ==> faire une list à partir d'un iterable + .sort() puis ''.join() 
 # make a list form a string, sort it then making a string with .join()
 tmp = list(letters)
 tmp.sort()

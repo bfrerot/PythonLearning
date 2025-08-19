@@ -8,6 +8,8 @@ a = 5
 b = 10
 if a > 0 and b > 0:
     print("Les deux sont positifs")
+# Les deux sont positifs
+
 
 
 ### as 
@@ -17,11 +19,13 @@ import math as m
 print(m.sqrt(16))
 
 
+
 ### assert
 # pour déboguer
 
 x = 10
 assert x > 5 # x doit être supérieur à 5
+
 
 
 ### break 
@@ -33,12 +37,14 @@ for i in range(5):
     print(i)
 
 
+
 ### class 
-# pour définir une classe
+# pour définir une class
 
 class Person:
     def __init__(self, name):
         self.name = name
+
 
 
 ### continue 
@@ -50,6 +56,7 @@ for i in range(5):
     print(i)
 
 
+
 ### def 
 # pour définir une fonction
 
@@ -57,11 +64,42 @@ def add(a, b):
     return a + b
 
 
+
 ### del 
 # pour supprimer un objet
 
 x = [1, 2, 3]
 del x
+x = [1, 2, 3]
+del x[0]
+print(x)
+# [2, 3]
+
+x = "string"
+del x
+x = "string"
+del x[0]
+# TypeError: 'str' object doesn't support item deletion
+
+x = {1,2,3}
+del x[0]
+# TypeError: 'set' object doesn't support item deletion
+x = {1,2,3}
+del x
+
+x = {1:"a",2:"b",3:"c"}
+del x
+x = {1:"a",2:"b",3:"c"}
+del x[2]
+print(x)
+{1: 'a', 3: 'c'}
+
+x = (1,2,3)
+del x
+x = (1,2,3)
+del x[1]
+# TypeError: 'tuple' object doesn't support item deletion
+
 
 
 ### elif 
@@ -74,6 +112,7 @@ elif x == 0:
     print("Zéro")
 
 
+
 ### else 
 # condition alternative
 
@@ -82,6 +121,7 @@ if x > 0:
     print("Positif")
 else:
     print("Négatif ou zéro")
+
 
 
 ### except 
@@ -93,21 +133,29 @@ except ZeroDivisionError:
     print("Division par zéro détectée")
 
 
+
 ### False 
 # valeur booléenne
 
 print(3 > 5)  # False
 
 
+
 ### finally 
 # exécuter du code après try...except
+# RAPPEL, s'excute avant le return si return dans try ou except car dans un try, rien ne se passe plus après un return
 
 try:
     print(10 / 0)
+    
 except ZeroDivisionError:
     print("Erreur")
+    
 finally:
     print("Fin du traitement")
+# Erreur
+# Fin du traitement
+
 
 
 ### for 
@@ -117,11 +165,13 @@ for i in range(3):
     print(i)
 
 
+
 ### from 
 # importer une partie d’un module
 
 from math import pi
 print(pi)
+
 
 
 ### global 
@@ -135,17 +185,20 @@ test()
 print(x)
 
 
-### if condition
+
+### if
 
 x = 7
 if x > 5:
     print("x est supérieur à 5")
 
 
-### import importer un module
+
+### import
 
 import math
 print(math.sqrt(9))
+
 
 
 ### in 
@@ -154,6 +207,7 @@ print(math.sqrt(9))
 list = [1, 2, 3]
 print(2 in list)  
 # True
+
 
 
 ### is
@@ -172,6 +226,7 @@ False
 True
 
 
+
 ## lambda 
 # fonction anonyme
 
@@ -179,11 +234,13 @@ square = lambda x: x * x
 print(square(4))
 
 
+
 ### None 
 # valeur nulle
 
 x = None
 print(x)
+
 
 
 ### nonlocal 
@@ -199,11 +256,13 @@ def outer():
 outer()
 
 
+
 ### not 
 # opérateur logique
 
 x = True
 print(not x)  # False
+
 
 
 ### or 
@@ -215,11 +274,13 @@ if a or b:
     print("Au moins un est vrai")
 
 
+
 ### pass 
 # ne rien faire
 
 def fonction_vide():
     pass
+
 
 
 ### raise 
@@ -231,6 +292,7 @@ def verifier_age(age):
 verifier_age(16)
 
 
+
 ### return 
 # renvoyer une valeur depuis une fonction
 
@@ -239,10 +301,12 @@ def double(x):
 print(double(3))
 
 
+
 ### True 
 # valeur booléenne
 
 print(4 > 2)  # True
+
 
 
 ### try 
@@ -254,6 +318,7 @@ except ZeroDivisionError:
     print("Erreur capturée")
 
 
+
 ### while 
 # boucle while
 
@@ -263,11 +328,13 @@ while i < 3:
     i += 1
 
 
+
 ### with 
 # gestion automatique des ressources
 
 with open('fichier.txt', 'r') as fichier:
     contenu = fichier.read()
+
 
 
 ### yield 

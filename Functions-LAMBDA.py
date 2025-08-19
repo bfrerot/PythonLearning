@@ -178,5 +178,3 @@ print(foo)                                     # 3. Affiche le résultat
 # x = 4  → lambda 4: 4 % 2  → 0  → falsy → ❌ rejeté
 # x = 9  → lambda 9: 9 % 2  → 1  → truthy → ✅ gardé
 # x = 16 → lambda 16: 16 % 2 → 0  → falsy → ❌ rejeté
-
-

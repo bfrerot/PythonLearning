@@ -10,14 +10,10 @@
 
 #       a tool allowing users to access the repository = pip
 #               pip means “pip installs packages”, and the pip inside “pip installs packages” means “pip installs packages” and ...etc
+#               pip can discover, identify, and resolve all dependencies
+#               It can do it in the cleverest way avoiding any unnecessary downloads and reinstalls
 
 # Both these entities already exist and can be used at any time.
-
-
-
-### pip can discover, identify, and resolve all dependencies. Moreover, it can do it in the cleverest way, 
-# avoiding any unnecessary downloads and reinstalls
-
 
 
 ### useful commands
@@ -93,3 +89,24 @@
 
 # pour désinstaller les packages
 
+
+## pip show [package]
+
+# pour les infos liées à un package
+
+'''
+pip show  # manque le package
+WARNING: ERROR: Please provide a package name or names.
+
+pip show numpy
+Name: numpy
+Version: 2.2.6
+Summary: Fundamental package for array computing in Python
+Home-page: https://numpy.org
+Author: Travis E. Oliphant et al.
+Author-email:
+License: Copyright (c) 2005-2024, NumPy Developers.
+ All rights reserved.
+etc
+etc
+'''

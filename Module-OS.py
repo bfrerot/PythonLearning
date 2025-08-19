@@ -73,7 +73,7 @@ print(os.listdir())
 
 
 ## os.getcwd()
-# = pwd = permet de savoir dans  quel répertoire courrant on se situe, CHEMIN COMPLET
+# = pwd = permet de savoir dans quel répertoire courrant on se situe, CHEMIN COMPLET
 
 import os
 os.makedirs("my_first_directory/my_second_directory")
@@ -114,14 +114,3 @@ if os.path.isfile(file_path):
 else:
     print("Le fichier n'existe pas.")
 # Le fichier existe.
-
-
-
-
-
-### pyperclip
-
-from platform import pyperclip 
-pyperclip.copy('Hello world!') 
-print (pyperclip.paste())
-# Hello world!

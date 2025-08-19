@@ -1,4 +1,5 @@
-#########  --------- FUNCTIONS ----------  ########
+########## FUNCTIONS ##########
+
 
 ## A function is able to:
 #   cause some effect
@@ -48,25 +49,30 @@ def multiply(x, y): # Function signature
 # 3. The function returns, and the original function call is replaced with the return value.
 
 
-## Regarding returns:
+
+
+### RETURN
 # 1- you are always allowed to ignore the function's result, and be satisfied with 
 # the function's effect (if the function has any)
 # 2- if a function is intented to return a useful result, it must contain the second 
 # variant of the return instruction.
 # 3- all part AFTER return is IGNORED
 
+
+## un return clot la fonction
 def hi():
     return
     print("Hi!") # pas pris en compte
-# none
+# (None)
 
-# return without an expression
+
+## return without an expression
 def happyNewYear(wishes = True):
     print("Three...")
     print("Two...")
     print("One...")
     if not wishes: # donc si wishes = False
-        return
+        return # return None
     
     print("Happy New Year!")
 happyNewYear ()
@@ -83,7 +89,8 @@ x = boringFunction()
 print("The boringFunction has returned its result. It's:", x)
 # The boringFunction has returned its result. It's: 123
 
-# we can ignore the return value
+
+## ignore the return value
 def boringFunction():
     print("'Boredom Mode' ON.")
     return 123
@@ -102,7 +109,7 @@ def strangeFunction(n):
 print(strangeFunction(2))
 print(strangeFunction(1))
 True
-None # 1%2 = 1 donc return = None car rien de prevu par la function
+# (None) # 1%2 = 1 donc return = None car rien de prevu par la function
 
 
 ## récupérer le return d'une fonction
@@ -113,26 +120,34 @@ ma_variable = ma_fonction()
 print(ma_variable)  # Affiche : 42
 
 
-## Scopes:
-#The function func() has a different scope than the code that exists outside of the function. 
-#We can name an object inside func() the same name as something outside func() and Python 
-# can keep the two separated.
+
+
+### SCOPE
+
+# The function func() has a different scope than the code that exists outside of the function 
+# We can name an object inside func() the same name as something outside func() and Python keep the two separated.
 # 1- a var defined out of the function is usable into a function
 # 2- a var defined in a function is not recognised out of it
-# 3- if a var has the same name into a function and out of it, the function uses the var 
-# as defined into it
-# use "global" to overcome this
+# 3- if a var has the same name into a function and out of it, the function uses the var as defined into it
 # 4- with lists, if a list is processed by a function, it will reflect the changes outside the function
 
 
-## Python resolves scope in the order in which each scope appears in the list LEGB.
-# 1- Local (L): The local, or current, scope. The scope that the Python interpreter is currently working in.
-# 2- Enclosing (E): The enclosing scope. This is the scope one level up from the local scope. 
-#If the local scope is an inner function, the enclosing scope is the scope of the outer function. 
-#If the scope is a top-level function, the enclosing scope is the same as the global scope.
-# 3- Global (G): The global scope, which is the top-most scope in the script. This contains all of the names 
-#defined in the script that are not contained in a function body.
-# 4- Built-in (B): The built-in scope contains all of the names, such as keywords, that are built-in to Python. Functions such as round()
+## Python resolves scope in the order in which each scope appears in the list LEGB
+# 1- Local (L): The local, or current, scope. The scope that the Python interpreter is currently working in
+# 2- Enclosing (E): The enclosing scope. This is the scope one level up from the local scope
+#       If the local scope is an inner function, the enclosing scope is the scope of the outer function
+#       If the scope is a top-level function, the enclosing scope is the same as the global scope
+# 3- Global (G): The global scope, which is the top-most scope in the script and all of the names defined in the script that are not contained in a function body
+# 4- Built-in (B): The built-in scope contains all of the names, such as keywords, that are built-in to Python
+
+def func(data):
+    data = [7, 23, 42]
+    print('Function scope: ', data)
+data = ['Peter', 'Paul', 'Mary']
+func(data) # prefer its own "data" variable
+print('Outer scope: ', data) # as "data" from func(data) is not global, data = ['Peter', 'Paul', 'Mary'] is used
+# Function scope:  [7, 23, 42]
+# Outer scope:  ['Peter', 'Paul', 'Mary']
 
 
 ## variable scope LOCAL vs GLOBAL
@@ -163,34 +178,6 @@ add_to_total(5)
 print(total)
 # 5
 
-def myFunction():
-    print("Do I know that variable?", var)
-var = 1
-myFunction()
-# Do I know that variable? 1
-
-
-## same var name in and out the function
-def myFunction():
-    var = 2
-    print("Do I know that variable?", var)
-var = 1
-myFunction()
-print(var)
-# Do I know that variable? 2
-# 1
-
-
-## export a var out the function with "global"
-def myFunction():
-    global var
-    var = 2
-    print("Do I know that variable?", var)
-
-var = 1
-myFunction()
-# Do I know that variable? 2
-
 
 ## interaction avec les variables
 x = 1 
@@ -215,6 +202,7 @@ func(num)
 print(num)
 # 1
 
+
 num = 1
 def func(y):
     global num # num devient global, donc la fonction agit sur  la variable exterieure "num"
@@ -224,6 +212,7 @@ func(num)
 # 4
 print(num)
 # 4 # num a bien changé de valeur via la fonction
+
 
 def increment(c, num):
     c.count += 1     # incrémente l'attribut .count de l'objet counter
@@ -264,22 +253,30 @@ print (test(testlist))
 # [0, 1, 2, 'ram']
 
 
-## Function VS Methods
+
+
+### Function VS Methods
+
 #A method is a specific kind of function - it behaves like a function and looks like a function,
 #but differs in the way in which it acts, and in its invocation style.
 #result = data.method(arg)
 #methods are used to play with lists
 
 
-## arguments, parameters
 
-# Default arguments exist, if not specified at the invokation, the default value is used
+
+### ARGUMENTS, PARAMETERS
+
+# Default arguments
+# if not specified at the invokation, the default value is used
+
 def introduction(first_name, last_name="Smith"):
     print("Hello, my name is", first_name, last_name)
 introduction("James", "Doe")
 introduction("Henry")
 # Hello, my name is James Doe
 # Hello, my name is Henry Smith
+
 
 class Class:
     def __init__(self, val=0):
@@ -298,7 +295,10 @@ object_4 = Class(True)  # True is a value
 print(object_4.val)
 # True
 
-# We can also define functions that accept variable number of arguments, using the * args
+
+## *args ==> Many parameters FLEXIBLE
+# to define functions that accept variable number of arguments
+
 def add(*args):
     return sum(args)
 print(add(1, 1, 1))
@@ -307,18 +307,26 @@ print(add(1))
 # 1
 
 
-## positional arguments MUST NOT follow keyword arguments
+
+
+### POSITIONNAL VS KEYWORDS arguments
+
+# MUST NOT follow keyword arguments
 def subtra(a, b):
     print(a - b)
+    
 subtra(5, b=2) 
 # 3
+
 subtra(a=5, 2) 
 # Syntax Error
+
 
 def add_numbers(a, b=2, c):
     print(a + b + c)
 add_numbers(a=1, c=3)
-# error
+# Syntax Error
+
 
 def add_numbers(a, c, b=2):
     print(a + b + c)
@@ -336,9 +344,8 @@ test(z=60, x=100)
 # x is 100 and y is 23 and z is 60
 
 
-## ordre des parameters VS desordre
 
-# parameters dans l'odre
+## parameters dans l'odre
 def introduction(firstName, lastName):
     print("Hello, my name is", firstName, lastName)
 
@@ -350,7 +357,7 @@ introduction("Clark", "Kent")
 # Hello, my name is Clark Kent
 
 
-# parameters dans le desordre
+## parameters dans le desordre
 def introduction(firstName, lastName):
     print("Hello, my name is", firstName, lastName)
 
@@ -360,7 +367,7 @@ introduction(lastName = "Skywalker", firstName = "Luke") # if parameters are set
 # Hello, my name is Luke Skywalker
 
 
-# parameters par defaut
+## parameters par defaut
 def introduction(firstName, lastName="Smith"):
     print("Hello, my name is", firstName, lastName)
 introduction("James")
@@ -372,7 +379,7 @@ print (fun(out=2))
 # 4
 
 
-# multiple parameters (*par)
+## multiple parameters (*par)
 def fun(*val): # fun() accepte de multiple parameters
     print(type(val))
 lst=[1,2,3,4,5]
@@ -381,15 +388,15 @@ fun(lst,number)
 # <class 'tuple'> # car [1,2,3,4,5], 400 est un tuple
 
 
-# parameter par defaut ecrasé par celui indiqué
+## parameter par defaut ecrasé par celui indiqué
 def introduction(firstName, lastName="Smith"):
     print("Hello, my name is", firstName, lastName)
 introduction("James","Doe")
 # Hello, my name is James Doe # Smith (default parameter) is replaced by Doe (specified parameter)
 
 
-# on peut avoir une fonction qui appelle 2 parameters ou plus
-# mais ne se sert que d'1
+## usage des parameters
+# on peut avoir une fonction qui appelle 2 parameters ou plus mais ne se sert que d'1
 
 def fun(x,y=6):
     return x**3  # y ne sert à rien, n'est pas invoqué, mais pas de problème
@@ -401,7 +408,40 @@ fun("Earth", 2, True, "Jupiter")
 # Earth
 
 
+## list comme parameter d'une function
+
+def sumOfList(lst):
+    sum = 0
+    for elem in lst:
+        sum += elem
+    return sum
+print(sumOfList([5, 4, 3]))
+# 12
+
+# En Python, les listes sont mutables, donc si on modifie une liste in-place dans une fonction, on modifie aussi l’objet d’origine.
+# del, .append(), .pop(), .sort(), etc. modifient la liste sur place
+def my_function(my_list_1):
+    print("Print #1:", my_list_1)
+    print("Print #2:", my_list_2)
+    del my_list_1[0] # Pay attention to this line.
+    print("Print #3:", my_list_1)
+    print("Print #4:", my_list_2)
+ 
+my_list_2 = [2, 3]
+my_function(my_list_2)
+print("Print #5:", my_list_2)
+#  #1: [2, 3]
+# Print #2: [2, 3]
+# Print #3: [3]
+# Print #4: [3]
+# Print #5: [3]
+
+
+
+
+### OUTER/INNER Functions
 # on peut avoir une fonction dans une fonction
+
 x = 5
 def outer_func():
     y = 3
@@ -432,7 +472,9 @@ print(dq('Jane Doe'))
 
 
 
-## create Documentation about a function we create with a DOCSTRING
+### DOCSTRING
+# to create Documentation about a function
+
 def multiply(x, y):
     """Return the product of two numbers x and y.""" # comment in function =  docstring
     product = x * y
@@ -445,7 +487,9 @@ help(multiply)
 #     Return the product of two numbers x and y. # comment returned when help function is used
 
 
-## difference entre invoquer et printer la function
+
+
+### RETURN vs PRINT()
 
 #invoquer
 def wishes():
@@ -463,118 +507,12 @@ print(wishes())
 # Happy Birthday
 
 
-## definir une adresse
-def address(street, city, postalCode):
-    print("Your address is:", street, "St.,", city, postalCode)
-
-s = input("Street: ")
-pC = input("Postal Code: ")
-c = input("City: ")
-
-address(s, c, pC)
-# Street: eugene
-# Postal Code: 92150
-# City: rueil
-# Your address is: eugene St., rueil 92150
 
 
-## functions et boucles "for"
+### INFINITE LOOP 
+# Exemple et correction avec insertion d'une termination condition
 
-# donner le double d'un input
-def doubles(num):
-    """Return the result of multiplying an input number by 2."""
-    return num * 2
-my_num = float(input("give me a number: "))
-for i in range(0, 3):
-    my_num = doubles(my_num)
-    print(my_num)
-
-# give me a number: 2
-# 4.0
-# 8.0
-# 16.0
-
-
-## list comme parameter d'une function
-
-def sumOfList(lst):
-    sum = 0
-    for elem in lst:
-        sum += elem
-    return sum
-print(sumOfList([5, 4, 3]))
-# 12
-
-# do not use this with an integer as it is not intended to be etirated by a for loop
-
-def sumOfList(lst):
-    sum = 0
-    
-    for elem in lst:
-        sum += elem
-    
-    return sum
-print(sumOfList(5))
-# File "main.py", line 9
-# SyntaxError: unexpected EOF while parsing
-
-# En Python, les listes sont mutables, donc si on modifie une liste in-place dans une fonction, on modifie aussi l’objet d’origine.
-#del, .append(), .pop(), .sort(), etc. modifient la liste sur place.
-def my_function(my_list_1):
-    print("Print #1:", my_list_1)
-    print("Print #2:", my_list_2)
-    del my_list_1[0] # Pay attention to this line.
-    print("Print #3:", my_list_1)
-    print("Print #4:", my_list_2)
- 
-my_list_2 = [2, 3]
-my_function(my_list_2)
-print("Print #5:", my_list_2)
-#  #1: [2, 3]
-# Print #2: [2, 3]
-# Print #3: [3]
-# Print #4: [3]
-# Print #5: [3]
-
-
-def hiEverybody(myList):
-    for name in myList:
-        print("Hi,", name)
-
-# hiEverybody(["Adam", "John", "Lucy"])
-# Hi, Adam
-# Hi, John
-# Hi, Lucy
-
-
-## list comme result d'une function
-
-def strangeListFunction(n):
-    strangeList = []
-    
-    for i in range(0, n):
-        strangeList.insert(0, i)
-    
-    return strangeList
-
-print(strangeListFunction(5))
-[4, 3, 2, 1, 0]
-
-
-def createList(n):
-    myList = []
-    for i in range(n):
-        myList.append(i)
-    return myList
-
-print(createList(5))
-[0, 1, 2, 3, 4]
-
-
-
-## Exemple de boucle et correction avec insertion d'une termination condition
-
-#SANS
+# SANS
 def fun(a):
     return a + fun(a + 3)
 
@@ -583,7 +521,7 @@ print(fun(25))
 # [Previous line repeated 996 more times]
 # RecursionError: maximum recursion depth exceeded
 
-#AVEC
+# AVEC
 def fun(a):
     if a > 30:
         return 3
@@ -595,7 +533,8 @@ print(fun(25))
 
 
 
-## Exemple de function récursive
+### RECURSIVITE
+# Exemple de function récursive
 
 def fact(num):
     if num == 1:
@@ -619,7 +558,8 @@ print(fact(4))
 
 
 
-## Exception handling
+
+### Exception handling
 
 def spam(divideBy):
     return 42 / divideBy
@@ -647,7 +587,6 @@ print(spam(0))
 print(spam(1))
 # 42.0
 
-# OU:
 
 def spam(divideBy):    
     return 42 / divideBy
@@ -658,13 +597,14 @@ try:
     print(spam(1)) 
 except ZeroDivisionError:    
 	print('Error: Invalid argument.')
-21.0 
-3.5 
+# 21.0 
+# 3.5 
 # Error: Invalid argument. # ca ne continuera pas sur print(spam(1)), 
                            # car le code passe a except pour spam(0) et ne remontera pas 
                          
 
-## closures
+
+### CLOSURES
 
 def outer(par):
     loc = par
@@ -697,3 +637,23 @@ for i in range(5):
 # 2 4 8
 # 3 9 27
 # 4 16 64
+
+
+def func():
+    text = 'Paul'
+    names = lambda x: text + ' ' + x
+    return names
+people = func() 
+print(people('Peter'))
+# Paul Peter
+
+
+def o(p):
+    def q():
+        return '*' * p
+    return q
+ 
+r = o(1)
+s = o(2)
+print(r() + s())
+# ***

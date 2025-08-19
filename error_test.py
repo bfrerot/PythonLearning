@@ -1,12 +1,11 @@
-the_list = [1 if x % 2 == 0 else 0 for x in range(10)]
-the_generator = (1 if x % 2 == 0 else 0 for x in range(10))
+class Stack:
+    def __init__(self):
+        self.__stack_list = []
 
-for v in the_list:
-    print(v, end=" ")
-# 1 0 1 0 1 0 1 0 1 0 
-print() # va à la ligne car on a mis " " comme end au-dessus
+stack_object = Stack()
 
-for v in the_generator:
-    print(v, end=" ")
-# 1 0 1 0 1 0 1 0 1 0 
-print() # va à la ligne car on a mis " " comme end au-dessus
+print(len(stack_object.__stack_list))
+# AttributeError: 'Stack' object has no attribute '__stack_list'  ==>  on voit bien que l'on ne peut pas accéder "simplement" à l'attribut privé
+
+print(len(stack_object._Stack__stack_list))
+# 0

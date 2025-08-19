@@ -79,6 +79,11 @@ phoneNumbers = {'boss' : 5551234567, 'Suzy' : 22657854310}
 print(phoneNumbers[1])
 # KeyError
 
+# PAS PLUS D'1 KEY
+data = {'a': 1, 'b': 2, 'c': 3}
+print(data['a', 'b']) # les key a et b
+# KeyError: ('a', 'b')
+
 
 ### for + dictionnaire
 

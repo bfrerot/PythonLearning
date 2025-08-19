@@ -2,7 +2,6 @@
 
 
 
-
 #### File NAMES
 
 # Windows uses a different naming convention than the one adopted in Unix/Linux systems
@@ -99,35 +98,38 @@ stream = open(file, mode = 'r', encoding = None)
 # = specifies the open mode used for the stream
 #   - default opening mode is read in text mode
 #   - string filled with a sequence of characters, and each of them has its own special meaning:
-
-## ==> R = open mode: READ
+ 
+## ==> R   READ
 #     the stream will be opened in read mode
 #     the file associated with the stream must exist and has to be readable, otherwise exception raised
 
-## ==> W = open mode: WRITE
+## ==> W   WRITE
 #     the stream will be opened in write mode
 #     the file associated with the stream doesn't need to exist
 #     if it doesn't exist it will be created
 #     if it exists, it will be truncated to the length of zero (erased)
 #     if the creation isn't possible (ex: due to system permissions), exception
 
-## ==> A = open mode: APPEND
+## ==> A   APPEND
 #      the stream will be opened in append mode
 #      the file associated with the stream doesn't need to exist
 #      if it doesn't exist, it will be created
 #      if it exists the virtual recording head will be set at the end of the file, the previous content of the file remains UNTOUCHED !
 
-## ==> R+ = open mode: READ and UPDATE
+## ==> R+  READ and UPDATE
 #      the stream will be opened in read and update mode
 #      the file associated with the stream MUST EXIST and has to be WRITEABLE, otherwise exception
 #      both read and write operations are allowed for the stream
 
-## ==> W+ open mode: WRITE and UPDATE
+## ==> W+  WRITE and UPDATE
 #      the stream will be opened in write and update mode
 #      the file associated with the stream doesn't need to exist
 #      if it doesn't exist, it will be created
 #      the previous content of the file remains UNTOUCHED
 #      both read and write operations are allowed for the stream.
+
+## ==> X   CREATE an empty file
+#      if the file exists, return an error
 
 # If there is a letter B at the end of the mode string it means that the stream is to be opened in BINARY mode
 # If the mode string ends with a letter T the stream is opened in TEXT mode
@@ -203,7 +205,7 @@ except Exception as exc:
 try:
     stream = open("C:\\PythonLearning\\data_engineer_skills.txt", "rt", encoding="utf-8")
     # Lire le contenu du fichier
-    content = stream.read()
+    content = stream.read()  # va lire tout le fichier
     print(content)
     stream.close()
 except Exception as exc:
@@ -376,6 +378,8 @@ except Exception as exc:
 
 
 
+
+
 #### Processing files
 
 
@@ -405,7 +409,7 @@ with open('example.txt', 'w+') as f:
 
 with open('example.txt', 'r') as x:
     for ch in x.read():
-        print(ch) # P
+        print(ch)
 # P
 # e
 # t
@@ -434,10 +438,10 @@ try:
     char = stream.read(1) # char = 1er caractere seulement car 1, les 10 premiers on aurait mis 10
 #    print(char) # perso pour m'assurer du premier caractere
     while char != '': # boucle
-        print(char, end='') # B
+        print(char, end='')
         counter += 1 # counter = 1
-        char = stream.read(1) # char = le caractere suivant car read(1), etc jusue la fin de la boucle
-    stream.close() # fin du stream
+        char = stream.read(1) # char = le caractere suivant car read(1), etc jusque la fin de la boucle
+    stream.close() # fin du stream, OPTIONNEL car quand while se termine, le close() est automatique
     print("\n\nCharacters in file:", counter) # saute 2 lignes + imprime "Characters in file: valeur de counter"
 except IOError as e:
     print("I/O error occurred: ", strerror(e.errno)) # gestion de l'erreur si besoin
@@ -458,7 +462,7 @@ try:
     for char in content:
         print(char, end='')
         counter += 1
-    stream.close()
+    stream.close() # idem optionnel, qd la boucle for se termine le close() est automatique
     print("\n\nCharacters in file:", counter)
 except IOError as e:
     print("I/O error occurred: ", strerror(e.errno))
@@ -485,6 +489,28 @@ with open('example.txt', 'r') as fichier:
 ### Text file - READLINE()
 
 # treat the file's contents as a set of lines, not a bunch of characters
+
+try:
+  
+  character_counter = line_counter = 0
+  stream = open('text.txt', 'rt')
+  line = stream.readline()
+  stream.close()
+  print(line)
+  print(line)
+
+except:
+  print("sorry")
+  
+finally:
+  print("bye")
+# Beautiful is better than ugly.
+#
+# Beautiful is better than ugly.
+#
+# bye
+
+
 
 from os import strerror
 
@@ -539,7 +565,7 @@ stream.close()
 
 stream = open("text.txt")
 print(stream.readlines(1))
-print(stream.readlines(1))
+print(stream.readlines(1)) # passe à la suivante contrairement à readline()
 print(stream.readlines(1))
 print(stream.readlines(1))
 stream.close()
@@ -548,10 +574,12 @@ stream.close()
 # ['Simple is better than complex.\n']
 # ['Complex is better than complicated.']
 
+
 stream = open("text.txt")
 print(stream.readlines(20))
 stream.close()
 # ['Beautiful is better than ugly.\n']
+
     
 stream = open("text.txt")
 print(stream.readlines(40))
@@ -782,6 +810,7 @@ try:
 except IOError as e:
     print("I/O error occurred:", strerror(e.errno))
 # 0xa 0xb 0xc 0xd 0xe 0xf 0x10 0x11 0x12 0x13  
+
 
 # avec bytearray et read()
 from os import strerror

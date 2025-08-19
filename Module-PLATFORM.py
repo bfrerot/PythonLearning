@@ -1,5 +1,7 @@
 ########## PLATFORM MODULE ##########
 
+
+
 ## The platform module gives access to the underlying platform's data:
 #   - hardware
 #   - operating system
@@ -85,3 +87,12 @@ print(python_implementation())
 from platform import python_version_tuple
 print(python_version_tuple())
 # ('3', '13', '3')
+
+
+
+## pyperclip
+
+from platform import pyperclip 
+pyperclip.copy('Hello world!') 
+print (pyperclip.paste())
+# Hello world!

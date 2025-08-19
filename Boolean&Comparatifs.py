@@ -159,7 +159,7 @@ print(float(False == 0))
 
 
 ### None
-# It is true that the None value can not be used as an argument of arithmetic operators
+# It is true that the None value CAN NOT BE USED AS AN ARGUMENT in ARITHMETIC OPERATIONS
 # But the None value can be assigned and compared to variables and that can happen outside of a function
 
 b = None

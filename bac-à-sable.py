@@ -1,80 +1,3 @@
-class A:
-    def __init__(self):
-        self.calc(10)
-    def calc(self, i):
-        self.i = 3 * i
- 
- 
-class B(A):
-    def __init__(self):
-        super().__init__()
-        print('i from B is', self.i)
- 
-    def calc(self, i):
-        self.i = 2 * i
- 
- 
-b = B()
-
-
-##############
-
-def o(p):
-    def q():
-        return '*' * p
-    return q
- 
- 
-r = o(1)
-s = o(2)
-print(r() + s())
-
-
-#################
-
-def foo(x, y):
-    return y(x) + (x + 1)
- 
-print(foo(1, lambda x: x * x))
-
-##############"
-
-str = 'abcdef'
-def fun(s):
-    del s[2]
-    return s
- 
-print(fun(str))
-
-#############
-
-def func(data):
-    data = [7, 23, 42]
-    print('Function scope: ', data)
-data = ['Peter', 'Paul', 'Mary']
-func(data) # prefer its own "data" variable
-print('Outer scope: ', data) # as "data" from func(data) is not global, data = ['Peter', 'Paul', 'Mary'] is used
-# Function scope:  [7, 23, 42]
-# Outer scope:  ['Peter', 'Paul', 'Mary']
-
-#############
-
-def func():
-    text = 'Paul'
-    names = lambda x: text + ' ' + x
-    return names
-people = func() 
-print(people('Peter'))
-# Paul Peter
-
-#############
-
-import random
-print(random.seed(3))
-# None
-
-##############
-
 def func(n):
     try:
         print(1 / n)
@@ -90,53 +13,8 @@ except ArithmeticError as ae:
 Cette erreur n'est pas capturée dans la fonction func, donc elle remonte.
 Elle est capturée dans le except ArithmeticError du bloc extérieur.'''
 
-################
 
-data = (1, 2, 4, 8)
-data = data[-2:-1]
-data = data[-1]
-print(data)
-# 4  et pas (4,) ??
-
-################
-
-def func(x):
-    if x % 2 == 0:
-        return 1
-    else:
-        return # None ==> None + int = TypeError: unsupported operand type(s) for +: 'NoneType' and 'int' 
-print(func(func(2)) + 1)
-
-###############
-
-text1 = "caca"
-text2 = "caca"
-print(id(text1) == id(text2))
-# True
-# n variables disctinctes ayant la meme valeur de string partagent le meme emplacement mémoire
-# VALABLE UNIQUEMENT POUR LES STRINGS
-
-###############
-
-x = 42
-y = 7
-data = "I'm gonna make him an offer he can't refuse."
- 
-print(data.find('an') if data else None)   # donne l'index ou commence "an"
-# 19
-
-print(19 if None else x / y) # valeur_si_vrai if condition else valeur_si_faux
-# None est considéré comme falsy et la condition None est évaluée comme False
-# donc else s'applique               
-# 6.0
-
-print(data.rfind('an') if data else None) # ici data.rfind() donne l'index du "an" le plus droite, la dernière occurence dans tout le strinig 
-# 32
-
-print(7 if len(data) > 19 else 6) # len(data)>19 donc le else s'applique         
-# 7
-
-################
+############################
 
 # First execute the following to create the needed file:
 data = '''Peter
@@ -158,8 +36,6 @@ Paul
 Mary
 Jane
 """
- 
-print('----------')
  
 # This would open for writing and reading
 file = open('data.txt', 'at+')
@@ -285,6 +161,38 @@ print(ord('e'))   # 101
 
 # max() will look for the character with the highest Unicode character number
 
+
+
+##################
+
+pairs = [[2, 1], [-1, -1]]
+new_pairs = map(lambda p: sorted(p), pairs)
+print(list(new_pairs)[0][0])
+print(list(new_pairs)[:])
+1
+[]
+
+##################
+
+class A:
+ 
+    def __init__(self):
+        pass
+ 
+    def func1(self):
+        return 1
+ 
+    def func2():
+        return self.func1()
+ 
+ 
+x = A()
+print(x.func2())
+Traceback (most recent call last):
+  File "c:\PythonLearning\error_test.py", line 14, in <module>
+    print(x.func2())
+          ~~~~~~~^^
+TypeError: A.func2() takes 0 positional arguments but 1 was given
 
 ###################
 
@@ -587,3 +495,5 @@ only the read() method will work.
 '''
 
 ####################
+
+class.__dict__["method"] != None
