@@ -18,7 +18,8 @@
 
 
 
-### abs()	# Returns the absolute value of a number
+### abs()	
+# Returns the absolute value of a number
 
 x = abs(-7.25)
 print(x)
@@ -26,7 +27,8 @@ print(x)
 
 
 
-### all()	# Returns True if all items in an iterable object are true
+### all()	
+# Returns True if all items in an iterable object are true
 
 mylist = [True, True, True]
 x = all(mylist)
@@ -120,9 +122,12 @@ def x():
 print(callable(x))
 True
 
-print(callable(5))  # False (un entier n'est pas appelable)
-print(callable("Hello"))  # False (une chaîne n'est pas appelable)
-print(callable(len))  # True (len est une fonction intégrée, donc appelable)
+print(callable(5))  
+# False 
+print(callable("Hello"))  
+# False 
+print(callable(len))  
+# True 
 
 
 
@@ -159,10 +164,10 @@ Person.printAge()
 
 ### compile()	
 # Returns the specified source as an object, ready to be executed
-# La fonction compile() prend trois arguments :
-# premier argument = code source sous forme de chaîne ('print(55)\nprint(88)')
-# deuxième argument = nom du fichier (ou simplement un identifiant pour le code compilé, ici 'test')
-# troisième argument = mode d'exécution ('exec' pour exécuter plusieurs instructions)
+# compile() takes 3*arguments :
+# 1st = source code ex:()'print(55)\nprint(88)')
+# 2nd = file name
+# 3rd = execution mode ex:('exec')
 x = compile('print(55)\nprint(88)', 'test', 'exec')
 exec(x)
 55
@@ -176,16 +181,15 @@ exec(x)
 x = complex(3, 5)
 print(x)
 # (3+5j)
-# En Python, le suffixe j est utilisé pour représenter 
-# la partie imaginaire (au lieu de i utilisé en mathématiques)
+# In Python, suffix "j" is used to represent the virtual part
 
 x = complex(3)
 print(x)
-(3+0j)
+# (3+0j)
 
-x = complex('3+5j') # interprete le string comme nombre complexe
+x = complex('3+5j') 
 print(x)
-(3+5j)
+# (3+5j)
 
 
 
@@ -201,18 +205,17 @@ delattr(Person, 'age') # The Person object will no longer contain an "age" prope
 
 
 ### dict()	
-# # Returns a dictionary (Array)
+# Returns a dictionary (Array)
 
 x = dict(name = "John", age = 36, country = "Norway")
 print(x)
 {'name': 'John', 'age': 36, 'country': 'Norway'}
 
 # .__dict__
-# __dict__ est un attribut spécial de chaque objet en Python
-# C’est un dictionnaire qui contient tous les attributs de l’objet (créés dans le constructeur, 
-# dans les méthodes, ou même à l’extérieur) et leurs valeurs.
+# __dict__ is a special attribut spécial of any object in Python
+#It is a dictionnary which contains all the object attributes from constructor, methods, direct, along with thei values
 
-# Exemple simple
+# Example 
 class MaClass:
     class_var = 1
     def __init__(self):
@@ -228,7 +231,7 @@ class MaClass:
     
 obj = MaClass()
 print(obj.__dict__)
-# {'x': 10, 'y': 20} ==> que ce qui est init ou qui a été invoqué
+# {'x': 10, 'y': 20} ==> from __init__
 print(obj.print())
 # 30
 print(obj.__dict__)
@@ -238,7 +241,7 @@ print(obj.print2())
 print(obj.__dict__)
 {'x': 10, 'y': 20, 'z': 30}
 
-print(MaClass.__dict__) # ==> variables de class + fonctions + static attributes (ici x, y, z)
+print(MaClass.__dict__) # ==> class variables de class + functions + static attributes (here x, y, z)
 # {'__module__': '__main__', '__firstlineno__': 1, 'class_var': 1, 
 #  '__init__': <function MaClass.__init__ at 0x00000170C5F03E20>, 'print': <function MaClass.print at 0x00000170C5F11940>, 
 #  'print2': <function MaClass.print2 at 0x00000170C5F10C20>,
@@ -274,7 +277,7 @@ class MaClass:
     
 obj = MaClass()
 print(obj.__dict__)
-# {'x': 10, 'y': 20} ==> que ce qui est init ou qui a été invoqué
+# {'x': 10, 'y': 20} ==> from __init__
 
 print(dir(obj))
 # ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__firstlineno__', '__format__', 
@@ -283,7 +286,7 @@ print(dir(obj))
 #  '__setattr__', '__sizeof__', '__static_attributes__', '__str__', '__subclasshook__', '__weakref__', 
 #  'class_var', 'print', 'print2', 'x', 'y'] 
 
-print(MaClass.__dict__) # ==> variables de class + fonctions + static attributes (ici x, y, z)
+print(MaClass.__dict__) # ==> class variables + functions + static attributes (ici x, y, z)
 # {'__module__': '__main__', '__firstlineno__': 1, 'class_var': 1, 
 #  '__init__': <function MaClass.__init__ at 0x00000170C5F03E20>, 'print': <function MaClass.print at 0x00000170C5F11940>, 
 #  'print2': <function MaClass.print2 at 0x00000170C5F10C20>,
@@ -335,7 +338,7 @@ print(x)
 x = ('apple', 'banana', 'cherry')
 y = enumerate(x)
 print(y)
-# enumerate object at 0x14dd63cdc300 # ?? Pour afficher ce que contient cet objet, tu dois le convertir en une liste ou le parcourir dans une boucle
+# enumerate object at 0x14dd63cdc300 # ?? To see what is into this obect, we must convert it into a list or iterate it thru a loop
 print(list(y))
 [(0, 'apple'), (1, 'banana'), (2, 'cherry')]
 
@@ -351,7 +354,6 @@ for i, animal in enumerate(animaux):
 
 ### eval()	
 # Evaluates and executes an expression
-# évalue une chaîne de caractères comme si c'était une expression Python
 
 x = 'print(55)'
 eval(x)
@@ -408,7 +410,7 @@ def myFunc(x):
     return False
   else:
     return True
-adults = filter(myFunc, ages) # pas reussi à le printer, c juste un filtre 
+adults = filter(myFunc, ages) # not printable, it is just a filter 
 print (adults)
 # <filter object at 0x0000023D9F925C00>
 for x in adults:
@@ -428,12 +430,12 @@ print(x)
 
 print (float("1, 3"))
 # ValueError: could not convert string to float: '1,3'
-# float() attend un point . de séparation PAS une virgule ,
+# float() waits a point . de séparation not a comma ,
 print (float("1.3"))
-# ou
+# or
 z = float("1,3".replace(",", "."))
 print(z)
-# on pourra ajouter un input.replace à la place
+# we can replace it with an input.replace
 
 
 
@@ -684,14 +686,14 @@ class A:
 obj1 = A(2)
 obj2 = A(2)
 print(id(obj1) == id(obj2)) 
-# False # les obj sont différents
+# False # objects are different
 print(id(obj1))
 # 2384063197744
 print(id(obj2))
 # 1253138468048
 
 obj1 = A(2)
-obj2 = obj1 # ici obj2 est une copie de obj1
+obj2 = obj1 # here obj2 is a strict copy of obj1
 print(id(obj1) == id(obj2))
 # True
 print(id(obj1))
@@ -708,7 +710,7 @@ print(id(dict1) == id(dict2))
 str1 = 'Hello'
 str2 = 'Hello'
 print(id(str1) == id(str2))
-# True ==> deux variables ayant le meme string partagent le meme id()
+# True ==> varaibles sharing the same string value have the same id()
 print(id(str1))
 # 1905559360672
 print(id(str2))
@@ -791,7 +793,7 @@ print(next(x))
 # banana
 # cherry
 
-# attention si plus de print(next(x)) que d'itérations ==> error, contourner avec boucle for
+# if more (next(x)) than existing iterations ==> error, we should use prefer "for" loop
 x = iter(["apple", "banana", "cherry"])
 for item in iter(["apple", "banana", "cherry"]):
 	print(next(x))
@@ -816,7 +818,7 @@ print(len(i_am))
 multiline = '''Line #1
 Line #2'''
 print(len(multiline))
-# 15 car compte un \n = 1 character
+# 15 as \n = 1 character
 
 data = ()
 print(data.__len__())
@@ -840,7 +842,8 @@ print(x)
 
 x = locals()
 print(x)
-# {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader object at 0x0327C2D0>, '__spec__': None, '__annotations__': {}, '__builtins__': <module 'builtins' (built-in)>, '__file__': 'demo_ref_globals.py', '__cached__': None, 'x'_ {...}}
+# {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader object at 0x0327C2D0>, 
+#  '__spec__': None, '__annotations__': {}, '__builtins__': <module 'builtins' (built-in)>, '__file__': 'demo_ref_globals.py', '__cached__': None, 'x'_ {...}}
 
 
 
@@ -856,7 +859,8 @@ print(list(x)) #convert the map into a list, for readability:
 # [5, 6, 6]
 
 letters = ["beach", "car"]
-funified = list(map(lambda word: f"{word} is fun!", letters)) # Cette partie est une fonction anonyme (ou fonction lambda). Elle prend un argument word et retourne une nouvelle chaîne de caractères
+funified = list(map(lambda word: f"{word} is fun!", letters)) # Cette partie est une fonction anonyme (ou fonction lambda)
+                                                              # Elle prend un argument word et retourne une nouvelle chaîne de caractères
 print(funified)
 # ['beach is fun!', 'car is fun!']
 
@@ -873,7 +877,7 @@ print(y)
 print(z)
 # 10
 # 10000003
-# "horse" # prend l'ordre alphabétique de l'item ET PAS SA valeur..
+# "horse" # takes item alphabetic order, not its value
 
 
 
@@ -897,7 +901,7 @@ print(y)
 print(z)
 # 5
 # 5
-# "cat" # prend l'ordre alphabétique de l'item ET PAS SA valeur..
+# "cat" # takes item alphabetic order, not its value
 
 
 
@@ -1066,7 +1070,7 @@ print (round(1.5))
 print (round(2.5))
 # 2
 print (round(3.5))
-# 4 # arrondit au supérieur, pourquoi ? ROUNDING TIES RULES
+# 4 # rounds to the upper ==> ROUNDING TIES RULES
 print (round(10.5))
 # 10
 
@@ -1103,7 +1107,7 @@ print(x)
 
 
 ### slice()	
-# Returns a slice object, slice(start, end, step), le end n'est pas inclus
+# Returns a slice object, slice(start, end, step), end excluded
 
 a = ("a", "b", "c", "d", "e", "f", "g", "h")
 x = slice(2)
@@ -1127,10 +1131,10 @@ print(a[x])
 ### sorted()	
 # Returns a sorted LIST
 
-a = ("b", "g", "a", "d", "f", "c", "h", "e") # a est un tupple
+a = ("b", "g", "a", "d", "f", "c", "h", "e") # a is a tupple
 print (type(a))
 # <class 'tuple'>
-x = sorted(a) # x est une liste
+x = sorted(a) # x is a list
 print (type(x))
 # <class 'list'>
 print(x)
@@ -1159,15 +1163,15 @@ a= 2.2
 print (str(a))
 # "2.2"
 
-# de float ou int vers str
+# from float or int to str
 
 a= 2.2
 print (str(a))
-# 2.2  en fait "2.2"
+# 2.2  ==> "2.2"
 
 d= 4
 print (str(d))
-4 # en fait "4"
+4 # ==> "4"
 
 b = "20.2"
 print (str(int(float(b))))
@@ -1189,7 +1193,7 @@ hat_list = [1, 2, 3, 4, 5]
 print (sum(hat_list))
 # 15
 
-## commencer avec un nombre de départ
+## start with basis number
 a = (1, 2, 3, 4, 5)
 x = sum(a, 7)
 print(x)
@@ -1224,7 +1228,7 @@ class Super:
 
 class Sub(Super):
     def __init__(self, name):
-        super().__init__(name) # ici super() est la fonction builtin Python attention
+        super().__init__(name) # here super() is the builtin Python function
 
 obj = Sub("Andy")
 print(obj)
@@ -1302,7 +1306,8 @@ class Person:
   age = 36
   country = "norway"
 x = vars(Person)
-# {'__module__': '__main__', 'name': 'John', 'age': 36, 'country': 'norway', '__dict__': <attribute '__dict__' of 'Person' objects>, '__weakref__': <attribute '__weakref__' of 'Person' objects>, '__doc__': None}
+# {'__module__': '__main__', 'name': 'John', 'age': 36, 'country': 'norway', '__dict__': <attribute '__dict__' of 'Person' objects>,
+#  '__weakref__': <attribute '__weakref__' of 'Person' objects>, '__doc__': None}
 
 
 
