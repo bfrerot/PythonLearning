@@ -385,100 +385,437 @@ print(hex(int((n))))       # simplest way to make sure n is seen by Python as an
 
 
 
+##### OBJECT INTROSPECTION
+
+### str()	     __str__(self)	                responsible for handling str() function calls
+### repr()	     __repr__(self)              	responsible for handling repr() function calls
+### format()	 __format__(self, formatstr)	called when new-style string formatting is applied to an object
+### hash()	     __hash__(self)	                responsible for handling hash() function calls
+### dir()	     __dir__(self)    	            responsible for handling dir() function calls
+### bool()	     __nonzero__(self)	            responsible for handling bool() function calls
+
+
+### __str__(self)
+# to launch a retrun, well known function
+
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    def __str__(self):
+          return f"{self.name}, {self.age} years"
+
+p = Person("Alice", 30)
+print(str(p))  
+# Alice, 30 years
+print(p)
+# Alice, 30 years ==> uses __str__ first if defined or else __repr__
+
+
+
+### __repr__(self)
+# create a return, well-known function
+
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    def __repr__(self):
+        return f"Point({self.x}, {self.y})"
+
+p = Point(2, 3)
+print(repr(p))  
+# Point(2, 3)
+print(p)   
+# Point(2, 3)  ==> uses __str__ if defined first, else __repr__
+
+
+#! if not any __str__ nor __repr__, a print(object) outputs a memory reference
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+p = Person("Alice", 30)
+print(p)
+# <__main__.Person object at 0x000001F3CD6F7230>
+
+
+
+### __format__(self, formatstr)
+# data formatin: f-strings, format()
+
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+    def __format__(self, spec):
+        if spec == "w x h":
+            return f"{self.width} multiplicated by {self.height}"
+        return f"{self.width} * {self.height}"
+r = Rectangle(4, 5)
+print(format(r, "w x h"))  #==> spec = "w * h" = format
+# 4 multiplicated by 5
+print(format(r)) #==> no spec, so empty value is passed thru as spec + default return applied
+# 4 * 5
+
+
+
+### __hash__(self)
+# Make an object hashable to be usable in dicts, sets
+# in CPython, hash() is "salted" by default, meaning its value will change at each program execution
+# it's why we'll see a different value at each code execution
+
+class User:
+    def __init__(self, username):
+        self.username = username
+    def __hash__(self):
+        return hash(self.username)
+    def __eq__(self, other):
+        return isinstance(other, User) and self.username == other.username
+
+u1 = User("bob") # username = "bob"
+s = {u1} # create a set andneeds the hash value of "bob" so invokes __hash__(self.username)
+print(s)
+# {<__main__.User object at 0x0000022A07167380>} ==> does change at each repetition of the code
+print(hash(u1)) 
+# -677639030044872848    ==> does change at each repetition of the code
+print(hash("bob")) 
+# -677639030044872848    ==> does change at each repetition of the code
+print(User("bob") in s)  
+# True
+
+
+
+### __dir__(self)
+
+class Custom:
+    def __init__(self):
+        self.a = 1
+    def __dir__(self):
+        return ["a", "b", "c", "custom_method"] 
+
+c = Custom()
+print(dir(c))
+# ['a', 'b', 'c', 'custom_method']
+
+
+
+### __bool__(self)  
+# ! __nonzero__ is Python 2 ==> Python 3 is __bool__
+# bool() returns len(self.items) > 0
+
+class Box:
+    def __init__(self, items):
+        self.items = items
+    def __bool__(self):
+        return len(self.items) > 0
+
+b1 = Box([1, 2])  # ==> items = [1, 2]
+b2 = Box([])      # ==> items = None
+b3 = Box((1,2,3))
+b4 = Box({1:"a",2:"b"}) 
+print(bool(b1))  
+# True
+print(bool(b2))  
+# False
+print(type(bool(b2)))  
+print(bool(b3))  
+# True
+print(bool(b4))
+# True
 
 
 
 
 
+##### OBJECT RETROSPECTION
+
+### isinstance(object, class)	   __instancecheck__(self, object)  	responsible for handling isinstance() function calls
+### issubclass(subclass, class)	   __subclasscheck__(self, subclass)	responsible for handling issubclass() function calls
+
+
+### __instancecheck__(self, obj)
+# manipulates how an object is made an instance of a class
+
+class Meta(type):
+    def __instancecheck__(cls, instance):
+        return hasattr(instance, "id")
+        # any object having an attribute "id" is considered being an instance
+
+class MyClass(metaclass=Meta): # refers to metaclass
+    pass
+
+class WithID:
+    id = 123
+
+print(isinstance(WithID(), MyClass))  # True (parce que l'objet a l'attribut 'id')
+print(isinstance(object(), MyClass))  # False  ==> object(): When called, it accepts no arguments and returns a new featureless
+#                                                              instance that has no instance attributes and cannot be given any
+
+
+### __subclasscheck__(self, subclass)
+# manipulates issubclass(subclass, Class) behavior
+
+class Meta(type):
+    def __subclasscheck__(cls, subclass):
+        # considérer toutes les classes dont le nom commence par 'IF' comme sous-classes
+        return isinstance(subclass, type) and subclass.__name__.startswith("IF")
+
+class IFBase(metaclass=Meta):
+    pass
+
+class IFDerived(IFBase):
+    pass
+
+class Derived(IFBase):
+    pass
+
+class Other:
+    pass
+
+print(issubclass(IFDerived, IFBase))  
+# True   ==> as class IFDerived does not start by "IF"
+print(issubclass(Derived, IFBase))  
+# False  ==> as class Derived does not start by "IF"
+print(issubclass(Other, IFBase))       
+# False  ==> normal
+
+#! isinstance(subclass, type) ==> checks if we have really a class
+# Other() seems to have no upperclass but any class in Python3 is an implicit object() subclass 
+
+
+
+
+##### OBJECT ATTRIBUTE ACCESS
+
+### object.attribute	        __getattr__(self, attribute)	      responsible for handling access to a non-existing attribute
+#                   	        __getattribute__(self, attribute)	  responsible for handling access to an existing attribute
+### object.attribute = value	__setattr__(self, attribute, value)   responsible for setting an attribute value
+### del object.attribute	    __delattr__(self, attribute)	      responsible for deleting an attribute
+
+
+
+### __getattr__(self, name)
+# defines an action when attribute is not found
+
+class Fallback:
+    def __getattr__(self, name):
+        if name == "dynamic":
+            return 42
+        raise AttributeError(name)
+
+f = Fallback()
+print(f.dynamic)  
+# 42
+print(f.other)  # ==> AttributeError
+'''Traceback (most recent call last):
+  File "c:\PythonLearning\SandBox.py", line 10, in <module>
+    print(f.other)  # ==> AttributeError
+          ^^^^^^^
+  File "c:\PythonLearning\SandBox.py", line 5, in __getattr__
+    raise AttributeError(name)
+AttributeError: other'''
+
+
+
+### __getattribute__(self, name)
+
+class LogGet:
+    def __init__(self):
+        self.x = 10
+    def __getattribute__(self, name):
+        print(f"Getting {name}")
+        return object.__getattribute__(self, name)
+
+lg = LogGet()
+print(lg.x)  # __getattribute__("x") is called
+# Getting x
+# 10
+
+
+#! ==> __getattr__ VS __getattribute__
+# __getattribute__ is invoked for all accesses est appelé pour tous les accès (synchronisé avec la réalité des attributs présents).
+# __getattr__ is invoked if access fails, if the attribute does not exist (c’est-à-dire si l’attribut n’existe pas). Ça permet de fournir des valeurs “à la demande” seulement lorsque l’attribut manque.
+
+
+
+### __setattr__(self, name, value)
+# set an attribute and controls how it's done
+
+class ReadOnlyAfterSet:
+    def __setattr__(self, name, value):
+        if name == "fixed" and hasattr(self, "fixed"): # hasattr(self, "fixed") here self refers to instance itself
+            raise AttributeError("fixed is READ ONLY after initial affectation")
+        object.__setattr__(self, name, value)
+
+r = ReadOnlyAfterSet()   # instance creation
+
+r.fixed = 5   # __setattr__("fixed", 5) is invoked
+
+print(dir(r))   # the attribute "fixed" is viewable in dict(r)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__firstlineno__', '__format__', 
+ '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', 
+ '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', 
+ '__setattr__', '__sizeof__', '__static_attributes__', '__str__', '__subclasshook__', '__weakref__', 'fixed']
+
+print(r.fixed) # the attribute "fixed" has the assigned value of 5
+# 5
+
+r.fixed = 10  # we try to change r.fixed attribute
+# ...
+# AttributeError: fixed is READ ONLY after initial affectation
+
+
+
+### __delattr__(self, name)
+# to del attributes and manages the way it's done
+class NoDelete:
+    def __init__(self):
+        self.important = "keep me"
+        self.other = "delete me if you want"
+    def __delattr__(self, name):
+        if name == "important":
+            raise AttributeError("Impossible to delete 'important' attribute")
+        print(f"{name} attribute is going to be deleted")
+        object.__delattr__(self, name)
+
+n = NoDelete()
+del n.other
+# other attribute is going to be deleted
+del n.important  
+# ...
+# AttributeError: Impossible to delete 'important' attribute
 
 
 
 
 
+##### METHODS ALLOWING ACCESS TO CONTAINERS
+
+### len(container)	            __len__(self)	                 returns the length (number of elements) of the container
+### container[key]	            __getitem__(self, key)	         responsible for accessing (fetching) an element identified by the key argument
+### container[key] = value	    __setitem__(self, key, value)	 responsible for setting a value to an element identified by the key argument
+### del container[key]	        __delitem__(self, key)	         responsible for deleting an element identified by the key argument
+### for element in container	__iter__(self)	                 returns an iterator for the container
+### item in container	        __contains__(self, item)	     responds to the question: does the container contain the selected item?
 
 
 
+### __len__(self)
+# Returns the number of elements stored in the container
 
-### __add__()
+class SimpleBag:
+    def __init__(self, items=None):
+        self.items = list(items) if items is not None else []
+
+    def __len__(self):
+        return len(self.items)
+
+bag = SimpleBag([1, 2, 3])
+emptybag = SimpleBag()
+print(len(bag))  
+# 3
+print(len(emptybag)) 
+# 0
 
 
-## int
 
-number = 10
-print(number.__add__(20))
+### __getitem__(self, key)
+# Fetches the element identified by key
+
+class SimpleDictLike:
+    def __init__(self, initial=None):
+        self.data = dict(initial or {})
+
+    def __getitem__(self, key):
+        return self.data[key]
+
+d = SimpleDictLike({'a': 1, 'b': 2})
+print(d['a'])  
+# 1
+print(d[2])  
+# ...
+# KeyError: 2
+print(d['c']) 
+# ...
+# KeyError: 'c'
+
+
+
+### __setitem__(self, key, value)
+# Sets the element identified by key to value
+
+class SimpleDictLike:
+    def __init__(self):
+        self.data = {}
+
+    def __setitem__(self, key, value):
+        self.data[key] = value
+
+    def __getitem__(self, key):
+        return self.data[key]
+
+d = SimpleDictLike()
+d['x'] = 42         # calls __setitem__('x', 42)
+print(d['x'])       
+# 42
+
+
+
+### __delitem__(self, key)
+# Deletes the element identified by key
+
+class SimpleDictLike:
+    def __init__(self):
+        self.data = {'a': 1, 'b': 2}
+
+    def __delitem__(self, key):
+        del self.data[key]
+
+    def __getitem__(self, key):
+        return self.data[key]
+
+d = SimpleDictLike()
+# {'a': 1, 'b': 2}
+print(d.data) 
+del d['a']          # calls __delitem__('a')
+print(d.data)         
+# {'b': 2}
+
+
+
+### __iter__(self)  
+# Returns an iterator that yields elements of the container
+
+class SimpleBag:
+    def __init__(self, items=None):
+        self.items = list(items or [])
+
+    def __iter__(self):
+        return iter(self.items)
+
+bag = SimpleBag([10, 20, 30])
+for x in bag:
+    print(x)
+# 10
+# 20
 # 30
 
 
-## float
 
-number = 10
-print(number.__add__(20.))
-# NotImplemented
+### __contains__(self, item)
+# Checks if the container contains the given item
 
-number = 10
-print(number.__add__(20.5))
-# 30.5
+class SimpleSetLike:
+    def __init__(self, items=None):
+        self.data = set(items or [])
 
-number = 10.5
-print(number.__add__(20))
-# 31
+    def __contains__(self, item):
+        return item in self.data
 
-number = 10.5
-print(number.__add__(20.5))
-# 31
-
-
-## string
-
-string1 = "Part1"
-print(number.__add__("Part2"))
-# NotImplemented
-
-
-## Instance/Class
-
-class Person:
-    def __init__(self, weight, age, salary):   # constructor with self + 3*parameters
-        self.weight = weight                   # instance variable
-        self.age = age                         # instance variable
-        self.salary = salary                   # instance variable
-
-    def __add__(self, other):                  # magic method __add__()
-        return self.weight + other.weight      # returns weight addition
-
-p1 = Person(60, 40, 50)
-p2 = Person(85, 45, 55)
-
-print(p1 + p2)
-# 145
-
-
-## REMINDER
-
-# dir() function gives you a quick glance at an object’s capabilities and returns a list of the attributes and methods of the object
-# __add__() in it:
-
-print(dir(100))
-'''
-['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__',
- '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__getstate__', '__gt__', 
- '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', 
- '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', 
- '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', 
- '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', 
- '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_count', 'bit_length', 'conjugate', 'denominator', 'from_bytes',
- 'imag', 'is_integer', 'numerator', 'real', 'to_bytes']
-'''
-
-print(dir("string"))
-'''
-['__add__', '__class__', '__contains__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', 
- '__getattribute__', '__getitem__', '__getnewargs__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__',
- '__iter__', '__le__', '__len__', '__lt__', '__mod__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', 
- '__repr__', '__rmod__', '__rmul__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', 'capitalize', 'casefold',
- 'center', 'count', 'encode', 'endswith', 'expandtabs', 'find', 'format', 'format_map', 'index', 'isalnum', 'isalpha',
- 'isascii', 'isdecimal', 'isdigit', 'isidentifier', 'islower', 'isnumeric', 'isprintable', 'isspace', 'istitle', 'isupper',
- 'join', 'ljust', 'lower', 'lstrip', 'maketrans', 'partition', 'removeprefix', 'removesuffix', 'replace', 'rfind', 
- 'rindex', 'rjust', 'rpartition', 'rsplit', 'rstrip', 'split', 'splitlines', 'startswith', 'strip', 'swapcase', 
- 'title', 'translate', 'upper', 'zfill']
-'''
+s = SimpleSetLike([1, 2, 3])
+print(2 in s)   
+# True
+print(5 in s)   
+# False
