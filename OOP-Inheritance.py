@@ -21,31 +21,34 @@
 # MRO, in general, is a way, a strategy, in which a particular programming language scans through the upper part of a class’s hierarchy
 # in order to find the method it currently needs
 
-# La règle principale en héritage multiple:
-#	- Python doit pouvoir déterminer dans quel ordre il va rechercher les méthodes ou attributs si plusieurs classes parents ont des méthodes du même nom
-#	- la MRO doit être cohérente et respecter la hiérarchie pour éviter des ambiguïtés ou des cycles
+# Main rule in multiple inheritance:
+#	- Python needs to be able to figure out in which order to look for methods, attributes if many parent classes own homonyms
+#	- MRO must be consistent
 
 class Top:
     pass
 
-class Left(Top): # La class Left hérite de Top
+class Left(Top): # class Left inherits from class Top
     pass
 
-class Right(Top): # La class Right hérite de Top
+class Right(Top): # class Right inherit from class Top
     pass
 
-class Bottom(Left, Right): # La class Bottom hérite de Left et Right, ce qui est cohérent car Left et Right ont un ancêtre commun Top
+class Bottom(Left, Right): # class Bottom inherit from Left and Right, which is consistent because Left and Right sharea common parent, class Top
     pass
 
-class Bottom1(Left, Top): # ok mais inutile car Left hérite déjà de Top plus haut
+class Bottom1(Left, Top): # ok as Left inherits already from Top
     pass
 
-class Bottom2(Top, Left): # ici on inverse l’ordre : (Top, Left)
+
+
+class Bottom2(Top, Left): # MRO error : (Top, Left)
     pass
 # TypeError: Cannot create a consistent method resolution order (MRO) for bases Top, Left
-# ==> Python ne peut pas créer une MRO cohérente parce que :
-#     Left hérite dejà de Top, Left est déjà une sous-classe de Top donc cette hiérarchie crée un conflit de MRO
-# La MRO doit respecter la hiérarchie des class !!
+
+# ==> Python cannot create a consistent MRO
+#     Left already inherits from Top, Left is already a Top subclass, so this hierarchy creates a MRO conflict
+
 
 
 class A:
@@ -62,9 +65,9 @@ class D(B):
   
   
 
-### VALID inheritance schemes 
+## VALID inheritance schemes 
 
-# ==> du plus BAS vers le plus HAUT 
+# ==> from BOTTOM to TOP
 class Class_2(D, B): 
     pass
   
@@ -74,7 +77,7 @@ class Class_3(C, A):
 class Class_4(D, A): 
     pass
 
-## ==> SEPARATE paths
+# ==> SEPARATE paths
 class Class_1(C, D): 
     pass
   
@@ -82,14 +85,44 @@ class Class_1(D, C):
     pass
 
 
-### UNVALID inheritance schemes    
+## UNVALID inheritance schemes    
 class Class_2(B, D): 
     pass
+# TypeError: Cannot create a consistent method resolution order (MRO) for bases B, D
   
 class Class_3(A, C): 
+    pass 
+# TypeError: Cannot create a consistent method resolution order (MRO) for bases A, C
+
+
+## use case
+class A:
+    def info(self):
+        print('Class A')
+
+class B(A):
+    def info(self):
+        print('Class B')
+
+class C(A):
+    def info(self):
+        print('Class C')
+
+class D(B, C):
     pass
 
-# L'objet peut accéder aux variables d'instance de la superclass
+class E(C, B):
+    pass
+
+D().info()
+# Class B
+E().info()
+# Class C
+
+
+
+
+# the object is able to access superclasses instance variables
 class Sup:
     supVar = 1
 
@@ -104,7 +137,7 @@ print(obj.supVar)
 # 1 ==> class Super (upper class)
 
 
-# L'objet NE PEUT PAS accéder aux variables de __init__ + __static_attributes__ associés de la superclass, par défaut:
+# the object IS NOT ABLE to access the superclass __init__ variables + __static_attributes__ by default:
 class Super:
     def __init__(self):
         self.supVar = 11
@@ -117,7 +150,7 @@ obj = Sub()
 print(obj.supVar)
 # AttributeError: 'Sub' object has no attribute 'supVar'
 
-# sauf si on utilise super().__init__() qui va aller chercher les statics_attributes de la superclass:
+# to overcome this, we can use super().__init__():
 class Super:
     def __init__(self):
         self.supVar = 11
@@ -228,7 +261,7 @@ print(obj.variable_3, obj.var_3, obj.fun_3())
 
 # Python can go into either way between classes and its upper classes to find variable, methods etc, from bottom to upper
 class Alpha:
-    value = "Alpha"
+    value = "Alpha"  # 2- looks for a variable "value", in upper class Alpha() ?, ok !
 
     def say(self):
         return self.value.lower()
@@ -238,7 +271,7 @@ class Beta(Alpha):
 
 class Gamma(Alpha):
     def say(self):
-        return self.value.upper() # 1- va chercher une variable "value", Gamma() ?, nok
+        return self.value.upper() # 1- looks for a variable "value", in Gamma() ?, nok
 
 class Delta(Gamma, Beta):
     pass
@@ -247,18 +280,18 @@ d = Delta()
 print(d.say())
 # ALPHA
 # ==>
-# 1- va chercher une method say()
-#   1a- dans Delta() ?, nok
-#   1b- dans Gamma() ?, yes !
-#       2- va chercher une variable "value"
-#           2a- dans Delta() ?, nok
-#           2b- dans Gamma() ?, nok
-#           2c- dans Alpha() ?, yes !
-#               3- return "Alpha" en uppercase = ALPHA
+# 1- looks for method say()
+#   1a- in Delta() ?, nok
+#   1b- in Gamma() ?, yes !
+#       2- looks for variable "value"
+#           2a- in Delta() ?, nok
+#           2b- in Gamma() ?, nok
+#           2c- in Alpha() ?, yes !
+#               3- returns "Alpha" in uppercase = ALPHA
 
 
-# SANS HOMONYME
-# sans priorisation entre upper classes
+# WITHOUT HOMONYM
+# without priorisation between upper classes
 class SuperA:
     var_a = 10
     def fun_a(self):
@@ -279,8 +312,8 @@ print(obj.var_b, obj.fun_b())
 # 20 21
 
 
-# AVEC HOMONYME
-# ici __str__(), dont l'existence est automatiquement recherchée, et print le return configuré
+# WITH HOMONYM
+
 class A:
     def __str__(self):
         return 'a'
@@ -289,10 +322,10 @@ class B:
     def __str__(self):
         return 'b'
 
-class C(A, B): # A() est consulté avant B()
+class C(A, B): # A() is looked in before B()
     pass
 
-class D(B, A): # B() est consulté avant A()
+class D(B, A): # B() is looked in before A()
     pass
 
 o = C()
@@ -306,19 +339,19 @@ print(o2)
 
 ### SUPER()
 
-# ==> appel direct à la classe parente
-# manière directe PAS RECOMMANDEE car ne gère pas certains aspects liés à l'héritage multiple ou à la chaîne d'héritage multiple
+# ==> direct call to the parent class
+# not recommended
 
-# super() retourne une "super class" c'est-à-dire la classe parente dans le contexte actuel et appelle sa méthode __init__
-# Avantages :
-#  - Plus flexible, surtout dans le contexte de l'héritage multiple
-#  - Respecte la chaîne d'héritage et peut faire appel à la méthode __init__ de la classe suivante dans l'ordre MRO (Method Resolution Order)
+# super() returns a "super class" meaning the parent class in the current context and invokes its __init__ method
+# Advantages :
+#  - More flexible, even more in multiple inheritance context
+#  - Respect the inheritance chain and can invoke __init__ method of next classes, following MRO hierarchy
 
 class Sup:
     def __init__(self, name):
         self.name = name
 
-    def __str__(self):  # Python check toujours si method __str__() or __repr__()
+    def __str__(self):  # Python always checks if any method __str__() or __repr__()
         return "My name is " + self.name + "."
 
 class Sub(Sup):
@@ -330,14 +363,14 @@ print(obj)
 # My name is Andy.
 
 
-## invoquer super().__init__()
+## invoke super().__init__()
 
-# choix A, python3+, recommandé
+# choice A, python3+, recommended
 class SpamException (Exception):
     def __init__ (self, message):
         super().__init__(message)
         self.message = message
-#raise SpamException( "Spam" ) # enlever le # pour voir tester
+#raise SpamException( "Spam" ) ==> remove # to test
 
 # Traceback (most recent call last):
 #   File "c:\PythonLearning\error_test.py", line 5, in <module>
@@ -345,16 +378,16 @@ class SpamException (Exception):
 # SpamException: Spam
 
 
-# choix B, python2/3
+# choice B, python2/3
 class Spam2Exception (Exception):
     def __init__ (self, message):
         super(Spam2Exception, self).__init__(message)
         self.message = message
-# raise Spam2Exception( "Spam" ) # enlever le # pour voir tester
+# raise Spam2Exception( "Spam" ) ==> remove # to test
 
 
-## question, si plusieurs superclass ?
-# ==> super() en Python 3 gère automatiquement l'héritage multiple grâce au MRO (Method Resolution Order)
+## question, what if many superclasses ?
+# ==> super() in Python 3 manages automatically multiple inheritance thanks to MRO
 class A:
     def __init__(self, value):
         print(f"A init: {value}")
@@ -368,7 +401,7 @@ class B:
 class C(A, B):
     def __init__(self, value):
         print(f"C init: {value}")
-        super().__init__(value)  # Appelle automatiquement selon le MRO
+        super().__init__(value)  # automatically invokes following MRO
         self.c_value = value
 
 c = C("test")
@@ -377,12 +410,12 @@ c = C()
 # C init: test
 # A init: test
 
-# pour voir l'orde de résolution:
+# to check MRO order:
 print(C.__mro__)
 # (<class '__main__.C'>, <class '__main__.A'>, <class '__main__.B'>, <class 'object'>)
 
 
-## pour viser une superclass en particulier
+## to target a particular superclass
 class A:
     def __init__(self, value):
         print(f"A init: {value}")
@@ -395,14 +428,14 @@ class B:
 
 class C(A, B):
     def __init__(self, value):
-        # Appeler spécifiquement B, peu importe le MRO
+        # Invoke specifically B, bypassing MRO
         B.__init__(self, value)
 
 c = C("test")
 # B init: test
 
 
-## pour viser toutes les superclass, avec **kwargs ou "kwargs" peut etre modifié par n'importe quel string
+## to target all superclasses, avecwith **kwargs or "kwargs" (canbemodified by any "string")
 class A:
     def __init__(self, **kwargs):
         print("A init")
@@ -447,7 +480,13 @@ c = C()
 
 ### POLYMORPHISM
 
-# Polymorphism is a mechanism which enables the programmer to modify the behavior of any of the object's superclasses without modifying these classes themselves
+# Polymorphism is a mechanism which enables the programmer to modify the behavior of any of the object's superclasses 
+#   without modifying these classes themselves
+# One way to carry out polymorphism is inheritance, when subclasses make use of base class methods, or override them
+# By combining both approaches, the programmer is given a very convenient way of creating applications, as:
+#   - most of the code could be reused and only specific methods are implemented, which saves a lot of development time and improves code quality
+#   - the code is clearly structured
+#   - there is a uniform way of calling methods responsible for the same operations, implemented accordingly for the types
 
 class One:
     def do_it(self):
@@ -489,3 +528,54 @@ one.doanything()
 # do_it from One
 two.doanything() # 1 - 2 - 3 - 4
 # do_it from One
+
+# other example
+class Device:
+    def turn_on(self):
+        print('The device was turned on')
+
+class Radio(Device):
+    pass
+
+class PortableRadio(Device):
+    def turn_on(self):
+        print('PortableRadio type object was turned on')
+
+class TvSet(Device):
+    def turn_on(self):
+        print('TvSet type object was turned on')
+
+device = Device()
+radio = Radio()
+portableRadio = PortableRadio()
+tvset = TvSet()
+
+for element in (device, radio, portableRadio, tvset):
+    element.turn_on()
+# The device was turned on
+# The device was turned on
+# PortableRadio type object was turned on
+# TvSet type object was turned on
+
+
+# example with Exception handling
+class Wax:
+    def melt(self):
+        print("Wax can be used to form a tool")
+
+class Cheese:
+    def melt(self):
+        print("Cheese can be eaten")
+
+class Wood:
+    def fire(self):
+        print("A fire has been started!")
+
+for element in Wax(), Cheese(), Wood():
+    try:
+        element.melt()
+    except AttributeError:
+        print('No melt() method')
+# Wax can be used to form a tool
+# Cheese can be eaten
+# No melt() method
