@@ -33,17 +33,17 @@ Fibi = Fibi-1 + Fibi-2
 
 
 class Fib:
-    def __init__(self, nn): # s'execute 1 fois
+    def __init__(self, nn): # executes once
         print("__init__")
         self.__n = nn
         self.__i = 0
         self.__p1 = self.__p2 = 1
 
-    def __iter__(self): # s'execute 1 fois
+    def __iter__(self): # executes once
         print("__iter__")
         return self
 
-    def __next__(self): # s'execute n+1*fois pour Fib(n) et fais return n*fois, le n+1 pour casser l'itération
+    def __next__(self): # executes n+1*times for Fib(n) and returns n*times, n+1 is to break the iteration
         print("__next__")		
         self.__i += 1
         if self.__i > self.__n:
@@ -92,10 +92,10 @@ for i in Fib(10):
 # 3. The invocation will return the object's identifier, not the series we expect from the generator
 
 
-# par principe un iterator devrait faire çà
+# by principle an iterator should do that:
 def fun(n):
     for i in range(n):
-        return i # ici le retrun casse la boucle dès le premier tour
+        return i # here the return breaks the loops at the first round
 print(fun(4))
 0
 1
@@ -103,7 +103,7 @@ print(fun(4))
 3    
 
 
-# introduction de yield
+# introduction to yield
 def fun(n):
     for i in range(n):
         yield i # turns the function into a generator
@@ -129,9 +129,9 @@ for v in powers_of_2(8):
 # 64
 # 128
 
-# Lors du premier appel (par exemple, dans une boucle), la fonction démarre, power = 1
-# Elle atteint "yield power" : elle renvoie 1 et se met en pause
-# La prochaine fois que l'on demande une valeur (avec next() ou dans une boucle) la fonction reprend juste après le yield
+# at the firts round, function starts, power = 1
+# it reaches "yield power" and return 1, and stand by
+# at the next iteration (with next() or in a loop) the fonction restarts just after the yield
 
 def I():
     s = 'abcdef'
@@ -143,13 +143,13 @@ for x in I():
 
 
 def fun(n):
-    s = '+'  # pris en compte 
+    s = '+'  # applies
     for i in range(n):
         s += s
         yield s
 for x in fun(2):
     print(x, end='');
-# ++++++  ==> +  ++(0)  ++++(1)
+# ++++++  ==> +(s)  ++(0)  ++++(1)
 
 
 def powers_of_2(n):
@@ -225,7 +225,7 @@ yield n			              2	     3	      5	      8	     13	     21      34	     55
 ### List comprehension
 
 
-## rappel
+## reminder
 list_1 = []
 for ex in range(6):
     list_1.append(10 ** ex)
@@ -253,7 +253,7 @@ the_generator = (1 if x % 2 == 0 else 0 for x in range(10))
 for v in the_generator:
     print(v, end=" ")
 # 1 0 1 0 1 0 1 0 1 0 
-print() # va à la ligne car on a mis " " comme end au-dessus
+print() 
 print(type(the_generator))
 # <class 'generator'>
 print(len(the_generator))
@@ -263,22 +263,21 @@ print(len(the_generator))
 ## LIST vs GENERATOR
 
 # LIST
-#   - La syntaxe ici est une list comprehension []
-#   - évalue toutes les valeurs immédiatement et stocke tous les éléments en mémoire
-#   - Résultat : une liste contenant x éléments, ici 10 - [1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
-#   - Consomme plus de mémoire (stocke tous les éléments)
-#   - Accès direct via index
+#   - syntax list comprehension []
+#   - evaluate all evaluate allvalues and stores them
+#   - Result : a list with x elements, here 10 ==> [1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
+#   - consume more memory (store all elements)
+#   - direct access thru indexing
 
 # GENERATOR
-#   - La syntaxe est une expression génératrice ()
-#   - ne calcule pas immédiatement tous les éléments
-#   - Résultat : un objet générateur qui produit les valeurs à la demande
-#   - Moins de mémoire, car il génère un élément à la fois
-#   - Ne supporte pas l'indexation, uniquement l'itération
+#   - syntaxe is generative expression ()
+#   - does not evaluate all values at once
+#   - Result : a generator producing values at demand
+#   - Less memory consumming
+#   - Does not support indexation, only iteration
 
 
-## Cas d'usage : traitement d’un fichier très volumineux
+## Use case : big file processing
 
-# Supposons un très gros fichier texte (par exemple plusieurs gigaoctets) que l'on souhaite analyser ligne par ligne
-# sans charger tout le fichier en mémoire.
-# ==> Problème : si le fichier est énorme cela peut consommer beaucoup de mémoire ou même faire planter votre programme
+# Lets consider a very big file, many gigaoctets which want to analyse line by line without loading the whole file
+# ==> Problem : risk to overuse the computing resource

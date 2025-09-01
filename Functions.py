@@ -59,10 +59,10 @@ def multiply(x, y): # Function signature
 # 3- all part AFTER return is IGNORED
 
 
-## un return clot la fonction
+## a return closes the function (somehow like a break in loops)
 def hi():
     return
-    print("Hi!") # pas pris en compte
+    print("Hi!") # ignored
 # (None)
 
 
@@ -71,7 +71,7 @@ def happyNewYear(wishes = True):
     print("Three...")
     print("Two...")
     print("One...")
-    if not wishes: # donc si wishes = False
+    if not wishes: # if wishes = False
         return # return None
     
     print("Happy New Year!")
@@ -109,15 +109,16 @@ def strangeFunction(n):
 print(strangeFunction(2))
 print(strangeFunction(1))
 True
-# (None) # 1%2 = 1 donc return = None car rien de prevu par la function
+# (None) # 1%2 = 1 ==> return = None because nothing configured in the function for this case
 
 
-## récupérer le return d'une fonction
-def ma_fonction():
+## collect a function return
+def my_fonction():
     return 42
 
-ma_variable = ma_fonction()
-print(ma_variable)  # Affiche : 42
+my_variable = my_fonction()
+print(my_variable)  
+# 42
 
 
 
@@ -179,19 +180,21 @@ print(total)
 # 5
 
 
-## interaction avec les variables
+## interaction with variables
 x = 1 
 def a(x):
     return 2 * x
 print(x)
 # 1
+
 x = 2 + a(x) 
 print(x)
-# 4 # x a bien changé de valeur
+# 4 # x value changed
+
 print(a(x))
 # 8
 print(x)
-# 4 # mais x n'a pas changé de valeur ici
+# 4 # x value did not changed thru the a() function
 
 num = 1
 def func(x):
@@ -200,31 +203,34 @@ def func(x):
 func(num)
 # 4
 print(num)
-# 1
+# 1       num value did not changed thru the a() function
 
 
 num = 1
 def func(y):
-    global num # num devient global, donc la fonction agit sur  la variable exterieure "num"
+    global num # num becomes global, the function can change its global value
     num = y + 3
     print(num)
 func(num)
 # 4
 print(num)
-# 4 # num a bien changé de valeur via la fonction
+# 4 # num value modified
 
 
 def increment(c, num):
-    c.count += 1     # incrémente l'attribut .count de l'objet counter
+    c.count += 1     # increments  .count de l'objet counter
     num += 1         # num += 1 : incrémente la variable LOCALE num
                      # Modifier num dans la fonction ne modifie pas la variable number en dehors de la fonction
 class Counter:
     def __init__(self):
         self.count = 0
+        
 counter = Counter() # counter.count = 0
 number = 0
+
 for i in range(0, 100):
     increment(counter, number)
+    
 print(
     "counter is "
     + str(counter.count)    
@@ -234,7 +240,7 @@ print(
 # counter is 100, number of times is 0
 
 
-## interaction avec les list
+## interaction with list
 def myFunction(myList1):
     print(myList1)
     del myList1[0]
@@ -257,10 +263,10 @@ print (test(testlist))
 
 ### Function VS Methods
 
-#A method is a specific kind of function - it behaves like a function and looks like a function,
-#but differs in the way in which it acts, and in its invocation style.
-#result = data.method(arg)
-#methods are used to play with lists
+# A method is a specific kind of function 
+# it behaves like a function and looks like a function but differs in the way in which it acts and invocation style
+# result = data.method(arg)
+# methods are used to play with lists
 
 
 
@@ -345,7 +351,7 @@ test(z=60, x=100)
 
 
 
-## parameters dans l'odre
+## parameters in order
 def introduction(firstName, lastName):
     print("Hello, my name is", firstName, lastName)
 
@@ -357,7 +363,7 @@ introduction("Clark", "Kent")
 # Hello, my name is Clark Kent
 
 
-## parameters dans le desordre
+## parameters in disorder
 def introduction(firstName, lastName):
     print("Hello, my name is", firstName, lastName)
 
@@ -367,11 +373,11 @@ introduction(lastName = "Skywalker", firstName = "Luke") # if parameters are set
 # Hello, my name is Luke Skywalker
 
 
-## parameters par defaut
+## default parameters
 def introduction(firstName, lastName="Smith"):
     print("Hello, my name is", firstName, lastName)
 introduction("James")
-# Hello, my name is James Smith # parameter unique = premier (ici first name) + deuxieme par defaut
+# Hello, my name is James Smith # unique parameter = first (first name) + second with its default value
 
 def fun(inp=2,out=3):
     return inp * out
@@ -380,26 +386,26 @@ print (fun(out=2))
 
 
 ## multiple parameters (*par)
-def fun(*val): # fun() accepte de multiple parameters
+def fun(*val): # fun() accepts any multiple parameters
     print(type(val))
 lst=[1,2,3,4,5]
 number = 400
 fun(lst,number)
-# <class 'tuple'> # car [1,2,3,4,5], 400 est un tuple
+# <class 'tuple'> # ([1,2,3,4,5], 400) is tuple
 
 
-## parameter par defaut ecrasé par celui indiqué
+## default parameter replaced
 def introduction(firstName, lastName="Smith"):
     print("Hello, my name is", firstName, lastName)
 introduction("James","Doe")
 # Hello, my name is James Doe # Smith (default parameter) is replaced by Doe (specified parameter)
 
 
-## usage des parameters
-# on peut avoir une fonction qui appelle 2 parameters ou plus mais ne se sert que d'1
+## parameter usage
+# a function may wait for x parameters but uses only a part of None of them, it's legal
 
 def fun(x,y=6):
-    return x**3  # y ne sert à rien, n'est pas invoqué, mais pas de problème
+    return x**3  
 print (fun(2))
 # 8
 def fun(data, *num ):
@@ -408,7 +414,7 @@ fun("Earth", 2, True, "Jupiter")
 # Earth
 
 
-## list comme parameter d'une function
+## list as a function parameter
 
 def sumOfList(lst):
     sum = 0
@@ -418,8 +424,8 @@ def sumOfList(lst):
 print(sumOfList([5, 4, 3]))
 # 12
 
-# En Python, les listes sont mutables, donc si on modifie une liste in-place dans une fonction, on modifie aussi l’objet d’origine.
-# del, .append(), .pop(), .sort(), etc. modifient la liste sur place
+# IF we modify a list into a function, no global concept, it changes its value even outer of the function
+# del, .append(), .pop(), .sort(), into a function will change its value outer as well
 def my_function(my_list_1):
     print("Print #1:", my_list_1)
     print("Print #2:", my_list_2)
@@ -440,7 +446,7 @@ print("Print #5:", my_list_2)
 
 
 ### OUTER/INNER Functions
-# on peut avoir une fonction dans une fonction
+# functions nesting
 
 x = 5
 def outer_func():
@@ -460,15 +466,6 @@ def quote(x):
 dq = quote('"')
 print(dq('Jane Doe'))
 # "Jane Doe"
-
-# ==>
-# quote(quo) : fonction qui crée une autre fonction
-# embed(str), qui utilise la valeur quo capturée, ici ", est une fonction anonyme
-# dblq = quote("") ==> quote() retourne la fonction embed(str) où quo est maintenant "
-#                      dblq devient cette fonction embed(str)
-# dblq('Jane Doe') ==> embed('Jane Doe'), return " + Jane Doe + "
-
-
 
 
 
@@ -491,14 +488,14 @@ help(multiply)
 
 ### RETURN vs PRINT()
 
-#invoquer
+#invokink
 def wishes():
     print("My Wishes")
     return "Happy Birthday"
 wishes()
 # My Wishes
 
-#printer
+#printing
 def wishes():
     print("My Wishes")
     return "Happy Birthday"
@@ -510,9 +507,9 @@ print(wishes())
 
 
 ### INFINITE LOOP 
-# Exemple et correction avec insertion d'une termination condition
+# Example and correction with termination condition insertion
 
-# SANS
+# whitout
 def fun(a):
     return a + fun(a + 3)
 
@@ -521,7 +518,7 @@ print(fun(25))
 # [Previous line repeated 996 more times]
 # RecursionError: maximum recursion depth exceeded
 
-# AVEC
+# with
 def fun(a):
     if a > 30:
         return 3
@@ -533,9 +530,9 @@ print(fun(25))
 
 
 
-### RECURSIVITE
-# Exemple de function récursive
+### RECURSIVITY
 
+# Example
 def fact(num):
     if num == 1:
         return 1
@@ -544,17 +541,18 @@ def fact(num):
 print(fact(4))
 # 24
 
-# Calcul de fact(4) :
+# Calcul of fact(4) :
 # fact(4) = fact(3) * 4
 # fact(3) = fact(2) * 3
 # fact(2) = fact(1) * 2
-# fact(1) = 1 (cas de base)
+# fact(1) = 1
 
-# Donc :
+# So :
 # fact(2) = 1 * 2 = 2
 # fact(3) = 2 * 3 = 6
 # fact(4) = 6 * 4 = 24
-# ✅ Résultat affiché : 24
+
+# 24 (result)
 
 
 
@@ -565,7 +563,7 @@ def spam(divideBy):
     return 42 / divideBy
 print(spam(2)) 
 print(spam(12)) 
-print(spam(0)) # erreur due au fait qu on ne peut pas diviser par 0
+print(spam(0)) # Division by 0 error
 print(spam(1))
 
 def spam(divideBy):
@@ -573,7 +571,7 @@ def spam(divideBy):
         return 42 / divideBy
     except ZeroDivisionError:
         print('Error: Invalid argument.')
-        return None  # ou une autre valeur par défaut
+        return None  # or any other default value
     except Exception as e:
         print(f'Unexpected error: {e}')
         return None
@@ -599,8 +597,8 @@ except ZeroDivisionError:
 	print('Error: Invalid argument.')
 # 21.0 
 # 3.5 
-# Error: Invalid argument. # ca ne continuera pas sur print(spam(1)), 
-                           # car le code passe a except pour spam(0) et ne remontera pas 
+# Error: Invalid argument. # jumps to except block 
+ 
                          
 
 

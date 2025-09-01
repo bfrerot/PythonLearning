@@ -2,12 +2,12 @@
 
 
 
-### boucle simple + incrémentation
+### simple loop + incrementation
 
 spam = 0
 while spam < 5:  
   print('Hello, world.')
-  spam = spam + 1  # SANS cela, INFINITE LOOP
+  spam = spam + 1  # to avoid INFINITE LOOP
 #Hello, world.
 #Hello, world.
 #Hello, world.
@@ -17,15 +17,15 @@ while spam < 5:
 i = 1
 while i <= 4:
   print (i)
-  i = i+1 # SANS cela, INFINITE LOOP
+  i = i+1 # to avoid INFINITE LOOP
 #1
 #2
 #3
 #4
 
-#INSERER UN COUNTER POUR SORTIR DE LA LOOP
+#INSERT A COUNTER TO EXIT FROM THE LOOP
 counter = 5
-while counter: # pas de precision sur la valeur de counter signifie different de zero = while counter !=0:
+while counter: # = while counter !=0:
     print("Inside the loop.", counter)
     counter -= 1	
 print("Outside the loop.", counter)
@@ -38,9 +38,9 @@ print("Outside the loop.", counter)
 
 
 ### WHILE NOT
-# La condition de la boucle est not name. Cela signifie que la boucle continue tant que la variable name est fausse ou vide
-# En Python, une chaîne vide ('') est considérée comme falsy, c'est-à-dire équivalente à False
-# Donc, not name sera True lorsque name est vide. Cela entraîne l'exécution du corps de la boucle
+# condition IS not name ==> continues as long as the variable name is False or empty
+# In Python, an empty chain ('') is considered falsy meaning False
+# not name sera True when name is empty
 
 name = '' 
 while not name:
@@ -62,15 +62,15 @@ print('Done')
 
 
 
-### Avef IF/BREAK
+### IF/BREAK
 
 i = 1
 while i < 6:
   print(i)
   if (i == 3):
-    break # on sort de la boucle et i += 1 en-dessous ne sera pas appliqué
+    break # we go out from the loop and i += 1 below is not applied
   i += 1
-print(i) # RAPPEL, i conserve sa dernière valeur à la sortie de la boucle
+print(i) # REMINDR, i keeps its last value at the end of the loop
 #1
 #2
 #3
@@ -89,7 +89,7 @@ print ('You\'ve successfully left the loop.')
 
 
 
-# Avec IF/ELIF/ELSE
+# IF/ELIF/ELSE
 
 wordwithoutvowel=''
 userword = input('Please enter any word: ')    # gregory
@@ -109,14 +109,13 @@ for letter in userword:
         continue
     else:
         wordwithoutvowel = wordwithoutvowel + letter
-        # ou print letter si on veut les afficher une par une en sautant un eligne à chaque fois
 
 print (wordwithoutvowel)
 #GRGRY
 
 
 
-### Exemples Cas d'Usages
+### Use cases
 
 word = "Python"
 index = 0
@@ -131,7 +130,7 @@ while index < len(word):
 #n
 
 
-# forcer un user à donner un nombre positif
+# force a user àto give a positive number
 num = float(input("Enter a positive number: "))
 while num <= 0:
     print("That's not a positive number!")
@@ -143,7 +142,7 @@ while num <= 0:
 #Enter a positive number:
 
 
-# Afficher les odd numbers seulement
+# Print only odd umbers
 x = 1
 while x < 11:
     if x%2 != 0:
@@ -152,7 +151,7 @@ while x < 11:
 #13579
 
 
-# Compter les nombres pairs et impairs
+# Count odd and even numbers separately
 odd_numbers = 0
 even_numbers = 0
 # read the first number
@@ -181,7 +180,7 @@ print("Even numbers count:", even_numbers)
 #Even numbers count: 4
 
 
-# Trouver le bon numero OU Rester bloqué for ever
+# Find the good number or stay blocked for ever
 secret_number = 777
 print(
 """

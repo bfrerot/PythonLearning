@@ -2,7 +2,6 @@
 
 
 ### and 
-# opérateur logique
 
 a = 5
 b = 10
@@ -13,7 +12,7 @@ if a > 0 and b > 0:
 
 
 ### as 
-# pour créer un alias
+# to create an alias
 
 import math as m
 print(m.sqrt(16))
@@ -21,7 +20,7 @@ print(m.sqrt(16))
 
 
 ### assert
-# pour déboguer
+# assertion
 
 x = 10
 assert x > 5 # x doit être supérieur à 5
@@ -29,7 +28,7 @@ assert x > 5 # x doit être supérieur à 5
 
 
 ### break 
-# pour sortir d'une boucle
+# to exit completely from a loop
 
 for i in range(5):
     if i == 3:
@@ -39,7 +38,7 @@ for i in range(5):
 
 
 ### class 
-# pour définir une class
+# to create a class
 
 class Person:
     def __init__(self, name):
@@ -48,17 +47,21 @@ class Person:
 
 
 ### continue 
-# pour passer à l'itération suivante
+# to go to next iteration
 
 for i in range(5):
     if i == 2:
         continue
     print(i)
-
+0
+1 
+#   if i == 2 means here we do not print it
+3
+4
 
 
 ### def 
-# pour définir une fonction
+# to create a function
 
 def add(a, b):
     return a + b
@@ -66,7 +69,7 @@ def add(a, b):
 
 
 ### del 
-# pour supprimer un objet
+# to delete an object, or an index when iterable + support for index manipulation
 
 x = [1, 2, 3]
 del x
@@ -103,7 +106,7 @@ del x[1]
 
 
 ### elif 
-# condition supplémentaire
+# conditionning
 
 x = 10
 if x > 0:
@@ -114,7 +117,7 @@ elif x == 0:
 
 
 ### else 
-# condition alternative
+# conditionning
 
 x = -1
 if x > 0:
@@ -125,7 +128,7 @@ else:
 
 
 ### except 
-# gérer une exception
+# exception management
 
 try:
     print(10 / 0)
@@ -135,39 +138,44 @@ except ZeroDivisionError:
 
 
 ### False 
-# valeur booléenne
+# boolean
+# False = 0
 
 print(3 > 5)  # False
 
 
 
 ### finally 
-# exécuter du code après try...except
-# RAPPEL, s'excute avant le return si return dans try ou except car dans un try, rien ne se passe plus après un return
+# excepetion managment, final action
+# REMINDER, applies BEFORE any return which would be present in try ou except, because nothing occurs after a return
 
 try:
     print(10 / 0)
     
 except ZeroDivisionError:
-    print("Erreur")
+    print("Error")
     
 finally:
-    print("Fin du traitement")
-# Erreur
-# Fin du traitement
+    print("The end")
+# Error
+# The end
 
 
 
 ### for 
-# boucle for
+# loop
 
 for i in range(3):
     print(i)
-
+0
+1
+2
+print(i) # REMINDER: i will keep its last invoked value
+2
 
 
 ### from 
-# importer une partie d’un module
+# module management
 
 from math import pi
 print(pi)
@@ -175,7 +183,7 @@ print(pi)
 
 
 ### global 
-# déclarer une variable globale
+# declare a variable in global scope
 
 x = 5
 def test():
@@ -190,7 +198,8 @@ print(x)
 
 x = 7
 if x > 5:
-    print("x est supérieur à 5")
+    print("x i greater than 5")
+# x i greater than 5
 
 
 
@@ -198,11 +207,12 @@ if x > 5:
 
 import math
 print(math.sqrt(9))
+3
 
 
 
 ### in 
-# vérifier la présence dans une collection
+# check item presence into a collection
 
 list = [1, 2, 3]
 print(2 in list)  
@@ -214,10 +224,10 @@ print(2 in list)
 # To test if two variables are equal
 p = 10
 q = 10
-print (p is q) # égal à (p==q)
+print (p is q) # equal to (p==q) if str, number, tuple BUT NOT EQUAL if LIST,SET,DICT
 # True
 
-# cas des list
+# list
 lst1 = [2,4,6]
 lst2 = [2,4,6]
 print(lst1 is lst2)
@@ -227,8 +237,8 @@ True
 
 
 
-## lambda 
-# fonction anonyme
+### lambda 
+# anonymous function
 
 square = lambda x: x * x
 print(square(4))
@@ -236,7 +246,7 @@ print(square(4))
 
 
 ### None 
-# valeur nulle
+# null value
 
 x = None
 print(x)
@@ -244,7 +254,7 @@ print(x)
 
 
 ### nonlocal 
-# déclarer une variable non locale
+# declare a non-local variable
 
 def outer():
     x = 5
@@ -258,7 +268,6 @@ outer()
 
 
 ### not 
-# opérateur logique
 
 x = True
 print(not x)  # False
@@ -266,7 +275,6 @@ print(not x)  # False
 
 
 ### or 
-# opérateur logique
 
 a = False
 b = True
@@ -276,7 +284,7 @@ if a or b:
 
 
 ### pass 
-# ne rien faire
+# do nothing
 
 def fonction_vide():
     pass
@@ -284,17 +292,17 @@ def fonction_vide():
 
 
 ### raise 
-# lancer une exception
+# force an exception to occur
 
-def verifier_age(age):
+def check_age(age):
     if age < 18:
-        raise ValueError("Âge insuffisant")
-verifier_age(16)
+        raise ValueError("You are not old enough")
+check_age(16)
 
 
 
 ### return 
-# renvoyer une valeur depuis une fonction
+# send back a output from a function
 
 def double(x):
     return x * 2
@@ -303,34 +311,37 @@ print(double(3))
 
 
 ### True 
-# valeur booléenne
+# bool
+# True = 1
 
 print(4 > 2)  # True
 
 
 
 ### try 
-# gestion d’erreur
+# exception management
 
 try:
     print(1 / 0)
 except ZeroDivisionError:
-    print("Erreur capturée")
+    print("Matched error")
 
 
 
 ### while 
-# boucle while
+# loop
 
 i = 0
 while i < 3:
     print(i)
     i += 1
+0
+1
+2
 
 
 
 ### with 
-# gestion automatique des ressources
 
 with open('fichier.txt', 'r') as fichier:
     contenu = fichier.read()
@@ -338,10 +349,10 @@ with open('fichier.txt', 'r') as fichier:
 
 
 ### yield 
-# générateur
+# iterator
 
-def compteur():
+def counter():
     for i in range(3):
         yield i
-for nombre in compteur():
-    print(nombre)
+for number in counter():
+    print(number)

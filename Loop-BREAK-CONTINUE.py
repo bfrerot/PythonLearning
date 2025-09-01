@@ -1,6 +1,6 @@
 ##########  BREAK ##########
 
-# pour sortir TOUT D SUITE ET COMPLETEMENT de la boucle
+# to exit the loop once for all, definitively
 
 text = "OpenEDG Python Institute"
 for letter in text:
@@ -15,19 +15,19 @@ for letter in text:
 
 ##########  CONTINUE  ##########
 
-# pour IGNORER l'occurence si elle matche le if
+# to ignore the iteration and go to the next
 
 user_word = input("Give me a word: ") # Benoit
 user_word = user_word.upper()  # Benoit ==> BENOIT
-forbidden_letter = ['I', 'O', 'U', 'E', 'A']  # Liste des lettres interdites
+forbidden_letter = ['I', 'O', 'U', 'E', 'A']  # forbidden letters in a list
 
-result = ""  # Variable pour stocker le mot sans les lettres interdites
+result = ""  # to store the final value
 
 for letter in user_word: 
-    if letter not in forbidden_letter:  # On garde les lettres non interdites
+    if letter not in forbidden_letter:  # we keep only non-forbidden letters
         result += letter
     else:
-        continue # ici rien après donc on repart à la prochaine occurence "letter"
+        continue # if letter is a forbidden one, we ignore it
 
 print(result)
 # BNT

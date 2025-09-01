@@ -6,12 +6,12 @@
 # else is an optional part of the cascade, and may be omitted
 # if there is an else branch in the cascade, only one of all the branches is executed
 # if there is no else branch, it's possible that none of the available branches is executed
-# else s'execute si le if d'avant est False
+# else applies if the preceding if is False
 
 
 
 ### BASIC IF
-# si plusieurs IF de suite matchent les conditions, elles sont toutes appliquées
+# if many IF match, they all apply
 
 n = int(input("Enter n value: ")) # 70
 if n < 50:
@@ -60,7 +60,7 @@ print(delivery)
 
 
 ### NESTING WAY
-# si IF suivi de ELSE/ELIF, seul 1 occurence sera matchée, la première qui matche
+# if IF is followed by a ELSE/ELIF chain, ONLY 1 condition is matched, the first
 ''' 
 if the_weather_is_good:
     if nice_restaurant_is_found:
@@ -78,7 +78,7 @@ order = int(input('Please enter the order value: ')) # 1700
 state = input('Please enter the state (as postal abbreviation): ') # FL
 delivery = 0
 
-# 1er bloc indépendant 
+# 1st block is independent 
 if state in ['NC', 'SC', 'VA']:
     if order <= 1000:
         delivery = 70
@@ -89,7 +89,7 @@ if state in ['NC', 'SC', 'VA']:
 else:                           # MATCH
     delivery = 50  
 
-# 2ème bloc indépendant    
+# 2nd block is independent    
 if state in ['GA', 'WV', 'FL']:
     if order > 1000:            # MATCH
         delivery += 30
@@ -103,7 +103,7 @@ print(delivery)
 
 
 ### CASCADE
-# si IF suivi de ELSE/ELIF, seul 1 occurence sera matchée, la première qui matche
+# if IF followed by an ELSE/ELIF chain, ONLY 1 is matched, the first
 ''' 
 if the_weather_is_good
     go_for_a_walk()
@@ -132,14 +132,14 @@ else:                             # MATCH
 if state in ['GA', 'WV', 'FL']:
     if order > 1000:              # MATCH
         delivery += 30
-    elif order < 2000 and state in ['WV', 'FL']: # NE MATCH PAS une 2ème fois... dommage,  du à une mauvaise priorisation
+    elif order < 2000 and state in ['WV', 'FL']: # DOES NOT MATCH, due to bad priorization
         delivery += 40
     else:
         delivery += 25
 print(delivery)
 # 80
 
-# ==> version plus cohérente
+# ==> better priorization
 order = int(input('Please enter the order value: ')) # 1700
 state = input('Please enter the state (as postal abbreviation): ') # FL
 delivery = 0
@@ -166,7 +166,7 @@ print(delivery)
 
 
 
-### EXEMPLES USAGE 
+### USAGE EXAMPLES 
 
 
 ## how to identify the larger of two numbers
@@ -195,7 +195,7 @@ if number3 > largest_number:
 print("The largest number is:", largest_number)
 
 
-## Quelle est ta plante preferrée ?
+## Wich plant do you prefer ?
 preferredplant = "Spathiphyllum"
 plant = input("Which plant do you like ?")
 if plant == preferredplant :
@@ -213,5 +213,3 @@ if name == 'Mary':
             print('Access granted.')  
         else: 
             print('Wrong password.')
-
-

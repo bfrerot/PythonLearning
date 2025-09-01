@@ -304,7 +304,7 @@ we can use conjunction property:
 x & 1 = x
 x & 0 = 0
 
-we applay a bit mask to the bit we want to check
+we apply a bit mask to the bit we want to check
 00000000000000000000000000001000
 0000000000000000000000000000x000
 

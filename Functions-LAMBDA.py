@@ -7,7 +7,8 @@
 # Programmers use the lambda function to simplify the code, to make it clearer and easier to understand
 
 # lambda function is a function without a name 
-# It's not a problem, as we can name such a function if we really need, but in many cases the lambda function can exist and work while remaining fully incognito
+# It's not a problem, as we can name such a function if we really need, but in many cases the lambda function 
+# can exist and work while remaining fully incognito
 
 # lambda function accept any number of argument(s)
 # BUT lambda function can evaluate ONLY 1 expression
@@ -26,19 +27,19 @@ for a in range(-2, 3):
 # 4 4
 
 
-## Pourquoi des parenthèses après two ?
+## Why parentheses after two ?
 
-# two = fonction elle-même = une référence à la fonction.
-# two() = l’appel de la fonction qui exécute le code à l’intérieur (ici, return 2) et retourne la valeur
+# two = function 
+# two() = calls the function with a parameter, here 2, and returns a value
 
-two = lambda: 2     # La fonction
+two = lambda: 2     # the function
 print(two)          
-# <function <lambda> at 0x000001AE9EAA8C20>  ==> référence à la fonction
+# <function <lambda> at 0x000001AE9EAA8C20>  ==> function memory id
 print(two())    
-# 2 ==> exécution de la fonction
+# 2 ==> retrun from the function
 
 
-## lambda n'accepte PAS de RETURN
+## lambda DOES NOT ACCEPT RETURN
 # Lambda functions are single expressions, and return is not allowed inside them
 
 lambda x, y: return x + y
@@ -47,7 +48,7 @@ lambda x, y: return x + y
 lambda x, y: x + y
 
 
-## cas d'usage
+## Usage cases
 
 def print_function(args, fun):
     for x in args:
@@ -64,32 +65,19 @@ print_function([x for x in range(-2, 3)], poly)
 # f(2)=2    
 
 
-## mélande de lambda et de fonction
+## mixing lambda and function
 
 def f(a, b):
     return a(b)
-# La fonction f prend deux arguments : a (une fonction) et b (une valeur)
+# function f takes 2*arguments: a (a function) and b (a value)
 
 print(f(lambda x: x and True, 1 > 0))   
-# ==> évalue x and True pour x = 1>0, = True, True and True = True
+# ==> evaluates x and True for x = 1>0, = True, True and True = True
 # True
 
 
-# ==> avec LAMBDA
-# pas besoin de créer la fonction poly() ==> remplacée par lambda x: 2 * x**2 - 4 * x + 2
 
-def print_function(args, fun):
-    for x in args:
-        print('f(', x,')=', fun(x), sep='')
- 
-print_function([x for x in range(-2, 3)], lambda x: 2 * x**2 - 4 * x + 2)
-# f(-2)=18
-# f(-1)=8
-# f(0)=2
-# f(1)=0
-# f(2)=2
-
-# cas d'erreur
+## cas d'erreur
 def f(a, b):
     return b(b) # TypeError: 'int' object is not callable
 print(f(lambda x: x + 1, 0))
@@ -124,8 +112,8 @@ print(list(x)) #convert the map into a list, for readability:
 
 letters = ["beach", "car"]
 funified = list(map(lambda word: f"{word} is fun!", letters)) 
-# Cette partie est une fonction anonyme (ou fonction lambda)
-# Elle prend un argument word et retourne une nouvelle chaîne de caractères
+# This part is an anonymous function (lambda)
+# It takes 1*argument and returns a new character chain
 print(funified)
 # ['beach is fun!', 'car is fun!']
 
@@ -145,9 +133,7 @@ for x in map(lambda x: x * x, list_2):
 
 from random import seed, randint
 
-seed() # vide ne sert pas à grand chose..Python produit une sequence différente sans seed()
-# seed() sans argument permet d'obtenir une séquence différente de nombres aléatoires à chaque exécution du script
-# seed(x), ex seed(42), la séquence sera toujours la même à chaque exécution, ce qui est utile pour la reproductibilité
+seed() # cf random module
 
 data = [randint(-10,10) for x in range(5)]
 filtered = list(filter(lambda x: x > 0 and x % 2 == 0, data))
@@ -167,14 +153,14 @@ print(foo)
 # (2, 3, 4, 5, 6)
 
 
-numbers = [i*i for i in range(5)]              # 1. Génère une liste des carrés
-foo = list(filter(lambda x: x % 2, numbers))   # 2. Filtre les nombres impairs
-print(foo)                                     # 3. Affiche le résultat
+numbers = [i*i for i in range(5)]              # 1. create a list
+foo = list(filter(lambda x: x % 2, numbers))   # 2. Filter odd numbers
+print(foo)                                     # 3. Print the result
 # [1,9]
 
-# Pour chaque x dans numbers :
-# x = 0  → lambda 0: 0 % 2  → 0  → falsy → ❌ rejeté
-# x = 1  → lambda 1: 1 % 2  → 1  → truthy → ✅ gardé  
-# x = 4  → lambda 4: 4 % 2  → 0  → falsy → ❌ rejeté
-# x = 9  → lambda 9: 9 % 2  → 1  → truthy → ✅ gardé
-# x = 16 → lambda 16: 16 % 2 → 0  → falsy → ❌ rejeté
+# for each x in numbers :
+# x = 0  → lambda 0: 0 % 2  → 0  → falsy → ❌ rejected
+# x = 1  → lambda 1: 1 % 2  → 1  → truthy → ✅ kept
+# x = 4  → lambda 4: 4 % 2  → 0  → falsy → ❌ rejected
+# x = 9  → lambda 9: 9 % 2  → 1  → truthy → ✅ kept
+# x = 16 → lambda 16: 16 % 2 → 0  → falsy → ❌ rejected

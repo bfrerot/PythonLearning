@@ -114,3 +114,15 @@ if os.path.isfile(file_path):
 else:
     print("Le fichier n'existe pas.")
 # Le fichier existe.
+
+
+## os.path.join()
+
+import os
+import sys
+zip_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'packages', 'extrapack.zip'))
+sys.path.append(zip_path)
+
+import os
+print(os.path.join('usr', 'bin', 'spam'))
+# usr\\bin\\spam

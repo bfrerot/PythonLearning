@@ -204,8 +204,8 @@ except Exception as exc:
     
 try:
     stream = open("C:\\PythonLearning\\data_engineer_skills.txt", "rt", encoding="utf-8")
-    # Lire le contenu du fichier
-    content = stream.read()  # va lire tout le fichier
+    # read the file content
+    content = stream.read()  # read al the file
     print(content)
     stream.close()
 except Exception as exc:
@@ -324,12 +324,12 @@ except IOError as exc:
 
 
 
-#### Gestion de l'erreur
+#### Exception handling
 
 ### try/exept + ERRNO
-# errno fournit des constantes pour représenter différents codes d'erreur
-# Quand une erreur survient lors de l'ouverture d'un fichier, une exception IOError (ou OSError dans Python 3) est levée
-# cette exception possède un attribut errno qui indique le type précis d'erreur
+# errno provides a way to represent errors
+# If any issue occurs trying to pen a file, an exception IOError (OSError in Python3) is raised
+# This exception owns an errno attribute wich indicates accurately the error type
 
 import errno
  
@@ -396,7 +396,7 @@ except Exception as exc:
 # reads the number of character/byte from the file, returns a string, is able to read the whole file at once default arg being (-1)
 
 
-## avec whith
+## whith
 
 with open('example.txt', 'w+') as f:
     f.write('Peter, Paul, Mary')
@@ -429,22 +429,22 @@ with open('example.txt', 'r') as x:
 # y        
         
 
-## avec while       
+## while       
         
 from os import strerror
 try:
     counter = 0
     stream = open('text.txt', "rt")
-    char = stream.read(1) # char = 1er caractere seulement car 1, les 10 premiers on aurait mis 10
-#    print(char) # perso pour m'assurer du premier caractere
-    while char != '': # boucle
+    char = stream.read(1) # char = 1st character only as 1 in stream.read(1), we would have set 10 for the first 10 characters
+#    print(char) # to check the first character
+    while char != '': # loop
         print(char, end='')
         counter += 1 # counter = 1
-        char = stream.read(1) # char = le caractere suivant car read(1), etc jusque la fin de la boucle
-    stream.close() # fin du stream, OPTIONNEL car quand while se termine, le close() est automatique
-    print("\n\nCharacters in file:", counter) # saute 2 lignes + imprime "Characters in file: valeur de counter"
+        char = stream.read(1) # char = the next character (read(1)), etc till end of the loop
+    stream.close() # end of stream, OPTIONAL as when while loop ends, the close() is implicit
+    print("\n\nCharacters in file:", counter) # jumps 2 lines + prints "Characters in file: [counter value]"
 except IOError as e:
-    print("I/O error occurred: ", strerror(e.errno)) # gestion de l'erreur si besoin
+    print("I/O error occurred: ", strerror(e.errno)) # exception handling if needed
 # Beautiful is better than ugly.
 # Explicit is better than implicit.
 # Simple is better than complex.
@@ -453,7 +453,7 @@ except IOError as e:
 # Characters in file: 131
 
 
-## avec for
+## for
 from os import strerror
 try:
     counter = 0
@@ -462,7 +462,7 @@ try:
     for char in content:
         print(char, end='')
         counter += 1
-    stream.close() # idem optionnel, qd la boucle for se termine le close() est automatique
+    stream.close() # end of stream, OPTIONAL as when for loop ends, the close() is implicit
     print("\n\nCharacters in file:", counter)
 except IOError as e:
     print("I/O error occurred: ", strerror(e.errno))
@@ -479,9 +479,9 @@ except IOError as e:
 ## .read(n)
 # allows reading n characters from a file
 with open('example.txt', 'r') as fichier:
-    print(fichier.read(3))  # lit les 3 premiers caractères
+    print(fichier.read(3))  # reads 3* first characteres
 # Lig
-    print(fichier.read(4))  # lit les 4 caractères suivants
+    print(fichier.read(4))  # reads 4* next characteres
 # ne 1
 
 
@@ -544,14 +544,14 @@ except IOError as e:
 # tries to read all the file contents, and returns a list of strings, one element per file line
 
 
-## sans argument
+## without argument
 stream = open("text.txt")
 print(stream.readlines()) # crée une list de lines
 stream.close()
 # ['Beautiful is better than ugly.\n', 'Explicit is better than implicit.\n', 'Simple is better than complex.\n', 'Complex is better than complicated.']
 
 
-## avec argument
+## with argument
 stream = open("text.txt")
 print(stream.readlines(20))
 print(stream.readlines(20))
@@ -565,7 +565,7 @@ stream.close()
 
 stream = open("text.txt")
 print(stream.readlines(1))
-print(stream.readlines(1)) # passe à la suivante contrairement à readline()
+print(stream.readlines(1)) # goes to next line, != readline()
 print(stream.readlines(1))
 print(stream.readlines(1))
 stream.close()
@@ -589,14 +589,14 @@ stream.close()
 # un peu fastidieux à régler et ou est l'utilité réelle ?
 
 
-## avec WHILE
+## WHILE
 
 from os import strerror
 
 try:
     ccnt = lcnt = 0
     s = open('text.txt', 'rt')
-    lines = s.readlines(20) # 20 aléatoire un peu
+    lines = s.readlines(20) 
     while len(lines) != 0:
         for line in lines:
             lcnt += 1
@@ -618,7 +618,7 @@ except IOError as e:
 # Lines in file:      4
 
 
-## avec FOR
+## FOR
 # no need of close()
 # iteration works (thru for loop here)
 
@@ -657,7 +657,7 @@ try:
 	file.close()
 except IOError as e:
 	print("I/O error occurred: ", strerror(e.errno))
-# ==> crée un fichier "newtext.txt" contenant:
+# ==> create a file named "newtext.txt" containing:
 line #1
 line #2
 line #3
@@ -670,7 +670,7 @@ line #9
 line #10
 
 
-# en plus simple sans indenter par caractère
+# simpler without indenting
 from os import strerror
 try:
     file = open('newtext.txt', 'wt')
@@ -679,7 +679,7 @@ try:
     file.close()
 except IOError as e:
     print("I/O error occurred: ", strerror(e.errno))
-# ==> crée un fichier "newtext.txt" contenant:
+# ==> create a file named "newtext.txt" containing:
 line #1
 line #2
 line #3
@@ -692,12 +692,12 @@ line #9
 line #10
 
 
-# avec while et read()
+# with while and read()
 text = '''Lorem ipsum dolor sit amet,
 consectetur adipisicing elit,
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 '''
-with open('wellert.txt', 'w') as f: # Le fichier est fermé automatiquement à la fin du with
+with open('wellert.txt', 'w') as f:
     f.write(text)
  
 try:
@@ -743,11 +743,9 @@ for i in range(len(data)):
 print(data)
 # bytearray(b'\n\t\x08\x07\x06\x05\x04\x03\x02\x01')
 
-# bytearray fonctionne principalement avec des valeurs ASCII
-# c'est-à-dire des nombres de 0 à 127 qui représentent des caractères ASCII standard
-# d'ou:
-# \n = 10 ==> en ASCII code saut de ligne = 10
-# \t = 9 ==> en ASCII code tabulation = 9
+# bytearray works principally with ASCII values, numbers from 0 to 127, representing standard ASCII characters
+# \n = 10
+# \t = 9
 
 for b in data:
     print(hex(b))
@@ -779,7 +777,7 @@ except IOError as e:
 
 print(data.decode('latin1'))
 
-# Contenu du fichier .bin
+# what's in the .bin file
 # 
 # 
 # 
@@ -812,7 +810,7 @@ except IOError as e:
 # 0xa 0xb 0xc 0xd 0xe 0xf 0x10 0x11 0x12 0x13  
 
 
-# avec bytearray et read()
+# with bytearray et read()
 from os import strerror
 try:
     binary_file = open('file.bin', 'rb')
@@ -826,7 +824,7 @@ except IOError as e:
 # 0xa 0xb 0xc 0xd 0xe 0xf 0x10 0x11 0x12 0x13
 
 
-# et avec un argument dans read()
+# with an argument in read()
 from os import strerror
 try:
     binary_file = open('file.bin', 'rb')
@@ -847,8 +845,8 @@ except IOError as e:
 # It allows to control where in the file we start reading or writing
 
 with open('example.txt', 'r') as f:
-    f.seek(10)  # Move cursor to byte 10 from the start
-    data = f.read(5)  # Read 5 bytes from position 10
+    f.seek(10)  # Moves cursor to byte 10 from the start
+    data = f.read(5)  # Reads 5 bytes from position 10
     print(data)
 # igne 
 
@@ -857,7 +855,7 @@ file = open('data.txt', 'w+')
 print('Name of the file: ', file.name)
 s = 'Peter Wellert\nHello everybody'
 file.write(s)
-file.seek(0) # revient au début du fichier
+file.seek(0) # goes back to beginning of the file
 for line in file:
     print(line)
 file.close()
