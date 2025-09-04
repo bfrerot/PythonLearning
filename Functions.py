@@ -655,3 +655,286 @@ r = o(1)
 s = o(2)
 print(r() + s())
 # ***
+
+
+
+### EXTENDED FUNCTION ARGUMENT SYNTAX
+
+# ==> Reminder
+
+# some functions can be invoked
+#   - without arguments
+#   - with a specific number of arguments with no exclusions
+#   - having default values for some parameters
+#   - arguments in any order if we are assigning keywords to all argument values, otherwise positional ones are the first ones on the arguments list
+
+
+## *args and **kwargs
+
+# *args and **kwargs should be put as the last two parameters in a function definition
+# Their names could be changed because it is just a convention to name them "args" and "kwargs", 
+#     but it’s more important to sustain the order of the parameters and leading asterisks
+
+# Those two special parameters are responsible for handling any number of additional arguments (placed next after the expected arguments) 
+#   passed to a called function:
+
+#       *args 
+#           collects all unmatched positional arguments
+#       **kwargs 
+#           collects all unmatched keyword arguments
+
+def combiner(a, b, *args, **kwargs):
+    print(a, type(a))
+    print(b, type(b))
+    print(args, type(args))
+    print(kwargs, type(kwargs))
+
+combiner(10, '20', 40, 60, 30, 10, 5, 8, argument1=50, argument2='66', )
+# 10 <class 'int'>
+# 20 <class 'str'>
+# (40, 60, 30, 10, 5, 8) <class 'tuple'>
+# {'argument1': 50, 'argument2': '66'} <class 'dict'>
+
+
+def combiner(a, b, *args, **kwargs):
+    super_combiner(*args, **kwargs) # invokes super_combiner function below
+
+def super_combiner(*my_args, **my_kwargs):  # we use quite the same arguments names than above
+    print('my_args:', my_args)
+    print('my_kwargs', my_kwargs)
+
+combiner(10, '20', 40, 60, 30, argument1=50, argument2='66')
+# my_args: (40, 60, 30)
+# my_kwargs {'argument1': 50, 'argument2': '66'}
+
+
+## keywords arguments vs *args and **kwargs
+
+def combiner(a, b, *args, c=20, **kwargs):
+    super_combiner(c, *args, **kwargs)
+    
+def super_combiner(my_c, *my_args, **my_kwargs):
+    print('my_args:', my_args)
+    print('my_c:', my_c)
+    print('my_kwargs', my_kwargs)
+    
+combiner(1, '1', 1, 1, c=2, argument1=1, argument2='1')  # keyword argument between *args and **kwars ==> OK
+# my_args: (1, 1)
+# my_c: 2
+# my_kwargs {'argument1': 1, 'argument2': '1'}
+
+combiner(1, '1', 1, 1,  argument1=1, argument2='1', c=2) # keyword argument after *args and **kwars ==> OK
+# my_args: (1, 1)
+# my_c: 2
+# my_kwargs {'argument1': 1, 'argument2': '1'}
+
+combiner(1, '1', c=2, 1, 1,  argument1=1, argument2='1') # keyword argument before *args and **kwars ==> NOK
+# SyntaxError: positional argument follows keyword argument
+
+combiner(c=2, 1, '1', 1, 1,  argument1=1, argument2='1') # keyword argument before positionnal arguments and *args and **kwars ==> NOK
+# SyntaxError: positional argument follows keyword argument
+
+
+
+### DECORATORS
+
+# Decorators are used in:
+#   - validation of arguments
+#   - modification of arguments
+#   - modification of returned objects
+#   - measurement of execution time
+#   - message logging
+#   - thread synchronization
+#   - code refactorization
+#   - caching
+
+
+## simple decorator – a function which accepts another function as its only argument, prints some details, and returns a function or other callable object
+
+def simple_hello():
+    print("Hello from simple function!")
+
+def simple_decorator(function):
+    print('We are about to call "{}"'.format(function.__name__))
+    return function
+
+decorated = simple_decorator(simple_hello)
+decorated()
+# We are about to call "simple_hello"
+# Hello from simple function!
+
+
+
+## implementation of the decorator pattern introduces this syntax below:
+
+def simple_decorator(function):
+    print('We are about to call "{}"'.format(function.__name__))
+    return function
+
+
+@simple_decorator    # must be followed by a def or a class, if we try to set a variable for instance ==> Syntax error
+def simple_hello():
+    print("Hello from simple function!")
+
+simple_hello()
+# We are about to call "simple_hello"
+# Hello from simple function!
+
+
+
+## how the decorator can handle the arguments of the function being decorated
+
+def simple_decorator(own_function):     # decorator function is defined
+
+    def internal_wrapper(*args, **kwargs):  # internal function which will "wrapp" things
+        print('"{}" was called with the following arguments'.format(own_function.__name__))   # 1
+        print('\t{}\n\t{}\n'.format(args, kwargs))    # 2
+        own_function(*args, **kwargs)     # 3
+        print('Decorator is still operating')  # 4
+
+    return internal_wrapper  #==> applies 1,2,3 and 4
+
+
+@simple_decorator   # makes simple_decorator() a decorator
+def combiner(*args, **kwargs):   # linked to @simple_decorator
+    print("\tHello from the decorated function; received arguments:", args, kwargs)   # 3
+
+combiner('a', 'b', exec='yes')
+# "combiner" was called with the following arguments       # 1
+#         ('a', 'b')                                       # 2
+#         {'exec': 'yes'}                                  # 2
+#                                                          # 2
+#         Hello from the decorated function; received arguments: ('a', 'b') {'exec': 'yes'}    # 3
+# Decorator is still operating        # 4
+
+
+
+## create a decorator with arguments and add a def layer
+def warehouse_decorator(material):  #3
+    def wrapper(our_function):       #4
+        def internal_wrapper(*args):   #5
+            print('<strong>*</strong> Wrapping items from {} with {}'.format(our_function.__name__, material)) #5.1
+            our_function(*args)  #5.2
+            print()              #5.3
+        return internal_wrapper   #6
+    return wrapper  #7
+
+
+@warehouse_decorator('kraft')  #2
+def pack_books(*args):
+    print("We'll pack books:", args)
+
+
+@warehouse_decorator('foil')
+def pack_toys(*args):
+    print("We'll pack toys:", args)
+
+
+@warehouse_decorator('cardboard')
+def pack_fruits(*args):
+    print("We'll pack fruits:", args)
+
+
+pack_books('Alice in Wonderland', 'Winnie the Pooh')  #1 
+# <strong>*</strong> Wrapping items from pack_books with kraft      #5.1
+# We'll pack books: ('Alice in Wonderland', 'Winnie the Pooh')      #5.2
+#                                                                   #5.3
+
+
+pack_toys('doll', 'car')
+# <strong>*</strong> Wrapping items from pack_toys with foil
+# We'll pack toys: ('doll', 'car')
+
+pack_fruits('plum', 'pear')
+# <strong>*</strong> Wrapping items from pack_fruits with cardboard
+# We'll pack fruits: ('plum', 'pear')
+
+
+
+## Decorator stacking
+
+def big_container(collective_material):  #3
+    def wrapper(our_function):     #3.1
+        def internal_wrapper(*args):   #3.2
+            our_function(*args)  # ignored as already invoked by 1st decorator
+            print('<strong>*</strong> The whole order would be packed with', collective_material)  #3.3
+            print()   #3.4
+        return internal_wrapper  #3.5
+    return wrapper     #3.6
+
+def warehouse_decorator(material):  #2
+    def wrapper(our_function):  #2.1
+        def internal_wrapper(*args):  #2.2 
+            our_function(*args)  #2.3
+            print('<strong>*</strong> Wrapping items from {} with {}'.format(our_function.__name__, material))   #2.4
+        return internal_wrapper  #2.5
+    return wrapper      #2.6
+
+@big_container('plain cardboard')    #3 ==>  executed 2nd
+@warehouse_decorator('bubble foil')  #2 ==>  executed 1st 
+def pack_books(*args):
+    print("We'll pack books:", args)
+
+
+pack_books('Alice in Wonderland', 'Winnie the Pooh')   # 1
+# We'll pack books: ('Alice in Wonderland', 'Winnie the Pooh')             #2.3  2.6
+# <strong>*</strong> Wrapping items from pack_books with bubble foil       #2.4  2.6
+# <strong>*</strong> The whole order would be packed with plain cardboard  #3.3  3.6
+
+
+
+## Decorating functions with classes
+
+class SimpleDecorator:     #2
+    def __init__(self, own_function):  #2.1
+        self.func = own_function  
+
+    def __call__(self, *args, **kwargs): #2.2
+        print('"{}" was called with the following arguments'.format(self.func.__name__))   #2.3
+        print('\t{}\n\t{}\n'.format(args, kwargs))                                         #2.4
+        self.func(*args, **kwargs)                                                         #2.5
+        print('Decorator is still operating')                                              #2.6
+
+
+@SimpleDecorator
+def combiner(*args, **kwargs):
+    print("\tHello from the decorated function; received arguments:", args, kwargs)
+
+
+combiner('a', 'b', exec='yes')   #1
+# "combiner" was called with the following arguments       #2.3
+#         ('a', 'b')                                       #2.4
+#         {'exec': 'yes'}
+# 
+#         Hello from the decorated function; received arguments: ('a', 'b') {'exec': 'yes'}  #2.5
+# Decorator is still operating       
+
+
+
+## Class decorator
+
+# class decorator
+def add_logging_and_repr(cls):
+    orig_init = cls.__init__
+
+    def __init__(self, *args, **kwargs):
+        print(f"Creating instance of {cls.__name__}")
+        orig_init(self, *args, **kwargs)
+
+    def __str__(self):
+        return f"{cls.__name__}({', '.join(f'{k}={v}' for k, v in vars(self).items())})"
+
+    cls.__init__ = __init__
+    cls.__str__ = __str__
+    return cls
+
+@add_logging_and_repr
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+p = Person("Alice", 30)
+print(p)  
+# Creating instance of Person
+# Person(name=Alice, age=30)
