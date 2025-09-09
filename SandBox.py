@@ -1,29 +1,27 @@
-# class decorator
-def add_logging_and_repr(cls):
-    orig_init = cls.__init__
-
-    # wrapper sur l'initialisation pour logguer les créations
-    def __init__(self, *args, **kwargs):
-        print(f"Creating instance of {cls.__name__}")
-        orig_init(self, *args, **kwargs)
-
-    # donner une représentation lisible
-    def __str__(self):
-        return f"{cls.__name__}({', '.join(f'{k}={v}' for k, v in vars(self).items())})"
-
-    cls.__init__ = __init__
-    cls.__str__ = __str__
-    return cls
-
-@add_logging_and_repr
-class Person:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-
-p = Person("Alice", 30)
-print(p)  
-# Creating instance of Person
-# Person(name=Alice, age=30)
+# EX: a class that provides methods to operate on bank accounts including a method that validates 
+# the correctness of the account number recorded in accordance with the IBAN standard
 
 
+class Bank_Account:
+    def __init__(self, iban):
+        print('__init__ called')
+        self.iban = iban
+            
+    @staticmethod
+    def validate(iban):
+        if len(iban) == 20:
+            return True
+        else:
+            return False
+
+
+account_numbers = ['8' * 20, '7' * 4, '2222'] # "8"*20 is an element, etc
+
+for element in account_numbers:
+    if Bank_Account.validate(element): # implicit == True
+        print('We can use', element, ' to create a bank account')
+    else:
+        print('The account number', element, 'is invalid')
+# We can use 88888888888888888888  to create a bank account
+# The account number 7777 is invalid
+# The account number 2222 is invalid
