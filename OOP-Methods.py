@@ -80,7 +80,7 @@ stuff = Storage()
 print(stuff.prin())  
 # 1
 
-# ==> with print, a bit weirdy, à éviter mais comprendre le fonctionnement est bon pourla compréhension en général
+# ==> with print, a bit weirdy, to avoid but good to understandthe mechanism
 
 class Storage:
     def __init__(self):
@@ -95,7 +95,7 @@ class Storage:
 stuff = Storage()
 print(stuff.prin())  
 # 1
-# None ==> print None en plus car pas d'action return définie
+# None ==> print None as not any defined action to be returned
 
 class Storage:
     def __init__(self):
@@ -110,10 +110,10 @@ class Storage:
 stuff = Storage()
 print(stuff.prin())  
 # 1
-# None ==> print None en plus car pas d'action return définie
+# None ==> print None as not any defined action to be returned
 
 
-# une method qui appelle une autre method dans la meme Class
+# a method wich calls an other method in the same class
 
 class Classy:
     def other(self):
@@ -123,7 +123,7 @@ class Classy:
         print("method")
         self.other()
  
-obj = Classy() # rattache l'objet obj à la class Classy()
+obj = Classy() # links the "obj" object to the Classy() class
 obj.method()
 # method
 # other
@@ -178,12 +178,12 @@ class Classy:
     def __init__(self, value):
         self.var = value
 
-obj_1 = Classy("object") # 1*parameter obligatoire et l'__init__ attribue le parameter à l'objet
+obj_1 = Classy("object") # 1*parameter mandatory 
 print(obj_1.var)
 # object
 
 
-## __init__ avec 1*parameter (avec valeur par défaut) en + de self
+## __init__ avec 1*parameter (with default value)  + self
 class Classy:
     def __init__(self, value = None):
         self.var = value
