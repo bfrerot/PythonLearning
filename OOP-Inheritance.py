@@ -579,3 +579,311 @@ for element in Wax(), Cheese(), Wood():
 # Wax can be used to form a tool
 # Cheese can be eaten
 # No melt() method
+
+
+
+
+### COMPOSITION vs INHERITANCE
+
+
+## Inheritance
+
+# Inheritance models what is called an "is a" between subclass and upperclass
+# ==>
+# a Laptop is a (specialized form of) Computer
+# Square is a (specialized form of) Figure
+# Hovercraft is a Vehicle
+
+# hierarchy grows from top to bottom, like tree roots
+
+
+## Composition
+
+# Composition is the process of composing an object using other different objects
+# The objects used in the composition deliver a set of desired traits (properties and/or methods) so we can say that they act like blocks used to build a more complicated structure
+
+# Composition models a "has a" relation
+# ==>
+# a Laptop has a network card
+# a Hovercraft has a specific engine
+
+class Car:
+    def __init__(self, engine):
+        self.engine = engine
+
+
+class GasEngine:
+    def __init__(self, horse_power):
+        self.hp = horse_power
+
+    def start(self):
+        print('Starting {}hp gas engine'.format(self.hp))
+
+
+class DieselEngine:
+    def __init__(self, horse_power):
+        self.hp = horse_power
+
+    def start(self):
+        print('Starting {}hp diesel engine'.format(self.hp))
+
+
+my_car = Car(GasEngine(4))
+my_car.engine.start()
+# Starting 4hp gas engine
+
+my_car.engine = DieselEngine(2) # pay attention to the way "my_car".engine is replaced
+my_car.engine.start()
+# Starting 2hp diesel engine
+
+# Composition transfers additional responsibilities to the developer
+# He/She should assure that all component classes that are used to build the composite should implement the methods named in the same manner to provide a common interface
+
+
+## Which way should we choose?
+
+# inheritance and composition are not mutually exclusive and real-life problems are hardly every pure “is a” or “has a” cases
+# consider mixing both inheritance and composition as complementary tools for solving problems
+# always examine the problem the code is about to solve before starting to code
+
+# superclass
+class Base_Computer:                           
+    def __init__(self, serial_number):
+        self.serial_number = serial_number  #1.5 = self.serial_number = "1995"
+
+# subclass
+class Personal_Computer(Base_Computer):     #1.2     
+    def __init__(self, sn, connection):     #1.3 with self, "1995", DialUp()
+        super().__init__(sn)                #1.4
+        self.connection = connection        #1.6 self.connection = DialUp()
+        print('The computer costs $1000')   #1.7 prints 'The computer costs $1000
+
+# composition class + superclass
+class Connection:                              
+    def __init__(self, speed):              #1.6-2 Connection() self.speed is set to '9600bit/s'
+        self.speed = speed                  #2.4-arg = "9600bit/s"  => was set during instance creation
+
+    def download(self):                     #2.3
+        print('Downloading at {}'.format(self.speed))  #2.4 with self.speed = DialUp()
+
+# subclass
+class DialUp(Connection):                       
+    def __init__(self):
+        super().__init__('9600bit/s')       #1.6-1 Connection() self.speed is set to '9600bit/s'
+
+    def download(self):
+        print('Dialling the access number ... '.ljust(40), end='')  #2.1  prints " (ljust action)     Dialling the access number ... "
+        super().download()                   #2.2
+
+# subclass
+class ADSL(Connection):                                     
+    def __init__(self):
+        super().__init__('2Mbit/s')
+
+    def download(self):
+        print('Waking up modem  ... '.ljust(40), end='')
+        super().download()
+
+# subclass
+class Ethernet(Connection):                     
+    def __init__(self):
+        super().__init__('10Mbit/s')
+
+    def download(self):
+        print('Constantly connected... '.ljust(40), end='')
+        super().download()
+
+
+my_computer = Personal_Computer('1995', DialUp())      #1
+my_computer.connection.download()                      #2
+
+# then it came year 1999 with ADSL
+my_computer.connection = ADSL()
+my_computer.connection.download()
+
+# finally I upgraded to Ethernet
+my_computer.connection = Ethernet()
+my_computer.connection.download()
+
+
+
+
+### INHERITANCE from BUILTIN CLASSES
+
+
+## with builtin LIST
+class IntegerList(list):                # any instance created will be a list
+
+    @staticmethod
+    def check_value_type(value):
+        if type(value) is not int:
+            raise ValueError('Not an integer type')
+
+    def __setitem__(self, index, value):
+        IntegerList.check_value_type(value)
+        list.__setitem__(self, index, value)
+
+    def append(self, value):
+        IntegerList.check_value_type(value)
+        list.append(self, value)
+
+    def extend(self, iterable):
+        for element in iterable:
+            IntegerList.check_value_type(element)
+
+        list.extend(self, iterable)
+
+
+int_list = IntegerList()
+print(int_list)
+# []
+
+int_list.append(66)
+int_list.append(22)
+print('Appending int elements succeed:', int_list)
+# Appending int elements succeed: [66, 22]
+
+int_list[0] = 49   # __setitem__
+print('Inserting int element succeed:', int_list)
+# Inserting int element succeed: [49, 22]
+
+int_list.extend([2, 3])
+print('Extending with int elements succeed:', int_list)
+# Extending with int elements succeed: [49, 22, 2, 3]
+
+try:
+    int_list.append('810') # '810' is a string so nok
+except ValueError:
+    print('Appending string failed')
+# Appending string failed
+
+try:
+    int_list.extend([997, '10/11'])
+except ValueError:
+    print('Extending with ineligible element failed')
+# Extending with ineligible element failed
+
+print('Final result:', int_list)
+# Final result: [49, 22, 2, 3]
+
+
+## with builtin DICTIONNARY
+from datetime import datetime
+
+class MonitoredDict(dict):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)               # super()  = the dictionnary argument in MonitoredDict(dict), may be empty
+        self.log = list()                               # instance.log = a list []
+        self.log_timestamp('MonitoredDict created')     # create the first log ==> log_timestamp() method
+
+    def __getitem__(self, key):
+        val = super().__getitem__(key)
+        self.log_timestamp('value for key [{}] retrieved'.format(key))
+        return val
+
+    def __setitem__(self, key, val):
+        super().__setitem__(key, val)
+        self.log_timestamp('value for key [{}] set'.format(key))
+
+    def log_timestamp(self, message):
+        timestampStr = datetime.now().strftime("%Y-%m-%d (%H:%M:%S.%f)")  # create a time format accordingly
+        self.log.append('{} {}'.format(timestampStr, message))            # append a string to the "log" list, concatenating timestamp + message
+
+
+kk = MonitoredDict({1:"imane",2:"ouweys",3:"tchou"})  # instance creation ==> if kk = MonitoredDict() it gives an empty dict {}
+print(kk)
+# {}
+print(kk.log)
+# ['2025-09-14 (11:12:50.648923) MonitoredDict created']
+
+kk[10] = 15
+print(kk)
+# {10: 15}
+print(kk.log)
+# ['2025-09-14 (11:24:28.123402) MonitoredDict created', '2025-09-14 (11:24:28.123757) value for key [10] set']
+
+kk[20] = 5
+print(kk)
+# {10: 15, 20: 5}
+print(kk.log)
+# ['2025-09-14 (11:24:28.123402) MonitoredDict created', '2025-09-14 (11:24:28.123757) value for key [10] set', '2025-09-14 (11:24:28.123981) value for key [20] set']
+
+print('Element kk[10]:', kk[10])
+# Element kk[10]: 15
+print(kk.log)
+# ['2025-09-14 (11:24:28.123402) MonitoredDict created', '2025-09-14 (11:24:28.123757) value for key [10] set', '2025-09-14 (11:24:28.123981) value for key [20] set', '2025-09-14 (11:24:28.124191) value for key [10] retrieved']
+
+print('\n'.join(kk.log)) # permits to have a more readable ouput
+# 2025-09-14 (11:24:28.123402) MonitoredDict created
+# 2025-09-14 (11:24:28.123757) value for key [10] set
+# 2025-09-14 (11:24:28.123981) value for key [20] set
+# 2025-09-14 (11:24:28.124191) value for key [10] retrieved
+
+
+## with builtin LIST, EXCEPTION
+import random
+
+
+class IBANValidationError(Exception):
+    pass
+
+
+class IBANDict(dict):
+    def __setitem__(self, _key, _val):
+        if validateIBAN(_key):
+            super().__setitem__(_key, _val)
+
+    def update(self, *args, **kwargs):
+        for _key, _val in dict(*args, **kwargs).items():
+            self.__setitem__(_key, _val)
+
+
+def validateIBAN(iban):
+    iban = iban.replace(' ', '')
+
+    if not iban.isalnum():
+        raise IBANValidationError("You have entered invalid characters.")
+
+    elif len(iban) < 15:
+        raise IBANValidationError("IBAN entered is too short.")
+
+    elif len(iban) > 31:
+        raise IBANValidationError("IBAN entered is too long.")
+
+    else:
+        iban = (iban[4:] + iban[0:4]).upper()
+        iban2 = ''
+        for ch in iban:
+            if ch.isdigit():
+                iban2 += ch
+            else:
+                iban2 += str(10 + ord(ch) - ord('A'))
+        ibann = int(iban2)
+
+        if ibann % 97 != 1:
+            raise IBANValidationError("IBAN entered is invalid.")
+
+        return True
+
+
+my_dict = IBANDict()
+keys = ['GB72 HBZU 7006 7212 1253 00', 'FR76 30003 03620 00020216907 50', 'DE02100100100152517108']
+
+for key in keys:
+    my_dict[key] = random.randint(0, 1000)
+
+print('The my_dict dictionary contains:')
+# The my_dict dictionary contains:
+
+for key, value in my_dict.items():
+    print("\t{} -> {}".format(key, value))
+#        GB72 HBZU 7006 7212 1253 00 -> 982
+#        FR76 30003 03620 00020216907 50 -> 273
+#        DE02100100100152517108 -> 609
+
+try:
+    my_dict.update({'dummy_account': 100})
+except IBANValidationError:
+    print('IBANDict has protected your dictionary against incorrect data insertion')
+# IBANDict has protected your dictionary against incorrect data insertion
+

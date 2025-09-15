@@ -337,3 +337,195 @@ for element in account_numbers:
 # a class method has the ability to access the state or methods of the class, and a static method does not
 # a class method is decorated by '@classmethod' and a static method by '@staticmethod'
 # a class method can be used as an alternative way to create objects, and a static method is only a utility method
+
+
+
+### ABSTRACT class
+
+# An abstract class should be a kind of contract between a class designer and a programmer
+#   - the class designer sets requirements regarding methods that must be implemented by just declaring them, but not defining them in detail == abstract methods
+#   - The programmer has to deliver all method definitions and the completeness would be validated by another, dedicated module
+#     Method definitions by verride method declarations received from the class designer
+# This contract assures you that a child class, built upon your abstract class, will be equipped with a set of concrete methods imposed by the abstract class
+
+# Example of Polymorphism with classes
+class Rectangle:
+    def __init__(self, length, width):
+        self.length = length
+        self.width = width
+    
+    def area(self):  # method "area"
+        return self.length * self.width
+
+class Circle:
+    def __init__(self, radius):
+        self.radius = radius
+    
+    def area(self):
+        return 3.14159 * self.radius ** 2
+
+# one function for all types
+def print_area(form):
+    print(f"The area is: {form.area()}")
+
+rectangle = Rectangle(5, 3)
+circle = Circle(4)
+
+print_area(rectangle)
+# The area is: 15
+print_area(circle)
+# The area is: 50.26544
+
+
+# We cannot instantiate a class containing an abstract method (abstract class)
+import abc
+
+class BluePrint(abc.ABC):
+    @abc.abstractmethod  # ==> this is an abstract class so you can create instance from it
+    def hello(self):
+        pass
+
+class GreenField(BluePrint):
+    def hello(self):
+        print('Welcome to Green Field!')
+
+gf = GreenField()
+gf.hello()
+# Welcome to Green Field!
+bp = BluePrint()
+# TypeError: Can't instantiate abstract class BluePrint with abstract methods hello
+
+
+# We cannot use a child class which does not include the abstract method(s)
+import abc
+
+class BluePrint(abc.ABC):
+    @abc.abstractmethod
+    def hello(self):
+        pass
+
+class GreenField(BluePrint):
+    def hello(self):
+        print('Welcome to Green Field!')
+
+class RedField(BluePrint):  # there is not any hello
+    def yellow(self): 
+        pass
+
+gf = GreenField()
+gf.hello()
+# Welcome to Green Field!
+rf = RedField()
+# TypeError: Can't instantiate abstract class RedField without an implementation for abstract method 'hello'
+
+
+# we can have methods not defined in the abstract class, offered in child classes, it's ok
+import abc
+
+class BluePrint(abc.ABC):
+    @abc.abstractmethod
+    def hello(self):  # we MUST have a "hello" method defined in child classes
+        pass
+
+class GreenField(BluePrint):
+    def hello(self):
+        print('Welcome to Green Field!')
+
+class RedField(BluePrint):
+    def yellow(self):  # not defined in abstract class, it works fine
+        print('The sun is yellow')
+    def hello(self):
+        print('Welcome to Red Field!')
+
+gf = GreenField()
+gf.hello()
+# Welcome to Green Field!
+rf = RedField()
+rf.hello()
+# Welcome to Red Field!
+rf.yellow()
+# The sun is yellow
+
+
+
+### ENCAPSULATION
+
+# Encapsulation is used to hide the attributes inside a class like in a capsule, preventing unauthorized parties' direct access to them
+
+# Concept :
+#   the code calling the proxy methods might not realize if it is "talking" to the real attributes or to the methods controlling access to the attributes
+#   programmer can still get access to attributes intentionally as Python does not deliver true privacy !
+
+# Python allows access to attributes with the built-in property() function and corresponding decorator @property:
+#   - it designates a method which will be called automatically when another object wants to read the encapsulated attribute value
+#   - the name of the designated method will be used as the name of the instance attribute corresponding to the encapsulated attribute
+#   - it should be defined before the method responsible for setting/deleting the value of the encapsulated attribute
+
+# getter method is decorated with '@property' => It designates the name of the attribute to be used by the external code
+# setter method is decorated with '@name.setter' => The method name should be the attribute name
+# deleter method is decorated with '@name.deleter' => The method name should should be the attribute name
+
+# usecase of a water tank
+
+class TankError(Exception): # error captation
+    pass
+
+class Tank:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.__level = 0  
+
+    @property  # == getter
+    def level(self):
+        return self.__level   
+
+    @level.setter  # == setter
+    def level(self, amount):
+        if amount > 0:
+            # fueling
+            if amount <= self.capacity:
+                self.__level = amount  
+            else:
+                raise TankError('Too much liquid in the tank')
+        elif amount < 0:
+            raise TankError('Not possible to set negative liquid level')
+
+    @level.deleter  # == deleter
+    def level(self):
+        if self.__level > 0: 
+            print('It is good to remember to sanitize the remains from the tank!')
+        self.__level = None    
+
+
+our_tank = Tank(20)  # invokes Tank() __init__ ==> self.capacity = 20 + self.__level = 0 pour l'instance our_tank
+
+our_tank.level = 10  # invokes the setter
+print('Current liquid level:', our_tank.level)  # invokes the getter
+# Current liquid level: 10
+
+our_tank.level += 3  # invokes the setter
+print('Current liquid level:', our_tank.level)  # invokes the getter
+# Current liquid level: 13
+
+try:
+    our_tank.level = 21   # invokes the setter ==> above the tank capacity (==20)
+except TankError as e:
+    print('Trying to set liquid level to 21 units, result:', e)
+# Trying to set liquid level to 21 units, result: Too much liquid in the tank
+
+try:
+    our_tank.level += 15   # invokes the setter ==> would be above the tank capacity as current is 13 => 13+15 > 20
+except TankError as e:
+    print('Trying to add an additional 15 units, result:', e)
+# Trying to add an additional 15 units, result: Too much liquid in the tank
+
+try:
+    our_tank.level = -3    # invokes the setter ==> would be under 0, which is not possible here
+except TankError as e:
+    print('Trying to set liquid level to -3 units, result:', e)
+# Trying to set liquid level to -3 units, result: Not possible to set negative liquid level
+
+print('Current liquid level:', our_tank.level)
+# Current liquid level: 13    # invokes the getter
+
+del our_tank.level   # invokes the deleter
