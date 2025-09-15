@@ -147,11 +147,11 @@ print(round(b))
 # round with ndigits = None
 # NumValue is -4.0
 
-print(round(a, 1)) # round() avec ndigits
+print(round(a, 1)) # round() with ndigits
 # round with ndigits = 1
 # NumValue is 3.1
 
-print(round(b, 4)) # round() avec ndigits
+print(round(b, 4)) # round() with ndigits
 # round with ndigits = 4
 # NumValue is -4.0
 
@@ -549,7 +549,7 @@ class MyClass(metaclass=Meta): # refers to metaclass
 class WithID:
     id = 123
 
-print(isinstance(WithID(), MyClass))  # True (parce que l'objet a l'attribut 'id')
+print(isinstance(WithID(), MyClass))  # True (because object has the attribute "id")
 print(isinstance(object(), MyClass))  # False  ==> object(): When called, it accepts no arguments and returns a new featureless
 #                                                              instance that has no instance attributes and cannot be given any
 
@@ -559,7 +559,7 @@ print(isinstance(object(), MyClass))  # False  ==> object(): When called, it acc
 
 class Meta(type):
     def __subclasscheck__(cls, subclass):
-        # considérer toutes les classes dont le nom commence par 'IF' comme sous-classes
+        # considerate all classes which name starts with "IF"
         return isinstance(subclass, type) and subclass.__name__.startswith("IF")
 
 class IFBase(metaclass=Meta):
@@ -635,8 +635,8 @@ print(lg.x)  # __getattribute__("x") is called
 
 
 #! ==> __getattr__ VS __getattribute__
-# __getattribute__ is invoked for all accesses est appelé pour tous les accès (synchronisé avec la réalité des attributs présents).
-# __getattr__ is invoked if access fails, if the attribute does not exist (c’est-à-dire si l’attribut n’existe pas). Ça permet de fournir des valeurs “à la demande” seulement lorsque l’attribut manque.
+# __getattribute__ is invoked for all accesses 
+# __getattr__ is invoked if access fails, if the attribute does not exist
 
 
 

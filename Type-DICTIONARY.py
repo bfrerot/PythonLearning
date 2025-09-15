@@ -1,4 +1,4 @@
-########## DICTIONNARIES ##########
+########## DICTIONARY ##########
 
 
 ### Dictionaries are unordered, changeable (mutable), and indexed collections of data.

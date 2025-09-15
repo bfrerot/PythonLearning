@@ -2,7 +2,7 @@
 
 
 ## .clear()
-# delete tous les items
+# delete ALL items
 polEngDict = {1:"imane",2:"ouweys",3:"soumaya"}
 polEngDict.clear()
 print(polEngDict)
@@ -11,7 +11,7 @@ print(polEngDict)
 
 
 ## .copy() 
-# Copier un dictionnaire
+# CopY a dictionary
 myDict = {"A":1, "B":2}
 copyDict = myDict.copy()
 print(copyDict)
@@ -39,7 +39,7 @@ thisdict = dict.fromkeys(x, y)
 print(thisdict)
 # {'key1': 0, 'key2': 0, 'key3': 0}
 
-# si on ne spécifie qu'un parameter, il sera utilisé pour les KEY et la VALUE sera None
+# if we specify only one parameter, it will be used to define the "key" and associated value will be None
 x = ('key1', 'key2', 'key3')
 y = 0
 thisdict = dict.fromkeys(x)
@@ -48,18 +48,18 @@ print(thisdict)
 
 
 
-## .get(value, default si non existent)
+## .get(value, default if non-existent)
 
 picnicItems = {'apples': 5, 'cups': 2} 
-print ('I am bringing ' + str(picnicItems.get('cups', 0)) + ' cups.') # cups dans dict et = 2
+print ('I am bringing ' + str(picnicItems.get('cups', 0)) + ' cups.') # cups in dict and = 2
 # I am bringing 2 cups.
-print ('I am bringing ' + str(picnicItems.get('eggs', 100)) + ' eggs.') # eggs absent donc par défaut = 100
+print ('I am bringing ' + str(picnicItems.get('eggs', 100)) + ' eggs.') # eggs absent so by default = 100
 # I am bringing 100 eggs.
 
 
 
 ## .items()
-# par item on entend paire key/value
+# item = pair key/value
 
 spam = {'color': 'red', 'age': 42}
 for i in spam.items():    
@@ -102,13 +102,13 @@ print(car)
 
 
 ## .popitem()
-# SANS parameter
+# WITHOUT parameter
 dict = {"cat" : "chat", "dog" : "chien", "horse" : "cheval"}
-dict.popitem() # delete le dernier item MAIS AVANT PYTHON 3.6.7, REMOVE UN AU HASARD !!!!
+dict.popitem() # delete the las item BUT BEFORE PYTHON 3.6.7, REMOVE one RANDOMLY !!!!
 print(dict)  
 # {'cat' : 'chat', 'dog' : 'chien'}
 
-# on peut récupérer la valeur du popitem
+# we can retrieve the "popped" item value
 ui_elements = dict([('radio_button', 2),('text_box', 3),('standard_button', 5)])
 popped_element = ui_elements.popitem()
 print(list(popped_element))
@@ -117,8 +117,8 @@ print(list(popped_element))
 
 
 ## setdefault()
-# Si key existe, setdefault() retourne sa valeur sans modifier le dictionnaire, meme si VALEUR = None
-# Si key n'existe pas, setdefault() ajoute key avec default_value et renvoie default_value
+# If key exists, setdefault() return its value WITHOUT modify the dictionary, enven if VALUE = None
+# If key does not exist, setdefault() ajouteadds key with default_value and returns default_value
 
 car = {
   "brand": "Ford",
@@ -155,7 +155,7 @@ print(car)
 
 
 ## .update()
-# update un dict avec un autre
+# update a dict with an other dict
 polEngDict = {"kwiat" : "flower"}
 add = {"gleba" : "soil"}
 polEngDict.update(add) 
@@ -167,7 +167,7 @@ print(polEngDict)
 ## .values()
 
 dict = {"cat" : "chat", "dog" : "chien", "horse" : "cheval"}
-for english, french in dict.values(): # value = 1 - NE MARCHE PAS si on donne un couple (item)
+for english, french in dict.values(): # value = 1 ==> does not work if we put an item
     print(english, "->", french)
 # ValueError: too many values to unpack (expected 2)
 

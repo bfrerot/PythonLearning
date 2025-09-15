@@ -34,7 +34,7 @@ else:
     ########################################################################################################################################
     
     
-    class IBANValidationError(Exception):
+class IBANValidationError(Exception):
     pass
 
 
