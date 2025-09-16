@@ -533,6 +533,39 @@ print_exception_tree(BaseException)
 #    +---SystemExit
 
 
+## ImportError
+
+try:
+    import abcdefghijk
+
+except ImportError as e:
+    print(e.args) # error itself
+    print(e.name) # module name we tried to import
+    print(e.path) # path of file which triggered the exception, if any
+# ("No module named 'abcdefghijk'",)
+# abcdefghijk
+# None
+
+
+## UnicodeError
+
+try:
+    b'\x80'.decode("utf-8")
+except UnicodeError as e:
+    print(e)            # error msg itself
+    print(e.encoding)   # codec implied
+    print(e.reason)     # error reason desciption
+    print(e.object)     # targeted objected which caused the error    
+    print(e.start)      # the first index of invalid data in the object 
+    print(e.end)        # index after the last invalid data in the object
+# 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte
+# utf-8
+# invalid start byte
+# b'\x80'
+# 0
+# 1
+
+
 
 ### Create our own Exceptions/Classes
 
