@@ -581,3 +581,31 @@ print(len(stack_object.__stack_list))
 
 print(len(stack_object._Stack__stack_list))
 # 0
+
+
+
+##### DEEP copy
+
+import copy
+
+class Example:
+    def __init__(self):  # __init__() method is executed only once, despite the fact we have two instances of the Example class
+        self.properties = ["112", "997"]
+        print("Hello from __init__()")
+
+a_example = Example()
+# Hello from __init__()
+
+b_example = copy.deepcopy(a_example)
+
+print("Memory chunks:", id(a_example), id(b_example))
+# Memory chunks: 2098880150704 2098883041616
+
+print("Same memory chunk?", a_example is b_example)
+# Same memory chunk? False
+
+b_example.properties.append("911")
+print('a_example.properties:', a_example.properties)
+# a_example.properties: ['112', '997']
+print('b_example.properties:', b_example.properties)
+# b_example.properties: ['112', '997', '911']

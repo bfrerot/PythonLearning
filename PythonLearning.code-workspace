@@ -1,0 +1,36 @@
+{
+	"folders": [
+		{
+			"name": "PythonLearning",
+			"path": "."
+		},
+		{
+			"name": "MySQL",
+			"path": "../MySQL"
+		},
+		{
+			"name": "DataAnalytics",
+			"path": "../DataAnalytics"
+		},
+		{
+			"name": "DataScience",
+			"path": "../DataScience"
+		},
+		{
+			"name": "Linux - LPIC",
+			"path": "../Linux - LPIC"
+		},
+		{
+			"path": "../terraform_gcp"
+		},
+		{
+			"path": "../terraform_aws"
+		},
+		{
+			"path": "../terraform_azure"
+		}
+	],
+	"settings": {
+		"svg.preview.background": "white"
+	}
+}

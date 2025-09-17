@@ -143,3 +143,51 @@ for d in data:
     res += data[d]
 print(res)
 # 6
+
+
+### copy between dictionaries
+
+# SHALLOW copy
+
+import copy
+
+a_dict = {
+    'first name': 'James',
+    'last name': 'Bond',
+    'movies': ['Goldfinger (1964)', 'You Only Live Twice']
+    }
+b_dict = (a_dict)
+print('Memory chunks:', id(a_dict), id(b_dict))
+# Memory chunks: 2452251144960 2452251144960
+
+print('Same memory chunk?', a_dict is b_dict)
+# Same memory chunk? True
+
+a_dict['movies'].append('Diamonds Are Forever (1971)')
+print('a_dict movies:', a_dict['movies'])
+# a_dict movies: ['Goldfinger (1964)', 'You Only Live Twice', 'Diamonds Are Forever (1971)']
+print('b_dict movies:', b_dict['movies'])
+# b_dict movies: ['Goldfinger (1964)', 'You Only Live Twice', 'Diamonds Are Forever (1971)'] 
+ 
+# DEEP copy
+
+import copy
+
+a_dict = {
+    'first name': 'James',
+    'last name': 'Bond',
+    'movies': ['Goldfinger (1964)', 'You Only Live Twice']
+    }
+b_dict = copy.deepcopy(a_dict)
+print('Memory chunks:', id(a_dict), id(b_dict))
+# Memory chunks: 2349147026176 2349144587520
+
+print('Same memory chunk?', a_dict is b_dict)
+# Same memory chunk? False
+
+a_dict['movies'].append('Diamonds Are Forever (1971)')
+print('a_dict movies:', a_dict['movies'])
+# a_dict movies: ['Goldfinger (1964)', 'You Only Live Twice', 'Diamonds Are Forever (1971)']
+print('b_dict movies:', b_dict['movies'])
+# b_dict movies: ['Goldfinger (1964)', 'You Only Live Twice']
+
