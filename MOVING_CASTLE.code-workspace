@@ -28,6 +28,15 @@
 		},
 		{
 			"path": "../terraform_azure"
+		},
+		{
+			"path": "../postman_gcp"
+		},
+		{
+			"path": "../postman_aws"
+		},
+		{
+			"path": "../postman_azure"
 		}
 	],
 	"settings": {

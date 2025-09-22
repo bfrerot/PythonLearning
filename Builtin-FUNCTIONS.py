@@ -1296,6 +1296,22 @@ for i in range(len(data)):
 print(points)
 # 11 121
 
+# with metaclass perspective
+Dog = type('Dog', (), {})
+
+print('The class name is:', Dog.__name__)
+# The class name is: Dog
+
+print('The class is an instance of:', Dog.__class__)
+# The class is an instance of: <class 'type'>
+
+print('The class is based on:', Dog.__bases__)
+# The class is based on: (<class 'object'>,)
+
+print('The class attributes are:', Dog.__dict__)
+# The class attributes are: {'__module__': '__main__', '__dict__': <attribute '__dict__' of 'Dog' objects>,
+# '__weakref__': <attribute '__weakref__' of 'Dog' objects>, '__doc__': None}
+
 
 
 ### vars()	
