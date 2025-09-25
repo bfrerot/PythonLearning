@@ -21,21 +21,27 @@
 			"path": "../Linux - LPIC"
 		},
 		{
-			"path": "../terraform_gcp"
-		},
-		{
-			"path": "../terraform_aws"
-		},
-		{
-			"path": "../terraform_azure"
-		},
-		{
+			"name": "postman_gcp",
 			"path": "../postman_gcp"
 		},
 		{
+			"name": "terraform_gcp",
+			"path": "../terraform_gcp"
+		},
+		{
+			"name": "terraform_aws",
+			"path": "../terraform_aws"
+		},
+		{
+			"name": "postman_aws",
 			"path": "../postman_aws"
 		},
 		{
+			"name": "terraform_azure",
+			"path": "../terraform_azure"
+		},
+		{
+			"name": "postman_azure",
 			"path": "../postman_azure"
 		}
 	],

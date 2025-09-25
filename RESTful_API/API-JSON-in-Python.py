@@ -24,7 +24,7 @@ import json
 # To carry out such an operation we use dumps()
 # It takes data (even somewhat complicated data) and produces a string filled with a JSON message.
 
-electron = 1.602176620898E10−19
+electron = 1.602176620898E10-19
 print(json.dumps(electron))
 # 16021766189.98
 
