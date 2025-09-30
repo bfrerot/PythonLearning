@@ -46,6 +46,7 @@
 		}
 	],
 	"settings": {
-		"svg.preview.background": "white"
+		"svg.preview.background": "white",
+		"powershell.cwd": "PythonLearning"
 	}
 }

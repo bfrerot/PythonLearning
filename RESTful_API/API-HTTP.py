@@ -67,8 +67,71 @@ print(reply2.text)
 # }
 
 
+## .json()
 
-### retrieve a specific parameter
+import requests  # imports the popular requests library for making HTTP requests
+
+try:
+    reply = requests.get("http://localhost:3000/cars")   # invokes locar node.js server
+except requests.RequestException:                        # error management
+    print("Communication error")
+else:
+    if reply.status_code == requests.codes.ok:                      # if reply ok (code 200)
+        if reply.headers['Content-Type'] == "application/json":     # AND if header = json
+            print(reply.json())                                     #   print the reply formated in json
+        else:                                                       # ELSE, if header != json
+            print(reply.text)                                       #   print raw from ot the reply
+
+
+
+## with .zip() AND functions
+
+import requests
+
+key_names = ["id", "brand", "model", "production_year", "convertible"]
+key_widths = [10, 15, 10, 20, 15]
+
+
+def show_head():
+    for (n, w) in zip(key_names, key_widths): # zip() builtin which links values from both lists using index, 0 with à, 1 with, n with n
+        print(n.ljust(w), end='| ')           # produce an adjusted line with .ljust()
+    print()
+
+
+def show_car(car):
+    for (n, w) in zip(key_names, key_widths):
+        print(str(car[n]).ljust(w), end='| ')
+    print()
+
+
+def show(json):
+    show_head()  # will print the headers
+    for car in json:
+       show_car(car)
+
+
+try:
+    reply = requests.get('http://localhost:3000/cars')
+except requests.RequestException:
+    print('Communication error')
+else:
+    if reply.status_code == requests.codes.ok:
+        show(reply.json())
+    else:
+        print('Server error')
+'''
+id        | brand          | model     | production_year     | convertible    | 
+2         | Chevrolet      | Camaro    | 1988                | True           | 
+3         | Aston Martin   | Rapide    | 2010                | False          | 
+4         | Maserati       | Mexico    | 1970                | False          | 
+5         | Nissan         | Fairlady  | 1974                | False          | 
+6         | Mercedes Benz  | 300SL     | 1967                | True           | 
+7         | Porsche        | 911       | 1963                | False          |
+'''
+
+
+
+## retrieve a specific parameter
 
 # sometimes, API is not fully open
 reply2 = requests.get('http://localhost:3000/cars/2/model')
@@ -90,8 +153,56 @@ else:
 # Model : Camaro
 # Production year : 1988
 
+# OR
 
-### timeout - requests.exceptions.Timeout
+import requests
+
+key_names = ["id", "brand", "model", "production_year", "convertible"]
+key_widths = [10, 15, 10, 20, 15]
+
+def show_head():
+    for (n, w) in zip(key_names, key_widths):
+        print(n.ljust(w), end='| ')
+    print()
+
+def show_empty():
+    for w in key_widths:
+        print(' '.ljust(w), end='| ')
+    print()
+
+def show_car(car):
+    for (n, w) in zip(key_names, key_widths):
+        print(str(car[n]).ljust(w), end='| ')
+    print()
+
+def show(json):
+    show_head()
+    if type(json) is list:
+        for car in json:
+            show_car(car)
+    elif type(json) is dict:
+        if json:
+            show_car(json)
+        else:
+            show_empty()
+
+try:
+    reply = requests.get('http://localhost:3000/cars/2')
+except requests.RequestException:
+    print('Communication error')
+else:
+    if reply.status_code == requests.codes.ok:
+        show(reply.json())
+    elif reply.status_code == requests.codes.not_found:
+        print("Resource not found")
+    else:
+        print('Server error')
+# id        | brand          | model     | production_year     | convertible    | 
+# 2         | Chevrolet      | Camaro    | 1988                | True           |
+
+
+
+## timeout - requests.exceptions.Timeout
 import requests
 
 try:
@@ -116,7 +227,8 @@ else:
 # Sorry, Mr. Impatient, you didn't get your data
 
 
-### wrong listening port - requests.exceptions.ConnectionError
+
+## wrong listening port - requests.exceptions.ConnectionError
 
 import requests
 
@@ -130,7 +242,7 @@ else:
 
 
 
-### invalid url - requests.exceptions.InvalidURL
+## invalid url - requests.exceptions.InvalidURL
 
 import requests
 
@@ -144,7 +256,7 @@ else:
 
 
 
-### request module Exception tree
+## request module Exception tree
 
 '''
 RequestException
@@ -167,4 +279,403 @@ RequestException
 |___StreamConsumedError
 |___RetryError
 |___UnrewindableBodyError
+'''
+
+
+
+## CRUD
+
+# => Create   Read   Update  Delete
+#     POST    GET     PUT    DELETE
+
+
+
+## Sorting by
+
+# sort by property
+# http://server:port/resource?_sort=property
+
+import requests
+
+key_names = ["id", "brand", "model", "production_year", "convertible"]
+key_widths = [10, 15, 10, 20, 15]
+
+def show_head():
+    for (n, w) in zip(key_names, key_widths):
+        print(n.ljust(w), end='| ')
+    print()
+
+def show_empty():
+    for w in key_widths:
+        print(' '.ljust(w), end='| ')
+    print()
+
+def show_car(car):
+    for (n, w) in zip(key_names, key_widths):
+        print(str(car[n]).ljust(w), end='| ')
+    print()
+
+def show(json):
+    show_head()
+    if type(json) is list:
+        for car in json:
+            show_car(car)
+    elif type(json) is dict:
+        if json:
+            show_car(json)
+        else:
+            show_empty()
+
+try:
+    reply = requests.get('http://localhost:3000/cars?_sort=production_year')
+except requests.RequestException:
+    print('Communication error')
+else:
+    if reply.status_code == requests.codes.ok:
+        show(reply.json())
+    elif reply.status_code == requests.codes.not_found:
+        print("Resource not found")
+    else:
+        print('Server error')
+'''
+id        | brand          | model     | production_year     | convertible    |
+7         | Porsche        | 911       | 1963                | False          |
+6         | Mercedes Benz  | 300SL     | 1967                | True           |
+4         | Maserati       | Mexico    | 1970                | False          |
+5         | Nissan         | Fairlady  | 1974                | False          |
+2         | Chevrolet      | Camaro    | 1988                | True           |
+3         | Aston Martin   | Rapide    | 2010                | False          |
+'''
+
+
+## sort by property but reverse
+# http://server:port/resource?_sort=property&_order=desc
+
+import requests
+
+key_names = ["id", "brand", "model", "production_year", "convertible"]
+key_widths = [10, 15, 10, 20, 15]
+
+def show_head():
+    for (n, w) in zip(key_names, key_widths):
+        print(n.ljust(w), end='| ')
+    print()
+
+def show_empty():
+    for w in key_widths:
+        print(' '.ljust(w), end='| ')
+    print()
+
+def show_car(car):
+    for (n, w) in zip(key_names, key_widths):
+        print(str(car[n]).ljust(w), end='| ')
+    print()
+
+def show(json):
+    show_head()
+    if type(json) is list:
+        for car in json:
+            show_car(car)
+    elif type(json) is dict:
+        if json:
+            show_car(json)
+        else:
+            show_empty()
+
+try:
+    # Changed _order=asc to _order=desc for descending sort (newest to oldest)
+    reply = requests.get('http://localhost:3000/cars?_sort=production_year&_order=desc')
+except requests.RequestException:
+    print('Communication error')
+else:
+    if reply.status_code == requests.codes.ok:
+        show(reply.json())
+    elif reply.status_code == requests.codes.not_found:
+        print("Resource not found")
+    else:
+        print('Server error')
+'''
+id        | brand          | model     | production_year     | convertible    |
+3         | Aston Martin   | Rapide    | 2010                | False          |
+2         | Chevrolet      | Camaro    | 1988                | True           |
+5         | Nissan         | Fairlady  | 1974                | False          |
+4         | Maserati       | Mexico    | 1970                | False          |
+6         | Mercedes Benz  | 300SL     | 1967                | True           |
+7         | Porsche        | 911       | 1963                | False          |
+'''
+
+
+
+## HTTP version 1.1 process
+
+# By default, a server implementing HTTP version 1.1 works in the following manner:
+
+#   - it waits for the client's connection
+#   - it reads the client's request
+#   - it sends its response
+#   - it keeps the connection alive, waiting for the client's next request
+#   - if the client is inactive for some time, the server silently closes the connection
+
+# The server informs the client whether the connection is kept or not by using a field named Connection, placed in the response's header
+# Connection=keep-alive/close
+
+import requests
+
+key_names = ["id", "brand", "model", "production_year", "convertible"]
+key_widths = [10, 15, 10, 20, 15]
+
+def show_head():
+    for (n, w) in zip(key_names, key_widths):
+        print(n.ljust(w), end='| ')
+    print()
+
+def show_empty():
+    for w in key_widths:
+        print(' '.ljust(w), end='| ')
+    print()
+
+def show_car(car):
+    for (n, w) in zip(key_names, key_widths):
+        print(str(car[n]).ljust(w), end='| ')
+    print()
+
+def show(json):
+    show_head()
+    if type(json) is list:
+        for car in json:
+            show_car(car)
+    elif type(json) is dict:
+        if json:
+            show_car(json)
+        else:
+            show_empty()
+
+try:
+    reply = requests.get('http://localhost:3000/cars')
+except requests.RequestException:
+    print('Communication error')
+else:
+    print('Connection=' + reply.headers['Connection'])
+    if reply.status_code == requests.codes.ok:
+        show(reply.json())
+    elif reply.status_code == requests.codes.not_found:
+        print("Resource not found")
+    else:
+        print('Server error')
+'''
+Connection=keep-alive
+id        | brand          | model     | production_year     | convertible    | 
+2         | Chevrolet      | Camaro    | 1988                | True           | 
+3         | Aston Martin   | Rapide    | 2010                | False          | 
+4         | Maserati       | Mexico    | 1970                | False          | 
+5         | Nissan         | Fairlady  | 1974                | False          | 
+6         | Mercedes Benz  | 300SL     | 1967                | True           | 
+7         | Porsche        | 911       | 1963                | False          | 
+'''
+
+
+## force the connexion to close
+
+import requests
+
+key_names = ["id", "brand", "model", "production_year", "convertible"]
+key_widths = [10, 15, 10, 20, 15]
+
+def show_head():
+    for (n, w) in zip(key_names, key_widths):
+        print(n.ljust(w), end='| ')
+    print()
+
+def show_empty():
+    for w in key_widths:
+        print(' '.ljust(w), end='| ')
+    print()
+
+def show_car(car):
+    for (n, w) in zip(key_names, key_widths):
+        print(str(car[n]).ljust(w), end='| ')
+    print()
+
+def show(json):
+    show_head()
+    if type(json) is list:
+        for car in json:
+            show_car(car)
+    elif type(json) is dict:
+        if json:
+            show_car(json)
+        else:
+            show_empty()
+
+header_value = {'Connection': 'Close'}
+try:
+    reply = requests.delete('http://localhost:3000/cars/2')
+    print("res=" + str(reply.status_code))
+    reply = requests.get('http://localhost:3000/cars/', headers=header_value)
+except requests.RequestException:
+    print('Communication error')
+else:
+    print('Connection=' + reply.headers['Connection'])
+    if reply.status_code == requests.codes.ok:
+        show(reply.json())
+    elif reply.status_code == requests.codes.not_found:
+        print("Resource not found")
+    else:
+        print('Server error')
+'''
+res=200
+Connection=close
+id        | brand          | model     | production_year     | convertible    |
+3         | Aston Martin   | Rapide    | 2010                | False          |
+4         | Maserati       | Mexico    | 1970                | False          |
+5         | Nissan         | Fairlady  | 1974                | False          |
+6         | Mercedes Benz  | 300SL     | 1967                | True           |
+7         | Porsche        | 911       | 1963                | False          |
+'''
+
+
+## adding an item
+
+import json
+import requests
+
+key_names = ["id", "brand", "model", "production_year", "convertible"]
+key_widths = [10, 15, 20, 20, 15]
+
+
+def show_head():
+    for (n, w) in zip(key_names, key_widths):
+        print(n.ljust(w), end='| ')
+    print()
+
+
+def show_empty():
+    for w in key_widths:
+        print(' '.ljust(w), end='| ')
+    print()
+
+
+def show_car(car):
+    for (n, w) in zip(key_names, key_widths):
+        print(str(car[n]).ljust(w), end='| ')
+    print()
+
+
+def show(json):
+    show_head()
+    if type(json) is list:
+        for car in json:
+            show_car(car)
+    elif type(json) is dict:
+        if json:
+            show_car(json)
+        else:
+            show_empty()
+
+
+h_close = {'Connection': 'Close'}
+h_content = {'Content-Type': 'application/json'}
+new_car = {'id': 8,
+           'brand': 'Alfa Romeo',
+           'model': 'Spider Duetto',
+           'production_year': 1965,
+           'convertible': False}
+print(json.dumps(new_car))
+try:
+    reply = requests.post('http://localhost:3000/cars', headers=h_content, data=json.dumps(new_car))
+    print("reply=" + str(reply.status_code))
+    reply = requests.get('http://localhost:3000/cars/', headers=h_close)
+except requests.RequestException:
+    print('Communication error')
+else:
+    print('Connection=' + reply.headers['Connection'])
+    if reply.status_code == requests.codes.ok:
+        show(reply.json())
+    elif reply.status_code == requests.codes.not_found:
+        print("Resource not found")
+    else:
+        print('Server error')
+'''
+{"id": 8, "brand": "Alfa Romeo", "model": "Spider Duetto", "production_year": 1965, "convertible": false}
+reply=201
+Connection=close
+id        | brand          | model               | production_year     | convertible    |
+3         | Aston Martin   | Rapide              | 2010                | False          |
+4         | Maserati       | Mexico              | 1970                | False          |
+5         | Nissan         | Fairlady            | 1974                | False          |
+6         | Mercedes Benz  | 300SL               | 1967                | True           |
+7         | Porsche        | 911                 | 1963                | False          |
+8         | Alfa Romeo     | Spider Duetto       | 1965                | False          |
+8         | Alfa Romeo     | Spider Duetto       | 1965                | False          |
+'''
+
+
+## Update an item
+
+import requests, json
+
+key_names = ["id", "brand", "model", "production_year", "convertible"]
+key_widths = [10, 15, 20, 20, 15]
+
+
+def show_head():
+    for (n, w) in zip(key_names, key_widths):
+        print(n.ljust(w), end='| ')
+    print()
+
+
+def show_empty():
+    for w in key_widths:
+        print(' '.ljust(w), end='| ')
+    print()
+
+
+def show_car(car):
+    for (n, w) in zip(key_names, key_widths):
+        print(str(car[n]).ljust(w), end='| ')
+    print()
+
+
+def show(json):
+    show_head()
+    if type(json) is list:
+        for car in json:
+            show_car(car)
+    elif type(json) is dict:
+        if json:
+            show_car(json)
+        else:
+            show_empty()
+
+
+h_close = {'Connection': 'Close'}
+h_content = {'Content-Type': 'application/json'}
+car = {'id': 6,
+       'brand': 'Mercedes Benz',
+       'model': '300SL',
+       'production_year': 1954,
+       'convertible': True}
+try:
+    reply = requests.put('http://localhost:3000/cars/6', headers=h_content, data=json.dumps(car))
+    print("res=" + str(reply.status_code))
+    reply = requests.get('http://localhost:3000/cars/', headers=h_close)
+except requests.RequestException:
+    print('Communication error')
+else:
+    print('Connection=' + reply.headers['Connection'])
+    if reply.status_code == requests.codes.ok:
+        show(reply.json())
+    elif reply.status_code == requests.codes.not_found:
+        print("Resource not found")
+    else:
+        print('Server error')
+'''
+Connection=close
+id        | brand          | model               | production_year     | convertible    |
+3         | Aston Martin   | Rapide              | 2010                | False          |
+4         | Maserati       | Mexico              | 1970                | False          |
+5         | Nissan         | Fairlady            | 1974                | False          |
+6         | Mercedes Benz  | 300SL               | 1954                | True           |
+7         | Porsche        | 911                 | 1963                | False          |
+8         | Alfa Romeo     | Spider Duetto       | 1965                | False          |
 '''

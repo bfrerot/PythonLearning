@@ -1,17 +1,57 @@
-import xml.etree.ElementTree
+import requests, json
 
-tree = xml.etree.ElementTree.parse('C:/PythonLearning/cars.xml')
-cars_for_sale = tree.getroot()
-for car in cars_for_sale.findall('car'):
-    if car.find('brand').text == 'Ford' and car.find('model').text == 'Mustang':
-        cars_for_sale.remove(car)
-        break
+key_names = ["id", "brand", "model", "production_year", "convertible"]
+key_widths = [10, 15, 20, 20, 15]
 
-new_car = xml.etree.ElementTree.Element('car')
-xml.etree.ElementTree.SubElement(new_car, 'id').text = '4'
-xml.etree.ElementTree.SubElement(new_car, 'brand').text = 'Maserati'
-xml.etree.ElementTree.SubElement(new_car, 'model').text = 'Mexico'
-xml.etree.ElementTree.SubElement(new_car, 'production_year').text = '1970'
-xml.etree.ElementTree.SubElement(new_car, 'price', {'currency': 'EUR'}).text = '61800'
-cars_for_sale.append(new_car)
-tree.write('newcars.xml', method='') # rewrite the result in a new file: newcars.xml
+
+def show_head():
+    for (n, w) in zip(key_names, key_widths):
+        print(n.ljust(w), end='| ')
+    print()
+
+
+def show_empty():
+    for w in key_widths:
+        print(' '.ljust(w), end='| ')
+    print()
+
+
+def show_car(car):
+    for (n, w) in zip(key_names, key_widths):
+        print(str(car[n]).ljust(w), end='| ')
+    print()
+
+
+def show(json):
+    show_head()
+    if type(json) is list:
+        for car in json:
+            show_car(car)
+    elif type(json) is dict:
+        if json:
+            show_car(json)
+        else:
+            show_empty()
+
+
+h_close = {'Connection': 'Close'}
+h_content = {'Content-Type': 'application/json'}
+car = {'id': 6,
+       'brand': 'Mercedes Benz',
+       'model': '300SL',
+       'production_year': 1954,
+       'convertible': True}
+try:
+    reply = requests.put('http://localhost:3000/cars/6', headers=h_content, data=json.dumps(car))
+    print("res=" + str(reply.status_code))
+    reply = requests.get('http://localhost:3000/cars/', headers=h_close)
+except requests.RequestException:
+    print('Communication error')
+else:
+    print('Connection=' + reply.headers['Connection'])
+    if reply.status_code == requests.codes.ok:
+        show(reply.json())
+    elif reply.status_code == requests.codes.not_found:
+        print("Resource not found")
+    else:
+        print('Server error')
