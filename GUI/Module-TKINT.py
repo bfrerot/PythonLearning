@@ -161,3 +161,65 @@ button_1.pack(side=tk.RIGHT)
 button_2.pack()
 button_3.pack()
 
+
+
+### colours
+
+
+## bg “background-color” and fg “foreground-color”
+
+import tkinter as tk
+
+window = tk.Tk()
+button = tk.Button(window, text="Button #1", bg="red", fg="yellow") # bg= messabox colour, fg= policy colour
+button.pack()
+window.mainloop()
+
+
+## activeforeground and activebackground
+# the same but when we point or click on the button
+
+import tkinter as tk
+
+
+window = tk.Tk()
+button = tk.Button(window, text="Button #1",
+                   bg="MediumPurple",
+                   fg="LightSalmon",
+                   activeforeground="yellow",
+                   activebackground="red")
+button.pack()
+window.mainloop()
+
+
+## RGB, notions
+
+# primary colours RGB ==|  RED   GREEN  BLUE
+#                         0-255  0-255  0-255
+#                           0      0      0    = black
+#                          255    255    255   = white
+#                          255     0      0    = red
+#                           0     255     0    = green
+#                           0      0     255   = blue
+
+# intermediate colours for RGB with more than 1 non-zero component
+
+# to represent RGBs value we do use hexadecimal 
+# 0-->F * 2 for each
+# RR GG BB
+# FF FF FF = white
+# 00 00 00 = black
+# each color has:
+# - a name
+# - an hexadecimal value
+
+import tkinter as tk
+
+window = tk.Tk()
+button = tk.Button(window, text="Button #1",
+                   bg="#9370DB",
+                   fg="#FFA07A",
+                   activeforeground="#FFF0F5",
+                   activebackground="#FF69B4")
+button.pack()
+window.mainloop()
