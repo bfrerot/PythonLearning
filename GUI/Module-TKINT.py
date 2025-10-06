@@ -223,3 +223,291 @@ button = tk.Button(window, text="Button #1",
                    activebackground="#FF69B4")
 button.pack()
 window.mainloop()
+
+
+
+### .Label()
+
+# non-clickable widget able to present short textual information passed to the widget's constructor using a text argument
+
+import tkinter as tk
+
+window = tk.Tk()
+
+label = tk.Label(window, text = "Little label:")
+label.pack()
+
+window.mainloop()
+
+
+
+### .Frame()
+
+# non-clickable component used to group widgets and to separate them (visually) from other window components
+
+import tkinter as tk
+
+window = tk.Tk()
+
+label = tk.Label(window, text="Little label:")
+label.pack()
+
+frame = tk.Frame(window, height=30, width=100, bg="#000099")
+frame.pack()
+
+window.mainloop()
+
+
+
+### fill=tk.X/Y/BOTH/NONE
+
+# tk.X = fills horizontally
+# tk.Y = fills vertically
+# tk.BOTH = fills both ways
+# tk.NONE = no extension => widget keeps its default size
+
+import tkinter as tk
+
+window = tk.Tk()
+
+label = tk.Label(window, text="Little label:")
+label.pack()
+
+frame = tk.Frame(window, height=30, width=100, bg="#000099")
+frame.pack()
+
+button = tk.Button(window, text="Button")
+button.pack(fill=tk.X)
+
+window.mainloop()
+
+
+
+### .IntVar()
+
+# designed to store integer values
+# Objects of the IntVar class are used by tkinter to organize internal communication between different widgets
+# to store an integer value the class offers a dedicated method set()
+
+window = tk.Tk()
+
+label = tk.Label(window, text="Little label:")
+label.pack()
+
+frame = tk.Frame(window, height=5, width=100, bg="#000099")
+frame.pack()
+
+button = tk.Button(window, text="Button")
+button.pack(fill=tk.X)
+
+switch = tk.IntVar()
+switch.set(1)
+
+window.mainloop()
+
+
+
+### Checkbutton()
+
+# small square which can be filled with a tick mark, or which can be empty
+# primarily used to represent two-state selections
+
+
+import tkinter as tk
+
+win = tk.Tk()
+
+label = tk.Label(win, text="Little label:")
+label.pack()
+
+frame = tk.Frame(win, height=5, width=100, bg="#000099")
+frame.pack()
+
+button = tk.Button(win, text="Button")
+button.pack(fill=tk.X)
+
+switch = tk.IntVar()
+switch.set(1) # the box will be ticked by default
+
+checkbutton = tk.Checkbutton(win, text="Check Button", variable=switch)
+checkbutton.pack()
+
+win.mainloop()
+
+
+
+### Entry()
+
+# designed to let the user enter simple, one-line data, like single numbers, names, addresses, etc
+# 
+
+import tkinter as tk
+
+window = tk.Tk()
+
+label = tk.Label(window, text="Little label:")
+label.pack()
+
+frame = tk.Frame(window, height=30, width=100, bg="#000099")
+frame.pack()
+
+button = tk.Button(window, text="Button")
+button.pack(fill=tk.X)
+
+switch = tk.IntVar()
+switch.set(1)
+
+checkbutton = tk.Checkbutton(window, text="Check Button", variable=switch)
+checkbutton.pack()
+
+entry = tk.Entry(window, width=30)
+entry.pack()
+
+window.mainloop()
+
+
+
+### Radiobutton()
+
+# small circles filled with a dot or not
+# The most important difference between Checkbutton and Radiobuttons lies in the fact that Checkbuttons work individually
+#   while Radiobuttons always work in groups and only one of the widgets inside the group can be checked
+# Clicking an unchecked member of the group will cause the currently checked Radiobutton to change its state
+
+# we can bind a variable to Radiobutton, to change this variable state
+
+import tkinter as tk
+
+window = tk.Tk()
+
+label = tk.Label(window, text="Little label:")
+label.pack()
+
+frame = tk.Frame(window, height=30, width=100, bg="#000099")
+frame.pack()
+
+button = tk.Button(window, text ="Button")
+button.pack(fill=tk.X)
+
+switch = tk.IntVar()
+switch.set(1)
+
+checkbutton = tk.Checkbutton(window, text="Check Button", variable=switch)
+checkbutton.pack()
+
+entry = tk.Entry(window, width=30)
+entry.pack()
+
+radiobutton_1 = tk.Radiobutton(window, text="Steak", variable=switch, value=0)  # radiobutton block, only 1 can be selected
+radiobutton_1.pack()             
+radiobutton_2 = tk.Radiobutton(window, text="Salad", variable=switch, value=1)  # set "switch" variable to 1 (= ticked)
+radiobutton_2.pack()
+
+window.mainloop()
+
+
+
+### Event handling
+
+# All events come to the event manager which is responsible for dispatching them to all the application components
+# This also means that some of the events may launch some of our callbacks, which makes us responsible for preparing the proper reactions to the user’s actions
+
+## Events
+
+'''
+EVENT NAME	           EVENT ROLE
+
+<Button-1>	           Single left-click (if our mouse is configured for a right-handed user)
+<Button-2>	           Single middle-click
+<Button-3>	           Single right-click
+<ButtonRelease-1>	   Left mouse button release
+<ButtonRelease-2>      Middle mouse button release
+<ButtonRelease-3>      Right mouse button release
+<DoubleButton-1>	   Double left-click
+<DoubleButton-2>	   Double middle-click
+<DoubleButton-3>	   Double right-click
+<Enter>	               Mouse cursor appears over the widget
+<Leave>	               Mouse cursor leaves the widget area
+<Focus-In>	           The widget gains the focus
+<Focus-Out>	           The widget loses the focus
+<Return>	           The user presses the Enter/Return key
+<Key>	               The user presses any key
+x	                   The user presses x key (x can be neither a space nor the < key)
+<space>	               The user presses the spacebar
+<less>	               The user presses the < key
+<Cancel>	           The user presses the key/keys used by the current OS to stop the program ==> Ctrl-C or Ctrl-Break
+<BackSpace>	           The user presses the Backspace key
+<Tab>	               The user presses Tab key
+<Prior>	               The Page Up key
+<Next>	               The Page Down key
+<End>	               The End key
+<Home>	               The Home key
+
+<Left>
+<Right>
+<Up>
+<Down>	Cursor (arrows) keys
+
+<Num_Lock>
+
+<Scroll_Lock>	The two Lock keys
+
+<Shift-x>
+
+<Alt-x>
+
+<Control-x>	The x key has been pressed 
+'''
+
+
+## messagebox.showinfo(title, info)
+
+# title = title of the message box which will appear on the screen, can be empty
+# info  = message to display inside the box, can be of any length, we can use the \n digraph to visually break the info into separate lines
+
+import tkinter
+from tkinter import messagebox
+
+def clicked():
+    messagebox.showinfo("info", "some\ninfo")
+
+window = tkinter.Tk()
+button_1 = tkinter.Button(window, text="Show info", command=clicked) # "clicked" function defined above is invoked here
+button_1.pack()
+button_2 = tkinter.Button(window, text="Quit", command=window.destroy)
+button_2.pack()
+window.mainloop()
+
+
+## with label/button/frame
+
+import tkinter as tk
+from tkinter import messagebox
+
+def click():
+    tk.messagebox.showinfo("Click!","I love clicks!")
+
+window = tk.Tk()
+label = tk.Label(window, text="Label")
+label.pack()
+
+button = tk.Button(window, text="Button", command=click)
+button.pack(fill=tk.X) # means it will fill horizontally
+
+frame = tk.Frame(window, height=30, width=100, bg="#55BF40")
+frame.pack()
+
+window.mainloop()
+
+
+## widget.bind(event, callback)
+
+# event    = event we want to launch our callback with
+# callback = the callback itself
+
+# From the event controller’s point of view, an event is an object carrying some useful info about what actually happens when the event has been induced by a user or another factor
+# Events are identified by unique names, each event has its own name and the name is just a unified string
+
+# a callback designed for usage with the command property/parameter == parameterless function
+# a callback intended to cooperate with the bind() method           == one-parameter function 
+#   (the callback’s argument carries some info about the captured event)

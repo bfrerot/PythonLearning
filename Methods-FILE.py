@@ -3,67 +3,67 @@
 
 
 ### close()
-# Ferme le fichier
+# close the file
 
-f = open('exemple.txt', 'w')
-f.write('Bonjour')
-f.close()  # Fermeture du fichier
+f = open('example.txt', 'w')
+f.write('Hello')
+f.close() 
 
 
 
 ### detach()
-# Sépare le flux brut (stream) du buffer (utile avec certains types de fichiers, notamment avec io.BufferedWriter)
+# Split the stream from the buffer
 
 import io
-buffer = io.BytesIO(b"donnees binaires")
-raw_stream = buffer.detach()  # Sépare le flux brut
+buffer = io.BytesIO(b"binary data")
+raw_stream = buffer.detach()
 
 
 
 ### fileno()
-# Donne le numéro du fichier selon le système d'exploitation.
+# Gives the file number attributed by the OS
 
-f = open('exemple.txt', 'r')
-print(f.fileno())  # Affiche le numéro du fichier
+f = open('example.txt', 'r')
+print(f.fileno()) 
 # 3
 f.close()
 
 
 
 ### flush()
-# Vérifie que tout est écrit dans le fichier (force l'écriture).
+# Checks that all is written in the file, forces the write
 
-f = open('exemple.txt', 'w')
-f.write('Texte')
-f.flush()  # Force l'écriture dans le fichier avent le close()
+f = open('example.txt', 'w')
+f.write('Text')
+f.flush()
 f.close()
 
 
 
 ### isatty()
-# Vérifie si le flux est interactif (typiquement si c'est le terminal)
+# Check if the stream is interactive
 
 import sys
-print(sys.stdin.isatty())  # True si le terminal est interactif
+print(sys.stdin.isatty())
 # True
 
 
 
 ### read()
-# Lit tout le contenu du fichier
+# Reads all the file
 
-f = open('exemple.txt', 'r')
+f = open('example.txt', 'r')
 contenu = f.read()
 print(contenu)
-# Texte
+# Text
 f.close()
 
 
 
 ### readable()
-# Vérifie si le fichier peut être lu.
+# Check if the file is readable
 
-f = open('exemple.txt', 'r')
+f = open('example.txt', 'r')
 print(f.readable())  
 # True
 f.close()
@@ -71,9 +71,9 @@ f.close()
 
 
 ### readline()
-# Lit une ligne à la fois.
+# Reads one line at once
 
-f = open('exemple.txt', 'r')
+f = open('example.txt', 'r')
 ligne = f.readline()
 print(ligne)
 # Ligne1
@@ -83,9 +83,9 @@ f.close()
 
 
 ### readlines()
-# Lit toutes les lignes dans une liste.
+# Reaeds all lines in a list
 
-f = open('exemple.txt', 'r')
+f = open('example.txt', 'r')
 lignes = f.readlines()
 print(lignes)
 # ['Ligne1\n', 'Ligne2\n', 'Ligne3\n', 'Ligne4']
@@ -94,20 +94,20 @@ f.close()
 
 
 ### seek(INT)
-# Change la position de lecture/écriture dans le fichier.
+# Change the read/writing position in the file
 
-# exemple.txt AVANT
+# example.txt BEFORE
 '''Ligne1
 Ligne2
 Ligne3
 Ligne4'''
 
 f = open('exemple.txt', 'r+')
-f.seek(0)  # Retour au 1er caractère
-f.write('Bonjour Madame') # Ecrase ne s'inclut pas
+f.seek(0)  # Return to the first character
+f.write('Bonjour Madame') # replace existing text
 f.close()
 
-# exemple.txt APRES
+# example.txt AFTER
 '''Bonjour Madame
 Ligne3
 Ligne4'''
@@ -115,9 +115,9 @@ Ligne4'''
 
 
 ### seekable()
-# Vérifie si le fichier permet de changer la position
+# Checks if the file permits a position change
 
-f = open('exemple.txt', 'r')
+f = open('example.txt', 'r')
 print(f.seekable())  
 # True
 f.close()
@@ -125,45 +125,45 @@ f.close()
 
 
 ### tell()
-# Donne la position actuelle dans le fichier
+# Gives the current position in the file
 
-f = open('exemple.txt', 'r')
+f = open('example.txt', 'r')
 print(f.tell())  
-# 0 au début
+# 0
 f.read(5)
 print(f.tell())  
-# 5 == > Position après lecture
+# 5 == > Position after reading
 f.close()
 
 
 
 ### truncate()
-# Redimensionne le fichier à une taille donnée
+# Resizes the file to the given size
 
-# exemple.txt AVANT
+# example.txt BEFORE
 '''Ligne1
 Ligne2
 Ligne3
 Ligne4'''
 
 f = open('exemple.txt', 'w')
-f.write('12345678') # écrase et met '12345678'
+f.write('12345678') # replaces and writes '12345678'
 
-# exemple.txt
+# example.txt
 '''12345678'''
 
-f.truncate(5)  # Garde seulement '12345'
+f.truncate(5)  # keeps only '12345'
 f.close()
 
-# exemple.txt APRES
+# example.txt AFTER
 '''12345'''
 
 
 
 ### writable()
-# Vérifie si le fichier peut être écrit
+# Checks i the file is writable
 
-f = open('exemple.txt', 'w')
+f = open('example.txt', 'w')
 print(f.writable())  
 # True
 f.close()
@@ -171,22 +171,21 @@ f.close()
 
 
 ### write()
-# Écrit une chaîne dans le fichier
-
-f = open('exemple.txt', 'w')
+# Writes in the file
+f = open('example.txt', 'w')
 f.write('Bonjour')
 f.close()
 
 
 
 ### writelines()
-# Écrit une liste de chaînes dans le fichier
+# Writes lines in the file
 
-f = open('exemple.txt', 'w')
-f.writelines(['Ligne 1\n', 'Ligne 2\n', 'Ligne 3\n'])
+f = open('example.txt', 'w')
+f.writelines(['Line 1\n', 'Line 2\n', 'Line 3\n'])
 f.close()
 
-# exemple.txt APRES
-'''Ligne 1
-Ligne 2
-Ligne 3'''
+# example.txt AFTER
+'''Line 1
+Line 2
+Line 3'''

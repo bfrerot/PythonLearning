@@ -2,7 +2,7 @@
 
 
 ## .append()
-# ajoute un element a la fin de la list
+# add an element at the END of the list
 
 list=[777, 2, 3, 4, 5, 6]
 list.append(7)
@@ -18,13 +18,13 @@ groceries_list1 = ["Milk", "Cheese"]
 groceries_list2 = ["Bread", "Butter"]
 groceries_list1.append(groceries_list2)
 print(groceries_list1)
-['Milk', 'Cheese', ['Bread', 'Butter']] # append une list PAS les elements
-# ==> si on veut ajouter les éléments d'une liste indépendamment, il faut utiliser .extend()
+['Milk', 'Cheese', ['Bread', 'Butter']] # append a list not the list elements
+# ==> if we want to add a list's element we must use EXTEND
 
 
 
 ## .clear()
-# supprime tous les éléments d'une liste mais  pas la list elle-meme
+# clear all list's elements but does not delete the list itselfe
 fruits = ["apple", "banana", "cherry"]
 fruits.clear()
 print(fruits)
@@ -33,22 +33,24 @@ print(fruits)
 
 
 ## .copy()
-# copie les éléments d'une liste dans une autre, les listes sont distinctes
+# copy a list's element in an other DISTINCT list
 fruits = ["apple", "banana", "cherry"]
 x = fruits.copy()
 print(x)
 # ["apple", "banana", "cherry"]
+print( fruits is x)
+# False
 
 
 
 ## .count(value)
-# compte le nombre d'occurence dans la liste de la variable spécifiée
+# count the value occurences into the list
 fruits = ["apple", "banana", "cherry"]
 x = fruits.count("apple")
 print(x)
 # 1
 
-# OBLIGATOIRE de spécifier une variable
+# giving a value is mandatory
 fruits = ["apple", "banana", "cherry"]
 x = fruits.count()
 print(x)
@@ -56,16 +58,15 @@ print(x)
 #  File "./prog.py", line 3, in <module>
 # TypeError: list.count() takes exactly one argument (0 given)
 
-# Compter les elem similaires dans une liste
 list = [1, 2, 3, 2, 4, 5, 6, 2, 7, 2, 8, 9]
 duplicates = list.count(2)
 print (duplicates)
-# 4 # il y a 4 "2" dans la list
+# 4
 
 
 
 ## .extend()
-# rajoute des valeurs en fin de list
+# add elements at the end of a list
 fruits = ['apple', 'banana', 'cherry']
 cars = ['Ford', 'BMW', 'Volvo']
 fruits.extend(cars)
@@ -75,19 +76,26 @@ print(fruits)
 # MAIS NE RENVOIE PAS DE VALEUR
 ones = [1, 11, 111]
 ones_again = ones.extend([11, 111])
-print(ones_again)  # Affiche : None
-print(ones)         # Affiche : [1, 11, 111, 11, 111]
+print(ones_again)  
+# None
+print(ones)
+# [1, 11, 111, 11, 111]
+
+ones = [1, 11, 111]
+ones.extend([11, 111])
+print(ones)         
+# [1, 11, 111, 11, 111]
 
 
 
 ## .index()
-# donne l'index correspondant à une variable de la list
+# gives index matching an element in a list
 fruits = ['apple', 'banana', 'cherry', 'cherry']
 x = fruits.index("cherry")
 print(x)
 # 2
 
-# si plusieurs occurences identiques, ne prend en compte que le premier
+# if many occurences of an element, considers only th first
 fruits = ['apple', 'banana', 'cherry', 'cherry']
 x = fruits.index("cherry")
 print(x)
@@ -97,16 +105,10 @@ spam = ['hello', 'hi', 'howdy', 'heyas']
 print (spam.index('hello'))
 0
 
-# if same value many times in a list, ONLY the first is taken in account
-
-spam = ['Zophie', 'Pooka', 'Fat-tail', 'Pooka'] 
-spam.index('Pooka')
-# 1
-
 
 
 ## .insert(index, value)
-# insère une variable à l'index spécifié
+# insert an element at the given index
 spam = ['cat', 'dog', 'bat'] 
 spam.insert(1, 'chicken') 
 print (spam)
@@ -120,13 +122,13 @@ print (spam)
  
  
 ## .pop()
-# supprime l'index spécifié
+# delete the given index
 fruits = ['apple', 'banana', 'cherry']
 fruits.pop(1)
 print(fruits)
 # ['apple', 'cherry']
 
-# si pas d'index spécifié, pop le dernier ou au hasrd selon version Python
+# if not any given index pop the last in Py3, or randomly in Py2
 fruits = ['apple', 'banana', 'cherry']
 fruits.pop()
 print(fruits)
@@ -135,7 +137,7 @@ print(fruits)
 
 
 ## .remove()
-# supprime l'élément spécifié
+# delete the iven element
 spam = ['cat', 'bat', 'rat', 'elephant'] 
 spam.remove('bat') 
 print (spam)
@@ -146,7 +148,7 @@ spam = ['cat', 'bat', 'rat', 'cat', 'hat', 'cat']
 spam.remove('cat')
 print (spam)
 # ['bat', 'rat', 'cat', 'hat', 'cat']
-# pour contourner il faudra faire une boucle
+# to bypass we'll use a loop
 spam = ['cat', 'bat', 'rat', 'cat', 'hat', 'cat'] 
 for cat in spam:
     spam.remove('cat')
@@ -156,7 +158,7 @@ print (spam)
 
 
 ## .reverse()
-# inverse l'ordre de la list
+# reverse the list order
 fruits = ['apple', 'banana', 'cherry']
 fruits.reverse()
 print(fruits)
@@ -166,19 +168,19 @@ print(fruits)
 
 ## .sort()
 # sort the list alphabetically
-# classe les elem en ordre croissant par defaut
 
 cars = ['Ford', 'BMW', 'Volvo']
 cars.sort()
 print(cars)
 # ['BMW', 'Ford', 'Volvo']
-# ou en decroissant avec sort(reverse=True)
+
+# sort(reverse=True)
 spam = ['cat', 'rat', 'cat', 'cat'] 
 spam.sort(reverse=True)
 print (spam)
 # ['rat', 'cat', 'cat', 'cat']
 
-# PYTHON3 ==> on ne peut pas utilisercette méthod avec un mix de int et str
+# PYTHON3 ==> we cannot use this method with a mix of int and str
 cars = ['Ford', 23, 'BMW', 4, 'Volvo']
 cars.sort()
 print(cars)
@@ -188,39 +190,14 @@ print(cars)
 # TypeError: '<' not supported between instances of 'int' and 'str'
 # PS C:\PythonLearning> 
 
-# PYTHON2 ==> si list contient str et int, les int seront avant les str
+# PYTHON2 ==> int will stand before str
 spam = ['cat', 1, 'rat', 2,'cat',3,  'cat'] 
 spam.sort()
 print (spam)
 # [1, 2, 3, 'cat', 'cat', 'cat', 'rat']
 
-# les str en MAJ sont avant les str en min
+# STR stand before str
 spam = ['a', 'z', 'A', 'Z'] 
 spam.sort() 
 print(spam) 
-['A', 'Z', 'a', 'z'] # correspond à l'odre croissant des valeurs numériques des caracteres
-
-# list.sort(key=?)
-# Ex1
-# UTILISER key=str.lower pour classer par ordre alphabetique, min/MAJ
-spam = ['a', 'z', 'A', 'Z'] 
-spam.sort(key=str.lower) 
-print(spam)
-# ['a', 'A', 'z', 'Z']
-# Ex2
-# .sort les éléments d'une list en fonction de la length
-def myFunc(e):
-  return len(e)
-cars = ['Ford', 'Mitsubishi', 'BMW', 'VW']
-cars.sort(key=myFunc)
-print(cars)
-# ['VW', 'BMW', 'Ford', 'Mitsubishi']
-
-# on ne peut pas réassigner le resultat d'un .sort() comme ci-dessous
-my_sorted_list=[]
-new_list=["e","d","c","b","a"]
-my_sorted_list = new_list.sort() 
-print (new_list)
-print (my_sorted_list)
-# ['a', 'b', 'c', 'd', 'e']
-# None
+['A', 'Z', 'a', 'z'] # matches ASCII values
