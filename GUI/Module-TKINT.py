@@ -21,7 +21,6 @@ skylight.mainloop() # starts the controller
 
 ### setting a title
 
-
 skylight = tkinter.Tk()
 skylight.title("Skylight")
 skylight.mainloop()
@@ -457,6 +456,25 @@ x	                   The user presses x key (x can be neither a space nor the < 
 <Alt-x>
 
 <Control-x>	The x key has been pressed 
+
+PROPERTY NAME    	PROPERTY ROLE
+widget	            The widget’s object (not the widget’s name!) to which the event is addressed
+
+<x>
+<y>	                The mouse cursor’s coordinates at the moment of the event’s occurrence (both coordinates are counted relative to the target widget)
+
+<x_root>
+<y_root>	        As above, but relative to the screen
+
+<char>	            The pressed key character code (only for keyboard events)
+<keysym>	        The pressed key symbol (only for keyboard events)
+                    ==> full list of all recognized key symbols: https://www.tcl.tk/man/tcl8.4/TkCmd/keysyms.htm
+ 
+<keycode>	        The pressed key numerical code (only for keyboard events)
+                    Don’t confuse this with char, which is the ASCII/UNICODE code of the character bound to the key
+                    
+<num>	            The number of the clicked mouse button (only for mouse events)
+<type>	            The event’s type
 '''
 
 
@@ -511,3 +529,151 @@ window.mainloop()
 # a callback designed for usage with the command property/parameter == parameterless function
 # a callback intended to cooperate with the bind() method           == one-parameter function 
 #   (the callback’s argument carries some info about the captured event)
+
+import tkinter as tk
+from tkinter import messagebox
+
+def click(event=None):
+    tk.messagebox.showinfo("Click!", "I love clicks!")
+
+window = tk.Tk()
+label = tk.Label(window, text="Label")
+label.bind("<Button-1>", click)   # if we click on the "label", click function will execute
+label.pack()
+
+button = tk.Button(window, text="Button", command=click)
+button.pack(fill=tk.X)
+
+frame = tk.Frame(window, height=30, width=100, bg="#55BF40")
+frame.bind("<Button-1>", click)   # if we click on the "frame", click function will execute
+frame.pack()
+
+window.mainloop()
+
+
+# using events code to see what's occuring
+# if we click on label or frame, it will send a message with cursor coordinates x and y + event num and type
+# ex: x=31, y=15, num=1, type=4
+
+def click(event=None):
+    if event is None:
+        tk.messagebox.showinfo("Click!", "I love clicks!")
+    else:
+        string = "x=" + str(event.x) + ",y=" + str(event.y) + \
+                 ",num=" + str(event.num) + ",type=" + event.type
+        tk.messagebox.showinfo("Click!", string)        
+
+window = tk.Tk()
+label = tk.Label(window, text="Label")
+label.bind("<Button-1>", click)
+label.pack()
+
+button = tk.Button(window, text="Button", command=click)
+button.pack(fill=tk.X)
+
+frame = tk.Frame(window, height=30, width=100, bg="#55BF40")
+frame.bind("<Button-1>", click)
+frame.pack()
+
+window.mainloop()
+
+
+
+### widget.config()
+
+# If we want to modify a property named prop, existing within a widget named "wid", and we’re going set its value to "val"
+#   we can use the config() method: wid.config(prop=val)
+
+# if we want to unbind our current callback from a Button named b1
+#   we would use an invocation like this one: b1.config(command=lambda:None)
+# This binds an empty function to the widget’s callback
+
+import tkinter as tk
+from tkinter import messagebox
+
+
+def on_off():
+    global switch
+    if switch:
+        button_2.config(command=lambda: None) # if we press button_2, nothings occurs (None)
+        button_2.config(text="Gee!") # button_2 name changes to "Gee!""
+    else:
+        button_2.config(command=peekaboo)
+        button_2.config(text="Peekaboo!")
+    switch = not switch # reverse the swhitch variable value( True to False or False to True)
+
+def peekaboo():
+    messagebox.showinfo("", "PEEKABOO!")
+
+def do_nothing():
+    pass
+
+switch = True
+window = tk.Tk()
+buton_1 = tk.Button(window, text="On/Off", command=on_off)
+buton_1.pack()
+button_2 = tk.Button(window, text="Peekaboo!", command=peekaboo)
+button_2.pack()
+window.mainloop()
+
+
+
+### widget.unbind()
+
+# To unbind a callback previously bound with the bind() method invocation we need to use 
+#   the unbind() method ==> widget.unbind(event)
+# The method requires one argument identifying the event being unbound
+# Any the information about a previously used callback is lost
+# We cannot retrieve it automatically and we must repeat the bind() invocation
+
+import tkinter as tk
+
+def on_off():
+    global switch
+    if switch:
+        label.unbind("<Button-1>") # 
+    else:
+        label.bind("<Button-1>", rhyme)
+    switch = not switch
+
+def rhyme(dummy):
+    global word_no, words
+    word_no += 1
+    label.config(text=words[word_no % len(words)])
+
+switch = True
+words = ["Old", "McDonald", "Had", "A", "Farm"]
+word_no = 0
+window = tk.Tk()
+button = tk.Button(window, text="On/Off", command=on_off)
+button.pack()
+label = tk.Label(window, text=words[0])
+label.bind("<Button-1>", rhyme) # Button-1 is the mouse left click event
+label.pack()
+window.mainloop()
+
+
+
+### bind_all()/unbind_all()
+
+# bind_all() == binds a callback to all currently existing widgets
+# window.bind_all(event, callback)
+
+# unbind_all() == unbinds all currently existing binds
+# window.unbind_all(event)
+
+import tkinter as tk
+from tkinter import messagebox
+
+def hello(dummy):
+    messagebox.showinfo("", "Hello!")
+
+window = tk.Tk()
+button = tk.Button(window, text="On/Off")
+button.pack()
+label = tk.Label(window, text="Label")
+label.pack()
+frame = tk.Frame(window, bg="yellow", width=100, height=20)
+frame.pack()
+window.bind_all("<Button-1>", hello)
+window.mainloop()
