@@ -338,7 +338,6 @@ win.mainloop()
 ### Entry()
 
 # designed to let the user enter simple, one-line data, like single numbers, names, addresses, etc
-# 
 
 import tkinter as tk
 
@@ -677,3 +676,512 @@ frame = tk.Frame(window, bg="yellow", width=100, height=20)
 frame.pack()
 window.bind_all("<Button-1>", hello)
 window.mainloop()
+
+
+
+### Interact with widgets properties
+
+## using the widget dictionnary
+
+import tkinter as tk
+
+def on_off():                # 2- 1st click
+    global button
+    state = button["text"]   # 2.1 state = OFF
+    if state == "ON":   
+        state = "OFF"
+    else:                    # 2.2 state switches to ON
+        state = "ON"
+    button["text"] = state   # 2.3 button "text" property changes to ON
+
+window = tk.Tk()
+button = tk.Button(window, text="OFF", command=on_off) # 1- starts in state = OFF
+button.place(x=50, y=100, width=100)
+window.mainloop()
+
+
+## .cget() / .config()
+
+import tkinter as tk
+
+def on_off():
+    global button
+    state = button.cget("text")
+    if state == "ON":
+        state = "OFF"
+    else:
+        state = "ON"
+    button.config(text=state)
+
+window = tk.Tk()
+button = tk.Button(window, text="OFF", command=on_off)
+button.place(x=50, y=100, width=100)
+window.mainloop()
+
+
+## font
+
+# ("font_family_name", "font_size")
+# ("font_family_name", "font_size", "font_style")
+
+# font_family_name ==> str
+# font_size ==> in points but str
+# font_style
+#   "bold" "italic" "underline" "overstrike"
+
+# default font ==
+#   family     = "Segoe_UI"
+#   size       = "9"
+#   weight     = "normal"
+#   slant      = "roman"
+#   underline  = False
+#   overstrike = False
+
+import tkinter as tk
+
+window = tk.Tk()
+label_1 = tk.Label(window, text="Quick brown fox jumps over the lazy dog")
+label_1.grid(column=0, row=0)
+label_2 = tk.Label(window, text="Quick brown fox jumps over the lazy dog", font=("Times", "12"))
+label_2.grid(column=0, row=1)
+label_3 = tk.Label(window, text="Quick brown fox jumps over the lazy dog", font=("Arial", "16", "bold"))
+label_3.grid(column=0, row=2)
+window.mainloop()
+
+
+## widget sizes
+
+'''
+WIDGET PROPERTY NAME	  PROPERTY ROLE
+borderwidth               The width of the 3D-frame surrounding some widgets (e.g., Button)
+highlightthickness	      The width of the additional frame drawn around the widget when it gains the focus
+
+padx
+pady	                  The width/height of an additional empty space/margin around the widget
+
+wraplength	              If the text filling the widget becomes longer than this property’s value, it will be wrapped (possibly more than once)
+height	                  The height of the widget
+underline                 The index of the character inside the widget’s text, which should be presented as underlined or -1 otherwise (the underlined letter/digit can be used as a shortcut key, but it needs a specialized callback to work – no automation here, sorry)
+width	                  The width of the widget
+'''
+
+import tkinter as tk
+
+window = tk.Tk()
+button_1 = tk.Button(window, text="Ordinary button");
+button_1.pack()
+button_2 = tk.Button(window, text="Exceptional button")
+button_2.pack()
+button_2["borderwidth"] = 10
+button_2["highlightthickness"] = 10
+button_2["padx"] = 10
+button_2["pady"] = 5
+button_2["underline"] = 1
+window.mainloop()
+
+
+## widget colours
+
+'''
+WIDGET PROPERTY NAME	  PROPERTY ROLE
+background
+bg	                      The color of the widget’s background (you can freely use either of these two forms)
+
+foreground
+fg	                      The color of the widget’s foreground (note: it can mean different things in different widgets; in general, it’s used to specify text color)
+
+activeforeground
+activebackground	      Like bg and fg but used when the widget becomes active
+
+disabledforeground	      The width of the widget
+'''
+
+import tkinter as tk
+
+window = tk.Tk()
+button_1 = tk.Button(window, text="Ordinary button");
+button_1.pack()
+button_2 = tk.Button(window, text="Colorful button")
+button_2.pack()
+button_2.config(bg ="#000000")
+button_2.config(fg ="yellow")
+button_2.config(activeforeground ="#FF0000")
+button_2.config(activebackground ="green")
+window.mainloop()
+
+
+## anchor
+
+# Imaginary (invisible) point inside the widget to which the text (if any) is anchored
+# Widgets tend to put their text in the middle of themselves (both in horizontal and vertical directions)
+# Location of the anchor can easily be changed, as there is a property of the same name
+
+# 9*possible locations : 
+#  NW   N    NE
+#   W Center E
+#  SW   N    SE
+
+import tkinter as tk
+
+window = tk.Tk()
+button_1 = tk.Button(window, text="Regular button");
+button_1["anchor"] = tk.E
+button_1["width"] = 20  # pixels!
+button_1.pack()
+button_2 = tk.Button(window, text="Another button")
+button_2["anchor"] = tk.SW
+button_2["width"] = 20
+button_2["height"] = 3  # rows
+button_2.pack()
+window.mainloop()
+
+
+## cursor
+
+# to change cursor appearance when going over a label/button/frame
+'''
+arrow
+based_arrow_down
+based_arrow_up
+boat
+bogosity
+bottom_left_corner
+bottom_right_corner
+bottom_side
+bottom_tee
+box_spiral
+center_ptr
+circle
+clock
+coffee_mug
+cross
+cross_reverse
+crosshair
+diamond_cross
+dot
+dotbox
+double_arrow
+draft_large
+draft_small
+draped_box
+exchange
+fleur
+gobbler
+gumby
+hand1
+hand2
+heart
+icon
+iron_cross
+left_ptr
+left_side
+left_tee
+leftbutton
+ll_angle
+lr_angle
+man
+middlebutton
+mouse
+pencil
+pirate
+plus
+question_arrow
+right_ptr
+right_side
+right_tee
+rightbutton
+rtl_logo
+sailboat
+sb_down_arrow
+sb_h_double_arrow
+sb_left_arrow
+sb_right_arrow
+sb_up_arrow
+sb_v_double_arrow
+shuttle
+sizing
+spider
+spraycan
+star
+target
+tcross
+top_left_arrow
+top_left_corner
+top_right_corner
+top_side
+top_tee
+trek
+ul_angle
+umbrella
+ur_angle
+watch
+xterm
+'''
+
+import tkinter as tk
+
+window = tk.Tk()
+label_1 = tk.Label(window, height=3, text="arrow", cursor="arrow")
+label_1.pack()
+label_2 = tk.Label(window, height=3, text="clock", cursor="clock")
+label_2.pack()
+label_3 = tk.Label(window, height=3, text="heart", cursor="heart")
+label_3.pack()
+window.mainloop()
+
+
+
+### widget methods
+
+
+## after()/after_cancel()
+
+# Widget.after(time_ms, function)
+# Widget.after_cancel(id)
+
+# ==> after() 
+# expects 2*arguments: 
+#   1st is time interval specification, expressed in milliseconds: 1 s = 1000 ms
+#   2nd points to an existing function; successful invocation of the method causes the event manager to change its plans
+#       when the number of milliseconds elapses, the manager will invoke the function (only once)
+#       this the only possible way of controlling the passage of time when using an event-driven environment
+
+# ==> after_cancel(id) 
+# cancels the planned invocation identified by the id argument
+
+
+# infinite loop
+import tkinter as tk
+
+def blink():     # will loop for ever
+    global is_white
+    if is_white:
+        color = 'black'
+    else:
+        color = 'white'
+    is_white = not is_white
+    frame.config(bg=color)
+    frame.after(500, blink)  # due to this at the end
+
+is_white = True
+window = tk.Tk()
+frame = tk.Frame(window, width=200, height=100, bg='white')
+frame.after(500, blink)  # invokes "blink" function
+frame.pack()
+window.mainloop()
+
+
+# terminating with after_cancel
+
+import tkinter as tk
+
+def blink():
+    global is_white, id, count
+    if count >= 20:
+        window.after_cancel(id)
+        return
+    
+    if is_white:
+        color = 'black'
+    else:
+        color = 'white'
+        
+    is_white = not is_white
+    
+    frame.config(bg=color)
+    count += 1
+    id = window.after(500, blink)
+
+is_white = True
+count = 0
+
+window = tk.Tk()
+frame = tk.Frame(window, width=200, height=100)
+
+frame.pack()
+
+id = window.after(500, blink)  # invokes "blink" function
+
+window.mainloop()
+
+
+## .destroy()
+
+# very destructive
+# removes the widget completely from the event manager’s memory
+# the widget’s object is deleted and becomes inaccessible
+
+# if the widget we want to destroy has children (other widgets embedded inside it, ex: frames) 
+# the children will be destroyed, too (this rule works recursively)
+
+import tkinter as tk
+
+def suicide():
+    frame.destroy()
+
+window = tk.Tk()
+frame = tk.Frame(window, width=200, height=100, bg='green')
+button = tk.Button(frame, text="I'm a frame's child")
+# ==> button is child of frame wich is child of window
+button.place(x=10, y=10)
+frame.after(5000, suicide) # ==> will kill frame + its child button BUT window remains (empty)
+frame.pack()
+window.mainloop()
+
+
+## focus
+
+# wi.focus_get()
+# wi.focus_set()
+
+import tkinter as tk
+
+
+def flip_focus():
+    if window.focus_get() is button_1:
+        button_2.focus_set()
+    else:
+        button_1.focus_set()
+    window.after(1000, flip_focus)
+
+
+window = tk.Tk()
+button_1 = tk.Button(window, text="First")
+button_1.pack()
+button_2 = tk.Button(window, text="Second")
+button_2.pack()
+window.after(1000, flip_focus)
+window.mainloop()
+
+
+
+### observable variables
+
+# works like a regular variable + something more => any change of the variable’s state can be observed by a number of external agents
+# ex: Entry widget can use its own observable variable to inform other objects that the contents of the input field have been changed
+
+# Technically such a variable is an object of the container class
+# This means that a variable of that kind has to be explicitly created and initialized
+
+# Another important difference => these variables are typed
+# We have to be aware of what type of value we want to store in them, and don’t change our mind during the variable’s life
+
+# We can only create an observable variable after the main window initialization
+
+
+## tkinter observable variables
+
+# BooleanVar    
+# DoubleVar
+# IntVar
+# StringVar
+
+# names are also the constructors’ names
+# If we want to use any of the variables, you must invoke the proper constructor and save the returned object
+
+# newly created variables are set to:
+#   integer o for IntVar
+#   float 0.0 for DoubleVar
+#   Boolean False for BooleanVar
+#   string "" for StringVar
+
+
+## observers
+ 
+# observable variable can be enriched with a number of "observers"
+# An observer is a function (a kind of callback) which will be invoked automatically each time a specified event occurs in the variable’s life
+# Number of observers is not limited
+# Adding an observer to a variable is done by a method named trace():
+
+# ==> obsid = variable.trace(trace_mode, observer)
+
+# method takes 2*arguments:
+
+# 1st = string describing which events should trigger an observer 
+# possible values are:
+#   "read" – if you want to be aware of the variable reads (accessing its value through get())
+#   "write" – if you want to be aware of the variable writes (changing its value through set())
+#   "unset" – if you want to be aware of the variable’s annihilation (removing the object through del)
+
+# A reference to a function which will be invoked when the specified event occurs
+# The function returns a string which is a unique observer identifier
+
+import tkinter as tk
+
+def r_observer(*args):  # "reading" observer function
+    print("Reading")
+
+def w_observer(*args):  # "writing" observer function
+    print("Writing")
+
+dummy = tk.Tk()    
+# Create a window, mandatory to use variables like StringVar, even if print nothing, no dummy.mainloop() here
+# Without this Tkinter does not work
+
+variable = tk.StringVar()
+# Create a StringVar variable 
+# special Tkinter variable which is able to notify changes, useful for GUIs
+# ex: update a label when a value changes
+
+variable.set("abc") # defines variable value, here "abc"
+r_obsid = variable.trace_add("read", r_observer)
+w_obsid = variable.trace_add("write", w_observer)
+variable.set(variable.get() + 'd')      # get=read followed by set=write, adds "d" to variable string
+# Reading
+# Writing
+variable.trace_remove("read", r_obsid)  # removes the "read" observer
+variable.set(variable.get() + 'e')      # adds "e" to variable string
+# Writing
+variable.trace_remove("write", w_obsid) # removes the "write" observer
+variable.set(variable.get() + 'f')      # adds "f" to variable string
+print(variable.get())
+# abcdef
+
+
+
+### WIDGETS lexicon
+
+# Each tkinter widget is created by a constructor of its class
+# The very 1st argument of the constructor invocation is always the master widget
+# == the widget that owns the newly created object
+# master widget is just the main window in most cases, but can be also a Frame or a LabelFrame 
+# constructor accepts a set of arguments that configure the widget
+# all widgets fall into two categories: clickable and non-clickable
+
+# widget = Widget(master, option, ... )
+
+
+## clickable widgets
+
+'''
+BUTTON PROPERTY   	PROPERTY MEANING
+command	            callback being invoked when the button is clicked
+justify	            the way in which the inner text is justified: possible (self-describing) values are: LEFT, CENTER, and RIGHT
+state	            if we set the property to DISABLED, the button becomes deaf and doesn’t react to clicks, while its title is shown in gray
+                    setting it to NORMAL restores normal button functioning, when the mouse is located above the button, the property changes its value to ACTIVE
+
+BUTTON METHOD	    METHOD ROLE
+flash()	            the button flashes a few times but doesn’t change its state
+invoke()	        activates the callback assigned to the widget and returns the same value the callback returned; note: this is the only way to invoke your own callback explicitly, as the event manager must be aware of the fact
+'''
+
+## Checkbutton 
+
+'''
+CHECKBUTTON PROPERTY 	PROPERTY MEANING
+bd	                    checkbutton frame width (default is two pixels)
+command	                callback being invoked when the checkbutton changes its state
+justify	                same as for Button
+state	                same as for Button
+variable	            an observable IntVar variable reflecting the widget’s state; defaultly it’s set to 1 when the checkbutton is checked, and to 0 otherwise
+offvalue	            non-default value being assigned to a variable when the checkbutton is not checked
+onvalue	                non-default value being assigned to a variable when the checkbutton is checked
+
+
+CHECKBUTTON METHOD      METHOD ROLE
+deselect()	            unticks the widget
+flash()	                same as for Button
+invoke()	            same as for Button
+select()	            ticks the widget
+toggle()	            changes its state to the opposite one
+'''
