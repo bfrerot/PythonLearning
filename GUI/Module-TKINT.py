@@ -1151,7 +1151,7 @@ print(variable.get())
 # widget = Widget(master, option, ... )
 
 
-## clickable widgets
+## ==> CLICKABLE widgets
 
 '''
 BUTTON PROPERTY   	PROPERTY MEANING
@@ -1165,7 +1165,8 @@ flash()	            the button flashes a few times but doesn’t change its stat
 invoke()	        activates the callback assigned to the widget and returns the same value the callback returned; note: this is the only way to invoke your own callback explicitly, as the event manager must be aware of the fact
 '''
 
-## Checkbutton 
+
+# Checkbutton 
 
 '''
 CHECKBUTTON PROPERTY 	PROPERTY MEANING
@@ -1185,3 +1186,262 @@ invoke()	            same as for Button
 select()	            ticks the widget
 toggle()	            changes its state to the opposite one
 '''
+
+
+# Radiobutton
+
+'''
+RADIOBUTTON PROPERTY     	PROPERTY MEANING
+command	                    callback being invoked when the Radiobutton (not the group it belongs to!) changes its state
+justify	                    same as for Button
+state	                    same as for Button
+variable	                observable IntVar or StringVar variable reflecting the current selection within the Radiobutton’s group; changing the variable’s value automatically changes the selection
+value	                    unique (inside the group) value identifying the Radiobutton; can be an integer value or a string, and should be compatible with the variable’s type
+
+RADIOBUTTON METHOD      	METHOD ROLE
+deselect()	                unchecks the widget
+flash()	                    same as for Button
+invoke()	                same as for Button
+select()	                checks the widget
+'''
+
+
+import tkinter as tk
+
+def switch():
+    if button_1.cget('state') == tk.DISABLED: # DISABLED means no clickable but colour changes will continue to occur
+        button_1.config(state=tk.NORMAL)
+        button_1.flash()
+    else:
+        button_1.flash()
+        button_1.config(state=tk.DISABLED)
+
+def mouseover(ev):
+    button_1['bg'] = 'green'
+
+def mouseout(ev):
+    button_1['bg'] = 'blue' # the button will remain blue if mouseout, not red anymore
+
+window = tk.Tk()
+button_1 = tk.Button(window, text="Enabled", bg="red")
+button_1.bind("<Enter>", mouseover)
+button_1.bind("<Leave>", mouseout)
+button_1.pack()
+button_2 = tk.Button(window, text="Enable/Disable", command=switch)
+button_2.pack()
+window.mainloop()
+
+
+import tkinter as tk
+from tkinter import messagebox
+
+def count():
+    global counter
+    counter += 1
+
+def show():
+    messagebox.showinfo("","counter=" + str(counter) + ",state=" + str(switch.get()))
+
+window = tk.Tk()
+switch = tk.IntVar() # linked to checkbutton[variable], == 0(unticked) or 1(ticked)
+counter = 0 # will be implemented by 1 at each tick/untick of checkbutton
+button = tk.Button(window, text="Show", command=show)
+button.pack()
+checkbutton = tk.Checkbutton(window, text="Tick", variable=switch, command=count)
+checkbutton.pack()
+window.mainloop()
+
+
+import tkinter as tk
+from tkinter import messagebox
+
+def show():
+    messagebox.showinfo("", "radio_1=" + str(radio_1_var.get()) +
+                        ",radio_2=" + str(radio_2_var.get()))
+
+def command_1():
+    radio_2_var.set(radio_1_var.get())
+
+def command_2():
+    radio_1_var.set(radio_2_var.get())
+
+window = tk.Tk()
+button = tk.Button(window, text="Show", command=show)
+button.pack()
+radio_1_var = tk.IntVar()
+radio_1_1 = tk.Radiobutton(window, text="pizza", variable=radio_1_var, value=1, command=command_1)
+radio_1_1.select()
+radio_1_1.pack()
+radio_1_2 = tk.Radiobutton(window, text="clams", variable=radio_1_var, value=2, command=command_1)
+radio_1_2.pack()
+radio_2_var = tk.IntVar()
+radio_2_1 = tk.Radiobutton(window, text="FR", variable=radio_2_var, value=2, command=command_2)
+radio_2_1.pack()
+radio_2_2 = tk.Radiobutton(window, text="IT", variable=radio_2_var, value=1, command=command_2)
+radio_2_2.select()
+radio_2_2.pack()
+window.mainloop()
+
+
+## NON-CLICKABLE widgets
+
+# designed to present textual information and don’t have a command property, although we can use bind() to simulate similar behavior
+
+# Label()
+'''
+Label()
+label = Label(master, option, ...)
+
+LABEL PROPERTY       PROPERTY MEANING
+text	             a string which will be shown within the Label; (\n) are interpreted in the usual way
+textvariable	     same as for text, but makes use of an observable StringVar variable, so if we change the variable’s alteration, it will be immediately visible on the screen
+'''
+
+import tkinter as tk
+
+def to_string(x):
+    return "Current counter\nvalue is:\n" + str(x)
+
+def plus():
+    global counter
+    counter += 1
+    text.set(to_string(counter))
+
+counter = 0
+window = tk.Tk()
+button = tk.Button(window, text="Go on!", command=plus)
+button.pack()
+text = tk.StringVar()
+label = tk.Label(window, textvariable=text, height=4)
+text.set(to_string(counter))
+label.pack()
+window.mainloop()
+
+
+# Message()
+
+'''
+message = Message(master, option, ...)
+'''
+
+import tkinter as tk
+
+def do_it_again():
+    text.set(text.get() + "and again...")
+
+window = tk.Tk()
+button = tk.Button(window, text="Go ahead!", command=do_it_again)
+button.pack()
+text = tk.StringVar()
+message = tk.Message(window, textvariable=text, width=400)
+text.set("You did it again... ")
+message.pack()
+window.mainloop()
+
+
+# Frame()
+
+# a container designed to store other widgets
+# can be used to separate a rectangular part of the window and to treat it as a kind of local window
+# Such a window works as a master widget for all the widgets embedded within it
+
+# Frame() has its own coordinate system, so when we place a widget inside, we measure its location relative to the Frame’s upper-left corner, not the window’s one
+# Also, if we move the Frame to a new position, all its inner widgets will go with it
+
+# Frame() can grasp virtually any widget – including another Frame
+
+'''
+FRAME PROPERTY   	PROPERTY MEANING
+takefocus	        normally, the Frame doesn’t take the focus but if we really want it to behave in this way, we can set the property to 1
+'''
+
+import tkinter as tk
+
+window = tk.Tk()
+
+frame_1 = tk.Frame(window, width=200, height=100, bg='white')
+frame_2 = tk.Frame(window, width=200, height=100, bg='yellow')
+
+button_1_1 = tk.Button(frame_1, text="Button #1 inside Frame #1")
+button_1_2 = tk.Button(frame_1, text="Button #2 inside Frame #1")
+button_2_1 = tk.Button(frame_2, text="Button #1 inside Frame #2")
+button_2_2 = tk.Button(frame_2, text="Button #2 inside Frame #2")
+
+button_1_1.place(x=10, y=10)
+button_1_2.place(x=10, y=50)
+button_2_1.grid(column=0, row=0)
+button_2_2.grid(column=1, row=1)
+
+frame_1.pack()
+frame_2.pack()
+
+window.mainloop()
+
+
+# LabelFrame()
+
+# Frame enriched with a visible border and a title, also visible
+# The title may be located at one of 12 possible places on the border line
+
+'''
+lfrm = LabelFrame(master, option, ...)
+
+LABELFRAME PROPERTY   	PROPERTY MEANING
+takefocus	            same as for the Frame
+text	                LabelFrame’s title
+labelanchor	            title’s location, defined as a string containing a quasi-compass coordinate (NW N NE etc)
+'''
+
+import tkinter as tk
+
+window = tk.Tk()
+label_frame_1 = tk.LabelFrame(window, text="Frame #1",
+                              width=200, height=100, bg='white')
+label_frame_2 = tk.LabelFrame(window, text="Frame #2",
+                              labelanchor='se', width=200, height=100, bg='yellow')
+
+button_1_1 = tk.Button(label_frame_1, text="Button #1 inside Frame #1")
+button_1_2 = tk.Button(label_frame_1, text="Button #2 inside Frame #1")
+button_2_1 = tk.Button(label_frame_2, text="Button #1 inside Frame #2")
+button_2_2 = tk.Button(label_frame_2, text="Button #2 inside Frame #2")
+
+button_1_1.place(x=10, y=10)
+button_1_2.place(x=10, y=50)
+button_2_1.grid(column=0, row=0)
+button_2_2.grid(column=1, row=1)
+
+label_frame_1.pack()
+label_frame_2.pack()
+window.mainloop()
+
+
+# Entry()
+
+# presents a line of text
+# able to edit the text according to the user’s actions
+# using an Entry is necessary when we ask the user for any textual information: name, password, email
+# the widget implements all standard edit operations like inserting, removing, scrolling, selecting, copying and pasting
+
+'''
+ENTRY PROPERTY    	PROPERTY MEANING
+command	            although Entry is obviously a clickable widget, it doesn’t allow us to bind a callback through the command property
+                    We can observe and control all occurring changes instead by setting the tracer function for the observable variable which cooperates with Entry 
+
+show	            a string assigned to this property will be displayed instead of the actual characters entered into the input field
+                    EX: if we set show='*', this will enable the widget to safely edit the user’s password
+
+state	            same as for Button
+textvariable	    observable StringVar reflecting the current state of the input field
+width	            input field’s width (in characters)
+
+
+ENTRY METHOD     	       METHOD ROLE
+get()	                   returns the current input field’s contents as a string
+set(s)	                   sets the whole input field’s contents with the s string
+delete(first, last=None)   deletes a part of the input field’s contents; first and last can be integers with values indexing the string
+                           if the last argument is omitted, a single character is deleted
+                           if last is specified as END, it points to the place after the last field’s character
+
+insert(index, s)	       inserts the s string at the field position pointed to by index
+'''
+
