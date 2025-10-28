@@ -1,19 +1,15 @@
 import tkinter as tk
+from tkinter import messagebox
 
-def digits_only(*args):
-    global last_string        
-    string = text.get()
-    if string == '' or string.isalnum() :  # Field's content is valid.
-        last_string = string
-    else:
-        text.set(last_string)
 
-last_string = ''
+def question():
+    answer = messagebox.showwarning("Be careful!", "Big Brother is watching you!") # print the msg with a warning icon 
+    print(answer) # prints 'ok' when the user clicks 'OK' or closes the dialog
+
+
 window = tk.Tk()
-text = tk.StringVar()
-entry = tk.Entry(window, textvariable=text)
-text.set(last_string)
-text.trace_add('write', digits_only)
-entry.pack()
-entry.focus_set()
+button = tk.Button(window, text="What's going on?", command=question)
+button.pack()
 window.mainloop()
+# ok
+# ok

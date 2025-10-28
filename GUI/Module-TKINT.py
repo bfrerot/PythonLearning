@@ -1283,6 +1283,59 @@ radio_2_2.pack()
 window.mainloop()
 
 
+# Entry()
+
+# presents a line of text
+# able to edit the text according to the user’s actions
+# using an Entry is necessary when we ask the user for any textual information: name, password, email
+# the widget implements all standard edit operations like inserting, removing, scrolling, selecting, copying and pasting
+
+'''
+ENTRY PROPERTY    	PROPERTY MEANING
+command	            although Entry is obviously a clickable widget, it doesn’t allow us to bind a callback through the command property
+                    We can observe and control all occurring changes instead by setting the tracer function for the observable variable which cooperates with Entry 
+
+show	            a string assigned to this property will be displayed instead of the actual characters entered into the input field
+                    EX: if we set show='*', this will enable the widget to safely edit the user’s password
+
+state	            same as for Button
+textvariable	    observable StringVar reflecting the current state of the input field
+width	            input field’s width (in characters)
+
+
+ENTRY METHOD     	       METHOD ROLE
+get()	                   returns the current input field’s contents as a string
+set(s)	                   sets the whole input field’s contents with the s string
+delete(first, last=None)   deletes a part of the input field’s contents; first and last can be integers with values indexing the string
+                           if the last argument is omitted, a single character is deleted
+                           if last is specified as END, it points to the place after the last field’s character
+
+insert(index, s)	       inserts the s string at the field position pointed to by index
+'''
+
+
+import tkinter as tk
+
+def digits_only(*args):
+    global last_string        
+    string = text.get()
+    if string == '' or string.isalnum() and len(string) <= 5 : # string vide ou alphanum ET 5 characteres MAX
+        last_string = string
+    else:
+        text.set(last_string)
+
+last_string = ''
+window = tk.Tk()
+text = tk.StringVar()                        # to hold the entry's value
+entry = tk.Entry(window, textvariable=text)  # Creates the entry widget, bound to the StringVar
+text.set(last_string)                        # we start with an empty string
+text.trace_add('write', digits_only)         # we'll add any string through the digits_only function
+entry.pack()
+entry.focus_set()                            # focus to the entry so you can start typing immediately
+window.mainloop()
+
+
+
 ## NON-CLICKABLE widgets
 
 # designed to present textual information and don’t have a command property, although we can use bind() to simulate similar behavior
@@ -1415,33 +1468,305 @@ label_frame_2.pack()
 window.mainloop()
 
 
-# Entry()
 
-# presents a line of text
-# able to edit the text according to the user’s actions
-# using an Entry is necessary when we ask the user for any textual information: name, password, email
-# the widget implements all standard edit operations like inserting, removing, scrolling, selecting, copying and pasting
+## MENUs
+
+
+import tkinter as tk
+from tkinter import messagebox
+
+def about_app():
+    messagebox.showinfo("App", "The application\nthat does nothing")
+
+def are_you_sure(event=None):
+    if messagebox.askyesno("", "Are you sure you want to quit the App?"):
+        window.destroy()
+
+def open_file():
+    messagebox.showinfo("Open doc", "We'll open a file here...")
+          
+window = tk.Tk()
+
+main_menu = tk.Menu(window)
+window.config(menu=main_menu) # creates the main Menu bar
+sub_menu_file = tk.Menu(main_menu)
+# we don't want the tear-off here  = ----- below File
+sub_menu_file = tk.Menu(main_menu, tearoff=0)
+# setting the hotkey to "Alt-F"
+main_menu.add_cascade(label="File", menu=sub_menu_file, underline=0)
+# a new submenu item is here!
+sub_menu_file.add_command(label="Open...", underline=0, command=open_file)
+# adding a submenu
+sub_sub_menu_file = tk.Menu(sub_menu_file, tearoff=0)
+sub_menu_file.add_cascade(label="Open recent file...", underline=5, menu=sub_sub_menu_file)
+# adding (simulate) the presence of eight recently opened files
+for i in range(8):
+    number = str(i + 1)
+    sub_sub_menu_file.add_command(label=number + ". file.txt", underline=0)
+# separator is here == line between submenu titles
+sub_menu_file.add_separator()
+# add the QUIT action to the submenu
+sub_menu_file.add_command(label="Quit", accelerator="Ctrl-Q", underline=0, command=are_you_sure)
+sub_menu_help = tk.Menu(main_menu)
+# setting the hotkey to "Alt-B"
+main_menu.add_command(label="About...", command=about_app, underline=1)
+# shortcut (accelerator) to close the window with hotkey from any menu
+window.bind_all("<Control-q>", are_you_sure)
+window.mainloop()
+
+
+# .entryconfigure()
+
+import tkinter as tk
+
+def on_off():
+    global accessible
+    if accessible == tk.DISABLED:
+        accessible = tk.ACTIVE
+    else:
+        accessible = tk.DISABLED
+    sub_menu.entryconfigure(1, state=accessible) # sub_menu index 1 == the 2nd menu option ==> sub_menu.add_command(label="Switch", state=tk.DISABLED)
+
+accessible = tk.DISABLED
+window = tk.Tk()
+menu = tk.Menu(window)
+window.config(menu=menu)
+sub_menu = tk.Menu(menu, tearoff=0)
+menu.add_cascade(label="Menu", menu=sub_menu)
+sub_menu.add_command(label="On/Off", command=on_off)
+sub_menu.add_command(label="Switch", state=tk.DISABLED)
+window.mainloop()
+
 
 '''
-ENTRY PROPERTY    	PROPERTY MEANING
-command	            although Entry is obviously a clickable widget, it doesn’t allow us to bind a callback through the command property
-                    We can observe and control all occurring changes instead by setting the tracer function for the observable variable which cooperates with Entry 
+PROPERTY         	PROPERTY ROLE
+postcommand	        callback invoked every time a menu’s item is activated
+tearoff	            set to zero removes the tear-off decoration from the top of the cascade
+state	            when set to DISABLED, the menu item is grayed and inaccessible; setting it to ACTIVE restores its normal functionality
+accelerator	        a string describing a hot-key bound to the menu’s item
 
-show	            a string assigned to this property will be displayed instead of the actual characters entered into the input field
-                    EX: if we set show='*', this will enable the widget to safely edit the user’s password
-
-state	            same as for Button
-textvariable	    observable StringVar reflecting the current state of the input field
-width	            input field’s width (in characters)
-
-
-ENTRY METHOD     	       METHOD ROLE
-get()	                   returns the current input field’s contents as a string
-set(s)	                   sets the whole input field’s contents with the s string
-delete(first, last=None)   deletes a part of the input field’s contents; first and last can be integers with values indexing the string
-                           if the last argument is omitted, a single character is deleted
-                           if last is specified as END, it points to the place after the last field’s character
-
-insert(index, s)	       inserts the s string at the field position pointed to by index
+METHOD           	             METHOD ROLE
+add_cascade(prop=val, ...)	     adds a cascade to the menu’s item
+add_command(prop=val, ...)	     assigns an action to the menu’s item
+add_separator()	                 adds an separator line to the menu
+entryconfigure(i, prop=val,...)	 modifies the i-th menu item’s property named prop
 '''
 
+
+
+### MAIN WINDOW
+
+
+## title()
+
+# to change the main window title
+
+import tkinter as tk
+
+def click(*args):
+    global counter
+    if counter > 0:
+        counter -= 1
+    window.title(str(counter)) # re-apply the title with the new counter value
+
+counter = 10
+window = tk.Tk()
+window.title(str(counter)) # counter value will start being the counter value ("10")
+window.bind("<Button-1>", click) # ac click will launch the function "click"
+window.mainloop()
+
+
+## icon
+
+import tkinter as tk
+from tkinter import PhotoImage
+
+window = tk.Tk()
+window.title('Icon?')
+window.tk.call('wm', 'iconphoto', window._w, PhotoImage(file='logo.png'))
+'''
+Use tk.call() to invoke a Tk command
+'wm', 'iconphoto' : define icon  
+window._w : internal window identifier
+PhotoImage(file='logo.png') : loads logo.png as the icon image
+'''
+window.bind("<Button-1>", lambda e: window.destroy()) # a left click will close the window
+window.mainloop()
+
+
+## geometry()
+
+# not any any default value, the window size is defined by the widgets it contains
+# we can set the window size explicitly by using the geometry() method, width and height
+
+import tkinter as tk
+
+def click(*args):
+# the window grow till 500x500 then shrink to 100x100 and repeat
+    global size, grows
+    if grows:
+        size += 50
+        if size >= 500:
+            grows = False
+    else:
+        size -= 50
+        if size <= 100:
+            grows = True
+    window.geometry(str(size) + "x" + str(size))
+
+size = 100
+grows = True
+window = tk.Tk()
+window.geometry("100x100")
+window.bind("<Button-1>", click) # left click launches "click" function
+window.mainloop()
+
+
+# minsize()/maxsize()
+import tkinter as tk
+
+window = tk.Tk()
+window.minsize(width=250, height=200) # Set minimum size of the window
+window.maxsize(width=450, height=400) # Set maximum size of the window
+window.geometry("300x300") # Set initial size of the window
+window.mainloop()
+
+
+# resizable()
+
+import tkinter as tk
+
+window = tk.Tk()
+window.resizable(width=False, height=False) # disable window resizing width and height
+window.geometry("400x200")
+window.mainloop()
+
+
+# protocol()
+
+import tkinter as tk
+from tkinter import messagebox
+
+def really():
+    if messagebox.askyesno("?", "Are you sure you want to abort ?"):
+        window.destroy()
+
+window = tk.Tk()
+window.protocol("WM_DELETE_WINDOW", really) # intercepts the window close event and calls the really() function instead of immediately closing
+window.mainloop()
+
+
+
+## MESSAGEBOX dialogs
+
+# display a modal dialog window and wait for a user response
+
+'''
+dialog’s behavior is determined by three parameters:
+    title   ==> a string displayed in the dialog’s title bar
+    message ==> a string displayed inside the dialog
+    options ==> a set of options shaping the dialog in a non-default way
+        default => sets the default (pre-focused) answer; usually, it’s focused on the button located first from the left; this can be changed by setting the keyword argument with identifiers like CANCEL, IGNORE, OK, NO, RETRY, and YES;
+        icon    => sets the non-default icon for the dialog: possible values are: ERROR, INFO, QUESTION, and WARNING
+'''
+
+# askyesno( )
+
+import tkinter as tk
+from tkinter import messagebox
+
+def question():
+    answer = messagebox.askyesno("?", "To be or not to be?") # Asks a Yes/No question, window title is "?" and question is "To be or not to be?"
+    print(answer) # will print True for Yes and False for No
+
+window = tk.Tk()
+button = tk.Button(window, text="Ask the question!", command=question)
+button.pack()
+window.mainloop()
+# True  ==> if Yes clicked
+# False ==> if No clicked   
+
+
+# askokcancel(  )
+
+import tkinter as tk
+from tkinter import messagebox
+
+def question():
+    answer = messagebox.askokcancel("?", "I'm going to format your hard drive")
+    print(answer) # will print True for Ok and False for Cancel
+
+window = tk.Tk()
+button = tk.Button(window, text="What are your plans?", command=question)
+button.pack()
+window.mainloop()
+# True  ==> if Ok clicked
+# False ==> if Cancel clicked 
+
+
+# askretrycancel()
+
+import tkinter as tk
+from tkinter import messagebox
+
+def question():
+    answer = messagebox.askretrycancel("?", "I'm going to format your hard drive")
+    print(answer) # print True if Retry is clicked, False if Cancel is clicked
+
+window = tk.Tk()
+button = tk.Button(window, text="What are your plans?", command=question)
+button.pack()
+window.mainloop()
+# True
+# False
+
+
+# askquestion()
+
+import tkinter as tk
+from tkinter import messagebox
+
+def question():
+    answer = messagebox.askquestion("?", "I'm going to format your hard drive")
+    print(answer) # Prints 'yes' or 'no' based on user response
+
+window = tk.Tk()
+button = tk.Button(window, text="What are your plans?", command=question)
+button.pack()
+window.mainloop()
+# yes
+# no
+
+
+# showerror()
+
+import tkinter as tk
+from tkinter import messagebox
+
+def question():
+    answer = messagebox.showerror("!", "Your code does nothing!")
+    print(answer) # print 'ok' since showerror only has an 'OK' button, even if we close the window
+
+window = tk.Tk()
+button = tk.Button(window, text="Alarming message", command=question)
+button.pack()
+window.mainloop()
+# ok
+# ok
+
+
+# showwarning()
+
+import tkinter as tk
+from tkinter import messagebox
+
+def question():
+    answer = messagebox.showwarning("Be careful!", "Big Brother is watching you!") # print the msg with a warning icon 
+    print(answer) # prints 'ok' when the user clicks 'OK' or closes the dialog
+
+window = tk.Tk()
+button = tk.Button(window, text="What's going on?", command=question)
+button.pack()
+window.mainloop()
+# ok
+# ok
