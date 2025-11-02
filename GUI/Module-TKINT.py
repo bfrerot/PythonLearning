@@ -1770,3 +1770,270 @@ button.pack()
 window.mainloop()
 # ok
 # ok
+
+
+## CANVAS
+
+# c = Canvas(master, options...)
+
+'''
+PROPERTY NAME   	PROPERTY ROLE
+borderwidth	        canvas border’s width in pixels (default: 2)
+background (bg)	    canvas border’s color (default: the same as the underlying window’s color)
+height	            canvas height (in pixels)
+width	            canvas width (in pixels)
+'''
+
+# create_line
+# canvas.create_line(x0, y0, x1, y1, ..., xn, yn, option...)
+
+import tkinter as tk
+
+window = tk.Tk()
+canvas = tk.Canvas(window, width=400, height=400, bg='yellow')
+canvas.create_line(10, 380, 200, 10, 380, 380, 10, 380)
+# canvas.create_line(x1, y1, x2, y2, x3, y3, ..., xn, yn)
+button = tk.Button(window, text="Quit", command=window.destroy)
+canvas.grid(row=0)
+button.grid(row=1)
+window.mainloop()
+
+
+# This line contains 4 points:
+# (10, 380) → (200, 10) → (380, 380) → (10, 380)
+
+# coordinate system of the Canvas widget:
+'''
+Origin (0,0) is at the top-left corner of the canvas
+
+(0,0) ───────────────── (400,0)
+  │                        │
+  │                        │
+  │       Canvas           │
+  │                        │
+  │                        │
+(0,400) ──────────────── (400,400)
+'''
+
+'''
+CREATE_LINE OPTIONS   	OPTION ROLE
+arrow	                by default, the chain ends aren’t marked in any special way
+                        we may want them to be finished with arrowheads:
+                        - FIRST results in drawing an arrowhead at the chain’s beginning
+                        - LAST at the chain’s end
+                        - BOTH at both sides of the chain
+fill	                chain color (setting the option to an empty string causes the line to be transparent)
+smooth	                setting it to True rounds the chain’s corners using a set of connected parabolas
+width	                line width (default: 1 pixel)
+'''
+
+# to view better the triangle shape, let's draw it step by step with colors and labels
+
+import tkinter as tk
+
+window = tk.Tk()
+canvas = tk.Canvas(window, width=400, height=400, bg='yellow')
+canvas.create_line(10, 380, 200, 10, width=3, fill='red')      
+canvas.create_line(200, 10, 380, 380, width=3, fill='blue')    
+canvas.create_line(380, 380, 10, 380, width=3, fill='green')   
+# point markers
+canvas.create_oval(8, 378, 12, 382, fill='black')    # Point (10, 380)
+canvas.create_oval(198, 8, 202, 12, fill='black')    # Point (200, 10)
+canvas.create_oval(378, 378, 382, 382, fill='black') # Point (380, 380)
+# point labels
+canvas.create_text(10, 395, text="(10,380)", font=('Arial', 8))
+canvas.create_text(200, 25, text="(200,10)", font=('Arial', 8))
+canvas.create_text(380, 395, text="(380,380)", font=('Arial', 8))
+canvas.pack(padx=10, pady=10)
+button = tk.Button(window, text="Quit", command=window.destroy)
+canvas.grid(row=0)
+button.grid(row=1)
+window.mainloop()
+
+
+import tkinter as tk
+
+window = tk.Tk()
+canvas = tk.Canvas(window, width=400, height=400, bg='yellow')
+canvas.create_line(10, 380, 200, 10, 380, 380, 10, 380, arrow=tk.BOTH, fill='red', smooth=True, width=3)
+# setting smmoth=True to round the triangle corners, which can be surprising
+button = tk.Button(window, text="Quit", command=window.destroy)
+canvas.grid(row=0)
+button.grid(row=1)
+window.mainloop()
+
+
+# create_rectangle
+# canvas.create_rectangle(x1, y1, x2, y2, option...)
+
+'''
+OPTION NAME     	OPTION MEANING
+outline	            rectangle edge color (if specified as an empty string, the edge is transparent)
+fill	            rectangle interior color
+width	            rectangle edge width in pixels (default: 1)
+'''
+
+import tkinter as tk
+
+window = tk.Tk()
+canvas = tk.Canvas(window, width=400, height=400, bg='black')
+canvas.create_rectangle(200, 100, 300, 300, outline='white', width=50, fill='red')
+button = tk.Button(window, text="Quit", command=window.destroy)
+canvas.grid(row=0)
+button.grid(row=1)
+window.mainloop()
+
+
+# create_polygon
+# canvas.create_polygon(x0, y0, x1, y1, xn, yn, option...)
+
+import tkinter as tk
+
+window = tk.Tk()
+window.title("Octogone")
+canvas = tk.Canvas(window, width=400, height=400, bg='black')
+
+# Octogon with 10 points
+canvas.create_polygon(200, 50,   # Point 1  - top
+                     280, 80,    # Point 2  - top-right
+                     350, 160,   # Point 3  - right-top
+                     350, 240,   # Point 4  - rihgt-bottom
+                     280, 320,   # Point 5  - bottom-right
+                     200, 350,   # Point 6  - bottom
+                     120, 320,   # Point 7  - bottom-left
+                     50, 240,    # Point 8  - left-bottom
+                     50, 160,    # Point 9  - left-top
+                     120, 80,    # Point 10 - top-left
+                     outline='red', 
+                     width=5, 
+                     fill='yellow')
+
+button = tk.Button(window, text="Quit", command=window.destroy)
+canvas.grid(row=0)
+button.grid(row=1)
+window.mainloop()
+
+
+# create_oval()
+# c.create_oval(x0,y0,x1,y1,xn,yn,option...)
+
+import tkinter as tk
+
+window = tk.Tk()
+canvas = tk.Canvas(window, width=400, height=400, bg='blue')
+canvas.create_oval(100, 100, 300, 200, outline='red', width=20, fill='white')
+button = tk.Button(window, text="Quit", command=window.destroy)
+canvas.grid(row=0)
+button.grid(row=1)
+window.mainloop()
+
+
+# create_arc()
+# c.create_arc(x0,y0,x1,y1,option...)
+
+'''
+OPTION NAME   	OPTION MEANING
+style	        can be set to one of the following: 
+                - PIESLICE (default)
+                - CHORD
+                - ARC
+
+start	        the angle (in degrees) of the arc’s start relative to the X-axis 
+                ex: 90 means the highest point of the ellipse
+                    0 is the right-most point
+                    default is 0
+                    
+extent	        arc’s span (in degrees) relative to the start point
+                note: the span is calculated counter-clockwise
+                default is 90 (a quarter of an ellipse)
+                
+fill            arc interior color
+'''
+
+import tkinter as tk
+
+window = tk.Tk()
+canvas = tk.Canvas(window, width=400, height=400, bg='yellow')
+canvas.create_arc(10, 100, 380, 300, outline='red', width=5)
+canvas.create_arc(10, 100, 380, 300, outline='blue', width=5, style=tk.CHORD, start=90, fill='white')
+canvas.create_arc(10, 100, 380, 300, outline='green', width=5, style=tk.ARC, start=180, extent=180)
+button = tk.Button(window, text="Quit", command=window.destroy)
+canvas.grid(row=0)
+button.grid(row=1)
+window.mainloop()
+
+
+# create_text()
+# c.create_text(x, y, option...)
+
+'''
+OOPTION NAME    	OPTION MEANING
+fill	            text color
+font	            text font
+justify	            text justification: LEFT (default), CENTER, RIGHT
+text	            text to display
+width	            normally, the rectangle is as wide as the longest text line
+                    using the width option forces the text to be aligned to that size
+'''
+
+import tkinter as tk
+
+window = tk.Tk()
+canvas = tk.Canvas(window, width=400, height=400, bg='blue')
+canvas.create_text(200, 200, text="Mary\nhad\na\nlittle\nlamb", 
+                   font=("Arial","40","bold"),
+                   justify=tk.CENTER,
+                   fill='white')
+button = tk.Button(window, text="Quit", command=window.destroy)
+canvas.grid(row=0)
+button.grid(row=1)
+window.mainloop()
+
+
+# create_image()
+# c.create_image(x, y, option...)
+
+'''
+OPTION NAME     	OPTION MEANING
+image	            an object of the PhotoImage class containing the image itself
+                    the PhotoImage class constructor needs a keyword argument named file pointing to a bitmap file
+                    only GIF and PNG formats are accepted
+                    the argument should specify the file’s path
+'''
+
+import tkinter as tk
+
+window = tk.Tk()
+canvas = tk.Canvas(window, width=400, height=400, bg='yellow')
+image = tk.PhotoImage(file='logo.png')
+canvas.create_image(200, 200, image=image)
+button = tk.Button(window, text="Quit", command=window.destroy)
+canvas.grid(row=0)
+button.grid(row=1)
+window.mainloop()
+
+
+'''
+to use a JPEG bitmap, some additional steps are required
+we need to:
+    - import the Image and ImageTk classes from the PIL (Python Image Library) module
+    - build an object of the Image() class and use its open() method to fetch the bitmap from the file (the argument should specify the file’s path)
+    - convert this object into a PhotoImage class object using an ImageTk function of the same name;
+    - continue as usual
+'''
+
+import tkinter as tk
+from PIL import Image, ImageTk
+
+window = tk.Tk()
+canvas = tk.Canvas(window, width=400, height=400, bg='red')
+
+# Correct way to load and create PhotoImage
+jpg = Image.open('logo.jpg')  # Use Image.open(), not ImageTk.open()
+image = ImageTk.PhotoImage(jpg)  # Use ImageTk.PhotoImage()
+
+canvas.create_image(200, 200, image=image)
+button = tk.Button(window, text="Quit", command=window.destroy)
+canvas.grid(row=0)
+button.grid(row=1)
+window.mainloop()

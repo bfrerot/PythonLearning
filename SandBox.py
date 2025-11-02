@@ -1,15 +1,13 @@
-import tkinter as tk
-from tkinter import messagebox
+import sqlite3
 
+conn = sqlite3.connect('todo.db')
+c = conn.cursor()
+c.execute('SELECT * FROM tasks')
+row = c.fetchone()
+print(row)
+# (1, 'My first task', 1)
+row = c.fetchone()
+print(row)
+# (2, 'My second task', 5)
+conn.close()
 
-def question():
-    answer = messagebox.showwarning("Be careful!", "Big Brother is watching you!") # print the msg with a warning icon 
-    print(answer) # prints 'ok' when the user clicks 'OK' or closes the dialog
-
-
-window = tk.Tk()
-button = tk.Button(window, text="What's going on?", command=question)
-button.pack()
-window.mainloop()
-# ok
-# ok
