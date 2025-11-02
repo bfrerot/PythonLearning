@@ -165,3 +165,25 @@ row = c.fetchone()
 print(row)
 # (2, 'My second task', 5)
 conn.close()
+
+
+## Updating data ==> UPDATE 
+
+import sqlite3
+
+conn = sqlite3.connect('todo.db')
+c = conn.cursor()
+c.execute('UPDATE tasks SET priority = ? WHERE id = ?', (20, 1)) # set priority to 20 where id is 1
+conn.commit()
+c.close()
+
+
+## Deleting data ==> DELETE
+
+import sqlite3
+
+conn = sqlite3.connect('todo.db')
+c = conn.cursor()
+c.execute('DELETE FROM tasks WHERE id = ?', (1,)) # delete the task where id is 1
+c.commit()
+c.close()
