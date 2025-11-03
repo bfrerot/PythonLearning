@@ -1,0 +1,11 @@
+<?xml version="1.0"?>                # prolog 
+<data>                               # root element OPENING TAG
+<book title="The Little Prince">     # element n with attribute
+<author>Antoine de Saint-Exupéry</author>
+<year>1943</year>
+</book>                              # element n CLOSING TAG
+<book title="Hamlet">
+<author>William Shakespeare</author>
+<year>1603</year>
+</book>
+</data>                              # root element CLOSING TAG
