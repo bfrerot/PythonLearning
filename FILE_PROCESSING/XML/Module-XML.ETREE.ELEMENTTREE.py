@@ -127,6 +127,7 @@ xml_string = '<?xml version="1.0" encoding="UTF-8"?>' \
              '</data>'
 
 
+
 ## iteration
 
 # we can access elements directly using indexes
@@ -198,3 +199,140 @@ tree = ET.parse('books.xml')
 root = tree.getroot()
 print(root.find('book').get('title'))
 # The Little Prince
+
+
+## Modify XML documents
+
+# XML source
+'''
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+<book title="The Little Prince">
+<author>Antoine de Saint-Exupéry</author>
+<year>1943</year>
+</book>       
+<book title="Hamlet">
+<author>William Shakespeare</author>
+<year>1603</year>
+</book>
+</data>  
+'''
+
+
+# Modify tag names
+import xml.etree.ElementTree as ET
+
+tree = ET.parse('books.xml')
+root = tree.getroot()
+for child in root:
+    child.tag = 'movie' # changing tag name from 'book' to 'movie'
+    print(child.tag, child.attrib)
+    for sub_child in child:
+        print(sub_child.tag, ':', sub_child.text)
+'''
+movie {'title': 'The Little Prince'}
+author : Antoine de Saint-Exupéry
+year : 1943
+movie {'title': 'Hamlet'}
+author : William Shakespeare
+year : 1603
+'''
+
+
+# without change child.tag
+tree = ET.parse('books.xml')
+root = tree.getroot()
+for child in root:
+    print(child.tag, child.attrib)
+    for sub_child in child:
+        print(sub_child.tag, ':', sub_child.text)
+'''
+book {'title': 'The Little Prince'}
+author : Antoine de Saint-Exupéry
+year : 1943
+book {'title': 'Hamlet'}
+author : William Shakespeare
+year : 1603
+'''
+
+
+# remove attributes from output
+import xml.etree.ElementTree as ET
+
+tree = ET.parse('books.xml')
+root = tree.getroot()
+for child in root:
+    child.tag = 'movie'
+    child.remove(child.find('author')) # removes any attribute called 'author'
+    child.remove(child.find('year'))   # removes any attribute called 'year'
+    print(child.tag, child.attrib)
+    for sub_child in child:
+        print(sub_child.tag, ':', sub_child.text)
+'''
+movie {'title': 'The Little Prince'}
+movie {'title': 'Hamlet'}
+'''
+
+
+# set attributes from output
+import xml.etree.ElementTree as ET
+
+tree = ET.parse('books.xml')
+root = tree.getroot()
+for child in root:
+    child.tag = 'movie'
+    child.remove(child.find('author'))
+    child.remove(child.find('year'))
+    child.set('rate', '5') # adds a new attribute 'rate' with value '5'
+    print(child.tag, child.attrib)
+    for sub_child in child:
+        print(sub_child.tag, ':', sub_child.text)
+        
+        
+# save the changes to a new XML file
+import xml.etree.ElementTree as ET
+
+tree = ET.parse('books.xml')
+root = tree.getroot()
+for child in root:
+    child.tag = 'movie'
+    child.remove(child.find('author'))
+    child.remove(child.find('year'))
+    child.set('rate', '5')
+    print(child.tag, child.attrib)
+    for sub_child in child:
+        print(sub_child.tag, ':', sub_child.text)
+
+tree.write('movies.xml', 'UTF-8', True) # creates a new XML file 'movies.xml' with modified tags and attributes
+'''
+<?xml version='1.0' encoding='UTF-8'?>
+<data>
+<movie title="The Little Prince" rate="5">
+</movie>       
+<movie title="Hamlet" rate="5">
+</movie>
+</data>
+'''
+
+
+# build an XML document from scratch
+import xml.etree.ElementTree as ET
+
+root = ET.Element('data')
+ET.dump(root) # prints XML element to console
+# <data />
+
+# .Element(), second optionnal attrib = attribute dictionnary
+root = ET.Element('data', {'id': '123', 'type': 'example'})
+ET.dump(root)  
+# <data id="123" type="example" />
+
+
+# add child elements with SubElement()
+import xml.etree.ElementTree as ET
+
+root = ET.Element('data')
+movie_1 = ET.SubElement(root, 'movie', {'title': 'The Little Prince', 'rate': '5'})
+movie_2 = ET.SubElement(root, 'movie', {'title': 'Hamlet', 'rate': '5'})
+ET.dump(root)
+# <data><movie title="The Little Prince" rate="5" /><movie title="Hamlet" rate="5" /></data>

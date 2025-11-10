@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-tree = ET.parse('books.xml')
-root = tree.getroot()
-print(root.find('book').get('title'))
-# The Little Prince
+root = ET.Element('data')
+movie_1 = ET.SubElement(root, 'movie', {'title': 'The Little Prince', 'rate': '5'})
+movie_2 = ET.SubElement(root, 'movie', {'title': 'Hamlet', 'rate': '5'})
+ET.dump(root)
