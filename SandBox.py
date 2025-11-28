@@ -1,6 +1,8 @@
-import xml.etree.ElementTree as ET
+from turtle import *
 
-root = ET.Element('data')
-movie_1 = ET.SubElement(root, 'movie', {'title': 'The Little Prince', 'rate': '5'})
-movie_2 = ET.SubElement(root, 'movie', {'title': 'Hamlet', 'rate': '5'})
-ET.dump(root)
+color('pink')
+speed(10)
+
+for i in range (150):
+    forward(100)
+    left(112)
