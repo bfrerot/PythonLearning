@@ -128,3 +128,51 @@ root:CRITICAL:2025-11-21 07:40:54,991:Your CRITICAL message
 root:CRITICAL:2025-11-21 07:41:10,462:Your CRITICAL message
 root:CRITICAL:2025-11-24 08:12:40,642:Your CRITICAL message
 '''
+
+
+## use of FileHandler to log messages to a file
+
+import logging
+
+logger = logging.getLogger(__name__) # create a logger object with the name of the current module
+
+handler = logging.FileHandler('prod.log', mode='w') # create a FileHandler object to write logs to 'prod.log' in write mode
+handler.setLevel(logging.CRITICAL) # set the logging level of the handler to CRITICAL; by default, the level is NOTSET, and all messages are processed since WARNING (default level)
+
+logger.addHandler(handler) # add the handler to the logger
+
+logger.critical('Your CRITICAL message')
+logger.error('Your ERROR message')
+logger.warning('Your WARNING message')
+logger.info('Your INFO message')
+logger.debug('Your DEBUG message')
+
+# Each logger can have several handlers added
+# One handler can save logs to a file, while another can send them to an external service
+
+
+## Complete example
+
+import logging
+
+FORMAT = '%(name)s:%(levelname)s:%(asctime)s:%(message)s' # define the log format
+
+logger = logging.getLogger(__name__) # get a named logger
+
+handler = logging.FileHandler('prod.log', mode='a') # create a FileHandler to write logs to 'prod.log' in append mode, write 'w' would overwrite existing logs
+handler.setLevel(logging.CRITICAL) # set the logging level of the handler to CRITICAL
+
+formatter = logging.Formatter(FORMAT) # create a Formatter object with the specified format
+handler.setFormatter(formatter) # set the formatter for the handler
+
+logger.addHandler(handler) # add the handler to the logger
+
+logger.critical('Your CRITICAL message')
+logger.error('Your ERROR message')
+logger.warning('Your WARNING message')
+logger.info('Your INFO message')
+logger.debug('Your DEBUG message')
+
+# log line example
+# __main__:CRITICAL:2019-10-10 20:40:05,119:Your CRITICAL message
+# logger name: log level: timestamp: message
