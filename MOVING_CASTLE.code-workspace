@@ -43,6 +43,9 @@
 		{
 			"name": "postman_azure",
 			"path": "../postman_azure"
+		},
+		{
+			"path": "../backend_dev"
 		}
 	],
 	"settings": {
