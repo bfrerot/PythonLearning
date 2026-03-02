@@ -5,10 +5,6 @@
 			"path": "."
 		},
 		{
-			"name": "MySQL",
-			"path": "../MySQL"
-		},
-		{
 			"name": "DataAnalytics",
 			"path": "../DataAnalytics"
 		},
@@ -19,30 +15,6 @@
 		{
 			"name": "Linux - LPIC",
 			"path": "../Linux - LPIC"
-		},
-		{
-			"name": "postman_gcp",
-			"path": "../postman_gcp"
-		},
-		{
-			"name": "terraform_gcp",
-			"path": "../terraform_gcp"
-		},
-		{
-			"name": "terraform_aws",
-			"path": "../terraform_aws"
-		},
-		{
-			"name": "postman_aws",
-			"path": "../postman_aws"
-		},
-		{
-			"name": "terraform_azure",
-			"path": "../terraform_azure"
-		},
-		{
-			"name": "postman_azure",
-			"path": "../postman_azure"
 		},
 		{
 			"path": "../backend_dev"

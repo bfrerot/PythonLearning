@@ -41,6 +41,7 @@ for ! in animals:
 # it keeps its last value after the loop has ended
 for i in range(3):
     print(i, end=" ")
+    
 print(i)
 # 0 1 2 2
 
