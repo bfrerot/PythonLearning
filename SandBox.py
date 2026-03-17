@@ -1,9 +1,7 @@
-import configparser
-
-config = configparser.ConfigParser()
-config.read('config.ini')
-
-config['redis']['db'] = '1'
-
-with open('config.ini', 'w') as configfile:
-    config.write(configfile)
+n = int(input("Enter n value: ")) # 100
+if n < 50:
+    print ("bad")
+if n >= 50:         # MATCH
+    print ("good")
+if n==100:          # MATCH
+    print ("perfect!")
