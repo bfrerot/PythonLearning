@@ -261,7 +261,7 @@ print(x ^ y)   # 110 = 6
 # & (ampersand) - bitwise conjunction;
 # | (bar) - bitwise disjunction;
 # ~ (tilde) - bitwise negation;
-# ^ (caret) - bitwise exclusive or (xor).
+# ^ (caret) - bitwise exclusive or (xor) or  Å
 
 # Bitwise operations (&, |, and ^)
 # Arg A	Arg B	Arg A & Arg B	Arg A | Arg B	Arg A ^ Arg B
