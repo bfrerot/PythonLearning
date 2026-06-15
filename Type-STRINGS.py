@@ -245,6 +245,7 @@ print(b)
 # ValueError: not enough values to unpack (expected 4, got 3)
 
 
+
 ## Lists from strings
 
 # create a list
